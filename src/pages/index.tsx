@@ -5,7 +5,9 @@ export default function Home() {
 				...
 			</button>
 
-			<div className='font-pretendard text-2xl'>메인 페이지</div>
+			<div className='font-pretendard text-2xl'>
+				메인 페이지, 안냐십니까? 깃훅테스트를 해보겠습니다.{' '}
+			</div>
 		</div>
 	);
 }
