@@ -4,7 +4,7 @@
 
 	// 파일을 저장할 때마다 `eslint` 규칙에 따라 자동으로 코드를 수정
 	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
+		"source.fixAll.eslint": "explicit"
 	},
 
 	// 기본 포매팅 실행 방지
