@@ -38,8 +38,7 @@ const config: Config = {
 				// 자주 사용하는 그라데이션 속성,
 				// 예시) <p className="bg-gradient-radial">
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'gradient-conic':
-					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
 			},
 			fontFamily: {
 				// 예시) <p className="text-pretendard">
