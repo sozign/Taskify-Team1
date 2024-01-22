@@ -15,7 +15,7 @@
 
 ### 이슈 번호
 
-> 예) .../codeit-sprint-FE2-part3-team1/the-julge/issues/[이슈번호]
-> https://github.com/codeit-sprint-FE2-part3-team1/the-julge/issues/
+> 예) .../codeit-top-secret-X/issues/[이슈번호]
+> https://github.com/sozign/codeit-top-secret-X/issues/
 
 ### To Reviewers
