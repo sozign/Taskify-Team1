@@ -14,56 +14,136 @@ const config: Config = {
 			// => @media (max-width: 639px) { ... }
 		},
 		fontSize: {
-			// 폰트 굵기, 높이, 줄간격, 굵기 등을 묶어서 하나의 스타일로 저장 가능
-			// <p class="text-2xl ...">The quick brown fox ...</p> 처럼 사용
-			'2xl': [
-				'1.5rem', // 폰트 크기
+			// <p class="text-12-400 ...">The quick brown fox ...</p> 처럼 사용
+
+			//fontsize: 12px
+			'12-400': [
+				'1.2rem',
 				{
-					lineHeight: '2rem',
-					letterSpacing: '-0.01em',
+					fontWeight: '400',
+				},
+			],
+			'12-500': [
+				'1.2rem',
+				{
 					fontWeight: '500',
 				},
 			],
-			'3xl': [
-				'1.875rem', // 폰트 크기
+			'12-600': [
+				'1.2rem',
 				{
-					lineHeight: '2.25rem',
-					letterSpacing: '-0.02em',
+					fontWeight: '600',
+				},
+			],
+			'12-700': [
+				'1.2rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 14px
+			'14-400': [
+				'1.4rem',
+				{
+					fontWeight: '400',
+				},
+			],
+			'14-500': [
+				'1.4rem',
+				{
+					fontWeight: '500',
+				},
+			],
+
+			//fontsize: 16px
+			'16-400': [
+				'1.6rem',
+				{
+					fontWeight: '400',
+				},
+			],
+			'16-500': [
+				'1.6rem',
+				{
+					fontWeight: '500',
+				},
+			],
+			'16-600': [
+				'1.6rem',
+				{
+					fontWeight: '600',
+				},
+			],
+
+			//fontsize: 18px
+			'18-500': [
+				'1.8rem',
+				{
+					fontWeight: '500',
+				},
+			],
+			'18-700': [
+				'1.8rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 20px
+			'20-500': [
+				'2rem',
+				{
+					fontWeight: '500',
+				},
+			],
+			'20-600': [
+				'2rem',
+				{
+					fontWeight: '600',
+				},
+			],
+			'20-700': [
+				'2rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 24px
+			'24-700': [
+				'2.4rem',
+				{
 					fontWeight: '700',
 				},
 			],
 		},
 		extend: {
-			backgroundImage: {
-				// 자주 사용하는 그라데이션 속성,
-				// 예시) <p className="bg-gradient-radial">
-				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-			},
 			fontFamily: {
 				// 예시) <p className="text-pretendard">
 				pretendard: ['Pretendard-Regular'],
 			},
 			colors: {
+				// 예시) <p className="bg-gray-D">
 				black: {
-					DEFAULT: '#000000',
+					0: '#000000',
 					1: '#171717',
-					2: '#333236',
-					3: '#4B4B4B',
+					3: '#333236',
+					4: '#4B4B4B',
 				},
 				gray: {
-					DEFAULT: '#787486',
-					1: '#9FA6B2',
-					2: '#D9D9D9',
-					3: '#EEEEEE',
-					4: '#FAFAFA',
+					7: '#787486',
+					9: '#9FA6B2',
+					D: '#D9D9D9',
+					E: '#EEEEEE',
+					F: '#FAFAFA',
 				},
 				white: {
 					DEFAULT: '#FFFFFF',
 				},
 				violet: {
-					DEFAULT: '#5534DA',
-					1: '#F1EFFD',
+					5: '#5534DA',
+					F: '#F1EFFD',
 				},
 				red: {
 					DEFAULT: '#D6173A',
@@ -83,11 +163,6 @@ const config: Config = {
 				pink: {
 					DEFAULT: '#E876EA',
 				},
-				// 컬러픽 작성
-				// blue100: '#ECF6FF',
-				// blue101: '#F2FBFE',
-				// blue200: '#2D9CDB',
-				// blue300: '#2F80ED',
 			},
 		},
 	},

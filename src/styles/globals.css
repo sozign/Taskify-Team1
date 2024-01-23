@@ -6,10 +6,6 @@
   /* reset.css의 확장 */
   /* h1{}
   h2{} */
-  :root {
-    font-size: 62.5%;
-  }
-  
   @font-face {
     font-family: "Pretendard-Regular";
     src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
@@ -17,6 +13,11 @@
     font-weight: 400;
     font-style: normal;
   }
+  :root {
+    font-size: 62.5%;
+    font-family: pretendard
+  }
+  
 
   /* html {
     font-family: Pretendard-Regular;
