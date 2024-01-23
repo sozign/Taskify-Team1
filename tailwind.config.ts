@@ -9,10 +9,10 @@ const config: Config = {
 	theme: {
 		screens: {
 			// => @media (max-width: 1119px) { ... }
-			md: { max: '119.9rem' }, // tablet
+			md: { max: '1119px' }, // tablet
 
 			// => @media (max-width: 743px) { ... }
-			sm: { max: '74.3rem' }, // mobile
+			sm: { max: '743px' }, // mobile
 		},
 		fontSize: {
 			// <p class="text-12-400 ...">The quick brown fox ...</p> 처럼 사용

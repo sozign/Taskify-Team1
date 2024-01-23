@@ -5,23 +5,21 @@ import Taskify from '../../../Public/assets/Taskify.svg';
 
 export default function Header() {
 	return (
-		<header className='bg-white fixed inset-x-0 top-0 z-50 left-0'>
-			<div className='container mx-auto flex flex-wrap p-5  justify-between md:flex-row items-center'>
+		<header className='bg-white m-3 container sm:px-[2rem] md:px-[2rem] '>
+			<div className='flex justify-between items-center'>
 				<Link href='/' className='cursor-pointer'>
-					<div className='flex font-medium items-center mb-4 p-5 md:mb-0'>
-						<Image alt='TaskifyImage' src={TaskifyImage} className='w-8 h-8 -mr-2' />
-						<span className='ml-3 text-2xl'>
-							<Image alt='TaskifyLogo' src={Taskify} className='sm:hidden' />
-						</span>
+					<div className='flex items-center p-5 md:mb-0'>
+						<Image alt='TaskifyImage' src={TaskifyImage} />
+						<Image alt='TaskifyLogo' src={Taskify} className='sm:hidden' />
 					</div>
 				</Link>
-				<nav className='md:ml-auto flex flex-wrap items-center justify-center'>
-					<div className='mr-5  text-12-400 pr-12'>
-						<Link href='/login'>로그인</Link>
-					</div>
-					<div className='mr-5 text-12-400 pr-[5rem]'>
-						<Link href='/signup'>회원가입</Link>
-					</div>
+				<nav className='flex items-center justify-center gap-[4rem] pr-[8rem] md:pr-[2rem] sm:pr-[2rem]'>
+					<Link href='/login' className=' text-16-500'>
+						로그인
+					</Link>
+					<Link href='/signup' className=' text-16-500'>
+						회원가입
+					</Link>
 				</nav>
 			</div>
 		</header>
