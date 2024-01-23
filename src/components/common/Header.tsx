@@ -5,8 +5,8 @@ import Taskify from '../../../Public/assets/Taskify.svg';
 
 export default function Header() {
 	return (
-		<header className='bg-white m-3 container sm:px-[2rem] md:px-[2rem] '>
-			<div className='flex justify-between items-center'>
+		<header className='container m-3 bg-white md:px-[2rem] sm:px-[2rem] '>
+			<div className='flex items-center justify-between'>
 				<Link href='/' className='cursor-pointer'>
 					<div className='flex items-center p-5 md:mb-0'>
 						<Image alt='TaskifyImage' src={TaskifyImage} />
