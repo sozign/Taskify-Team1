@@ -4,18 +4,17 @@
 - [ ] fix: 버그 수정
 - [ ] design: css만 수정
 - [ ] refactor: 동작 변경 없는 수정
-- [X] style: 내용 변경 없는 수정 (린트, 포맷 변경 등)
+- [ ] style: 내용 변경 없는 수정 (린트, 포맷 변경 등)
 - [ ] build: src 외부 코드 수정
 - [ ] remove: 파일 삭제 
 - [ ] docs: 문서 작업 (README, pr 템플릿)
 
 ## 설명
-
-테스트 겸 tailwind config color 편집을 했습니다. 
+> pr 내용을 간략히 설명해주세요.
 
 ### 이슈 번호
 
 > 예) .../codeit-top-secret-X/issues/[이슈번호]
-> https://github.com/sozign/codeit-top-secret-X/issues/#7
+> https://github.com/sozign/codeit-top-secret-X/issues/
 
 ### To Reviewers
