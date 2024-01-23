@@ -8,18 +8,18 @@ export default function Header() {
 		<header className='bg-white fixed inset-x-0 top-0 z-50 left-0'>
 			<div className='container mx-auto flex flex-wrap p-5  justify-between md:flex-row items-center'>
 				<Link href='/' className='cursor-pointer'>
-					<div className='flex font-medium items-center mb-4 md:mb-0'>
-						<Image alt='TaskifyImage' src={TaskifyImage} className='w-8 h-8 -mr-1' />
+					<div className='flex font-medium items-center mb-4 p-5 md:mb-0'>
+						<Image alt='TaskifyImage' src={TaskifyImage} className='w-8 h-8 -mr-2' />
 						<span className='ml-3 text-2xl'>
 							<Image alt='TaskifyLogo' src={Taskify} className='sm:hidden' />
 						</span>
 					</div>
 				</Link>
 				<nav className='md:ml-auto flex flex-wrap items-center justify-center'>
-					<div className='mr-5 hover:'>
+					<div className='mr-5  text-12-400 pr-12'>
 						<Link href='/login'>로그인</Link>
 					</div>
-					<div className='mr-5 hover:text-gray-900'>
+					<div className='mr-5 text-12-400 pr-[5rem]'>
 						<Link href='/signup'>회원가입</Link>
 					</div>
 				</nav>
