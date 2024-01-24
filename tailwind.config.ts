@@ -122,7 +122,7 @@ const config: Config = {
 		extend: {
 			fontFamily: {
 				// 예시) <p className="text-pretendard">
-				pretendard: ['Pretendard-Regular'],
+				pretendard: ['Pretendard Variable'],
 			},
 			colors: {
 				// 예시) <p className="bg-gray-D">
