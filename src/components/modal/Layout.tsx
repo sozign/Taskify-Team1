@@ -8,7 +8,7 @@ function Layout({
 }: {
 	children: ReactNode;
 	$modalType: 'Alert' | 'Modal' | 'Task';
-	primaryButton?: '확인' | '생성' | '변경' | '삭제' | null;
+	primaryButton?: '확인' | '생성' | '변경' | '삭제' | '초대' | null;
 	secondaryButton?: '취소' | null;
 }) {
 	const modalType = {
