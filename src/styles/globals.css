@@ -4,24 +4,15 @@
 
 @layer base {
   /* reset.css의 확장 */
-  /* h1{}
-  h2{} */
   @font-face {
-    font-family: "Pretendard-Regular";
-    src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-      format("woff");
-    font-weight: 400;
+    font-family: "Pretendard Variable";
+    src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
     font-style: normal;
   }
   :root {
     font-size: 62.5%;
-    font-family: pretendard
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   }
-  
-
-  /* html {
-    font-family: Pretendard-Regular;
-  } */
 }
 
 @layer components {
