@@ -32,6 +32,7 @@ function Button({ type, color, className, onClick, children, variant }: ButtonPr
 			combinedClassName += ' border border-[gray-D] flex justify-center items-center rounded-lg bg-white text-gray-7 ';
 			break;
 	}
+
 	switch (variant) {
 		case 'delete-lg':
 			combinedClassName += ' w-[8.4rem] h-[3.2rem] text-14-500 ';
@@ -60,3 +61,30 @@ function Button({ type, color, className, onClick, children, variant }: ButtonPr
 }
 
 export default Button;
+
+/*
+각 버튼이 무엇인지 궁금하시면 인덱스에 붙혀보시길 헷갈리시면 저에게 DM주시길
+
+	<Button color='violet' variant='confirm'>
+		수락
+	</Button>
+	<Button color='white' variant='confirm'>
+		거절
+	</Button>
+	<Button color='white' variant='delete-lg'>
+		삭제
+	</Button>
+	<Button color='white' variant='delete-sm'>
+		삭제
+	</Button>
+	<Button color='white' variant='commentInput'>
+		입력
+	</Button>
+	<Button color='modalWhite' variant='modal'>
+		취소
+	</Button>
+	<Button color='modalViolet' variant='modal'>
+		확인
+	</Button> 
+	
+*/
