@@ -18,3 +18,4 @@
 > https://github.com/sozign/codeit-top-secret-X/issues/
 
 ### To Reviewers
+close #[이슈번호] 
