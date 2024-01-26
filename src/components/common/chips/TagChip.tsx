@@ -14,7 +14,7 @@ const colorList = {
 function TagChip({ color = 'gray', children }: { color: Color; children: ReactNode }) {
 	return (
 		<div className={clsx('w-fit rounded-[0.4rem] px-[0.6rem] py-[0.4rem]', colorList[color]?.bg)}>
-			<p className={clsx('text-center text-18-500 sm:text-12-500', colorList[color]?.text)}>{children}</p>
+			<p className={clsx('text-center text-14-500 sm:text-12-500', colorList[color]?.text)}>{children}</p>
 		</div>
 	);
 }
