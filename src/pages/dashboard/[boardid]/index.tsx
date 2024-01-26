@@ -4,6 +4,10 @@ import Layout from '@/components/modal/Layout';
 import { useState } from 'react';
 import Button from '@/components/common/Buttons/Button';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import Image from 'next/image';
+
 /**
  * @TODO
  * 이런 상수 값들 constants로 빼기
@@ -26,6 +30,7 @@ const RULES = {
 interface FormValue {
 	title: string;
 	description: string;
+	date: Date;
 }
 
 export default function MyDashBoard() {
@@ -34,6 +39,7 @@ export default function MyDashBoard() {
 		defaultValues: {
 			title: '',
 			description: '',
+			date: undefined,
 		},
 	});
 	const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
@@ -87,6 +93,31 @@ export default function MyDashBoard() {
 								placeholder='설명을 입력해주세요'
 								label='설명'
 							/>
+						)}
+					/>
+					<Controller
+						shouldUnregister={true}
+						name='date'
+						control={control}
+						rules={RULES.description}
+						render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
+							<>
+								<p className='mt-[1rem] text-18-500'>마감일</p>
+								<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] flex-row gap-[1rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top  text-16-400  '>
+									<Image width={20} height={20} src='/assets/calender.svg' alt='캘린더 모양 아이콘'></Image>
+									<DatePicker
+										dateFormat={'MM월 dd일 a hh시 mm분'}
+										showTimeSelect={true}
+										ref={ref}
+										selected={value}
+										onChange={onChange}
+										className='container placeholder:mt-0 placeholder:text-gray-D focus:outline-violet-5'
+										wrapperClassName='container'
+										calendarClassName='container'
+										placeholderText='날짜를 입력해주세요'
+									/>
+								</div>
+							</>
 						)}
 					/>
 
