@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import AuthInput from '@/components/common/Input/AuthInput';
 import { VALIDATE_RULES } from '@/constants/validation';
+import AuthButton from '@/components/common/Buttons/AuthButton';
 
 type SigninFormData = {
 	email: string;
@@ -55,7 +56,7 @@ export default function Login() {
 				errorMessage={errors?.password?.message}
 				{...register('password', VALIDATE_RULES.passwordInLogin)}
 			/>
-			<button>로그인하기</button>
+			<AuthButton>로그인</AuthButton>
 		</form>
 	);
 }
