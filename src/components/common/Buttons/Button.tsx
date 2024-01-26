@@ -10,9 +10,10 @@ interface ButtonProps {
 	className?: string;
 	onClick?: () => void;
 	children: ReactNode;
+	disabled?: boolean;
 }
 
-function Button({ type, color, className, onClick, children, variant }: ButtonProps) {
+function Button({ type, color, className, onClick, children, variant, disabled = true }: ButtonProps) {
 	let combinedClassName = '';
 
 	switch (color) {
@@ -25,7 +26,7 @@ function Button({ type, color, className, onClick, children, variant }: ButtonPr
 			break;
 
 		case 'modalViolet':
-			combinedClassName += ' flex justify-center items-center rounded-lg bg-violet-5 text-white ';
+			combinedClassName += ` flex justify-center items-center rounded-lg text-white ${disabled ? 'bg-gray-D' : 'bg-violet-5'} `;
 			break;
 
 		case 'modalWhite':
@@ -53,7 +54,12 @@ function Button({ type, color, className, onClick, children, variant }: ButtonPr
 	}
 
 	return (
-		<button type={type || 'button'} className={`${combinedClassName} ${className}`} onClick={onClick}>
+		<button
+			disabled={disabled}
+			type={type || 'button'}
+			className={`${combinedClassName} ${className}`}
+			onClick={onClick}
+		>
 			{children}
 		</button>
 	);
