@@ -38,14 +38,14 @@ export default function DashboardHeader({ id, title, nickname, profileImageUrl }
 							className='flex items-center justify-center gap-3 rounded-xl border-[0.1rem] border-solid border-gray-D pl-[1.2rem] pr-[1.6rem] text-gray-7 hover:border-2'
 						>
 							<Image alt='관리 버튼 셋팅 아이콘' src={SettingIcon} className='items-center sm:hidden' />
-							<span className='text-12-500'>관리</span>
+							<span className='text-12-500 sm:items-center sm:pl-2'>관리</span>
 						</Link>
 						<button
 							onClick={additionHandleClick}
 							className='flex items-center justify-center gap-3 rounded-xl border-[0.1rem] border-solid border-gray-D pl-[1.2rem] pr-[1.6rem] text-gray-7 hover:border-2'
 						>
 							<Image alt='초대하기 버튼 플러스 아이콘' src={PlusIcon} className='items-center sm:hidden' />
-							<span className='text-12-500'>초대하기</span>
+							<span className='text-12-500 sm:items-center sm:pl-2'>초대하기</span>
 							{open && <AdditionModal isOpen={open} setOpen={setOpen} />}
 						</button>
 						{
