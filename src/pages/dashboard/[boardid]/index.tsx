@@ -100,7 +100,7 @@ export default function MyDashBoard() {
 						name='date'
 						control={control}
 						rules={RULES.description}
-						render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
+						render={({ field: { ref, value, onChange } }) => (
 							<>
 								<p className='mt-[1rem] text-18-500'>마감일</p>
 								<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] flex-row gap-[1rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top  text-16-400  '>
