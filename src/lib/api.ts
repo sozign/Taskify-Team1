@@ -79,7 +79,7 @@ interface getCardsProps {
 /**
  * 카드 목록 조회
  */
-export async function getCards({ size = 10, cursorId, columnId }: getCardsProps) {
+export async function getCards({ size, cursorId, columnId }: getCardsProps) {
 	const res = await authAxios.get<CardItemGet>(`/cards?size=${size}&cursorId=${cursorId}&columnId=${columnId}`);
 	return res.data;
 }
@@ -171,7 +171,7 @@ interface getCommentsProps {
 /**
  * 댓글 목록 조회
  */
-export async function getComments({ size = 10, cursorId, cardId }: getCommentsProps) {
+export async function getComments({ size, cursorId, cardId }: getCommentsProps) {
 	const res = await authAxios.get<CommentsGet>(`/comments?size=${size}&cursorId=${cursorId}&cardId=${cardId}`);
 	return res.data;
 }
@@ -213,7 +213,7 @@ interface getDashboardsProps {
 /**
  * 대시보드 목록 조회
  */
-export async function getDashboards({ navigationMethod, cursorId, page = 1, size = 10 }: getDashboardsProps) {
+export async function getDashboards({ navigationMethod, cursorId, page, size }: getDashboardsProps) {
 	const res = await authAxios.get<DashboardsGet>(
 		`/dashboards?navigationMethod=${navigationMethod}&cursorId=${cursorId}&page=${page}&size=${size}`,
 	);
@@ -336,7 +336,7 @@ interface postUsersProps {
  * 회원가입
  */
 export async function postUsers(userInfo: postUsersProps) {
-	const res = await authAxios.post<UserInfo>(`/users`, userInfo);
+	const res = await axios.post<UserInfo>(`/users`, userInfo);
 	return res.data;
 }
 
