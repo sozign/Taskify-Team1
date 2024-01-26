@@ -15,11 +15,11 @@ function SquareChip({ color, className, children }: SquareChipProps) {
 	switch (color) {
 		case 'gray':
 			combinedClassName +=
-				' w-[2rem] h-[2rem] flex justify-center items-center rounded bg-violet-5 text-white px-[0.6rem] py-[0.3rem] bg-gray-E ';
+				' flex justify-center items-center w-[2rem] h-[2rem] rounded-[0.4rem] text-12-600 text-gray-7 py-[0.3rem] bg-gray-E ';
 			break;
 		case 'violet':
 			combinedClassName +=
-				' w-[2.2rem] w-[2.2rem] flex justify-center items-center px-[0.662rem] py-[0.563rem] rounded bg-violet-F ';
+				' flex justify-center items-center w-[2.2rem] h-[2.2rem] rounded-[0.4rem] px-[0.3rem] py-[0.3rem] bg-violet-F ';
 			break;
 	}
 
