@@ -1,9 +1,9 @@
-import Header from '@/components/common/Header';
+import LandingHeader from '@/components/common/Headers/LandingHeader';
 
 export default function Home() {
 	return (
 		<div>
-			<Header />
+			<LandingHeader />
 		</div>
 	);
 }

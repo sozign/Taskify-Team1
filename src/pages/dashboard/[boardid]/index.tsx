@@ -3,7 +3,7 @@ import FormInput from '@/components/common/Input/FormInput';
 import Layout from '@/components/modal/Layout';
 import { useState } from 'react';
 import Button from '@/components/common/Buttons/Button';
-
+import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 /**
  * @TODO
  * 이런 상수 값들 constants로 빼기
@@ -42,6 +42,7 @@ export default function MyDashBoard() {
 
 	return (
 		<>
+			<DashboardHeader id={0} nickname={'nickname'} profileImageUrl={''} title={'비브리지'} />
 			<button
 				className='bg-violet-500 text-16-400'
 				onClick={() => {
