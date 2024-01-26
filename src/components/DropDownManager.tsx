@@ -1,5 +1,3 @@
-//프로필 이미지 처리 해주기
-// css작업 시작 하기
 import React, { useEffect, useState, useRef } from 'react';
 import { getMockData } from '@/lib/mockData';
 import Select from 'react-select';
@@ -15,14 +13,13 @@ const DropDownManager = () => {
 	const [dynamicOptions, setDynamicOptions] = useState<Option[]>([]);
 	const selectInputRef = useRef<Select | null>(null);
 	const [memberData, setMemberData] = useState(null);
-	// const [profileData, setProfileData] = useState(null);
 
 	const onClearSelect = () => {
 		if (selectInputRef.current) {
 			selectInputRef.current.clearValue();
 		}
 	};
-	//option 객체 생성하여 반환
+
 	const getDynamicOptions = (memberData) => {
 		if (!memberData) {
 			return [];
@@ -30,9 +27,17 @@ const DropDownManager = () => {
 
 		return memberData.members.map((member) => {
 			const label = (
-				<div>
+				<div className='flex items-center '>
 					{/* null 일경우 스타일을 보여줄수 있는 함수 제작? 또는 초기값 설정필요 */}
-					{member.profileImageUrl ? <img src={member.profileImageUrl} alt={`${member.nickname}'s profile`} /> : 'null'}
+					{member.profileImageUrl ? (
+						<img
+							className={` mr-[0.37rem]  h-[1.625rem] w-[1.625rem]  rounded-[50%]`}
+							src={member.profileImageUrl}
+							alt={`${member.nickname}'s profile`}
+						/>
+					) : (
+						'null'
+					)}
 					{member.nickname}
 				</div>
 			);
@@ -45,11 +50,8 @@ const DropDownManager = () => {
 	};
 	const loadMembersData = async () => {
 		const { data } = await getMockData();
-		console.log(data);
-		console.log(data[0]);
+		// console.log(data);
 		setMemberData(data[0]);
-		// setProfileData()
-		// 여기서는 첫 번째 데이터를 사용하도록 가정하고 있습니다.
 	};
 
 	useEffect(() => {
@@ -64,11 +66,9 @@ const DropDownManager = () => {
 	useEffect(() => {
 		console.log('Select Value changed:', selectValue);
 	}, [selectValue]);
-
 	return (
 		<>
-			<h3>담당자</h3>
-			{/* 드롭다운 창에 클릭한 값이 나타나도록 */}
+			<h3 className='text-lg mb-2.5 text-12-500'>담당자</h3>
 			<Select
 				ref={selectInputRef}
 				onChange={(selectedOption: Option) => {
@@ -80,7 +80,26 @@ const DropDownManager = () => {
 					}
 				}}
 				options={dynamicOptions}
-				placeholder='담당자를 선택하세요.'
+				placeholder='선택하세요.'
+				className='css-b62m3t w-[13.6rem] rounded-md '
+				theme={(theme) => ({
+					...theme,
+					borderRadius: 6,
+					colors: {
+						...theme.colors,
+						primary: '#5534DA',
+					},
+				})}
+				styles={{
+					option: (base, { isFocused, isSelected }) => ({
+						...base,
+						backgroundColor: isFocused ? '#ccc' : isSelected ? 'transparent' : 'transparent',
+						color: isFocused || isSelected ? '#000' : base.color,
+					}),
+				}}
+				components={{
+					IndicatorSeparator: () => null,
+				}}
 			/>
 			<button onClick={() => onClearSelect()}>초기화 </button>
 		</>
