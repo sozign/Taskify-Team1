@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller, FieldErrors } from 'react-hook-form';
 import FormInput from '@/components/common/Input/FormInput';
 import Layout from '@/components/modal/Layout';
 import { useState } from 'react';
@@ -27,6 +27,7 @@ const RULES = {
 	},
 };
 
+// 모달 1에서 폼으로 제출하는 값의 타입
 interface FormValue {
 	title: string;
 	description: string;
@@ -34,7 +35,15 @@ interface FormValue {
 }
 
 export default function MyDashBoard() {
-	const { control, handleSubmit } = useForm<FormValue>({
+	// 모달 1 열림, 닫힘 제어
+	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
+
+	// 모달 1 폼 제출 관리
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<FormValue>({
 		mode: 'onBlur',
 		defaultValues: {
 			title: '',
@@ -42,9 +51,12 @@ export default function MyDashBoard() {
 			date: undefined,
 		},
 	});
+
+	// 모달 1 폼 제출
 	const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
 
-	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
+	// 모달 1 제출 가능 여부 관리
+	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0;
 
 	return (
 		<>
@@ -99,14 +111,22 @@ export default function MyDashBoard() {
 						shouldUnregister={true}
 						name='date'
 						control={control}
-						rules={RULES.description}
 						render={({ field: { ref, value, onChange } }) => (
 							<>
 								<p className='mt-[1rem] text-18-500'>마감일</p>
 								<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] flex-row gap-[1rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top  text-16-400  '>
-									<Image width={20} height={20} src='/assets/calender.svg' alt='캘린더 모양 아이콘'></Image>
+									<Image
+										className='h-auto w-auto'
+										width={20}
+										height={20}
+										src='/assets/calender.svg'
+										alt='캘린더 모양 아이콘'
+									/>
 									<DatePicker
-										dateFormat={'MM월 dd일 a hh시 mm분'}
+										onKeyDown={(e) => {
+											e.preventDefault(); // 수동 입력 방지
+										}}
+										dateFormat={'YYYY.MM.dd hh:mm'}
 										showTimeSelect={true}
 										ref={ref}
 										selected={value}
@@ -120,18 +140,18 @@ export default function MyDashBoard() {
 							</>
 						)}
 					/>
-
 					<div className='mt-[2.8rem] flex flex-row justify-end gap-[1.2rem]'>
 						<Button
 							onClick={() => {
 								setIsTaskEditModalOpen(false);
 							}}
 							color='modalWhite'
+							disabled={false}
 							variant='modal'
 						>
 							취소
 						</Button>
-						<Button type='submit' color='modalViolet' variant='modal'>
+						<Button disabled={!isNoError(errors)} type='submit' color='modalViolet' variant='modal'>
 							확인
 						</Button>
 					</div>
