@@ -39,7 +39,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 	const {
 		control,
 		handleSubmit,
-		formState: { errors },
+		// formState: { errors },
 	} = useForm<FormValue>({
 		mode: 'onBlur',
 		defaultValues: {
@@ -66,13 +66,14 @@ export default function SideBar({ boardId }: SideBarProps) {
 					<Image alt='로고' src={TaskifyImage} />
 					<Image alt='폰트 로고' className='sm:hidden' width={80} height={22} src={Taskify} />
 				</div>
-				<div className='flex flex-row items-center justify-between p-[1.2rem]'>
-					<div className='text-12-700 text-gray-7 sm:hidden'>Dash Boards</div>
+				<div className=' p-[1.2rem]'>
 					<button
+						className='flex w-full flex-row items-center justify-between'
 						onClick={() => {
 							setMakeNewDashBoardModalOpen(true);
 						}}
 					>
+						<div className='text-12-700 text-gray-7 sm:hidden'>Dash Boards</div>
 						<Image alt='대시보드 추가 버튼 아이콘' width={20} height={20} src={PlusIcon} />
 					</button>
 				</div>
