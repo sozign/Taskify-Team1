@@ -88,7 +88,9 @@ export default function SideBar({ boardId }: SideBarProps) {
 									)}
 								>
 									<div className={clsx(COLOR_PICK[dashBoardItem.color], 'h-[0.8rem] w-[0.8rem] rounded-[50%] ')} />
-									<div className='text-18-500 text-gray-7 sm:hidden sm:text-16-500'>{dashBoardItem.title}</div>
+									<div className='ml-[1rem] text-18-500 text-gray-7 sm:hidden sm:text-16-500'>
+										{dashBoardItem.title}
+									</div>
 									{dashBoardItem.createdByMe && (
 										<Image
 											alt='내가 만든 대시보드에 붙는 왕관모양 아이콘'
