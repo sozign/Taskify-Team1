@@ -7,6 +7,8 @@ import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Image from 'next/image';
+import SideBar from '@/components/common/SideBar';
+import PageLayout from '@/components/common/PageLayout';
 
 /**
  * @TODO
@@ -61,102 +63,104 @@ export default function MyDashBoard() {
 	return (
 		<>
 			<DashboardHeader id={0} nickname={'nickname'} profileImageUrl={''} title={'비브리지'} />
-			<button
-				className='bg-violet-500 text-16-400'
-				onClick={() => {
-					setIsTaskEditModalOpen(true);
-				}}
-			>
-				할 일 수정하기
-			</button>
+			<PageLayout>
+				<button
+					className='bg-violet-500 text-16-400'
+					onClick={() => {
+						setIsTaskEditModalOpen(true);
+					}}
+				>
+					할 일 수정하기
+				</button>
 
-			<Layout $modalType='Modal' title='할 일 수정' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<Controller
-						shouldUnregister={true}
-						name='title'
-						control={control}
-						rules={RULES.title}
-						render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
-							<FormInput
-								ref={ref}
-								value={value}
-								onChange={onChange}
-								required={!!('required' in RULES.title)}
-								placeholder='제목을 입력해주세요'
-								label='제목'
-								errorMessage={error?.message}
-							/>
-						)}
-					/>
-					<Controller
-						shouldUnregister={true}
-						name='description'
-						control={control}
-						rules={RULES.description}
-						render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
-							<FormInput
-								className='mt-[1rem]'
-								ref={ref}
-								value={value}
-								onChange={onChange}
-								errorMessage={error?.message}
-								required={!!('required' in RULES.description)}
-								placeholder='설명을 입력해주세요'
-								label='설명'
-							/>
-						)}
-					/>
-					<Controller
-						shouldUnregister={true}
-						name='date'
-						control={control}
-						render={({ field: { ref, value, onChange } }) => (
-							<>
-								<p className='mt-[1rem] text-18-500'>마감일</p>
-								<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] flex-row gap-[1rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top  text-16-400  '>
-									<Image
-										className='h-auto w-auto'
-										width={20}
-										height={20}
-										src='/assets/calender.svg'
-										alt='캘린더 모양 아이콘'
-									/>
-									<DatePicker
-										onKeyDown={(e) => {
-											e.preventDefault(); // 수동 입력 방지
-										}}
-										dateFormat={'YYYY.MM.dd hh:mm'}
-										showTimeSelect={true}
-										ref={ref}
-										selected={value}
-										onChange={onChange}
-										className='container placeholder:mt-0 placeholder:text-gray-D focus:outline-violet-5'
-										wrapperClassName='container'
-										calendarClassName='container'
-										placeholderText='날짜를 입력해주세요'
-									/>
-								</div>
-							</>
-						)}
-					/>
-					<div className='mt-[2.8rem] flex flex-row justify-end gap-[1.2rem]'>
-						<Button
-							onClick={() => {
-								setIsTaskEditModalOpen(false);
-							}}
-							color='modalWhite'
-							disabled={false}
-							variant='modal'
-						>
-							취소
-						</Button>
-						<Button disabled={!isNoError(errors)} type='submit' color='modalViolet' variant='modal'>
-							확인
-						</Button>
-					</div>
-				</form>
-			</Layout>
+				<Layout $modalType='Modal' title='할 일 수정' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
+					<form onSubmit={handleSubmit(onSubmit)}>
+						<Controller
+							shouldUnregister={true}
+							name='title'
+							control={control}
+							rules={RULES.title}
+							render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
+								<FormInput
+									ref={ref}
+									value={value}
+									onChange={onChange}
+									required={!!('required' in RULES.title)}
+									placeholder='제목을 입력해주세요'
+									label='제목'
+									errorMessage={error?.message}
+								/>
+							)}
+						/>
+						<Controller
+							shouldUnregister={true}
+							name='description'
+							control={control}
+							rules={RULES.description}
+							render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
+								<FormInput
+									className='mt-[1rem]'
+									ref={ref}
+									value={value}
+									onChange={onChange}
+									errorMessage={error?.message}
+									required={!!('required' in RULES.description)}
+									placeholder='설명을 입력해주세요'
+									label='설명'
+								/>
+							)}
+						/>
+						<Controller
+							shouldUnregister={true}
+							name='date'
+							control={control}
+							render={({ field: { ref, value, onChange } }) => (
+								<>
+									<p className='mt-[1rem] text-18-500'>마감일</p>
+									<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] flex-row gap-[1rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top  text-16-400  '>
+										<Image
+											className='h-auto w-auto'
+											width={20}
+											height={20}
+											src='/assets/calender.svg'
+											alt='캘린더 모양 아이콘'
+										/>
+										<DatePicker
+											onKeyDown={(e) => {
+												e.preventDefault(); // 수동 입력 방지
+											}}
+											dateFormat={'YYYY.MM.dd hh:mm'}
+											showTimeSelect={true}
+											ref={ref}
+											selected={value}
+											onChange={onChange}
+											className='container placeholder:mt-0 placeholder:text-gray-D focus:outline-violet-5'
+											wrapperClassName='container'
+											calendarClassName='container'
+											placeholderText='날짜를 입력해주세요'
+										/>
+									</div>
+								</>
+							)}
+						/>
+						<div className='mt-[2.8rem] flex flex-row justify-end gap-[1.2rem]'>
+							<Button
+								onClick={() => {
+									setIsTaskEditModalOpen(false);
+								}}
+								color='modalWhite'
+								disabled={false}
+								variant='modal'
+							>
+								취소
+							</Button>
+							<Button disabled={!isNoError(errors)} type='submit' color='modalViolet' variant='modal'>
+								확인
+							</Button>
+						</div>
+					</form>
+				</Layout>
+			</PageLayout>
 		</>
 	);
 }
