@@ -62,10 +62,10 @@ export default function SideBar({ boardId }: SideBarProps) {
 	return (
 		<>
 			<div className='h-full w-full border-r border-gray-D p-[1.2rem]'>
-				<div className='mb-[4.4rem] mt-[0.8rem] flex justify-start p-[1.2rem]'>
+				<Link href={'/'} className='mb-[4.4rem] mt-[0.8rem] flex justify-start p-[1.2rem]'>
 					<Image alt='로고' src={TaskifyImage} />
 					<Image alt='폰트 로고' className='sm:hidden' width={80} height={22} src={Taskify} />
-				</div>
+				</Link>
 				<div className=' p-[1.2rem]'>
 					<button
 						className='flex w-full flex-row items-center justify-between'
