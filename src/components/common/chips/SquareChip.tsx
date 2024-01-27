@@ -9,7 +9,7 @@ interface SquareChipProps {
 	children: ReactNode;
 }
 
-function SquareChip({ color, className, children }: SquareChipProps) {
+function SquareChip({ color, className, children, onClick }: SquareChipProps) {
 	let combinedClassName = '';
 
 	switch (color) {
@@ -19,11 +19,15 @@ function SquareChip({ color, className, children }: SquareChipProps) {
 			break;
 		case 'violet':
 			combinedClassName +=
-				' flex justify-center items-center w-[2.2rem] h-[2.2rem] rounded-[0.4rem] px-[0.3rem] py-[0.3rem] bg-violet-F ';
+				' flex justify-center items-center w-[2.2rem] h-[2.2rem] rounded-[0.4rem] bg-violet-F sm:w-[2rem] sm:h-[2rem] relative';
 			break;
 	}
 
-	return <div className={`${combinedClassName} ${className}`}>{children}</div>;
+	return (
+		<div onClick={onClick} className={`${combinedClassName} ${className}`}>
+			{children}
+		</div>
+	);
 }
 
 export default SquareChip;
