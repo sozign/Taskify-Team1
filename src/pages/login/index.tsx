@@ -7,7 +7,7 @@ import AuthButton from '@/components/common/Buttons/AuthButton';
 import Taskify from '@/../../Public/assets/Taskify.svg';
 import TaskifyImg from '@/../../Public/assets/TaskifyImage.svg';
 import { postAuthLogin } from '@/lib/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 const isNoError = (obj: FieldErrors<LoginFormData>) => Object.keys(obj).length === 0;
@@ -45,6 +45,13 @@ export default function Login() {
 			return loginError;
 		}
 	};
+
+	useEffect(() => {
+		const accessToken = localStorage.getItem('accessToken');
+		if (accessToken) {
+			router.push('/mydashboard');
+		}
+	}, []);
 
 	const onSubmit = (data: LoginFormData) => {
 		console.log(data);

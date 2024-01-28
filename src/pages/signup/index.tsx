@@ -6,7 +6,7 @@ import { VALIDATE_RULES } from '@/constants/validation';
 import AuthButton from '@/components/common/Buttons/AuthButton';
 import Taskify from '@/../../Public/assets/Taskify.svg';
 import TaskifyImg from '@/../../Public/assets/TaskifyImage.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { postUsers } from '@/lib/api';
 import { useRouter } from 'next/router';
 
@@ -68,6 +68,12 @@ export default function Signup() {
 			return loginError;
 		}
 	};
+	useEffect(() => {
+		const accessToken = localStorage.getItem('accessToken');
+		if (accessToken) {
+			router.push('/mydashboard');
+		}
+	}, []);
 
 	const onSubmit = (data: SignupFormData) => {
 		console.log(data);
