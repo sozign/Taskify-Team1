@@ -21,6 +21,8 @@
     "react-dom": "^18",
     "react-select": "^5.8.0",
     "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.1",
+    "react-select": "^5.8.0"
   },
   "devDependencies": {
     "@types/node": "^20",
