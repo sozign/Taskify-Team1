@@ -6,6 +6,7 @@ import Vector from '@/../../Public/assets/Vector.svg';
 import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
 import { useState } from 'react';
 import AdditionModal from '@/components/modal/AdditionModal';
+import { useRouter } from 'next/router';
 
 interface userDataProps {
 	id: number;
@@ -17,9 +18,15 @@ interface userDataProps {
 export default function DashboardHeader({ id, title, nickname, profileImageUrl }: userDataProps) {
 	const [open, setOpen] = useState(false);
 	const dashBoardIdEditUrl = `/dashboard/${id}/edit`;
+	const router = useRouter();
 
 	const additionHandleClick = () => {
 		setOpen((prev) => !prev);
+	};
+
+	const handleLogout = () => {
+		localStorage.removeItem('accessToken');
+		router.push('/');
 	};
 
 	return (
@@ -66,6 +73,12 @@ export default function DashboardHeader({ id, title, nickname, profileImageUrl }
 								</span>
 							</div>
 							<span className='text-16-600 sm:hidden'>{nickname}</span>
+							<button
+								onClick={handleLogout}
+								className='flex cursor-pointer items-center justify-center gap-2 text-red-500'
+							>
+								로그아웃
+							</button>
 						</Link>
 					</div>
 				</nav>

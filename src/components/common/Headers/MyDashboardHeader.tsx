@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Vector from '@/../../Public/assets/Vector.svg';
 import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
+import { useRouter } from 'next/router';
 
 interface userDataProps {
 	title: string;
@@ -10,6 +11,13 @@ interface userDataProps {
 }
 
 export default function MyDashboardHeader({ title, nickname, profileImageUrl }: userDataProps) {
+	const router = useRouter();
+
+	const handleLogout = () => {
+		localStorage.removeItem('accessToken');
+		router.push('/');
+	};
+
 	return (
 		<header className='container m-3 border-b-[0.1rem] bg-white pb-3 pl-[20.2%] '>
 			<div className='flex items-center justify-between'>
@@ -34,6 +42,12 @@ export default function MyDashboardHeader({ title, nickname, profileImageUrl }: 
 								</span>
 							</div>
 							<span className='text-16-600 sm:hidden'>{nickname}</span>
+							<button
+								onClick={handleLogout}
+								className='flex cursor-pointer items-center justify-center gap-2 text-red-500'
+							>
+								로그아웃
+							</button>
 						</Link>
 					</div>
 				</nav>
