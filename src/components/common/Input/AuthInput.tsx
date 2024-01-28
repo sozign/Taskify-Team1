@@ -5,12 +5,12 @@ import ErrorMessage from './ErrorMessage';
 interface InputProps extends HTMLProps<HTMLInputElement> {
 	required: boolean;
 	errorMessage?: string | undefined;
-	type: 'password' | 'text' | 'email';
+	type: 'password' | 'text' | 'email' | 'checkbox';
 }
 
 const AuthInput = forwardRef<HTMLInputElement, InputProps>(
 	({ label, errorMessage, type, className, ...props }, ref) => {
-		const [inputType, setInputType] = useState<'password' | 'text' | 'email'>(type);
+		const [inputType, setInputType] = useState<'password' | 'text' | 'email' | 'checkbox'>(type);
 
 		const handleClickToggle = () => {
 			if (inputType === 'text') setInputType('password');
@@ -21,6 +21,7 @@ const AuthInput = forwardRef<HTMLInputElement, InputProps>(
 			password: '/assets/eye_off.svg',
 			text: '/assets/eye_on.svg',
 			email: '',
+			checkbox: '',
 		};
 
 		let hasToBeToggled = false;
@@ -31,7 +32,7 @@ const AuthInput = forwardRef<HTMLInputElement, InputProps>(
 
 		return (
 			<div className={className}>
-				<p className='text-18-500'>{label}</p>
+				<p className='mt-2 flex items-center text-14-500'>{label}</p>
 				<div className='relative'>
 					<input
 						className={`${borderColor} container mt-[1rem] h-[5rem] rounded-[0.8rem] border-[0.1rem] border-gray-D bg-white px-[1.5rem] py-[1.2rem] text-16-400 placeholder:text-gray-D`}
