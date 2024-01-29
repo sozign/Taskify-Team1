@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler, Controller, FieldErrors, Form } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller, FieldErrors } from 'react-hook-form';
 import FormInput from '@/components/common/Input/FormInput';
 import Layout from '@/components/modal/Layout';
 import { useState } from 'react';
@@ -81,41 +81,22 @@ export default function MyDashBoard() {
 
 				<Layout $modalType='Modal' title='할 일 수정' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
 					<form onSubmit={handleSubmit(onSubmit)}>
-						<Controller
+						<FormInput
+							label='제목'
 							name='title'
 							control={control}
-							shouldUnregister={true}
 							rules={RULES.title}
-							render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
-								<FormInput
-									ref={ref}
-									value={value}
-									onChange={onChange}
-									required={!!('required' in RULES.title)}
-									placeholder='제목을 입력해주세요'
-									label='제목'
-									errorMessage={error?.message}
-								/>
-							)}
+							required={!!('required' in RULES.title)}
 						/>
-						<Controller
+
+						<FormInput
+							label='설명'
 							name='description'
 							control={control}
-							shouldUnregister={true}
 							rules={RULES.description}
-							render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
-								<FormInput
-									className='mt-[1rem]'
-									ref={ref}
-									value={value}
-									onChange={onChange}
-									errorMessage={error?.message}
-									required={!!('required' in RULES.description)}
-									placeholder='설명을 입력해주세요'
-									label='설명'
-								/>
-							)}
+							required={!!('required' in RULES.description)}
 						/>
+
 						<Controller
 							name='date'
 							control={control}
