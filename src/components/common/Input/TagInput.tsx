@@ -27,7 +27,10 @@ export default function TagInput({ label, control, className }: TagInputProps) {
 
 			e.preventDefault();
 			const tagItemToAdd = e.currentTarget.value.trim();
-			changeTagList([...tagList, tagItemToAdd]);
+			const newTagSet = new Set([...tagList, tagItemToAdd]); // 중복 태그 방지
+			const newTagList = Array.from(newTagSet);
+
+			changeTagList(newTagList);
 			setTagItem('');
 		}
 
