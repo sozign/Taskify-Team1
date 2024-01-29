@@ -1,13 +1,20 @@
 import { FormValue } from '@/pages/dashboard/[boardid]';
 import { useState } from 'react';
 import { Control, useController } from 'react-hook-form';
-import SquareChip from '../chips/SquareChip';
+import TagChip from '../chips/TagChip';
 
 interface TagInputProps {
 	label: string;
 	control: Control<FormValue, unknown>;
 	className?: string;
 }
+
+/**
+ * @todo
+ * 1. 태그 최대 추가 갯수 제한
+ * 2. overflow 처리
+ * 3. string으로부터 hash 추출 후 랜덤한 배경색상 적용
+ */
 
 export default function TagInput({ label, control, className }: TagInputProps) {
 	const {
@@ -47,19 +54,17 @@ export default function TagInput({ label, control, className }: TagInputProps) {
 	return (
 		<div className={className}>
 			<p className='text-18-500'>{label}</p>
-			<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0  focus:outline-violet-5'>
+			<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] gap-[0.5rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0  focus:outline-violet-5'>
 				{tagList && (
 					<div className='flex gap-[0.4rem]'>
 						{tagList.map((tagItem) => (
-							<SquareChip key={tagItem} color='violet'>
-								{tagItem}
-							</SquareChip>
+							<TagChip key={tagItem} text={tagItem} />
 						))}
 					</div>
 				)}
 				<input
-					className='placeholder:text-gray-D focus:outline-none'
-					placeholder='태그를 추가해주세요'
+					className='w-[9rem] placeholder:text-gray-D focus:outline-none'
+					placeholder='입력 후 Enter'
 					onChange={(e) => setTagItem(e.target.value)}
 					onKeyDown={handleKeyDown}
 					value={tagItem}
