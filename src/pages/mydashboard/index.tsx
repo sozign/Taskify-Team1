@@ -1,10 +1,17 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
-import AddButton from '@/components/common/Buttons/AddButton';
+import AddButton from '@/components/common/Buttons/addDashboardButton';
 import addIcon from '@/../../Public/assets/addIcon.svg';
 import DashboardButton from '@/components/domains/myDashBoard/DashboardButton';
 import PaginationButton from '@/components/domains/myDashBoard/PaginationButton';
+import FormInput from '../../components/common/Input/FormInput';
+import Layout from '@/components/modal/Layout';
+import Button from '@/components/common/Buttons/Button';
+import { Controller, useForm } from 'react-hook-form';
+import ColorChip from '@/components/common/chips/ColorChip';
+import { postDashboard } from '@/lib/api';
+import done from '@/../Public/assets/done.svg';
 
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
@@ -29,13 +36,31 @@ export default function MyDashBoard() {
 		userId: number;
 	}
 
-	// const onSubmit = async () => {
-	// 	if (getValues('dashboardName') && colorPick === '') {
-	// 		const data = await postDashboard({ title: getValues('dashboardName'), color: colorPick });
-	// 		console.log(data);
-	// 	}
-	// 	console.log({ title: getValues('dashboardName'), color: colorPick });
-	// };
+	const RULES = {
+		dashboardName: {
+			required: '생성할 대시보드 제목을 입력해주세요.',
+		},
+	};
+	const { control, getValues, handleSubmit } = useForm<FormValue>({
+		mode: 'onBlur',
+		defaultValues: {
+			dashboardName: '',
+		},
+	});
+
+	interface FormValue {
+		dashboardName: string;
+	}
+
+	const colorList = ['green', 'purple', 'orange', 'blue', 'pink'];
+
+	const onSubmit = async () => {
+		if (getValues('dashboardName') && colorPick === '') {
+			const data = await postDashboard({ title: getValues('dashboardName'), color: colorPick });
+			console.log(data);
+		}
+		console.log({ title: getValues('dashboardName'), color: colorPick });
+	};
 
 	return (
 		<>
@@ -66,6 +91,59 @@ export default function MyDashBoard() {
 					{/* <NotInvited /> */}
 				</div>
 			</div>
+			<Layout
+				$modalType='Modal'
+				title='새로운 대시보드'
+				isOpen={addDashBoardModalOpen}
+				setOpen={setAddDashBoardModalOpen}
+			>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<div className=' flex flex-col justify-end gap-[1.2rem]'>
+						<Controller
+							shouldUnregister={true}
+							name='dashboardName'
+							control={control}
+							rules={RULES.dashboardName}
+							render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
+								<FormInput
+									ref={ref}
+									value={value}
+									onChange={onChange}
+									required={!!('required' in RULES.dashboardName)}
+									placeholder='대시보드 이름을 입력해주세요'
+									label='대시보드 이름'
+									errorMessage={error?.message}
+								/>
+							)}
+						/>
+						<div className='flex gap-[1rem]'>
+							{colorList.map((color) => (
+								<div key={color} className='relative'>
+									{color === colorPick ? (
+										<Image src={done} alt='체크 아이콘' className='absolute left-[0.3rem] top-[0.3rem] z-10' />
+									) : null}
+									<ColorChip key={color} color={color} onClick={() => setColorPick(color)} />
+								</div>
+							))}
+						</div>
+						<div className='flex justify-end gap-[1.2rem]'>
+							<Button
+								onClick={() => {
+									setAddDashBoardModalOpen(false);
+								}}
+								color='modalWhite'
+								disabled={false}
+								variant='modal'
+							>
+								취소
+							</Button>
+							<Button disabled={false} type='submit' color='modalViolet' variant='modal'>
+								확인
+							</Button>
+						</div>
+					</div>
+				</form>
+			</Layout>
 		</>
 	);
 }
