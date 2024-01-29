@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler, Controller, FieldErrors } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller, FieldErrors, Form } from 'react-hook-form';
 import FormInput from '@/components/common/Input/FormInput';
 import Layout from '@/components/modal/Layout';
 import { useState } from 'react';
@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Image from 'next/image';
 import PageLayout from '@/components/common/PageLayout';
 import { useRouter } from 'next/router';
+import TagInput from '@/components/common/Input/TagInput';
 
 /**
  * @TODO
@@ -30,10 +31,11 @@ const RULES = {
 };
 
 // 모달 1에서 폼으로 제출하는 값의 타입
-interface FormValue {
+export interface FormValue {
 	title: string;
 	description: string;
 	date: Date;
+	tag: string[];
 }
 
 export default function MyDashBoard() {
@@ -54,6 +56,7 @@ export default function MyDashBoard() {
 			title: '',
 			description: '',
 			date: undefined,
+			tag: [],
 		},
 	});
 
@@ -79,9 +82,9 @@ export default function MyDashBoard() {
 				<Layout $modalType='Modal' title='할 일 수정' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<Controller
-							shouldUnregister={true}
 							name='title'
 							control={control}
+							shouldUnregister={true}
 							rules={RULES.title}
 							render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
 								<FormInput
@@ -96,9 +99,9 @@ export default function MyDashBoard() {
 							)}
 						/>
 						<Controller
-							shouldUnregister={true}
 							name='description'
 							control={control}
+							shouldUnregister={true}
 							rules={RULES.description}
 							render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
 								<FormInput
@@ -114,9 +117,9 @@ export default function MyDashBoard() {
 							)}
 						/>
 						<Controller
-							shouldUnregister={true}
 							name='date'
 							control={control}
+							shouldUnregister={true}
 							render={({ field: { ref, value, onChange } }) => (
 								<>
 									<p className='mt-[1rem] text-18-500'>마감일</p>
@@ -146,6 +149,8 @@ export default function MyDashBoard() {
 								</>
 							)}
 						/>
+						<TagInput className='mt-[2rem]' control={control} label='태그' />
+
 						<div className='mt-[2.8rem] flex flex-row justify-end gap-[1.2rem]'>
 							<Button
 								onClick={() => {
