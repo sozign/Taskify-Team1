@@ -2,8 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Vector from '@/../../Public/assets/Vector.svg';
 import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
-import { useRouter } from 'next/router';
-
 interface userDataProps {
 	title: string;
 	nickname: string;
@@ -11,11 +9,9 @@ interface userDataProps {
 }
 
 export default function MyDashboardHeader({ title, nickname, profileImageUrl }: userDataProps) {
-	const router = useRouter();
-
 	const handleLogout = () => {
 		localStorage.removeItem('accessToken');
-		router.push('/');
+		window.location.replace('/');
 	};
 
 	return (
