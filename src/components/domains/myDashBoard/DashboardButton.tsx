@@ -9,6 +9,7 @@ type DashboardInfo = {
 	createdByMe?: boolean;
 	onClick?: () => void;
 };
+
 function DashboardButton({ color, title, createdByMe, onClick }: DashboardInfo) {
 	return (
 		<button
