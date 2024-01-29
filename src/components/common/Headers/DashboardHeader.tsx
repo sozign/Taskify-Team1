@@ -22,6 +22,11 @@ export default function DashboardHeader({ id, title, nickname, profileImageUrl }
 		setOpen((prev) => !prev);
 	};
 
+	const handleLogout = () => {
+		localStorage.removeItem('accessToken');
+		window.location.replace('/');
+	};
+
 	return (
 		<header className='container m-3 border-b-[0.1rem] bg-white pb-3 pl-[20.2%] '>
 			<div className='flex items-center justify-between'>
@@ -66,6 +71,12 @@ export default function DashboardHeader({ id, title, nickname, profileImageUrl }
 								</span>
 							</div>
 							<span className='text-16-600 sm:hidden'>{nickname}</span>
+							<button
+								onClick={handleLogout}
+								className='flex cursor-pointer items-center justify-center gap-2 text-red-500'
+							>
+								로그아웃
+							</button>
 						</Link>
 					</div>
 				</nav>
