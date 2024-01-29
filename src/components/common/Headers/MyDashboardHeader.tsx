@@ -15,7 +15,7 @@ export default function MyDashboardHeader({ title, nickname, profileImageUrl }: 
 	};
 
 	return (
-		<header className='container m-3 border-b-[0.1rem] bg-white pb-3 pl-[20.2%] '>
+		<header className='container border-b-[0.1rem] bg-white pb-3 pl-[20.2%] '>
 			<div className='flex items-center justify-between'>
 				<Link href='/mydashboard'>
 					<div className='flex items-center justify-center gap-2 text-18-700 md:hidden sm:hidden'>

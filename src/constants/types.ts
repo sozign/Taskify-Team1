@@ -172,7 +172,7 @@ export interface MembersData {
 	userId: number;
 	email: string;
 	nickname: string;
-	profileImageUrl: string;
+	profileImageUrl: null | string;
 	createdAt: string;
 	updatedAt: string;
 	isOwner: boolean;
