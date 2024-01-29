@@ -1,6 +1,7 @@
+//{teamId}/members 의 nickname, profileImageUrl 데이터를 가져온다.
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { getMockData } from '@/lib/mockData';
+import { getMockManagerData } from '@/components/dropdown/mockData';
 
 interface Option {
 	value: string;
@@ -53,7 +54,7 @@ const DropDownManager = () => {
 	};
 
 	const loadMembersData = async () => {
-		const { data } = await getMockData();
+		const { data } = await getMockManagerData();
 		setMemberData(data[0]?.members || null);
 	};
 
@@ -73,7 +74,9 @@ const DropDownManager = () => {
 		<>
 			<h3 className='text-lg mb-2.5 text-12-500'>담당자</h3>
 			<Select
-				// ref={selectInputRef}
+				inputId='contact'
+				//react-hook-form 라이브러리 사용시 필수
+				// ref={ref}
 				onChange={(selectedOption: Option | null) => {
 					if (selectedOption) {
 						setSelectValue(selectedOption.value);
