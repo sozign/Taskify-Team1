@@ -81,7 +81,7 @@ export default function MyDashBoard() {
 
 				<Layout $modalType='Modal' title='할 일 수정' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
 					<form onSubmit={handleSubmit(onSubmit)}>
-						<FormInput
+						<FormInput<FormValue>
 							label='제목'
 							name='title'
 							control={control}
@@ -89,7 +89,7 @@ export default function MyDashBoard() {
 							required={!!('required' in RULES.title)}
 						/>
 
-						<FormInput
+						<FormInput<FormValue>
 							label='설명'
 							name='description'
 							control={control}
