@@ -4,6 +4,7 @@ import { MembersData, MembersGet } from '@/constants/types';
 import Image from 'next/image';
 import Member from './Member';
 import { useState } from 'react';
+import PaginationButton from '../myDashBoard/PaginationButton';
 
 function MemberBox({ members }: { members: MembersGet }) {
 	const [displayMembers, setDisplayMembers] = useState<MembersData[]>(members.members.slice(0, 4));
@@ -14,15 +15,7 @@ function MemberBox({ members }: { members: MembersGet }) {
 				<span className='text-24-700 text-black-3'>구성원</span>
 				{members.totalCount > 4 ? (
 					<div className='flex gap-[1.6rem]'>
-						<div className='flex items-center text-14-400 text-black-3'>{`${Math.floor(members.totalCount / 4) + 1} 페이지 중 1`}</div>
-						<div className='flex'>
-							<button className='flex h-[4rem] w-[4rem] items-center justify-center rounded-bl rounded-tl border border-gray-D'>
-								<Image src={arrowLeft} alt='구성원 이전 페이지' width={16} height={16} />
-							</button>
-							<button className='flex h-[4rem] w-[4rem] items-center justify-center rounded-bl rounded-tl border border-gray-D'>
-								<Image src={arrowRight} alt='구성원 다음 페이지' width={16} height={16} />
-							</button>
-						</div>
+						<PaginationButton />
 					</div>
 				) : null}
 			</div>

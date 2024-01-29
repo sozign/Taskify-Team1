@@ -2,12 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
-import EditBox from '@/components/edit/EditBox';
+import EditBox from '@/components/domains/edit/EditBox';
 import arrowLeft from '@/../Public/assets/arrowLeft.svg';
 import PageLayout from '@/components/common/PageLayout';
-import MemberBox from '@/components/edit/MemberBox';
-import { MembersGet, UserInfo } from '@/constants/types';
-import InviteListBox from '@/components/edit/InviteListBox';
+import MemberBox from '@/components/domains/edit/MemberBox';
+import { InvitationsDashboardGet, MembersGet, UserInfo } from '@/constants/types';
+import InviteListBox from '@/components/domains/edit/InviteListBox';
 
 const myInfo: UserInfo = {
 	id: 1,
@@ -71,6 +71,127 @@ const members: MembersGet = {
 			updatedAt: '2024-01-28T00:35:34.671Z',
 			isOwner: false,
 		},
+		{
+			id: 6,
+			userId: 16,
+			email: 'qwe@aa.cc',
+			nickname: 'qwe',
+			profileImageUrl: null,
+			createdAt: '2024-01-28T00:35:34.671Z',
+			updatedAt: '2024-01-28T00:35:34.671Z',
+			isOwner: false,
+		},
+	],
+};
+
+const invitations: InvitationsDashboardGet = {
+	totalCount: 5,
+	invitations: [
+		{
+			id: 21,
+			inviter: {
+				nickname: 'asd',
+				email: 'asd@aa.cc',
+				id: 11,
+			},
+			teamId: '31',
+			dashboard: {
+				title: '비브리지',
+				id: 41,
+			},
+			invitee: {
+				nickname: 'fgh',
+				email: 'fgh@aa.cc',
+				id: 12,
+			},
+			inviteAccepted: true,
+			createdAt: '2024-01-28T00:35:34.671Z',
+			updatedAt: '2024-01-28T00:35:34.671Z',
+		},
+		{
+			id: 22,
+			inviter: {
+				nickname: 'asd',
+				email: 'asd@aa.cc',
+				id: 11,
+			},
+			teamId: '31',
+			dashboard: {
+				title: '비브리지',
+				id: 41,
+			},
+			invitee: {
+				nickname: 'jkl',
+				email: 'jkl@aa.cc',
+				id: 13,
+			},
+			inviteAccepted: true,
+			createdAt: '2024-01-28T00:35:34.671Z',
+			updatedAt: '2024-01-28T00:35:34.671Z',
+		},
+		{
+			id: 23,
+			inviter: {
+				nickname: 'asd',
+				email: 'asd@aa.cc',
+				id: 11,
+			},
+			teamId: '31',
+			dashboard: {
+				title: '비브리지',
+				id: 41,
+			},
+			invitee: {
+				nickname: 'zxc',
+				email: 'zxc@aa.cc',
+				id: 14,
+			},
+			inviteAccepted: true,
+			createdAt: '2024-01-28T00:35:34.671Z',
+			updatedAt: '2024-01-28T00:35:34.671Z',
+		},
+		{
+			id: 24,
+			inviter: {
+				nickname: 'asd',
+				email: 'asd@aa.cc',
+				id: 11,
+			},
+			teamId: '31',
+			dashboard: {
+				title: '비브리지',
+				id: 41,
+			},
+			invitee: {
+				nickname: 'qwe',
+				email: 'vbn@aa.cc',
+				id: 15,
+			},
+			inviteAccepted: true,
+			createdAt: '2024-01-28T00:35:34.671Z',
+			updatedAt: '2024-01-28T00:35:34.671Z',
+		},
+		{
+			id: 25,
+			inviter: {
+				nickname: 'asd',
+				email: 'asd@aa.cc',
+				id: 11,
+			},
+			teamId: '31',
+			dashboard: {
+				title: '비브리지',
+				id: 41,
+			},
+			invitee: {
+				nickname: 'qwe',
+				email: 'qwe@aa.cc',
+				id: 16,
+			},
+			inviteAccepted: true,
+			createdAt: '2024-01-28T00:35:34.671Z',
+			updatedAt: '2024-01-28T00:35:34.671Z',
+		},
 	],
 };
 
@@ -83,7 +204,7 @@ export default function DashBoardEdit() {
 
 	return (
 		<PageLayout boardId={boardId}>
-			<div className='flex h-fit flex-col gap-[2rem] bg-gray-F'>
+			<div className='flex h-fit flex-col gap-[2rem] bg-gray-F pb-[5.6rem]'>
 				<MyDashboardHeader title={'비브리지'} nickname={'nickname'} profileImageUrl={''} />
 				<Link
 					href={`/dashboard/${boardId}`}
@@ -94,7 +215,7 @@ export default function DashBoardEdit() {
 				<div className='flex flex-col gap-[1.2rem]'>
 					<EditBox title={title} color={color} />
 					<MemberBox members={members} />
-					<InviteListBox />
+					<InviteListBox invitations={invitations} />
 				</div>
 			</div>
 		</PageLayout>

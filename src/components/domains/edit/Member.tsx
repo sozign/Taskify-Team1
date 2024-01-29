@@ -1,7 +1,7 @@
 import { MembersData } from '@/constants/types';
 import Image from 'next/image';
 import React from 'react';
-import Button from '../common/Buttons/Button';
+import Button from '../../common/Buttons/Button';
 
 function Member({ memberData }: { memberData: MembersData }) {
 	// 삭제 버튼 클릭하면 대시보드 멤버 구성원 삭제 요청

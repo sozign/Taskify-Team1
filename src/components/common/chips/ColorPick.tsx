@@ -1,18 +1,17 @@
-import React from 'react';
-import ColorChip from './ColorChip';
 import Image from 'next/image';
-import done from '../../../../Public/assets/done.svg';
+import done from '@/../Public/assets/done.svg';
+import ColorChip from './ColorChip';
 
-function ColorPick({ pick }: { pick: string }) {
-	const colors = ['green', 'violet', 'orange', 'blue', 'pink'];
+function ColorPick({ colorPick, onClick }: { colorPick: string; onClick: (pick: string) => void }) {
+	const colorList = ['green', 'purple', 'orange', 'blue', 'pink'];
 	return (
 		<div className='flex gap-[1rem]'>
-			{colors.map((color) => (
+			{colorList.map((color) => (
 				<div key={color} className='relative'>
-					{color === pick ? (
-						<Image src={done} alt='선택한 색상' className='absolute left-[0.3rem] top-[0.3rem] z-10' />
+					{color === colorPick ? (
+						<Image src={done} alt='체크 아이콘' className='absolute left-[0.3rem] top-[0.3rem] z-10' />
 					) : null}
-					<ColorChip color={color} />
+					<ColorChip color={color} onClick={() => onClick(color)} />
 				</div>
 			))}
 		</div>
