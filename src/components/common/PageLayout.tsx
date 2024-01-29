@@ -66,7 +66,7 @@ export default function PageLayout({ children, boardId }: PageLayoutProps) {
 			<div className='h-full w-[30rem] md:w-[16rem] sm:w-[6.7rem]'>
 				<SideBar boardId={boardId} />
 			</div>
-			<div className='h-full'>{children}</div>
+			<div className='h-full w-full'>{children}</div>
 		</div>
 	);
 }
