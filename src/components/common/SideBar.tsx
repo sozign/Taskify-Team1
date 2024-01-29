@@ -114,22 +114,12 @@ export default function SideBar({ boardId }: SideBarProps) {
 				setOpen={setMakeNewDashBoardModalOpen}
 			>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<Controller
-						shouldUnregister={true}
+					<FormInput<FormValue>
+						label='대시보드 이름'
 						name='dashboardName'
 						control={control}
 						rules={RULES.dashboardName}
-						render={({ field: { ref, value, onChange }, fieldState: { error } }) => (
-							<FormInput
-								ref={ref}
-								value={value}
-								onChange={onChange}
-								required={!!('required' in RULES.dashboardName)}
-								placeholder='대시보드 이름을 입력해주세요'
-								label='대시보드 이름'
-								errorMessage={error?.message}
-							/>
-						)}
+						required={!!('required' in RULES.dashboardName)}
 					/>
 					<Controller
 						shouldUnregister={true}
