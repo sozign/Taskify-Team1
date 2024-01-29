@@ -217,6 +217,9 @@ export default function DashBoardEdit() {
 					<MemberBox members={members} />
 					<InviteListBox invitations={invitations} />
 				</div>
+				<button className='ml-[2rem] flex h-[6.2rem] w-fit flex-shrink-0 items-center justify-center rounded-[0.8rem] border border-gray-D bg-gray-F px-[9.5rem] py-[2rem] text-center text-18-500 text-black-3'>
+					대시보드 삭제하기
+				</button>
 			</div>
 		</PageLayout>
 	);
