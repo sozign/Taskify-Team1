@@ -26,11 +26,12 @@ function Button({ type, color, className, onClick, children, variant, disabled =
 			break;
 
 		case 'modalViolet':
-			combinedClassName += ` flex justify-center items-center rounded-lg text-white ${disabled ? 'bg-gray-D' : 'bg-violet-5'} `;
+			combinedClassName += ` flex justify-center items-center rounded-[0.8rem] text-white ${disabled ? 'bg-gray-D' : 'bg-violet-5'} `;
 			break;
 
 		case 'modalWhite':
-			combinedClassName += ' border border-[gray-D] flex justify-center items-center rounded-lg bg-white text-gray-7 ';
+			combinedClassName +=
+				' border border-[gray-D] flex justify-center items-center rounded-[0.8rem] bg-white text-gray-7 ';
 			break;
 	}
 	switch (variant) {
