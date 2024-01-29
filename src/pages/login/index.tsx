@@ -85,7 +85,7 @@ export default function Login() {
 				</div>
 			</Link>
 			<p className='text-center text-12-500 text-black-3'>오늘도 만나서 반가워요 !</p>
-			<form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center gap-[6rem]'>
+			<form onSubmit={handleSubmit(onSubmit)} className=' max-w-[30rem]flex flex-col justify-center gap-[10rem]'>
 				<AuthInput
 					type='email'
 					required={!!VALIDATE_RULES.email?.required}
