@@ -52,6 +52,6 @@ const mockData = [
 	},
 ];
 
-export const getMockData = (): Promise<{ data: MockData[] }> => {
+export const getMockManagerData = (): Promise<{ data: MockData[] }> => {
 	return Promise.resolve({ data: mockData });
 };
