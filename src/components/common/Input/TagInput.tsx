@@ -15,8 +15,6 @@ export default function TagInput({ label, control, className }: TagInputProps) {
 	} = useController({ name: 'tag', control, shouldUnregister: true });
 	const [tagItem, setTagItem] = useState<string>('');
 
-	console.log('tagList', tagList);
-
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key !== 'Enter' && e.key !== 'Backspace') return;
 
