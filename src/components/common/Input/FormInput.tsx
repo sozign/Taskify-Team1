@@ -1,18 +1,21 @@
-import { FormValue } from '@/pages/dashboard/[boardid]';
-import { Control, useController } from 'react-hook-form';
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form';
 import ErrorMessage from './ErrorMessage';
 import { twMerge } from 'tailwind-merge';
 
-interface FormInputProps {
+interface FormInputProps<T extends FieldValues> extends UseControllerProps<T> {
 	label: string;
-	required: boolean;
 	className?: string;
-	name: 'title' | 'description';
-	rules: Record<string, unknown>;
-	control: Control<FormValue, unknown>;
+	required: boolean;
 }
 
-export default function FormInput({ label, name, control, required, rules, className }: FormInputProps) {
+export default function FormInput<T extends FieldValues>({
+	label,
+	className,
+	name,
+	required,
+	control,
+	rules,
+}: FormInputProps<T>) {
 	const {
 		fieldState: { error },
 		field,
