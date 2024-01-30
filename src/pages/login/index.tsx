@@ -11,12 +11,14 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/modal/Layout';
 import Button from '@/components/common/Buttons/Button';
+import { AxiosError } from 'axios';
 
 const isNoError = (obj: FieldErrors<LoginFormData>) => Object.keys(obj).length === 0;
 
 type LoginFormData = {
 	email: string;
 	password: string;
+	message: string;
 };
 
 export default function Login() {
@@ -33,6 +35,7 @@ export default function Login() {
 		},
 	});
 	const [loginError, setLoginError] = useState<boolean>(false);
+	const [loginErrorMessageState, setLoginErrorMessage] = useState<string | null>(null);
 	const router = useRouter();
 
 	const handleLogin = async (data: LoginFormData) => {
@@ -41,6 +44,10 @@ export default function Login() {
 			localStorage.setItem('accessToken', response.accessToken);
 			router.push('/mydashboard');
 		} catch (error) {
+			if (error instanceof AxiosError) {
+				const loginErrorMessage = error.response?.data.message;
+				setLoginErrorMessage(loginErrorMessage);
+			}
 			setLoginError(true);
 		}
 	};
@@ -113,14 +120,14 @@ export default function Login() {
 				</form>
 				<p className='py-5 text-12-400 text-black-3'>
 					회원이 아니신가요?
-					<Link href='/signup' className='text-blue underline'>
+					<Link href='/signup' className='text-violet-5 underline'>
 						회원가입하기
 					</Link>
 				</p>
 			</div>
 			<Layout $modalType='Alert' isOpen={loginError} setOpen={setLoginError}>
 				<div className='flex flex-col'>
-					<p className='text-center text-12-500'>회원정보가 일치하지 않습니다.</p>
+					<p className='text-center text-12-500'>{loginErrorMessageState}</p>
 					<Button
 						onClick={() => {
 							setLoginError(false);
