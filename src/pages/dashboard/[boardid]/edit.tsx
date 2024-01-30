@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
 import EditBox from '@/components/domains/edit/EditBox';
-import arrowLeft from '@/../Public/assets/arrowLeft.svg';
+import arrowForward from '@/../Public/assets/arrowForward.svg';
 import PageLayout from '@/components/common/PageLayout';
 import MemberBox from '@/components/domains/edit/MemberBox';
 import { InvitationsDashboardGet, MembersGet, UserInfo } from '@/constants/types';
@@ -204,20 +204,21 @@ export default function DashBoardEdit() {
 
 	return (
 		<PageLayout boardId={boardId}>
-			<div className='flex h-fit flex-col gap-[2rem] bg-gray-F pb-[5.6rem]'>
+			<div className='flex h-fit w-full flex-col gap-[2rem] bg-gray-F pb-[5.6rem] md:pb-[4.8rem] sm:gap-[1.7rem] sm:pb-[2.4rem]'>
 				<MyDashboardHeader title={'비브리지'} nickname={'nickname'} profileImageUrl={''} />
 				<Link
 					href={`/dashboard/${boardId}`}
-					className='ml-[2rem] flex h-fit w-fit items-center justify-center gap-[0.6rem] text-16-500 text-black-3'
+					className='ml-[2rem] flex h-fit w-fit items-center justify-center gap-[0.6rem]'
 				>
-					<Image src={arrowLeft} alt='돌아가기 버튼' /> 돌아가기
+					<Image src={arrowForward} alt='돌아가기 버튼' className='sm:h-[1.8rem] sm:w-[1.8rem]' />
+					<span className='text-16-500 text-black-3 sm:text-14-500'>돌아가기</span>
 				</Link>
-				<div className='flex flex-col gap-[1.2rem]'>
+				<div className='flex flex-col gap-[1.2rem] sm:gap-[1.1rem]'>
 					<EditBox title={title} color={color} />
 					<MemberBox members={members} />
 					<InviteListBox invitations={invitations} />
 				</div>
-				<button className='ml-[2rem] flex h-[6.2rem] w-fit flex-shrink-0 items-center justify-center rounded-[0.8rem] border border-gray-D bg-gray-F px-[9.5rem] py-[2rem] text-center text-18-500 text-black-3'>
+				<button className='ml-[2rem] mt-[2rem] flex h-[6.2rem] w-fit flex-shrink-0 items-center justify-center rounded-[0.8rem] border border-gray-D bg-gray-F px-[9.5rem] py-[2rem] text-center text-18-500 text-black-3 md:mt-[2.8rem] sm:mx-[1.2rem] sm:mt-[1.5rem] sm:text-16-500'>
 					대시보드 삭제하기
 				</button>
 			</div>

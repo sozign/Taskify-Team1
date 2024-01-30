@@ -38,13 +38,13 @@ function EditBox({ title = '비브리지', color = 'green' }: { title: string; c
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className='ml-[2rem] flex flex-col'>
+		<form onSubmit={handleSubmit(onSubmit)} className='mx-[2rem] flex flex-col sm:mx-[1.2rem]'>
 			<div className='flex h-fit w-[62rem] flex-shrink-0 flex-col rounded-[0.8rem] bg-white px-[2.8rem] py-[2.9rem]'>
 				<div className='flex justify-between'>
 					<div className='w-fit text-20-700 text-black-3'>{title}</div>
 					<ColorPick colorPick={dashboardColor} onClick={(pick: string) => setDashboardColor(pick)} />
 				</div>
-				<div className='mt-[3.4rem] flex h-fit flex-col justify-between'>
+				<div className='mt-[3.4rem] flex h-fit flex-col justify-between sm:mt-[2.2rem]'>
 					<FormInput<FormValue>
 						label='대시보드 이름'
 						name='title'
@@ -52,7 +52,7 @@ function EditBox({ title = '비브리지', color = 'green' }: { title: string; c
 						rules={RULES.title}
 						required={false}
 					/>
-					<div className='mt-[1.6rem] flex justify-end'>
+					<div className='mt-[1.6rem] flex justify-end sm:mt-[0.8rem]'>
 						<Button disabled={isDisabled} type='submit' color='violet' variant='confirm' className='cursor-pointer'>
 							변경
 						</Button>
