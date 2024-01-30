@@ -30,7 +30,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 
 	interface FormValue {
 		dashboardName: string;
-		selectedColor: 'green' | 'purple' | 'orange' | 'blue' | 'pink';
+		selectedColor: '#7AC555' | '#760DDE' | '#FFA500' | '#76A6EA' | '#E876EA';
 	}
 
 	// 대시보드 생성 모달 여닫음 관리
@@ -45,12 +45,14 @@ export default function SideBar({ boardId }: SideBarProps) {
 		mode: 'onBlur',
 		defaultValues: {
 			dashboardName: '',
-			selectedColor: 'green',
+			selectedColor: '#7AC555',
 		},
 	});
 
 	// 대시보드 생성 모달 제출
-	const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+	const onSubmit: SubmitHandler<FormValue> = (data) => {
+		console.log(data);
+	};
 
 	const COLOR_PICK: Record<string, string> = {
 		'#7AC555': 'bg-green',
@@ -149,32 +151,32 @@ export default function SideBar({ boardId }: SideBarProps) {
 							return (
 								<div className='mt-[2.8rem] flex gap-[1rem]'>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-green'>
-										<input className=' opacity-0 ' type='radio' {...field} value='green' />
-										{field.value === 'green' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#7AC555' />
+										{field.value === '#7AC555' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-purple'>
-										<input className=' opacity-0 ' type='radio' {...field} value='purple' />
-										{field.value === 'purple' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#760DDE' />
+										{field.value === '#760DDE' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-orange'>
-										<input className=' opacity-0 ' type='radio' {...field} value='orange' />
-										{field.value === 'orange' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#FFA500' />
+										{field.value === '#FFA500' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-blue'>
-										<input className=' opacity-0 ' type='radio' {...field} value='blue' />
-										{field.value === 'blue' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#76A6EA' />
+										{field.value === '#76A6EA' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-pink'>
-										<input className=' opacity-0 ' type='radio' {...field} value='pink' />
-										{field.value === 'pink' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#E876EA' />
+										{field.value === '#E876EA' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
