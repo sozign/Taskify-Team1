@@ -124,8 +124,8 @@ export async function postColumn(Column: ColumnPost) {
  * 컬럼 목록 조회
  */
 export async function getColumns(dashboardId: number) {
-	const res = await authAxios.get(`/columns?dashboardId=${dashboardId}`);
-	return res.data as ColumnGet;
+	const res = await authAxios.get<ColumnGet>(`/columns?dashboardId=${dashboardId}`);
+	return res.data;
 }
 
 /**
