@@ -6,14 +6,6 @@ import { useRouter } from 'next/router';
 import { getColumns } from '@/lib/api';
 import { ColumnData } from '@/constants/types';
 
-// 모달 1에서 폼으로 제출하는 값의 타입
-export interface FormValue {
-	title: string;
-	description: string;
-	date: Date;
-	tag: string[];
-}
-
 export default function MyDashBoard() {
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
