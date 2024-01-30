@@ -9,6 +9,7 @@ type DashboardInfo = {
 	createdByMe?: boolean;
 	onClick?: () => void;
 };
+
 function DashboardButton({ color, title, createdByMe, onClick }: DashboardInfo) {
 	return (
 		<button
@@ -19,9 +20,13 @@ function DashboardButton({ color, title, createdByMe, onClick }: DashboardInfo) 
 				<div className={clsx('mr-[1.6rem] h-[0.8rem] w-[0.8rem] rounded-full', `bg-${color}`)}></div>
 				<div className='flex items-center gap-[0.8rem]'>
 					<div className='sm:text-14-600 text-16-600 text-black-3'>{title}</div>
-					<div className=' relative flex h-[1.6rem] w-[2rem] md:h-[1.4rem] md:w-[1.75rme] sm:h-[1.2rem] sm:w-[1.5re]'>
-						<Image src={royalCrownIcon} fill alt='왕관 아이콘' />
-					</div>
+					{createdByMe ? (
+						<Image
+							src={royalCrownIcon}
+							className='flex h-[1.6rem] w-[2rem] md:h-[1.4rem] md:w-[1.75rme] sm:h-[1.2rem] sm:w-[1.5re]'
+							alt='왕관 아이콘'
+						/>
+					) : null}
 				</div>
 			</div>
 			<div className=' relative h-[1.8rem] w-[1.8rem]'>

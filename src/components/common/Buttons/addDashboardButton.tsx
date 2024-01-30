@@ -1,7 +1,7 @@
 import SquareChip from '@/components/common/chips/SquareChip';
 import { ReactNode } from 'react';
 
-function AddButton({ children, onClick }: { children: ReactNode; onClick: () => void }) {
+function AddDashboardButton({ children, onClick }: { children: ReactNode; onClick: () => void }) {
 	return (
 		<button
 			onClick={onClick}
@@ -15,4 +15,4 @@ function AddButton({ children, onClick }: { children: ReactNode; onClick: () => 
 	);
 }
 
-export default AddButton;
+export default AddDashboardButton;
