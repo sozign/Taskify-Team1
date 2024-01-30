@@ -52,7 +52,7 @@ export default function MyDashBoard() {
 		if (getValues('dashboardName') && colorPick !== '') {
 			const data = await postDashboard({ title: getValues('dashboardName'), color: colorPick });
 			setAddDashBoardModalOpen(false);
-			setDashBoardList((prevDashBoardList) => [...prevDashBoardList, data]);
+			setDashBoardList((dashBoardList) => [...dashBoardList, data]);
 		}
 	};
 
