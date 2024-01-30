@@ -204,7 +204,7 @@ export async function postDashboard(dashboard: DashboardPost) {
 	return res.data;
 }
 
-interface getDashboardsProps {
+export interface getDashboardsProps {
 	navigationMethod: 'infiniteScroll' | 'pagination';
 	cursorId?: number;
 	page?: number;

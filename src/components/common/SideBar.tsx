@@ -1,4 +1,3 @@
-import mockdata from '@/constants/mock.json';
 import TaskifyImage from '@/../../Public/assets/TaskifyImage.svg';
 import Taskify from '@/../../Public/assets/Taskify.svg';
 import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
@@ -11,9 +10,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Layout from '../modal/Layout';
 import Button from './Buttons/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormInput from './Input/FormInput';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { DashboardData } from '@/constants/types';
+import { getDashboards, getDashboardsProps } from '@/lib/api';
 
 interface SideBarProps {
 	boardId?: number;
@@ -52,12 +53,31 @@ export default function SideBar({ boardId }: SideBarProps) {
 	const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
 
 	const COLOR_PICK: Record<string, string> = {
-		green: 'bg-green', //7AC555
-		purple: 'bg-purple', //760DDE
-		orange: 'bg-orange', //FFA500
-		blue: 'bg-blue', //76A6EA
-		pink: 'bg-pink', //E876EA
+		'#7AC555': 'bg-green',
+		'#760DDE': 'bg-purple',
+		'#FFA500': 'bg-orange',
+		'#76A6EA': 'bg-blue',
+		'#E876EA': 'bg-pink',
 	};
+
+	const [dashBoardList, setDashBoardList] = useState<DashboardData[] | null>(null);
+
+	async function loadDashBoardList() {
+		const query: getDashboardsProps = {
+			navigationMethod: 'pagination',
+			cursorId: 0,
+			page: 1,
+			size: 10,
+		};
+		const data = await getDashboards(query);
+		setDashBoardList(data.dashboards);
+	}
+
+	useEffect(() => {
+		loadDashBoardList();
+	}, []);
+
+	if (!dashBoardList) return;
 
 	return (
 		<>
@@ -78,7 +98,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 					</button>
 				</div>
 				<div>
-					{mockdata.dashboards.map((dashBoardItem) => {
+					{dashBoardList.map((dashBoardItem) => {
 						return (
 							<Link key={dashBoardItem.id} href={`/dashboard/${dashBoardItem.id}`}>
 								<div
