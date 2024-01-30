@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import FormInput from './Input/FormInput';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { DashboardData } from '@/constants/types';
-import { getDashboards, getDashboardsProps } from '@/lib/api';
+import { getDashboards, getDashboardsProps, postDashboard } from '@/lib/api';
 
 interface SideBarProps {
 	boardId?: number;
@@ -29,8 +29,8 @@ export default function SideBar({ boardId }: SideBarProps) {
 	};
 
 	interface FormValue {
-		dashboardName: string;
-		selectedColor: '#7AC555' | '#760DDE' | '#FFA500' | '#76A6EA' | '#E876EA';
+		title: string;
+		color: '#7AC555' | '#760DDE' | '#FFA500' | '#76A6EA' | '#E876EA';
 	}
 
 	// 대시보드 생성 모달 여닫음 관리
@@ -44,14 +44,16 @@ export default function SideBar({ boardId }: SideBarProps) {
 	} = useForm<FormValue>({
 		mode: 'onBlur',
 		defaultValues: {
-			dashboardName: '',
-			selectedColor: '#7AC555',
+			title: '',
+			color: '#7AC555',
 		},
 	});
 
 	// 대시보드 생성 모달 제출
 	const onSubmit: SubmitHandler<FormValue> = (data) => {
 		console.log(data);
+		postDashboard(data);
+		setMakeNewDashBoardModalOpen(false);
 	};
 
 	const COLOR_PICK: Record<string, string> = {
@@ -138,7 +140,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<FormInput<FormValue>
 						label='대시보드 이름'
-						name='dashboardName'
+						name='title'
 						control={control}
 						rules={RULES.dashboardName}
 						required={!!('required' in RULES.dashboardName)}
@@ -146,7 +148,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 					<Controller
 						shouldUnregister={true}
 						control={control}
-						name='selectedColor'
+						name='color'
 						render={({ field }) => {
 							return (
 								<div className='mt-[2.8rem] flex gap-[1rem]'>
