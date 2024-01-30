@@ -12,15 +12,15 @@ export default function MyDashBoard() {
 
 	// useEffect 방식 datafetching
 	const [columnList, setColumnList] = useState<ColumnData[] | null>(null);
-	async function loadColumn(dashBoardId: number) {
-		const data = await getColumns(dashBoardId);
+	async function loadColumn() {
+		const data = await getColumns(boardId);
 		setColumnList(data.data);
 		return data;
 	}
 
 	useEffect(() => {
-		loadColumn(2614);
-	}, []);
+		loadColumn();
+	}, [boardId]);
 
 	if (!columnList) return;
 
