@@ -52,11 +52,11 @@ export default function SideBar({ boardId }: SideBarProps) {
 	const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
 
 	const COLOR_PICK: Record<string, string> = {
-		green: 'bg-green',
-		purple: 'bg-purple',
-		orange: 'bg-orange',
-		blue: 'bg-blue',
-		pink: 'bg-pink',
+		green: 'bg-green', //7AC555
+		purple: 'bg-purple', //760DDE
+		orange: 'bg-orange', //FFA500
+		blue: 'bg-blue', //76A6EA
+		pink: 'bg-pink', //E876EA
 	};
 
 	return (
