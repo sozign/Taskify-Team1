@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
-import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
+import AddDashboardButton from '@/components/common/Buttons/AddDashboardButton';
 import addIcon from '@/../../Public/assets/addIcon.svg';
 import DashboardButton from '@/components/domains/myDashBoard/DashboardButton';
 import PaginationButton from '@/components/domains/myDashBoard/PaginationButton';
