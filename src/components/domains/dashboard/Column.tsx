@@ -37,7 +37,7 @@ export default function Column({ columnItem }: ColumnProps) {
 	if (!cardList) return;
 
 	return (
-		<div className='container border-b-[0.1rem] border-r-[0.1rem] bg-gray-F px-[2rem] pb-[2rem] pt-[2.2rem] sm:px-[1.2rem] sm:pt-[1.7rem]'>
+		<div className=' w-[35.4rem] flex-shrink-0 border-b-[0.1rem] border-r-[0.1rem] bg-gray-F px-[2rem] pb-[2rem] pt-[2.2rem] md:container sm:container sm:px-[1.2rem] sm:pt-[1.7rem]'>
 			<div className='mb-[2.5rem] flex items-center justify-between sm:mb-[1.7rem] '>
 				<div className='flex items-center'>
 					<Image className='mr-[0.6rem]' alt='불렛모양 아이콘' src={bullet} />
