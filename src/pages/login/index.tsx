@@ -83,15 +83,18 @@ export default function Login() {
 
 	return (
 		<>
-			<div className='grid translate-y-[10rem] place-items-center'>
+			<div className='flex h-[68rem] w-[100%] flex-col items-center justify-center gap-[0.1rem] bg-gray-F'>
 				<Link href='/'>
-					<div className='flex h-[22rem] w-[12.5rem] shrink-0 flex-col items-center justify-center gap-2  pl-[0.01rem]'>
-						<Image alt='Taskify 로고 이미지' src={TaskifyImg} className='h-[15rem] w-[13rem] shrink-0' />
-						<Image alt='Taskify 로고' src={Taskify} className='h-[3.4rem] w-[13rem] shrink-0' />
+					<div className='flex h-[27.9rem] w-[20rem] flex-col items-end justify-center gap-[3.071rem] pb-[0.03947rem] pl-[0.114rem] pr-[0rem] pt-[0rem] '>
+						<Image alt='Taskify 로고 이미지' src={TaskifyImg} className='h-[18.9rem] w-[16.4rem]' />
+						<Image alt='Taskify 로고' src={Taskify} className='h-[5.5rem] w-[19.8rem]' />
 					</div>
 				</Link>
-				<p className='text-center text-12-500 text-black-3'>오늘도 만나서 반가워요 !</p>
-				<form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center gap-[10rem]'>
+				<p className='pb-[2rem] text-center text-[2rem] text-black-3'>오늘도 만나서 반가워요 !</p>
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					className='flex w-[100%] max-w-[52rem] flex-col gap-[0.8rem] px-[1.2rem] pt-0'
+				>
 					<AuthInput
 						type='email'
 						required={!!VALIDATE_RULES.email?.required}
@@ -99,9 +102,7 @@ export default function Login() {
 						placeholder={INPUT_SETTING.placeholder.email}
 						errorMessage={errors?.email?.message}
 						{...register('email', VALIDATE_RULES.email)}
-						className='h-[4.81rem] w-[52rem] gap-2  sm:px-[8.2rem]'
 					/>
-
 					<AuthInput
 						type='password'
 						required={!!VALIDATE_RULES.passwordInLogin?.required}
@@ -110,34 +111,35 @@ export default function Login() {
 						errorMessage={errors?.password?.message}
 						{...register('password', VALIDATE_RULES.passwordInLogin)}
 						onKeyDown={handleKeyPress}
-						className='h-[4.81rem] w-[52rem] gap-2 sm:px-[8.2rem]'
 					/>
-					<div className='flex items-center justify-center '>
+					<div className='pb-[1.2rem] pt-[1rem]'>
 						<AuthButton disabled={!isNoError(errors)} type='submit' onClick={() => setLoginError(false)}>
 							로그인
 						</AuthButton>
 					</div>
+					<div className='flex flex-row items-center justify-center gap-[0.8rem]'>
+						<p className='text-center text-16-400 text-black-3'>회원이 아니신가요?</p>
+						<Link href='/signup' className='text-center text-16-400 text-violet-5 underline'>
+							<span>회원가입하기</span>
+						</Link>
+					</div>
 				</form>
-				<p className='py-5 text-12-400 text-black-3'>
-					회원이 아니신가요?
-					<Link href='/signup' className='text-violet-5 underline'>
-						회원가입하기
-					</Link>
-				</p>
 			</div>
-			<Layout $modalType='Alert' isOpen={loginError} setOpen={setLoginError}>
-				<div className='flex flex-col'>
-					<p className='text-center text-12-500'>{loginErrorMessageState}</p>
-					<Button
-						onClick={() => {
-							setLoginError(false);
-						}}
-						color='violet'
-						disabled={false}
-						variant='modal'
-					>
-						확인
-					</Button>
+			<Layout $modalType='Modal' isOpen={loginError} setOpen={setLoginError}>
+				<div className='flex flex-col gap-[4.5rem]'>
+					<p className='text-center text-18-500'>{loginErrorMessageState}</p>
+					<div className='flex flex-row justify-end gap-[1.2rem]'>
+						<Button
+							onClick={() => {
+								setLoginError(false);
+							}}
+							color='violet'
+							disabled={false}
+							variant='modal'
+						>
+							확인
+						</Button>
+					</div>
 				</div>
 			</Layout>
 		</>
