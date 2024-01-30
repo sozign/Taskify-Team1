@@ -1,6 +1,6 @@
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import PageLayout from '@/components/common/PageLayout';
-import Column from '@/components/domains/dashboard/ColumnLayout';
+import Column from '@/components/domains/dashboard/Column';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getColumns } from '@/lib/api';
@@ -10,7 +10,6 @@ export default function MyDashBoard() {
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
 
-	// useEffect 방식 datafetching
 	const [columnList, setColumnList] = useState<ColumnData[] | null>(null);
 	async function loadColumn() {
 		if (!boardId) return;

@@ -10,11 +10,11 @@ import Link from 'next/link';
 import addIcon from '@/../../Public/assets/addIcon.svg';
 import { useRouter } from 'next/router';
 
-interface ColumnLayout {
+interface ColumnProps {
 	columnItem: ColumnData;
 }
 
-export default function Column({ columnItem }: ColumnLayout) {
+export default function Column({ columnItem }: ColumnProps) {
 	const router = useRouter();
 	const { boardid } = router.query;
 
