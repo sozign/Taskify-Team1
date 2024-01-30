@@ -80,7 +80,8 @@ interface getCardsProps {
  * 카드 목록 조회
  */
 export async function getCards({ size, cursorId, columnId }: getCardsProps) {
-	const res = await authAxios.get<CardItemGet>(`/cards?size=${size}&cursorId=${cursorId}&columnId=${columnId}`);
+	const cursorIdQuery = cursorId ? `&cursorId=${cursorId}` : '';
+	const res = await authAxios.get<CardItemGet>(`/cards?size=${size}${cursorIdQuery}&columnId=${columnId}`);
 	return res.data;
 }
 
@@ -203,7 +204,7 @@ export async function postDashboard(dashboard: DashboardPost) {
 	return res.data;
 }
 
-interface getDashboardsProps {
+export interface getDashboardsProps {
 	navigationMethod: 'infiniteScroll' | 'pagination';
 	cursorId?: number;
 	page?: number;

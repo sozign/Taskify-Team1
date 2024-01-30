@@ -1,4 +1,3 @@
-import mockdata from '@/constants/mock.json';
 import TaskifyImage from '@/../../Public/assets/TaskifyImage.svg';
 import Taskify from '@/../../Public/assets/Taskify.svg';
 import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
@@ -11,9 +10,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Layout from '../modal/Layout';
 import Button from './Buttons/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormInput from './Input/FormInput';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { DashboardData } from '@/constants/types';
+import { getDashboards, getDashboardsProps, postDashboard } from '@/lib/api';
 
 interface SideBarProps {
 	boardId?: number;
@@ -28,8 +29,8 @@ export default function SideBar({ boardId }: SideBarProps) {
 	};
 
 	interface FormValue {
-		dashboardName: string;
-		selectedColor: 'green' | 'purple' | 'orange' | 'blue' | 'pink';
+		title: string;
+		color: '#7AC555' | '#760DDE' | '#FFA500' | '#76A6EA' | '#E876EA';
 	}
 
 	// 대시보드 생성 모달 여닫음 관리
@@ -43,21 +44,44 @@ export default function SideBar({ boardId }: SideBarProps) {
 	} = useForm<FormValue>({
 		mode: 'onBlur',
 		defaultValues: {
-			dashboardName: '',
-			selectedColor: 'green',
+			title: '',
+			color: '#7AC555',
 		},
 	});
 
 	// 대시보드 생성 모달 제출
-	const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+	const onSubmit: SubmitHandler<FormValue> = (data) => {
+		console.log(data);
+		postDashboard(data);
+		setMakeNewDashBoardModalOpen(false);
+	};
 
 	const COLOR_PICK: Record<string, string> = {
-		green: 'bg-green',
-		purple: 'bg-purple',
-		orange: 'bg-orange',
-		blue: 'bg-blue',
-		pink: 'bg-pink',
+		'#7AC555': 'bg-green',
+		'#760DDE': 'bg-purple',
+		'#FFA500': 'bg-orange',
+		'#76A6EA': 'bg-blue',
+		'#E876EA': 'bg-pink',
 	};
+
+	const [dashBoardList, setDashBoardList] = useState<DashboardData[] | null>(null);
+
+	async function loadDashBoardList() {
+		const query: getDashboardsProps = {
+			navigationMethod: 'pagination',
+			cursorId: 0,
+			page: 1,
+			size: 10,
+		};
+		const data = await getDashboards(query);
+		setDashBoardList(data.dashboards);
+	}
+
+	useEffect(() => {
+		loadDashBoardList();
+	}, []);
+
+	if (!dashBoardList) return;
 
 	return (
 		<>
@@ -78,7 +102,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 					</button>
 				</div>
 				<div>
-					{mockdata.dashboards.map((dashBoardItem) => {
+					{dashBoardList.map((dashBoardItem) => {
 						return (
 							<Link key={dashBoardItem.id} href={`/dashboard/${dashBoardItem.id}`}>
 								<div
@@ -116,7 +140,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<FormInput<FormValue>
 						label='대시보드 이름'
-						name='dashboardName'
+						name='title'
 						control={control}
 						rules={RULES.dashboardName}
 						required={!!('required' in RULES.dashboardName)}
@@ -124,37 +148,37 @@ export default function SideBar({ boardId }: SideBarProps) {
 					<Controller
 						shouldUnregister={true}
 						control={control}
-						name='selectedColor'
+						name='color'
 						render={({ field }) => {
 							return (
 								<div className='mt-[2.8rem] flex gap-[1rem]'>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-green'>
-										<input className=' opacity-0 ' type='radio' {...field} value='green' />
-										{field.value === 'green' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#7AC555' />
+										{field.value === '#7AC555' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-purple'>
-										<input className=' opacity-0 ' type='radio' {...field} value='purple' />
-										{field.value === 'purple' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#760DDE' />
+										{field.value === '#760DDE' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-orange'>
-										<input className=' opacity-0 ' type='radio' {...field} value='orange' />
-										{field.value === 'orange' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#FFA500' />
+										{field.value === '#FFA500' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-blue'>
-										<input className=' opacity-0 ' type='radio' {...field} value='blue' />
-										{field.value === 'blue' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#76A6EA' />
+										{field.value === '#76A6EA' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-pink'>
-										<input className=' opacity-0 ' type='radio' {...field} value='pink' />
-										{field.value === 'pink' && (
+										<input className=' opacity-0 ' type='radio' {...field} value='#E876EA' />
+										{field.value === '#E876EA' && (
 											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
 										)}
 									</label>
