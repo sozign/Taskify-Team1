@@ -32,10 +32,10 @@ const AuthInput = forwardRef<HTMLInputElement, InputProps>(
 
 		return (
 			<div className={className}>
-				<p className='mt-2 flex items-center text-14-500'>{label}</p>
+				<p className='mt-2 flex items-center text-16-400'>{label}</p>
 				<div className='relative'>
 					<input
-						className={`${borderColor} container mt-[1rem] h-[5rem] rounded-[0.8rem] border-[0.1rem] border-gray-D bg-white px-[1.5rem] py-[1.2rem] text-16-400 placeholder:text-gray-D`}
+						className={`${borderColor} container h-[5rem] rounded-[0.8rem] border-[0.1rem] border-gray-D bg-white px-[1.6rem] py-[1.5rem] text-16-400 placeholder:text-gray-D`}
 						type={inputType}
 						ref={ref}
 						{...props}
