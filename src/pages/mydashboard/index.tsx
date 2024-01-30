@@ -56,7 +56,7 @@ export default function MyDashBoard() {
 		}
 	};
 
-	const handleChangHexadecimal = (color: string) => {
+	const handleChangeHexadecimal = (color: string) => {
 		if (color === 'green') {
 			return '#7AC555';
 		} else if (color === 'purple') {
@@ -72,7 +72,7 @@ export default function MyDashBoard() {
 		}
 	};
 
-	const handleChangColor = (color: string) => {
+	const handleChangeColor = (color: string) => {
 		if (color === '#7AC555') {
 			return 'green';
 		} else if (color === '#760DDE') {
@@ -106,7 +106,7 @@ export default function MyDashBoard() {
 								{dashBoardList?.map((dashboard) => (
 									<DashboardButton
 										key={dashboard.id}
-										color={handleChangColor(dashboard.color)}
+										color={handleChangeColor(dashboard.color)}
 										title={dashboard.title}
 										createdByMe={dashboard.createdByMe}
 									/>
@@ -169,10 +169,10 @@ export default function MyDashBoard() {
 							<div className='flex gap-[1rem]'>
 								{colorList.map((color) => (
 									<div key={color} className='relative'>
-										{color === handleChangColor(colorPick) ? (
+										{color === handleChangeColor(colorPick) ? (
 											<Image src={done} alt='체크 아이콘' className='absolute left-[0.3rem] top-[0.3rem] z-10' />
 										) : null}
-										<ColorChip key={color} color={color} onClick={() => setColorPick(handleChangHexadecimal(color))} />
+										<ColorChip key={color} color={color} onClick={() => setColorPick(handleChangeHexadecimal(color))} />
 									</div>
 								))}
 							</div>
