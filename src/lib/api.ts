@@ -80,7 +80,8 @@ interface getCardsProps {
  * 카드 목록 조회
  */
 export async function getCards({ size, cursorId, columnId }: getCardsProps) {
-	const res = await authAxios.get<CardItemGet>(`/cards?size=${size}&cursorId=${cursorId}&columnId=${columnId}`);
+	const cursorIdQuery = cursorId ? `&cursorId=${cursorId}` : '';
+	const res = await authAxios.get<CardItemGet>(`/cards?size=${size}${cursorIdQuery}&columnId=${columnId}`);
 	return res.data;
 }
 
@@ -123,8 +124,8 @@ export async function postColumn(Column: ColumnPost) {
  * 컬럼 목록 조회
  */
 export async function getColumns(dashboardId: number) {
-	const res = await authAxios.get<ColumnGet>(`/columns?dashboardId=${dashboardId}`);
-	return res.data;
+	const res = await authAxios.get(`/columns?dashboardId=${dashboardId}`);
+	return res.data as ColumnGet;
 }
 
 /**
