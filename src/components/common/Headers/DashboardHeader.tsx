@@ -9,7 +9,6 @@ import FormInput from '../Input/FormInput';
 import Button from '@/components/common/Buttons/Button';
 import Layout from '../../modal/Layout';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
-import { VALIDATE_RULES } from '@/constants/validation';
 
 interface userDataProps {
 	id: number;
@@ -25,9 +24,8 @@ export default function DashboardHeader({ id, title, nickname, profileImageUrl }
 	// 모달 1 열림, 닫힘 제어
 	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
 	const {
-		register,
 		handleSubmit,
-		// setError,
+		control,
 		formState: { errors },
 	} = useForm<FormValuePros>({
 		mode: 'onBlur',
@@ -36,12 +34,9 @@ export default function DashboardHeader({ id, title, nickname, profileImageUrl }
 		},
 	});
 
-	const INPUT_SETTING = {
-		label: {
-			email: '이메일',
-		},
-		placeholder: {
-			email: '이메일을 입력해 주세요.',
+	const RULES = {
+		email: {
+			required: '이메일 형식으로 작성해 주세요.',
 		},
 	};
 
@@ -117,14 +112,12 @@ export default function DashboardHeader({ id, title, nickname, profileImageUrl }
 			</header>
 			<Layout $modalType='Modal' title='초대하기' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<FormInput
-						type='email'
-						required={!!VALIDATE_RULES.email?.required}
-						label={INPUT_SETTING.label.email}
-						placeholder={INPUT_SETTING.placeholder.email}
-						errorMessage={errors?.email?.message}
-						{...register('email', VALIDATE_RULES.email)}
-						className='pb-[3.2rem]'
+					<FormInput<FormValuePros>
+						label='이메일'
+						name='email'
+						control={control}
+						rules={RULES.email}
+						required={!!('required' in RULES.email)}
 					/>
 					<div className='flex flex-row justify-end gap-[1.2rem]'>
 						<Button
