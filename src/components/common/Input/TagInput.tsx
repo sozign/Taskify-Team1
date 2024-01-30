@@ -1,7 +1,14 @@
-import { FormValue } from '@/pages/dashboard/[boardid]';
 import { useState } from 'react';
 import { Control, useController } from 'react-hook-form';
 import TagChip from '../chips/TagChip';
+
+/**
+ * @todo
+ * Form 사용처로 interface 올리기
+ */
+interface FormValue {
+	tag: string[];
+}
 
 interface TagInputProps {
 	label: string;
