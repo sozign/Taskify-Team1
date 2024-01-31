@@ -1,13 +1,11 @@
-import { useState } from 'react';
-import ColorPick from '../../common/chips/ColorPick';
-import { putDashboard } from '@/lib/api';
 import { useRouter } from 'next/router';
-import FormInput from '../../common/Input/FormInput';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Button from '../../common/Buttons/Button';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { DashboardPost } from '@/constants/types';
+import FormInput from '../../common/Input/FormInput';
+import ColorPick from '../../common/chips/ColorPick';
 
-function EditBox({ title = '비브리지', color = 'green' }: { title: string; color: string }) {
+function EditBox({ title, color }: { title: string; color: string }) {
 	const router = useRouter();
 	const dashboardId = +(router.query.boardid ?? '');
 	const [dashboardColor, setDashboardColor] = useState(color);

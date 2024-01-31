@@ -1,6 +1,4 @@
-import { InvitationDashboardData, MembersData } from '@/constants/types';
-import Image from 'next/image';
-import React from 'react';
+import { InvitationDashboardData } from '@/constants/types';
 import Button from '../../common/Buttons/Button';
 
 function Invitation({ invitationData }: { invitationData: InvitationDashboardData }) {

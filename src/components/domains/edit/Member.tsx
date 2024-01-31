@@ -1,6 +1,5 @@
 import { MembersData } from '@/constants/types';
 import Image from 'next/image';
-import React from 'react';
 import Button from '../../common/Buttons/Button';
 
 function Member({ memberData }: { memberData: MembersData }) {
