@@ -75,6 +75,7 @@ export default function MyDashBoard() {
 
 	useEffect(() => {
 		dashboardLoad();
+		console.log(dashBoardData);
 	}, [paginationInfo]);
 
 	return (
@@ -98,6 +99,7 @@ export default function MyDashBoard() {
 										color={dashboard.color}
 										title={dashboard.title}
 										createdByMe={dashboard.createdByMe}
+										dashboardId={dashboard.id}
 									/>
 								))}
 							</div>
@@ -107,7 +109,7 @@ export default function MyDashBoard() {
 								setPaginationInfo={setPaginationInfo}
 							/>
 						</div>
-						<NotInvited />
+						<InvitationList />
 					</div>
 				</div>
 
