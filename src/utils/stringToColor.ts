@@ -1,14 +1,15 @@
-const stringToColor = (str: string) => {
+const stringToNumber = (str: string): number => {
 	let hash = 0;
-	str.split('').forEach((char) => {
-		hash = char.charCodeAt(0) + ((hash << 5) - hash);
-	});
-	let color = '#';
-	for (let i = 0; i < 3; i++) {
-		const value = (hash >> (i * 8)) & 0xff;
-		color += value.toString(16).padStart(2, '0');
-	}
-	return color;
-};
 
-export default stringToColor;
+	// 문자의 ASCII 코드를 합산
+	for (let i = 0; i < str.length; i++) {
+		hash += str.charCodeAt(i);
+	}
+
+	// 정규화 및 0~4까지의 값으로 변환
+	const normalizedValue = (hash % 1000) / 1000; // 0부터 1 사이의 값
+	const mappedNumber = Math.floor(normalizedValue * 5); // 0부터 4 사이의 값
+
+	return mappedNumber;
+};
+export default stringToNumber;
