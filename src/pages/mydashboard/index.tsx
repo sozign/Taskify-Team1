@@ -15,6 +15,7 @@ import done from '@/../Public/assets/done.svg';
 import { DashboardsGet } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
+import NotInvited from '@/components/domains/myDashBoard/NotInvited';
 
 interface getDashboardsProps {
 	page: number;
@@ -58,6 +59,7 @@ export default function MyDashBoard() {
 		if (getValues('dashboardName') && colorPick !== null) {
 			await postDashboard({ title: getValues('dashboardName'), color: colorPick });
 			setAddDashBoardModalOpen(false);
+			dashboardLoad();
 		}
 	};
 
@@ -105,7 +107,7 @@ export default function MyDashBoard() {
 								setPaginationInfo={setPaginationInfo}
 							/>
 						</div>
-						<InvitationList />
+						<NotInvited />
 					</div>
 				</div>
 
