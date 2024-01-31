@@ -82,35 +82,33 @@ export default function MyDashBoard() {
 		<>
 			<MyDashboardHeader title={'내 대시보드'} nickname={'nickname'} profileImageUrl={''} />
 			<PageLayout>
-				<div className='flex '>
-					<div className='sm:gap:-[2.4rem] flex w-[100%] flex-col  gap-[4rem] bg-gray-F  px-[4rem] py-[4rem] sm:gap-[2.4rem]'>
-						<div className='flex w-[102.2rem] flex-col gap-[1.2rem] md:w-[50.4rem]  sm:w-[100%]'>
-							<div className='col-span-2 grid grid-cols-3 gap-[1.2rem] md:col-span-3 md:grid-cols-2 md:gap-[1rem] sm:col-span-1 sm:grid-cols-1 sm:gap-[0.8rem]'>
-								<AddDashboardButton
-									onClick={() => {
-										setAddDashBoardModalOpen(true);
-									}}
-								>
-									<Image className='px-[0.6rem] py-[0.6rem]' fill src={addIcon} alt='추가하기 아이콘' />
-								</AddDashboardButton>
-								{dashBoardData?.dashboards.map((dashboard) => (
-									<DashboardButton
-										key={dashboard.id}
-										color={dashboard.color}
-										title={dashboard.title}
-										createdByMe={dashboard.createdByMe}
-										dashboardId={dashboard.id}
-									/>
-								))}
-							</div>
-							<PaginationButton
-								totalCount={dashBoardData?.totalCount as string}
-								paginationInfo={paginationInfo}
-								setPaginationInfo={setPaginationInfo}
-							/>
+				<div className='sm:gap:-[2.4rem] flex w-[100%] flex-col  gap-[4rem] bg-gray-F  px-[4rem] py-[4rem] sm:gap-[2.4rem]'>
+					<div className='flex w-[102.2rem] flex-col gap-[1.2rem] md:w-[50.4rem]  sm:w-[100%]'>
+						<div className='col-span-2 grid grid-cols-3 gap-[1.2rem] md:col-span-3 md:grid-cols-2 md:gap-[1rem] sm:col-span-1 sm:grid-cols-1 sm:gap-[0.8rem]'>
+							<AddDashboardButton
+								onClick={() => {
+									setAddDashBoardModalOpen(true);
+								}}
+							>
+								<Image className='px-[0.6rem] py-[0.6rem]' fill src={addIcon} alt='추가하기 아이콘' />
+							</AddDashboardButton>
+							{dashBoardData?.dashboards.map((dashboard) => (
+								<DashboardButton
+									key={dashboard.id}
+									color={dashboard.color}
+									title={dashboard.title}
+									createdByMe={dashboard.createdByMe}
+									dashboardId={dashboard.id}
+								/>
+							))}
 						</div>
-						<InvitationList />
+						<PaginationButton
+							totalCount={dashBoardData?.totalCount as string}
+							paginationInfo={paginationInfo}
+							setPaginationInfo={setPaginationInfo}
+						/>
 					</div>
+					<InvitationList />
 				</div>
 
 				{/* 대시보드 추가 모달 */}
