@@ -42,7 +42,7 @@ export default function Login() {
 		try {
 			const { ...response } = await postAuthLogin(data as LoginFormData);
 			localStorage.setItem('accessToken', response.accessToken);
-			router.push('/mydashboard');
+			window.location.replace('/mydashboard');
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				const loginErrorMessage = error.response?.data.message;
