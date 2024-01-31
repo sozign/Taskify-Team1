@@ -27,7 +27,7 @@
 // 	const res = await authAxios.post<UsersProfileImagePost>(`/users/me/image`, imageFile);
 // 	return res.data;
 // }
-
+import { useState } from 'react';
 import Button from '@/components/common/Buttons/Button';
 import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
 import Image from 'next/image';
@@ -35,6 +35,10 @@ import Image from 'next/image';
 import PageLayout from '@/components/common/PageLayout';
 import plusIcon from '@/../../Public/assets/myPage-plusIcon.svg';
 import leftArrow from '@/../../Public/assets/myPage-leftArrow.svg';
+
+//모달확인하기위해 import
+import MyPageModal from '@/components/modal/MyPageModal';
+
 // type MyPageFormData = {
 // 	email: string;
 // 	nickname: string;
@@ -48,12 +52,22 @@ export default function MyPage() {
 	// 	console.log(data);
 	// 	handleLogin(data);
 	// };
+	// 모달창 확인을 위한 useState
+	const [open, setOpen] = useState(false);
+
+	const additionHandleClick = () => {
+		setOpen((prev) => !prev);
+	};
 
 	return (
 		<>
 			<MyDashboardHeader title={'내 정보'} nickname={'nickname'} profileImageUrl={''} />
 			<PageLayout>
-				{/* main */}
+				{/* 모달창 확인하기 위해 임시 생성 */}
+				<div>
+					<div onClick={additionHandleClick}>모달 확인하러 가기</div>
+					{open === true ? <MyPageModal isOpen={open} setOpen={setOpen} /> : null}
+				</div>
 				<div className=' bg-[#FAFAFA]'>
 					<div className=' ml-[2rem] '>
 						<p className='t-[#333236] flex items-center pt-[2rem] text-[1.6rem] font-medium'>
@@ -95,7 +109,10 @@ export default function MyPage() {
 								{/* <FormInput />
 								<FormInput />
 								<FormInput /> */}
+								{/* ✅ 모달창 open후 바로 꺼짐 */}
+								{/* <div> */}
 								<Button
+									// onClick={additionHandleClick}
 									color='violet'
 									disabled={false}
 									type='submit'
@@ -104,6 +121,8 @@ export default function MyPage() {
 								>
 									변경
 								</Button>
+								{/* {open === true ? <MyPageModal isOpen={open} setOpen={setOpen} /> : null}
+								</div> */}
 							</form>
 						</div>
 					</div>
