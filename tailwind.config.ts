@@ -16,7 +16,12 @@ const config: Config = {
 		},
 		fontSize: {
 			// <p class="text-12-400 ...">The quick brown fox ...</p> 처럼 사용
-
+			'10-400': [
+				'1rem',
+				{
+					fontWeight: '400',
+				},
+			],
 			//fontsize: 12px
 			'12-400': [
 				'1.2rem',
