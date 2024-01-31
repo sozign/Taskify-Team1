@@ -10,15 +10,23 @@ type DashboardInfo = {
 	onClick?: () => void;
 };
 
+const colorList: Record<string, string> = {
+	'#7AC555': 'bg-green',
+	'#760DDE': 'bg-purple',
+	'#FFA500': 'bg-orange',
+	'#76A6EA': 'bg-blue',
+	'#E876EA': 'bg-pink',
+};
+
 function DashboardButton({ color, title, createdByMe, onClick }: DashboardInfo) {
 	return (
 		<button
 			onClick={onClick}
-			className=' flex h-[7rem] w-[33.2rem] items-center justify-between gap-[1.2rem] rounded-[0.8rem] border  border-gray-D bg-white px-[2rem] py-[2.6rme] md:h-[6.8rem] md:w-[24.7rem] sm:h-[5.8rem] sm:w-[100%]'
+			className=' flex h-[7rem] w-[33.2rem] items-center justify-between gap-[1.2rem] overflow-hidden rounded-[0.8rem]  border border-gray-D bg-white px-[2rem] py-[2.6rme] md:h-[6.8rem] md:w-[24.7rem] sm:h-[5.8rem] sm:w-[100%]'
 		>
 			<div className='flex items-center'>
-				<div className={clsx('mr-[1.6rem] h-[0.8rem] w-[0.8rem] rounded-full', `bg-${color}`)}></div>
-				<div className='flex items-center gap-[0.8rem]'>
+				<div className={clsx('mr-[1.6rem] h-[0.8rem] w-[0.8rem] rounded-full', `${colorList[color]}`)}></div>
+				<div className='flex items-center gap-[0.8rem]  overflow-hidden'>
 					<div className='sm:text-14-600 text-16-600 text-black-3'>{title}</div>
 					{createdByMe ? (
 						<Image

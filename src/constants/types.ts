@@ -123,7 +123,7 @@ export interface DashboardData {
 
 export interface DashboardsGet {
 	cursorId: number;
-	totalcount: string;
+	totalCount: string;
 	dashboards: DashboardData[];
 }
 
