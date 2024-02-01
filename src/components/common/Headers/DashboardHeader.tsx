@@ -1,88 +1,110 @@
 import PlusIcon from '@/../../Public/assets/PlusIcon.svg';
 import Vector from '@/../../Public/assets/Vector.svg';
 import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
-import SettingIcon from '@/../../Public/assets/settingIcon.svg';
+import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import InviteModal from '@/components/modal/InviteModal';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import HeaderNavDropdown from './HeaderNavDropdown';
 
 interface userDataProps {
-	id: number;
+	dashboardId: number;
 	title: string;
 	nickname: string;
 	profileImageUrl: string;
 }
 
-export default function DashboardHeader({ id, title, nickname, profileImageUrl }: userDataProps) {
+export default function DashboardHeader({ dashboardId, title, nickname, profileImageUrl }: userDataProps) {
 	// 모달 1 열림, 닫힘 제어
 	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+	const router = useRouter();
+	const dropDownRef = useRef<HTMLDivElement>(null);
 
-	const dashBoardIdEditUrl = `/dashboard/${id}/edit`;
+	useEffect(() => {
+		const clickOutside = (e: MouseEvent) => {
+			if (isDropdownOpen && !dropDownRef.current?.contains(e.target as Node)) {
+				setIsDropdownOpen(false);
+			}
+		};
+		document.addEventListener('mousedown', clickOutside);
+		return () => {
+			document.removeEventListener('mousedown', clickOutside);
+		};
+	}, [isDropdownOpen]);
 
-	const handleLogout = () => {
-		localStorage.removeItem('accessToken');
-		window.location.replace('/');
+	const dashBoardIdEditUrl = `/dashboard/${dashboardId}/edit`;
+
+	const moveHandler = () => {
+		router.push(dashBoardIdEditUrl);
 	};
 
 	return (
 		<>
-			<header className='container m-3 border-b-[0.1rem] bg-white pb-3 pl-[20.2%] '>
-				<div className='flex items-center justify-between'>
-					<Link href='/mydashboard'>
-						<div className='flex items-center justify-center gap-2 text-18-700 md:hidden sm:hidden'>
-							{title}
-							<Image alt='대시보드 왕관 아이콘' src={RoyalCrownIcon} />
-						</div>
-					</Link>
-					<nav>
-						<div className='m-[1rem] flex gap-5 pr-[1em]'>
-							<Link
-								href={dashBoardIdEditUrl}
-								className='flex items-center justify-center gap-3 rounded-xl border-[0.1rem] border-solid border-gray-D pl-[1.2rem] pr-[1.6rem] text-gray-7'
+			<header className='container fixed inset-0  z-10  flex h-[7rem] flex-row items-center justify-between  bg-white   pl-[4rem] sm:h-[6rem]'>
+				<Link href='/mydashboard' className=' flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
+					<span className='md:hidden sm:hidden'>{title}</span>
+					{router.pathname.startsWith('/mydashboard') ? null : (
+						<Image alt='대시보드 왕관 아이콘' src={RoyalCrownIcon} className='md:hidden sm:hidden' />
+					)}
+				</Link>
+
+				<nav className='flex flex-row items-center  gap-[1.6rem]'>
+					{router.pathname.startsWith('/mydashboard') ? null : (
+						<>
+							<button
+								className='flex h-[4rem] w-[8.8rem] flex-shrink-0 flex-row items-center justify-center gap-[0.8rem] rounded-[0.8rem] border-2 border-gray-D bg-white md:h-[3.6rem] md:w-[8.5rem] sm:h-[3rem] sm:w-[4.9rem]'
+								onClick={moveHandler}
 							>
-								<Image alt='관리 버튼 셋팅 아이콘' src={SettingIcon} className='items-center sm:hidden' />
-								<span className='text-12-500 sm:items-center sm:pl-2'>관리</span>
-							</Link>
+								<Image
+									alt='관리 버튼 셋팅 아이콘'
+									src={SettingIcon}
+									className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
+								/>
+								<span className='items-center text-16-500 text-gray-7'>관리</span>
+							</button>
+
 							<button
 								onClick={() => {
 									setIsTaskEditModalOpen(true);
 								}}
-								className='flex items-center justify-center gap-3 rounded-xl border-[0.1rem] border-solid border-gray-D pl-[1.2rem] pr-[1.6rem] text-gray-7'
+								className='flex h-[4rem] w-[11.6rem] flex-shrink-0 flex-row items-center justify-center gap-[0.8rem] rounded-[0.8rem] border-2 border-gray-D bg-white md:h-[3.6rem] md:w-[10.9rem] sm:h-[3rem] sm:w-[7.3rem]'
 							>
-								<Image alt='초대하기 버튼 플러스 아이콘' src={PlusIcon} className='items-center sm:hidden' />
-								<span className='text-12-500 sm:items-center sm:pl-2'>초대하기</span>
+								<Image
+									alt='초대하기 버튼 플러스 아이콘'
+									src={PlusIcon}
+									className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
+								/>
+								<span className='items-center text-16-500 text-gray-7'>초대하기</span>
 							</button>
-							{
-								<div className='h-[1.8rem] w-[1.8rem] rounded-[3rem] border-2 border-solid border-white'>
-									{/* {dashboard map (초대된 유저 프로필 모음) } */}
-								</div>
-							}
-							<Image alt='영역 나누는 라인 이미지' src={Vector} />
-							<Link href='/mypage' className='flex items-center justify-center gap-2'>
-								<div>
-									<Image
-										alt='프로필 이미지'
-										src={profileImageUrl}
-										className='relative h-[3.8rem] w-[3.8rem] rounded-[3rem] border-2 border-solid border-white bg-black-0 '
-									/>
-									<span className='absolute translate-x-[150%] translate-y-[-130%] text-16-600  text-white'>
-										{nickname.slice(0, 1)}
-									</span>
-								</div>
-								<span className='text-16-600 sm:hidden'>{nickname}</span>
-								<button
-									onClick={handleLogout}
-									className='flex cursor-pointer items-center justify-center gap-2 text-red-500'
-								>
-									로그아웃
-								</button>
-							</Link>
+
+							<div>
+								{/* <Image alt='프로필 이미지' src={profileImageUrl || ColorBlue} className='relative' /> */}
+								<span className='absolute items-center text-center text-16-600 text-white '>
+									{nickname.slice(0, 1)}
+								</span>
+							</div>
+							<Image alt='영역 나누는 라인 이미지' src={Vector} className='h-[3.8rem] ' />
+						</>
+					)}
+					<div className='flex flex-row items-center justify-center gap-[0.9rem]'>
+						<div
+							className='flex cursor-pointer items-center justify-center gap-2'
+							ref={dropDownRef}
+							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+						>
+							<div className='relative'>
+								{/* <Image alt='프로필 이미지' src={profileImageUrl || ColorBlue} className='relative' /> */}
+								<span className='text-16-600  text-white'>{nickname.slice(0, 1)}</span>
+							</div>
+							<span className='text-center text-16-600 sm:hidden'>{nickname}</span>
+							<div className='absolute translate-y-[5rem] pr-[2rem] sm:pr-[7rem]'>
+								{isDropdownOpen && <HeaderNavDropdown />}
+							</div>
 						</div>
-					</nav>
-				</div>
+					</div>
+				</nav>
 			</header>
-			<InviteModal dashboardId={id} isOpen={isTaskEditModalOpen} setIsOpen={setIsTaskEditModalOpen} />
+			<InviteModal isOpen={isTaskEditModalOpen} setIsOpen={setIsTaskEditModalOpen} />
 		</>
 	);
 }
