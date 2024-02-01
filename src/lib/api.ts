@@ -313,7 +313,10 @@ interface getMembersProps {
  * 대시보드 멤버 목록 조회
  */
 export async function getMembers({ page, size, dashboardId }: getMembersProps) {
-	const res = await authAxios.get<MembersGet>(`/members?page=${page}&size=${size}&dashboardId=${dashboardId}`);
+	const pageQuery = page ? `page=${page}&` : '';
+	const sizeQuery = size ? `size=${size}&` : '';
+
+	const res = await authAxios.get<MembersGet>(`/members?${pageQuery}${sizeQuery}dashboardId=${dashboardId}`);
 	return res.data;
 }
 
