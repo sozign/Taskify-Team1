@@ -1,21 +1,19 @@
-import { postInvitationDashboard } from '@/lib/api';
-import { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import Layout from './Layout';
+import FormInput from '../common/Input/FormInput';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../common/Buttons/Button';
-import FormInput from '../common/Input/FormInput';
-import Layout from './Layout';
 
 interface ModalProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	dashboardId: number;
 }
 
 interface FormValueProps {
 	email: string;
 }
 
-function InviteModal({ isOpen, setIsOpen, dashboardId }: ModalProps) {
+function InviteModal({ isOpen, setIsOpen }: ModalProps) {
 	const {
 		handleSubmit,
 		control,
@@ -34,11 +32,7 @@ function InviteModal({ isOpen, setIsOpen, dashboardId }: ModalProps) {
 	};
 
 	// 모달 1 폼 제출
-	const onSubmit: SubmitHandler<FormValueProps> = async (data) => {
-		const resData = await postInvitationDashboard(dashboardId, data);
-		console.log(resData);
-		setIsOpen((prev) => !prev);
-	};
+	const onSubmit: SubmitHandler<FormValueProps> = (data) => console.log(data);
 
 	// 모달 1 제출 가능 여부 관리
 	const isNoError = (obj: FieldErrors<FormValueProps>) => Object.keys(obj).length === 0;
