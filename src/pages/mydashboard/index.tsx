@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
 import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
 import addIcon from '@/../../Public/assets/addIcon.svg';
@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import ColorChip from '@/components/common/chips/ColorChip';
 import { postDashboard, getDashboards, getInvitations } from '@/lib/api';
 import done from '@/../Public/assets/done.svg';
-import { DashboardsGet } from '@/constants/types';
+import { DashboardsGet, InvitationDashboardData } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
 
@@ -34,7 +34,7 @@ export default function MyDashBoard() {
 		navigationMethod: 'pagination',
 	});
 	const [searchKeyword, setSearchKeyword] = useState('');
-
+	const [invitationList, setInvitationList] = useState<InvitationDashboardData[]>([]);
 	const RULES = {
 		dashboardName: {
 			required: '생성할 대시보드 제목을 입력해주세요.',
@@ -48,6 +48,7 @@ export default function MyDashBoard() {
 		},
 	});
 
+	const cursorId = useRef<number>(2812);
 	interface FormValue {
 		dashboardName: string;
 	}
@@ -65,6 +66,21 @@ export default function MyDashBoard() {
 		}
 	};
 
+	const initialInvitationListLoad = async () => {
+		const data = await getInvitations({ size: 10 });
+		cursorId.current = data.cursorId;
+		setInvitationList(data.invitations);
+	};
+	// const paginatedResults = async () => {
+	// 	const data = await getInvitations({ size: 10, cursorId });
+	// 	console.log(data);
+	// };
+
+	const handleSearch = async (keyword: string) => {
+		const data = await getInvitations({ title: keyword });
+		setInvitationList(data.invitations);
+	};
+
 	const colorList: Record<string, string> = {
 		green: '#7AC555',
 		purple: '#760DDE',
@@ -76,7 +92,8 @@ export default function MyDashBoard() {
 
 	useEffect(() => {
 		dashboardLoad();
-	}, [paginationInfo, searchKeyword]);
+		initialInvitationListLoad();
+	}, [paginationInfo]);
 
 	return (
 		<>
@@ -108,7 +125,7 @@ export default function MyDashBoard() {
 							setPaginationInfo={setPaginationInfo}
 						/>
 					</div>
-					<InvitationList setSearchKeyword={setSearchKeyword} />
+					<InvitationList invitationList={invitationList} onSearch={handleSearch} setSearchKeyword={setSearchKeyword} />
 				</div>
 
 				{/* 대시보드 추가 모달 */}
