@@ -1,6 +1,5 @@
 import arrowForward from '@/../Public/assets/arrowForward.svg';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
-import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
 import PageLayout from '@/components/common/PageLayout';
 import EditBox from '@/components/domains/edit/EditBox';
 import InvitationsBox from '@/components/domains/edit/InvitationsBox';
