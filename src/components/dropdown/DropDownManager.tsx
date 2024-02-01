@@ -1,84 +1,34 @@
-//{teamId}/members 의 nickname, profileImageUrl 데이터를 가져온다.
-import React, { useEffect, useState } from 'react';
+import { MembersData } from '@/constants/types';
+import React from 'react';
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form';
 import Select from 'react-select';
-import { getMockManagerData } from '@/components/dropdown/mockData';
 
-interface Option {
-	value: string;
-	label: JSX.Element;
+interface DropDownProps<T extends FieldValues> extends UseControllerProps<T> {
+	dashboardMemberList: MembersData[];
 }
 
-interface MemberData {
-	id: number;
-	userId: number;
-	email: string;
-	nickname: string;
-	profileImageUrl: string | null;
-	createdAt: string;
-	updatedAt: string;
-	isOwner: boolean;
-}
+const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, name }: DropDownProps<T>) => {
+	const options = dashboardMemberList.map((member) => ({
+		value: member.id + '',
+		label: <div>컴포넌트자리 {member.nickname}</div>,
+	}));
 
-const DropDownManager = () => {
-	const [selectValue, setSelectValue] = useState<string>('');
-	const [dynamicOptions, setDynamicOptions] = useState<Option[]>([]);
-	// const selectInputRef = useRef<HTMLInputElement>(null);
-	const [memberData, setMemberData] = useState<MemberData[] | null>(null);
-
-	const getDynamicOptions = (data: MemberData[] | null) => {
-		if (!data) return [];
-
-		return data.map((member) => {
-			const label = (
-				<div className='flex items-center '>
-					{member.profileImageUrl ? (
-						<img
-							className={`mr-[0.37rem] h-[1.625rem] w-[1.625rem] rounded-[50%]`}
-							src={member.profileImageUrl}
-							alt={`${member.nickname}'s profile`}
-						/>
-					) : (
-						'null'
-					)}
-					{member.nickname}
-				</div>
-			);
-
-			return {
-				value: member.nickname,
-				label: label,
-			};
-		});
-	};
-
-	const loadMembersData = async () => {
-		const { data } = await getMockManagerData();
-		setMemberData(data[0]?.members || null);
-	};
-
-	useEffect(() => {
-		loadMembersData();
-	}, []);
-
-	useEffect(() => {
-		setDynamicOptions(getDynamicOptions(memberData));
-	}, [memberData]);
+	const {
+		field: { onChange, onBlur, value, ref },
+	} = useController({ name, control, shouldUnregister: true });
 
 	return (
 		<>
 			<h3 className='mb-[1rem] text-18-500'>담당자</h3>
 			<Select
 				inputId='contact'
-				//react-hook-form 라이브러리 사용시 필수
-				// ref={ref}
-				onChange={(selectedOption: Option | null) => {
-					if (selectedOption) {
-						setSelectValue(selectedOption.value);
-					} else {
-						setSelectValue('');
-					}
+				onChange={(selectedOption) => {
+					onChange(+(selectedOption?.value ?? ''));
 				}}
-				options={dynamicOptions}
+				onBlur={onBlur}
+				value={options.find((option) => option.value === value)}
+				ref={ref}
+				options={options}
 				placeholder='선택하세요.'
 				className='mb-[3.2rem] w-[50%] rounded-md'
 				theme={(theme) => ({
@@ -89,6 +39,7 @@ const DropDownManager = () => {
 						primary: '#5534DA',
 					},
 				})}
+				// select 컴포넌트 커스텀
 				styles={{
 					control: (provided) => ({
 						...provided,
@@ -109,6 +60,7 @@ const DropDownManager = () => {
 					}),
 				}}
 				components={{
+					// 구분선 숨김
 					IndicatorSeparator: () => null,
 				}}
 			/>
