@@ -1,52 +1,75 @@
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { CardData, ColumnData } from '@/constants/types';
 import { getCards } from '@/lib/api';
-import { useEffect, useState } from 'react';
 import TaskCard from './TaskCard';
-import SquareChip from '@/components/common/chips/SquareChip';
 import bullet from '@/../Public/assets/bullet.svg';
 import setting from '@/../Public/assets/settingIcon.svg';
-import Image from 'next/image';
-import Link from 'next/link';
 import addIcon from '@/../../Public/assets/addIcon.svg';
-import { useRouter } from 'next/router';
+import SquareChip from '@/components/common/chips/SquareChip';
 
 interface ColumnProps {
 	columnItem: ColumnData;
 }
 
 export default function Column({ columnItem }: ColumnProps) {
-	const router = useRouter();
-	const { boardid } = router.query;
+	const [currentCardList, setCurrentCardList] = useState<CardData[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const trigger = useRef<HTMLDivElement>(null);
+	const cardListTotalCount = useRef<number>(0);
+	const cursorId = useRef<number | null>(0);
 
-	const [cardList, setCardList] = useState<CardData[] | null>(null);
+	async function reloadCardList() {
+		if (cursorId.current == null) return; // 더 불러올 값이 없을 경우
+		setIsLoading(true);
 
-	async function loadCardList(columnId: number) {
 		const query = {
 			size: 10,
-			cursorId: 0,
-			columnId,
+			cursorId: cursorId.current ?? 0,
+			columnId: columnItem.id,
 		};
 		const data = await getCards(query);
-		setCardList(data.cards);
+
+		setCurrentCardList((prevCardList) => {
+			return [...prevCardList, ...data.cards];
+		});
+		cardListTotalCount.current = data.totalCount;
+		cursorId.current = data.cursorId;
+
+		setIsLoading(false);
 	}
 
 	useEffect(() => {
-		loadCardList(columnItem.id);
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (!entry.isIntersecting) return;
+				if (isLoading) return;
+				reloadCardList();
+			});
+		});
+
+		if (!trigger.current) return;
+		observer.observe(trigger.current);
+
+		return () => {
+			if (!trigger.current) return;
+			observer.unobserve(trigger.current);
+		};
 	}, []);
 
-	if (!cardList) return;
+	if (!currentCardList) return;
 
 	return (
-		<div className=' w-[35.4rem] flex-shrink-0 border-b-[0.1rem] border-r-[0.1rem] bg-gray-F px-[2rem] pb-[2rem] pt-[2.2rem] md:container sm:container sm:px-[1.2rem] sm:pt-[1.7rem]'>
+		<div className='w-[35.4rem] flex-shrink-0 overflow-y-auto whitespace-nowrap border-b-[0.1rem] border-r-[0.1rem] bg-gray-F px-[2rem] pb-[2rem] pt-[2.2rem] md:container sm:container sm:px-[1.2rem] sm:pt-[1.7rem]'>
 			<div className='mb-[2.5rem] flex items-center justify-between sm:mb-[1.7rem] '>
 				<div className='flex items-center'>
 					<Image className='mr-[0.6rem]' alt='불렛모양 아이콘' src={bullet} />
 					<div className='sm:text-16-700 mr-[1.2rem] text-18-700 text-black-3'>{columnItem.title}</div>
-					<SquareChip color='gray'>{cardList.length}</SquareChip>
+					<SquareChip color='gray'>{cardListTotalCount.current}</SquareChip>
 				</div>
-				<Link href={`${boardid}/edit`}>
+				<button>
 					<Image alt='설정 아이콘' src={setting} />
-				</Link>
+				</button>
 			</div>
 			<div className='flex flex-col gap-[1.6rem]'>
 				<button className='flex justify-center rounded-[0.6rem] border-[0.1rem] border-gray-D bg-white py-[0.9rem]'>
@@ -54,9 +77,10 @@ export default function Column({ columnItem }: ColumnProps) {
 						<Image className='px-[0.6rem] py-[0.6rem]' fill src={addIcon} alt='추가하기 아이콘' />
 					</SquareChip>
 				</button>
-				{cardList.map((cardItem) => (
+				{currentCardList.map((cardItem) => (
 					<TaskCard key={cardItem.id} cardItem={cardItem} />
 				))}
+				<div ref={trigger}></div>
 			</div>
 		</div>
 	);
