@@ -10,12 +10,11 @@ import Layout from '@/components/modal/Layout';
 import Button from '@/components/common/Buttons/Button';
 import { useForm } from 'react-hook-form';
 import ColorChip from '@/components/common/chips/ColorChip';
-import { postDashboard, getDashboards } from '@/lib/api';
+import { postDashboard, getDashboards, getInvitations } from '@/lib/api';
 import done from '@/../Public/assets/done.svg';
 import { DashboardsGet } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
-import NotInvited from '@/components/domains/myDashBoard/NotInvited';
 
 interface getDashboardsProps {
 	page: number;
@@ -34,11 +33,14 @@ export default function MyDashBoard() {
 		size: 5,
 		navigationMethod: 'pagination',
 	});
+	const [searchKeyword, setSearchKeyword] = useState('');
+
 	const RULES = {
 		dashboardName: {
 			required: '생성할 대시보드 제목을 입력해주세요.',
 		},
 	};
+
 	const { control, getValues, handleSubmit } = useForm<FormValue>({
 		mode: 'onBlur',
 		defaultValues: {
@@ -70,13 +72,11 @@ export default function MyDashBoard() {
 		blue: '#76A6EA',
 		pink: '#E876EA',
 	};
-
 	const colorNameList = Object.keys(colorList);
 
 	useEffect(() => {
 		dashboardLoad();
-		console.log(dashBoardData);
-	}, [paginationInfo]);
+	}, [paginationInfo, searchKeyword]);
 
 	return (
 		<>
@@ -108,7 +108,7 @@ export default function MyDashBoard() {
 							setPaginationInfo={setPaginationInfo}
 						/>
 					</div>
-					<InvitationList />
+					<InvitationList setSearchKeyword={setSearchKeyword} />
 				</div>
 
 				{/* 대시보드 추가 모달 */}

@@ -2,7 +2,7 @@ import Button from '@/components/common/Buttons/Button';
 import Image from 'next/image';
 import searchIcon from '@../../../Public/assets/searchIcon.svg';
 
-function InvitationList() {
+function InvitationList({ setSearchKeyword }: { setSearchKeyword: React.Dispatch<React.SetStateAction<string>> }) {
 	return (
 		<div className='flex h-[100%] w-[102.2rem] flex-col gap-[2rem] rounded-[0.8rem]  bg-white px-[2.8rem] py-[3.2rem] md:w-[50.4rem] sm:w-[100%] sm:px-[2.4rem] sm:py-[2.4rem]'>
 			<h2 className='text-24-700 sm:text-20-600'>초대받은 대시보드</h2>
@@ -13,6 +13,7 @@ function InvitationList() {
 					alt='검색 아이콘'
 				/>
 				<input
+					onChange={(e) => setSearchKeyword(e.target.value)}
 					placeholder='검색'
 					className='w-[100%] rounded-[0.6rem] border border-gray-D px-[4.2rem] py-[1.1rem] text-14-500 sm:px-[4.4rem]'
 				/>
