@@ -1,7 +1,7 @@
 import PlusIcon from '@/../../Public/assets/PlusIcon.svg';
 import Vector from '@/../../Public/assets/Vector.svg';
 import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
-import { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import InviteModal from '@/components/modal/InviteModal';
 import { useRouter } from 'next/router';
 import HeaderNavDropdown from './HeaderNavDropdown';
