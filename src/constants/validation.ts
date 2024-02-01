@@ -31,6 +31,13 @@ export const VALIDATE_RULES = {
 		required: '비밀번호를 입력해 주세요.',
 		pattern: {},
 	},
+	checkPassword: {
+		required: '확인할 비밀번호를 입력해 주세요.',
+		pattern: {
+			value: VALIDATE_REGEX.password,
+			message: '비밀번호가 일치하지 않습니다.',
+		},
+	},
 	checkboxSignup: {
 		required: '이용약관에 동의해 주세요.',
 		pattern: {
