@@ -26,9 +26,7 @@ const DropDownManager = () => {
 	const [memberData, setMemberData] = useState<MemberData[] | null>(null);
 
 	const getDynamicOptions = (data: MemberData[] | null) => {
-		if (!data) {
-			return [];
-		}
+		if (!data) return [];
 
 		return data.map((member) => {
 			const label = (
@@ -66,13 +64,9 @@ const DropDownManager = () => {
 		setDynamicOptions(getDynamicOptions(memberData));
 	}, [memberData]);
 
-	useEffect(() => {
-		console.log('Select Value changed:', selectValue);
-	}, [selectValue]);
-
 	return (
 		<>
-			<h3 className='text-lg mb-2.5 text-12-500'>담당자</h3>
+			<h3 className='mb-[1rem] text-18-500'>담당자</h3>
 			<Select
 				inputId='contact'
 				//react-hook-form 라이브러리 사용시 필수
@@ -86,7 +80,7 @@ const DropDownManager = () => {
 				}}
 				options={dynamicOptions}
 				placeholder='선택하세요.'
-				className='css-b62m3t w-[13.6rem] rounded-md '
+				className='mb-[3.2rem] w-[50%] rounded-md'
 				theme={(theme) => ({
 					...theme,
 					borderRadius: 6,
@@ -96,10 +90,22 @@ const DropDownManager = () => {
 					},
 				})}
 				styles={{
+					control: (provided) => ({
+						...provided,
+						fontSize: '16px',
+						height: '50px',
+					}),
+					menu: (provided) => ({
+						...provided,
+						paddingTop: '13px',
+						paddingBottom: '13px',
+						fontSize: '16px',
+					}),
 					option: (base, { isFocused, isSelected }) => ({
 						...base,
 						backgroundColor: isFocused ? '#ccc' : isSelected ? 'transparent' : 'transparent',
 						color: isFocused || isSelected ? '#000' : base.color,
+						fontSize: '16px',
 					}),
 				}}
 				components={{
