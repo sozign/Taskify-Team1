@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { CardData, ColumnData } from '@/constants/types';
-import { getCards } from '@/lib/api';
+import { CardData, ColumnData, MembersData } from '@/constants/types';
+import { getCards, getMembers } from '@/lib/api';
 import TaskCard from './TaskCard';
 import bullet from '@/../Public/assets/bullet.svg';
 import setting from '@/../Public/assets/settingIcon.svg';
@@ -15,6 +15,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/common/Buttons/Button';
 import TagInput from '@/components/common/Input/TagInput';
+import DropDownManager from '@/components/dropdown/DropDownManager';
+import { useRouter } from 'next/router';
 
 /**
  * @TODO
@@ -35,10 +37,11 @@ const RULES = {
 	},
 };
 
-interface FormValue {
+export interface FormValue {
+	assigneeUserId: undefined | number;
 	title: string;
 	description: string;
-	date: string;
+	date: Date;
 	tag: string[];
 }
 
@@ -47,30 +50,22 @@ interface ColumnProps {
 }
 
 export default function Column({ columnItem }: ColumnProps) {
-	// 모달 1 열림, 닫힘 제어
-	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
+	const router = useRouter();
+	const boardId = +(router.query?.boardid ?? '');
 
-	// 모달 1 폼 제출 관리
-	const {
-		control,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<FormValue>({
-		mode: 'onBlur',
-		defaultValues: {
-			title: '',
-			description: '',
-			date: undefined,
-			tag: [],
-		},
-	});
+	// 대시보드 멤버 데이터 페칭
+	const [dashboardMemberList, setDashboardMemberList] = useState<MembersData[]>([]);
 
-	// 모달 1 폼 제출
-	const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+	async function loadDashboardMemberList() {
+		const data = await getMembers({ page: 0, size: 0, dashboardId: boardId });
+		setDashboardMemberList(data.members);
+	}
 
-	// 모달 1 제출 가능 여부 관리
-	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0;
+	useEffect(() => {
+		loadDashboardMemberList();
+	}, []);
 
+	// 컬럼 데이터 페칭 + 무한 스크롤
 	const [currentCardList, setCurrentCardList] = useState<CardData[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const trigger = useRef<HTMLDivElement>(null);
@@ -115,8 +110,26 @@ export default function Column({ columnItem }: ColumnProps) {
 		};
 	}, []);
 
-	if (!currentCardList) return;
+	// 모달 관련
+	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<FormValue>({
+		mode: 'onBlur',
+		defaultValues: {
+			assigneeUserId: undefined,
+			title: '',
+			description: '',
+			date: undefined,
+			tag: [],
+		},
+	});
+	const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0;
 
+	if (!currentCardList) return;
 	return (
 		<>
 			<div className='w-[35.4rem] flex-shrink-0 overflow-y-auto whitespace-nowrap border-b-[0.1rem] border-r-[0.1rem] bg-gray-F px-[2rem] pb-[2rem] pt-[2.2rem] md:container sm:container sm:px-[1.2rem] sm:pt-[1.7rem]'>
@@ -144,13 +157,18 @@ export default function Column({ columnItem }: ColumnProps) {
 					{currentCardList.map((cardItem) => (
 						<TaskCard key={cardItem.id} cardItem={cardItem} />
 					))}
-					<div ref={trigger}></div>
+					<div ref={trigger} />
 				</div>
 			</div>
 
 			{/* 할 일 생성 모달 */}
-			<Layout $modalType='Modal' title='할 일 수정' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
+			<Layout $modalType='Modal' title='할 일 생성' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
 				<form onSubmit={handleSubmit(onSubmit)}>
+					<DropDownManager<FormValue>
+						name='assigneeUserId'
+						dashboardMemberList={dashboardMemberList}
+						control={control}
+					/>
 					<FormInput<FormValue>
 						label='제목'
 						name='title'
@@ -165,6 +183,7 @@ export default function Column({ columnItem }: ColumnProps) {
 						control={control}
 						rules={RULES.description}
 						required={!!('required' in RULES.description)}
+						className='mt-[2.4rem]'
 					/>
 
 					<Controller
@@ -173,7 +192,7 @@ export default function Column({ columnItem }: ColumnProps) {
 						shouldUnregister={true}
 						render={({ field: { ref, value, onChange } }) => (
 							<>
-								<p className='mt-[1rem] text-18-500'>마감일</p>
+								<p className='mt-[2.4rem] text-18-500'>마감일</p>
 								<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] flex-row gap-[1rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top  text-16-400  '>
 									<Image
 										className='h-auto w-auto'
@@ -200,7 +219,7 @@ export default function Column({ columnItem }: ColumnProps) {
 							</>
 						)}
 					/>
-					<TagInput className='mt-[2rem]' control={control} label='태그' />
+					<TagInput className='mt-[3.2rem]' control={control} label='태그' />
 
 					<div className='mt-[2.8rem] flex flex-row justify-end gap-[1.2rem]'>
 						<Button
