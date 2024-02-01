@@ -4,7 +4,7 @@ import searchIcon from '@../../../Public/assets/searchIcon.svg';
 
 function InvitationList() {
 	return (
-		<div className='flex h-[100%] w-[102.2rem] flex-col gap-[2rem] rounded-[0.8rem]  bg-white px-[2.8rem] py-[3.2rem] md:w-[100%] sm:gap-[10.5rem] sm:px-[2.4rem] sm:py-[2.4rem]'>
+		<div className='flex h-[100%] w-[102.2rem] flex-col gap-[2rem] rounded-[0.8rem]  bg-white px-[2.8rem] py-[3.2rem] md:w-[50.4rem] sm:w-[100%] sm:px-[2.4rem] sm:py-[2.4rem]'>
 			<h2 className='text-24-700 sm:text-20-600'>초대받은 대시보드</h2>
 			<div className='relative'>
 				<Image
@@ -17,22 +17,44 @@ function InvitationList() {
 					className='w-[100%] rounded-[0.6rem] border border-gray-D px-[4.2rem] py-[1.1rem] text-14-500 sm:px-[4.4rem]'
 				/>
 			</div>
-			<div className='mt-[0.4rem] flex items-center justify-start text-16-400 text-gray-9 '>
-				<div className='mr-[6rem] flex-grow'>이름</div>
-				<div className='flex-grow'>초대자</div>
-				<div className='flex-grow'>수락여부</div>
-			</div>
 
-			<div className='flex items-center justify-around border-b py-[2.7rem] text-16-500 text-black-3'>
-				<div className='flex-grow'>프로덕트 디자인</div>
-				<div className='flex-grow'>손동희</div>
-				<div className='flex flex-grow gap-[1rem]'>
-					<Button variant='confirm' color='violet'>
-						수락
-					</Button>
-					<Button variant='confirm' color='white'>
-						거절
-					</Button>
+			<div>
+				<div className='flex items-center justify-start gap-[26rem] py-[0.4rem] text-16-400 text-gray-9 md:gap-[6rem] sm:hidden'>
+					<div className='mr-[10rem] md:mr-[9.2rem]'>이름</div>
+					<div className=''>초대자</div>
+					<div className=''>수락여부</div>
+				</div>
+				<div className=' sm: flex  items-center border-b py-[2rem] text-16-500 text-black-3 sm:flex-col  sm:items-start sm:py-[0]'>
+					<div className=' flex w-[39.1rem] items-center justify-start md:w-[19rem] sm:mb-[1rem] sm:mt-[0.4rem]'>
+						<span className='hidden text-14-500 text-gray-9 sm:mr-[2.8rem]  sm:block'>이름</span>프로덕트 디자인
+					</div>
+					<div className='flex w-[30.8rem] md:w-[11.6rem] '>
+						<span className='hidden text-14-500 text-gray-9 sm:mr-[1.3rem] sm:block'>초대자</span>손동희
+					</div>
+					<div className='flex gap-[1rem]  sm:py-[1.6rem]'>
+						<Button variant='confirm' color='violet'>
+							수락
+						</Button>
+						<Button variant='confirm' color='white'>
+							거절
+						</Button>
+					</div>
+				</div>
+				<div className=' sm: flex  items-center border-b py-[2rem] text-16-500 text-black-3 sm:flex-col  sm:items-start sm:py-[0]'>
+					<div className=' flex w-[39.1rem] items-center justify-start md:w-[19rem] sm:mb-[1rem] sm:mt-[0.4rem]'>
+						<span className='hidden text-14-500 text-gray-9 sm:mr-[2.8rem]  sm:block'>이름</span>프로덕트 디자인
+					</div>
+					<div className='flex w-[30.8rem] md:w-[11.6rem] '>
+						<span className='hidden text-14-500 text-gray-9 sm:mr-[1.3rem] sm:block'>초대자</span>손동희
+					</div>
+					<div className='flex gap-[1rem]  sm:py-[1.6rem]'>
+						<Button variant='confirm' color='violet'>
+							수락
+						</Button>
+						<Button variant='confirm' color='white'>
+							거절
+						</Button>
+					</div>
 				</div>
 			</div>
 		</div>
