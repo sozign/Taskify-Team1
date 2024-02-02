@@ -15,7 +15,9 @@ interface ButtonProps {
 
 function Button({ type, color, className, onClick, children, variant, disabled = true }: ButtonProps) {
 	let combinedClassName = '';
-
+	const hoverStyles = {
+		cursor: 'pointer',
+	};
 	switch (color) {
 		case 'violet':
 			combinedClassName += ' flex justify-center items-center rounded-md bg-violet-5 text-white ';
@@ -60,6 +62,7 @@ function Button({ type, color, className, onClick, children, variant, disabled =
 			type={type || 'button'}
 			className={`${combinedClassName} ${className}`}
 			onClick={onClick}
+			style={hoverStyles}
 		>
 			{children}
 		</button>

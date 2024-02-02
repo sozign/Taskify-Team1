@@ -1,7 +1,13 @@
 import Button from '@/components/common/Buttons/Button';
-import { InvitationDashboardData } from '@/constants/types';
+import { InvitationDashboardData, InvitationPut } from '@/constants/types';
+import { putInvitations } from '@/lib/api';
+import { useEffect, useState } from 'react';
 
 function Invitation({ invitation }: { invitation: InvitationDashboardData }) {
+	const handleInvitationResponse = async (inviteAccepted: InvitationPut) => {
+		await putInvitations(invitation.id, { inviteAccepted });
+	};
+
 	return (
 		<div
 			key={invitation.id}
@@ -16,10 +22,10 @@ function Invitation({ invitation }: { invitation: InvitationDashboardData }) {
 				{invitation.inviter.nickname}
 			</div>
 			<div className='flex gap-[1rem]  sm:py-[1.6rem]'>
-				<Button variant='confirm' color='violet'>
+				<Button disabled={false} onClick={() => handleInvitationResponse(true)} variant='confirm' color='violet'>
 					수락
 				</Button>
-				<Button variant='confirm' color='white'>
+				<Button disabled={false} onClick={() => handleInvitationResponse(false)} variant='confirm' color='white'>
 					거절
 				</Button>
 			</div>

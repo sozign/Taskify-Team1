@@ -12,19 +12,16 @@ function InvitationList({
 	invitationList: InvitationDashboardData[];
 	setInvitationList: React.Dispatch<React.SetStateAction<InvitationDashboardData[]>>;
 }) {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [searchKeyword, setSearchKeyword] = useState('');
 	const cursorId = useRef<number>(0);
 	const lastElementRef = useRef<HTMLDivElement>(null);
 
 	// 추가 초대 요청
 	const loadMoreInvitations = async () => {
 		if (cursorId.current == null) return;
-		setIsLoading(true);
 		const data = await getInvitations({ size: 2, cursorId: cursorId.current });
 		cursorId.current = data.cursorId;
 		setInvitationList((prevList) => [...prevList, ...data.invitations]);
-		setIsLoading(false);
+		console.log(data.invitations);
 	};
 
 	// 검색 요청
@@ -34,25 +31,22 @@ function InvitationList({
 	};
 
 	useEffect(() => {
-		if (searchKeyword === '') {
-			const intersectionObserver = new IntersectionObserver((entries) => {
-				entries.forEach((entry) => {
-					if (!entry.isIntersecting) return;
-					if (isLoading) return;
-					loadMoreInvitations();
-				});
+		const intersectionObserver = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (!entry.isIntersecting) return;
+				loadMoreInvitations();
 			});
+		});
 
-			if (lastElementRef.current) {
-				intersectionObserver.observe(lastElementRef.current);
-			}
-
-			return () => {
-				if (lastElementRef.current) {
-					intersectionObserver.unobserve(lastElementRef.current);
-				}
-			};
+		if (lastElementRef.current) {
+			intersectionObserver.observe(lastElementRef.current);
 		}
+
+		return () => {
+			if (lastElementRef.current) {
+				intersectionObserver.unobserve(lastElementRef.current);
+			}
+		};
 	}, [cursorId.current]);
 
 	return (
@@ -79,8 +73,9 @@ function InvitationList({
 					<div className=''>초대자</div>
 					<div className=''>수락여부</div>
 				</div>
+
 				{invitationList.map((invitation) => (
-					<Invitation invitation={invitation} key={invitation.id} />
+					<Invitation setInvitationList={setInvitationList} invitation={invitation} key={invitation.id} />
 				))}
 				<div ref={lastElementRef}></div>
 			</div>
