@@ -148,8 +148,9 @@ export default function Column({ columnItem }: ColumnProps) {
 				imageUrl: uploadedImage.imageUrl,
 			};
 			postCards(dataWithImageUrl as CardItemPost);
+		} else {
+			postCards(filteredData as CardItesmPost);
 		}
-		postCards(filteredData as CardItesmPost);
 	};
 	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0;
 
