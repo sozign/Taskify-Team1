@@ -1,4 +1,5 @@
 import arrowForward from '@/../Public/assets/arrowForward.svg';
+import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
 import PageLayout from '@/components/common/PageLayout';
 import EditBox from '@/components/domains/edit/EditBox';
@@ -120,7 +121,7 @@ export default function DashBoardEdit() {
 	return (
 		<PageLayout boardId={boardId}>
 			<div className='flex h-fit min-h-full w-full flex-col gap-[2rem] bg-gray-F pb-[5.6rem] md:pb-[4.8rem] sm:gap-[1.7rem] sm:pb-[2.4rem]'>
-				<MyDashboardHeader title={dashboardInfo.title} nickname={myInfo.nickname} profileImageUrl={''} />
+				<DashboardHeader id={boardId} title={dashboardInfo.title} nickname={myInfo.nickname} profileImageUrl={''} />
 				<Link
 					href={`/dashboard/${boardId}`}
 					className='ml-[2rem] flex h-fit w-fit items-center justify-center gap-[0.6rem]'

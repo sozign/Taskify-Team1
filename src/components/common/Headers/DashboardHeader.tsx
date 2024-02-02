@@ -82,7 +82,7 @@ export default function DashboardHeader({ id, title, nickname, profileImageUrl }
 					</nav>
 				</div>
 			</header>
-			<InviteModal isOpen={isTaskEditModalOpen} setIsOpen={setIsTaskEditModalOpen} />
+			<InviteModal dashboardId={id} isOpen={isTaskEditModalOpen} setIsOpen={setIsTaskEditModalOpen} />
 		</>
 	);
 }
