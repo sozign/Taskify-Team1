@@ -9,7 +9,7 @@ interface DropDownProps<T extends FieldValues> extends UseControllerProps<T> {
 
 const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, name }: DropDownProps<T>) => {
 	const options = dashboardMemberList.map((member) => ({
-		value: member.id + '',
+		value: member.userId + '',
 		label: <div>컴포넌트자리 {member.nickname}</div>,
 	}));
 
