@@ -17,6 +17,7 @@ import PageLayout from '@/components/common/PageLayout';
 import NotInvited from '@/components/domains/myDashBoard/NotInvited';
 import { getInvitations } from '@/lib/api';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
+import InvitationList from '@/components/domains/myDashBoard/InvitationList';
 
 interface getDashboardsProps {
 	page: number;
