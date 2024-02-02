@@ -25,7 +25,7 @@ import {
 	UserInfo,
 	UsersProfileImagePost,
 } from '@/constants/types';
-import { authInstance as authAxios, instance as axios } from './axios';
+import { authInstance as authAxios, instance as axios, authInstanceWithMedia as axiosMedia } from './axios';
 
 //===============================
 //============Auth===============
@@ -147,8 +147,12 @@ export async function deleteColumn(columnId: number) {
 /**
  * 카드 이미지 업로드
  */
-export async function postCardImage(columnId: number, imageFile: ImagePost) {
-	const res = await authAxios.post<CardImageGet>(`/columns/${columnId}/card-image`, imageFile);
+export async function postCardImage(columnId: number, imageFile: File) {
+	const imageData = new FormData();
+	imageData.append('image', imageFile);
+	console.dir(imageData);
+
+	const res = await axiosMedia.post<CardImageGet>(`/columns/${columnId}/card-image`, imageData);
 	return res.data;
 }
 
@@ -313,7 +317,10 @@ interface getMembersProps {
  * 대시보드 멤버 목록 조회
  */
 export async function getMembers({ page, size, dashboardId }: getMembersProps) {
-	const res = await authAxios.get<MembersGet>(`/members?page=${page}&size=${size}&dashboardId=${dashboardId}`);
+	const pageQuery = page ? `page=${page}&` : '';
+	const sizeQuery = size ? `size=${size}&` : '';
+
+	const res = await authAxios.get<MembersGet>(`/members?${pageQuery}${sizeQuery}dashboardId=${dashboardId}`);
 	return res.data;
 }
 

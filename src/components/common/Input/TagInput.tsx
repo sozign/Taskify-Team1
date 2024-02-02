@@ -1,14 +1,7 @@
 import { useState } from 'react';
 import { Control, useController } from 'react-hook-form';
 import TagChip from '../chips/TagChip';
-
-/**
- * @todo
- * Form 사용처로 interface 올리기
- */
-interface FormValue {
-	tag: string[];
-}
+import { FormValue } from '@/components/domains/dashboard/Column';
 
 interface TagInputProps {
 	label: string;
@@ -26,7 +19,7 @@ interface TagInputProps {
 export default function TagInput({ label, control, className }: TagInputProps) {
 	const {
 		field: { value: tagList, onChange: changeTagList },
-	} = useController({ name: 'tag', control, shouldUnregister: true });
+	} = useController({ name: 'tags', control, shouldUnregister: true });
 	const [tagItem, setTagItem] = useState<string>('');
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

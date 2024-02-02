@@ -8,7 +8,7 @@ const stringToNumber = (str: string): number => {
 
 	// 정규화 및 0~4까지의 값으로 변환
 	const normalizedValue = (hash % 1000) / 1000; // 0부터 1 사이의 값
-	const mappedNumber = Math.floor(normalizedValue * 5); // 0부터 4 사이의 값
+	const mappedNumber = Math.floor(normalizedValue * 4); // 0부터 3 사이의 값
 
 	return mappedNumber;
 };
