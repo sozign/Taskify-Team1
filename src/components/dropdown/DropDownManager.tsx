@@ -29,7 +29,7 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 				value={options.find((option) => option.value === value)}
 				ref={ref}
 				options={options}
-				placeholder='선택하세요.'
+				placeholder='이름을 입력해 주세요'
 				className='mb-[3.2rem] w-[50%] rounded-md'
 				theme={(theme) => ({
 					...theme,
@@ -41,6 +41,14 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 				})}
 				// select 컴포넌트 커스텀
 				styles={{
+					dropdownIndicator: (provided) => ({
+						...provided,
+						color: '#333236',
+					}),
+					placeholder: (provided) => ({
+						...provided,
+						color: '#D9D9D9',
+					}),
 					control: (provided) => ({
 						...provided,
 						fontSize: '16px',
