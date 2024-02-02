@@ -19,7 +19,7 @@ interface TagInputProps {
 export default function TagInput({ label, control, className }: TagInputProps) {
 	const {
 		field: { value: tagList, onChange: changeTagList },
-	} = useController({ name: 'tag', control, shouldUnregister: true });
+	} = useController({ name: 'tags', control, shouldUnregister: true });
 	const [tagItem, setTagItem] = useState<string>('');
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

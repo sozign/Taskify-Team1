@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { CardData, ColumnData, MembersData } from '@/constants/types';
-import { getCards, getMembers } from '@/lib/api';
+import { CardData, CardItemPost, ColumnData, MembersData } from '@/constants/types';
+import { getCards, getMembers, postCardImage, postCards } from '@/lib/api';
 import TaskCard from './TaskCard';
 import bullet from '@/../Public/assets/bullet.svg';
 import setting from '@/../Public/assets/settingIcon.svg';
 import addIcon from '@/../../Public/assets/addIcon.svg';
 import SquareChip from '@/components/common/chips/SquareChip';
+import { format } from 'date-fns';
 
 import { useForm, SubmitHandler, Controller, FieldErrors } from 'react-hook-form';
 import Layout from '@/components/modal/Layout';
@@ -17,6 +18,10 @@ import Button from '@/components/common/Buttons/Button';
 import TagInput from '@/components/common/Input/TagInput';
 import DropDownManager from '@/components/dropdown/DropDownManager';
 import { useRouter } from 'next/router';
+
+export interface FormValue extends Omit<CardItemPost, 'dueDate'> {
+	dueDate: Date;
+}
 
 /**
  * @TODO
@@ -36,14 +41,6 @@ const RULES = {
 		max: { value: 99, message: '99 초과의 값을 입력할 수 없습니다.' },
 	},
 };
-
-export interface FormValue {
-	assigneeUserId: undefined | number;
-	title: string;
-	description: string;
-	date: Date;
-	tag: string[];
-}
 
 interface ColumnProps {
 	columnItem: ColumnData;
@@ -111,22 +108,49 @@ export default function Column({ columnItem }: ColumnProps) {
 	}, []);
 
 	// 모달 관련
+
 	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
 	const {
 		control,
+		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormValue>({
 		mode: 'onBlur',
 		defaultValues: {
-			assigneeUserId: undefined,
+			dashboardId: boardId,
+			columnId: columnItem.id,
 			title: '',
 			description: '',
-			date: undefined,
-			tag: [],
+			tags: [],
+			assigneeUserId: undefined,
+			dueDate: undefined,
+			imageUrl: undefined,
 		},
 	});
-	const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+	const onSubmit: SubmitHandler<FormValue> = async (data) => {
+		const formattedDueDate = data.dueDate ? format(data.dueDate, 'yyyy-MM-dd HH:mm') : undefined;
+
+		const newData = {
+			...data,
+			dueDate: formattedDueDate,
+		};
+
+		const filteredData = Object.fromEntries(Object.entries(newData).filter(([, value]) => value !== undefined));
+		/**
+		 * @Todo
+		 * entries 순회 후 type 깨짐 이슈 해결
+		 */
+		if (filteredData?.imageUrl) {
+			const uploadedImage = await postCardImage(columnItem.id, filteredData?.imageUrl[0]);
+			const dataWithImageUrl = {
+				...filteredData,
+				imageUrl: uploadedImage.imageUrl,
+			};
+			postCards(dataWithImageUrl as CardItemPost);
+		}
+		postCards(filteredData as CardItesmPost);
+	};
 	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0;
 
 	if (!currentCardList) return;
@@ -176,7 +200,6 @@ export default function Column({ columnItem }: ColumnProps) {
 						rules={RULES.title}
 						required={!!('required' in RULES.title)}
 					/>
-
 					<FormInput<FormValue>
 						label='설명'
 						name='description'
@@ -185,9 +208,8 @@ export default function Column({ columnItem }: ColumnProps) {
 						required={!!('required' in RULES.description)}
 						className='mt-[2.4rem]'
 					/>
-
 					<Controller
-						name='date'
+						name='dueDate'
 						control={control}
 						shouldUnregister={true}
 						render={({ field: { ref, value, onChange } }) => (
@@ -220,7 +242,22 @@ export default function Column({ columnItem }: ColumnProps) {
 						)}
 					/>
 					<TagInput className='mt-[3.2rem]' control={control} label='태그' />
-
+					<div>
+						<p className='mt-[3.2rem] text-18-500'>이미지</p>
+						<label
+							className='mt-[1rem] flex h-[7.6rem] w-[7.6rem] cursor-pointer items-center justify-center rounded-[0.6rem] bg-gray-F'
+							htmlFor='inputFile'
+						>
+							<Image className='px-[0.6rem] py-[0.6rem]' width={28} height={28} src={addIcon} alt='추가하기 아이콘' />
+						</label>
+						<input
+							{...register('imageUrl')}
+							className='hidden'
+							id='inputFile'
+							type='file'
+							accept='image/jpeg, image/jpg, image/png'
+						/>
+					</div>
 					<div className='mt-[2.8rem] flex flex-row justify-end gap-[1.2rem]'>
 						<Button
 							onClick={() => {
