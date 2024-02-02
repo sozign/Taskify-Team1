@@ -128,18 +128,23 @@ export default function Column({ columnItem }: ColumnProps) {
 			dueDate: formattedDueDate,
 		};
 
-		// 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 post 요청
 		/**
 		 * @Todo
 		 * entries 순회 후 type 깨짐 이슈 해결
 		 */
+
+		type Entries<T> = {
+			[K in keyof T]: [K, T[K]];
+		}[keyof T][];
+
+		// 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 post 요청
 		const filteredData = Object.fromEntries(
 			Object.entries(newData).filter(([key, value]) => {
 				if (key === 'imageUrl' && value instanceof FileList) {
 					return value.length > 0;
 				}
 				return value !== undefined;
-			}),
+			}) as Entries<FormValue>[],
 		);
 
 		// 이미지를 전송해야하는 경우 postCardImage 단계가 추가
@@ -152,7 +157,7 @@ export default function Column({ columnItem }: ColumnProps) {
 			postCards(dataWithImageUrl as CardItemPost);
 		} else {
 			// 이미지가 없는 할 일인 경우 바로 전송
-			postCards(filteredData as CardItesmPost);
+			postCards(filteredData as CardItemPost);
 		}
 	};
 	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0;
