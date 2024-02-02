@@ -53,7 +53,7 @@ function InvitationList({
 	}, [cursorId.current]);
 
 	return (
-		<div className='flex h-[100%] w-[102.2rem] flex-col gap-[2rem] rounded-[0.8rem]  bg-white px-[2.8rem] py-[3.2rem] md:w-[50.4rem] sm:w-[100%] sm:px-[2.4rem] sm:py-[2.4rem]'>
+		<div className='flex h-[100%] w-[102.2rem] flex-col gap-[2rem] rounded-[0.8rem]  bg-white px-[2.8rem] py-[3.2rem] md:w-[100%] sm:w-[100%] sm:px-[2.4rem] sm:py-[2.4rem]'>
 			<h2 className='text-24-700 sm:text-20-600'>초대받은 대시보드</h2>
 			<div className='relative'>
 				<Image
@@ -71,15 +71,16 @@ function InvitationList({
 			</div>
 
 			<div>
-				<div className='flex items-center justify-start gap-[26rem] py-[0.4rem] text-16-400 text-gray-9 md:gap-[6rem] sm:hidden'>
-					<div className='mr-[10rem] md:mr-[9.2rem]'>이름</div>
-					<div className=''>초대자</div>
-					<div className=''>수락여부</div>
-				</div>
-
-				{invitationList.map((invitation) => (
-					<Invitation invitation={invitation} key={invitation.id} />
-				))}
+				<ul className='flex items-center  justify-between py-[0.4rem] text-16-400 text-gray-9 md:w-[100%]  sm:hidden'>
+					<li className=' w-1/3'>이름</li>
+					<li className='w-1/3'>초대자</li>
+					<li className='w-1/3'>수락여부</li>
+				</ul>
+				<ul className='flex flex-col  sm:w-[100%]'>
+					{invitationList.map((invitation) => (
+						<Invitation invitation={invitation} key={invitation.id} />
+					))}
+				</ul>
 				<div ref={lastElementRef}></div>
 			</div>
 		</div>

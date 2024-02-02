@@ -98,11 +98,8 @@ export default function MyDashBoard() {
 							setPaginationPage={setPaginationPage}
 						/>
 					</div>
-					{invitationList.length === 0 ? (
-						<NotInvited />
-					) : (
-						<InvitationList setInvitationList={setInvitationList} invitationList={invitationList} />
-					)}
+
+					<InvitationList setInvitationList={setInvitationList} invitationList={invitationList} />
 				</div>
 
 				{/* 대시보드 추가 모달 */}
