@@ -1,16 +1,17 @@
-import { MembersData, MembersGet } from '@/constants/types';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { MembersGet } from '@/constants/types';
+import { getInvitationsDashboardProps } from '@/lib/api';
+import { Dispatch, SetStateAction } from 'react';
 import EditPaginationButton from './EditPaginationButton';
 import Member from './Member';
-import { getInvitationsDashboardProps } from '@/lib/api';
 
 interface MemberBoxProps {
+	hostId: number;
 	members: MembersGet;
 	paginationInfo: getInvitationsDashboardProps;
 	setPaginationInfo: Dispatch<SetStateAction<getInvitationsDashboardProps>>;
 }
 
-function MemberBox({ members, paginationInfo, setPaginationInfo }: MemberBoxProps) {
+function MemberBox({ hostId, members, paginationInfo, setPaginationInfo }: MemberBoxProps) {
 	return (
 		<div className='mx-[2rem] flex h-fit min-h-[40.4rem] w-[62rem] flex-shrink-0 flex-col rounded-[0.8rem] bg-white px-[2.8rem] pb-[2rem] pt-[2.6rem] sm:mx-[1.2rem] sm:min-h-[33.7rem]'>
 			<div className='mb-[2.7rem] flex items-center justify-between sm:mb-[1.8rem]'>
@@ -29,7 +30,7 @@ function MemberBox({ members, paginationInfo, setPaginationInfo }: MemberBoxProp
 			<div>
 				{members.members.map((member, index) => (
 					<>
-						<Member key={member.id} memberData={member} />
+						<Member key={member.id} hostId={hostId} memberData={member} />
 						{(index + 1) % 4 !== 0 && (
 							<div className='mb-[1.5rem] mt-[1.6rem] border border-t-0 border-gray-E sm:mb-[1.1rem] sm:mt-[1.2rem]' />
 						)}

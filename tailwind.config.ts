@@ -78,6 +78,12 @@ const config: Config = {
 			],
 
 			//fontsize: 18px
+			'18-400': [
+				'1.8rem',
+				{
+					fontWeight: '400',
+				},
+			],
 			'18-500': [
 				'1.8rem',
 				{

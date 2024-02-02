@@ -43,7 +43,7 @@ function Button({ type, color, className, onClick, children, variant, disabled =
 			break;
 		case 'confirm':
 			combinedClassName +=
-				' w-[8.4rem] h-[3.2rem] text-14-500 md:w-[7.2rem] md:h-[3rem] sm:w-[10.9rem] sm:h-[2.8rem] text-12-500  ';
+				' w-[8.4rem] h-[3.2rem] text-14-500 md:w-[7.2rem] md:h-[3rem] sm:w-[10.9rem] sm:h-[2.8rem] sm:text-12-500  ';
 			break;
 		case 'commentInput':
 			combinedClassName +=

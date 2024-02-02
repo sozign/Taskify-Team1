@@ -21,11 +21,12 @@ import { useEffect, useState } from 'react';
 export default function DashBoardEdit() {
 	const router = useRouter();
 	const boardId = +(router.query.boardid ?? 0);
+	console.log(boardId);
 
 	const [dashboardInfo, setDashboardInfo] = useState<DashboardData>({
 		id: boardId,
 		title: '',
-		color: '',
+		color: '#7AC555',
 		createdAt: '',
 		updatedAt: '',
 		createdByMe: true,
@@ -62,7 +63,7 @@ export default function DashBoardEdit() {
 		try {
 			const resData = await getUsers();
 			setMyInfo(resData);
-			console.log(resData);
+			console.log('내 정보 로드', resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -72,7 +73,7 @@ export default function DashBoardEdit() {
 		try {
 			const resData = await getDashboardItem(dashboardId);
 			setDashboardInfo(resData);
-			console.log(resData);
+			console.log('대시보드 로드', resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -82,7 +83,7 @@ export default function DashBoardEdit() {
 		try {
 			const resData = await getMembers(membersPagination);
 			setMembers(resData);
-			console.log(resData);
+			console.log('대시보드 멤버 목록 로드', resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -92,7 +93,7 @@ export default function DashBoardEdit() {
 		try {
 			const resData = await getInvitationsDashboard(invitationsPagination);
 			setInvitationsDashboard(resData);
-			console.log(resData);
+			console.log('대시보드 초대 목록 로드', resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -103,6 +104,11 @@ export default function DashBoardEdit() {
 		loadDashboardMembersData(membersPagination);
 		loadInvitationsDashboardData(invitationsPagination);
 		loadMyInfo();
+	}, []);
+
+	useEffect(() => {
+		loadDashboardMembersData(membersPagination);
+		loadInvitationsDashboardData(invitationsPagination);
 	}, [membersPagination, invitationsPagination]);
 
 	async function handleDelete(dashboardId: number) {
@@ -123,9 +129,20 @@ export default function DashBoardEdit() {
 					<span className='text-16-500 text-black-3 sm:text-14-500'>돌아가기</span>
 				</Link>
 				<div className='flex flex-col gap-[1.2rem] sm:gap-[1.1rem]'>
-					<EditBox title={dashboardInfo?.title} color={dashboardInfo?.color} />
-					<MemberBox members={members} paginationInfo={membersPagination} setPaginationInfo={setMembersPagination} />
+					<EditBox
+						loadDashboardData={loadDashboardData}
+						dashboardId={boardId}
+						title={dashboardInfo.title}
+						color={dashboardInfo.color}
+					/>
+					<MemberBox
+						hostId={dashboardInfo.userId}
+						members={members}
+						paginationInfo={membersPagination}
+						setPaginationInfo={setMembersPagination}
+					/>
 					<InvitationsBox
+						dashboardId={boardId}
 						paginationInfo={invitationsPagination}
 						setPaginationInfo={setInvitationsPagination}
 						invitations={invitationsDashboard}

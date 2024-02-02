@@ -1,9 +1,20 @@
 import { MembersData } from '@/constants/types';
 import Image from 'next/image';
 import Button from '../../common/Buttons/Button';
+import { deleteMembers } from '@/lib/api';
+import Crown from '@/../../Public/assets/royalCrownIcon.svg';
 
-function Member({ memberData }: { memberData: MembersData }) {
-	// 삭제 버튼 클릭하면 대시보드 멤버 구성원 삭제 요청
+interface MemberProps {
+	memberData: MembersData;
+	hostId: number;
+}
+
+function Member({ hostId, memberData }: MemberProps) {
+	async function handleDeleteMember(memberId: number) {
+		const resStatus = await deleteMembers(memberId);
+		console.log(resStatus);
+	}
+
 	return (
 		<div className='flex h-[3.8rem] w-full items-center justify-between sm:h-[3.4rem]'>
 			<div className='flex items-center gap-[1.2rem] sm:gap-[0.8rem]'>
@@ -18,9 +29,21 @@ function Member({ memberData }: { memberData: MembersData }) {
 				</div>
 				<span className='text-16-400 sm:text-14-400'>{memberData.nickname}</span>
 			</div>
-			<Button color='white' variant='delete-lg' className='cursor-pointer sm:w-[5.2rem] sm:text-12-500'>
-				삭제
-			</Button>
+			{hostId === memberData.userId ? (
+				<div className='flex w-[8.4rem] justify-center'>
+					<Image src={Crown} alt='대시보드 주인 왕관' height={32} />
+				</div>
+			) : (
+				<Button
+					onClick={() => handleDeleteMember(memberData.id)}
+					disabled={false}
+					color='white'
+					variant='delete-lg'
+					className='sm:w-[5.2rem] sm:text-12-500'
+				>
+					삭제
+				</Button>
+			)}
 		</div>
 	);
 }
