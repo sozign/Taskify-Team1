@@ -129,18 +129,28 @@ export default function Column({ columnItem }: ColumnProps) {
 		},
 	});
 	const onSubmit: SubmitHandler<FormValue> = async (data) => {
+		//마감일이 지정된 경우 fomatting을 진행, 그렇지 않다면 undefined로 초기화
 		const formattedDueDate = data.dueDate ? format(data.dueDate, 'yyyy-MM-dd HH:mm') : undefined;
-
 		const newData = {
 			...data,
 			dueDate: formattedDueDate,
 		};
 
-		const filteredData = Object.fromEntries(Object.entries(newData).filter(([, value]) => value !== undefined));
+		// 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 post 요청
 		/**
 		 * @Todo
 		 * entries 순회 후 type 깨짐 이슈 해결
 		 */
+		const filteredData = Object.fromEntries(
+			Object.entries(newData).filter(([key, value]) => {
+				if (key === 'imageUrl' && value instanceof FileList) {
+					return value.length > 0;
+				}
+				return value !== undefined;
+			}),
+		);
+
+		// 이미지를 전송해야하는 경우 postCardImage 단계가 추가
 		if (filteredData?.imageUrl) {
 			const uploadedImage = await postCardImage(columnItem.id, filteredData?.imageUrl[0]);
 			const dataWithImageUrl = {
@@ -149,6 +159,7 @@ export default function Column({ columnItem }: ColumnProps) {
 			};
 			postCards(dataWithImageUrl as CardItemPost);
 		} else {
+			// 이미지가 없는 할 일인 경우 바로 전송
 			postCards(filteredData as CardItesmPost);
 		}
 	};
@@ -252,7 +263,7 @@ export default function Column({ columnItem }: ColumnProps) {
 							<Image className='px-[0.6rem] py-[0.6rem]' width={28} height={28} src={addIcon} alt='추가하기 아이콘' />
 						</label>
 						<input
-							{...register('imageUrl')}
+							{...register('imageUrl', { shouldUnregister: true })}
 							className='hidden'
 							id='inputFile'
 							type='file'
