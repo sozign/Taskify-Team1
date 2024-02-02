@@ -23,10 +23,6 @@ export interface FormValue extends Omit<CardItemPost, 'dueDate'> {
 	dueDate: Date;
 }
 
-/**
- * @TODO
- * 이런 상수 값들 constants로 빼기
- */
 const RULES = {
 	title: {
 		required: '필수값 입니다.',
@@ -35,10 +31,6 @@ const RULES = {
 	description: {
 		required: '필수값 입니다.',
 		maxLength: { value: 20, message: '최대 20자를 넘을 수 없습니다.' },
-	},
-	dueDate: {
-		min: { value: 18, message: '18 미만의 값을 입력할 수 없습니다.' },
-		max: { value: 99, message: '99 초과의 값을 입력할 수 없습니다.' },
 	},
 };
 
