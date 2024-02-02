@@ -1,6 +1,5 @@
-import PlusIcon from '@/../../Public/assets/PlusIcon.svg';
-import Vector from '@/../../Public/assets/Vector.svg';
-import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
+import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import InviteModal from '@/components/modal/InviteModal';
 import { useRouter } from 'next/router';
@@ -44,7 +43,13 @@ export default function DashboardHeader({ dashboardId, title, nickname, profileI
 				<Link href='/mydashboard' className=' flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
 					<span className='md:hidden sm:hidden'>{title}</span>
 					{router.pathname.startsWith('/mydashboard') ? null : (
-						<Image alt='대시보드 왕관 아이콘' src={RoyalCrownIcon} className='md:hidden sm:hidden' />
+						<Image
+							alt='대시보드 왕관 아이콘'
+							src='/assets/royalCrownIcon.svg'
+							width={20}
+							height={20}
+							className=' w-[2.103rem]  md:hidden sm:hidden'
+						/>
 					)}
 				</Link>
 
@@ -57,7 +62,9 @@ export default function DashboardHeader({ dashboardId, title, nickname, profileI
 							>
 								<Image
 									alt='관리 버튼 셋팅 아이콘'
-									src={SettingIcon}
+									src='/assets/settingIcon.svg'
+									width={20}
+									height={20}
 									className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
 								/>
 								<span className='items-center text-16-500 text-gray-7'>관리</span>
@@ -71,19 +78,28 @@ export default function DashboardHeader({ dashboardId, title, nickname, profileI
 							>
 								<Image
 									alt='초대하기 버튼 플러스 아이콘'
-									src={PlusIcon}
+									src='/assets/PlusIcon.svg'
+									width={20}
+									height={20}
 									className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
 								/>
 								<span className='items-center text-16-500 text-gray-7'>초대하기</span>
 							</button>
 
 							<div>
-								{/* <Image alt='프로필 이미지' src={profileImageUrl || ColorBlue} className='relative' /> */}
-								<span className='absolute items-center text-center text-16-600 text-white '>
-									{nickname.slice(0, 1)}
-								</span>
+								{/* <Image alt='프로필 이미지'
+              width={20}
+							height={20}
+                 src={profileImageUrl || ColorBlue} className='relative' /> */}
+								<span className=' items-center text-center text-16-600 text-white '>{nickname.slice(0, 1)}</span>
 							</div>
-							<Image alt='영역 나누는 라인 이미지' src={Vector} className='h-[3.8rem] ' />
+							<Image
+								alt='영역 나누는 라인 이미지'
+								width={20}
+								height={20}
+								src='/assets/Vector.svg'
+								className='h-[3.8rem] '
+							/>
 						</>
 					)}
 					<div className='flex flex-row items-center justify-center gap-[0.9rem]'>
@@ -93,8 +109,11 @@ export default function DashboardHeader({ dashboardId, title, nickname, profileI
 							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						>
 							<div className='relative'>
-								{/* <Image alt='프로필 이미지' src={profileImageUrl || ColorBlue} className='relative' /> */}
-								<span className='text-16-600  text-white'>{nickname.slice(0, 1)}</span>
+								{/* <Image alt='프로필 이미지' 
+              width={20}
+							height={20}
+              src={profileImageUrl || ColorBlue} className='relative' /> */}
+								<span className=' items-center text-center text-16-600 text-white '>{nickname.slice(0, 1)}</span>
 							</div>
 							<span className='text-center text-16-600 sm:hidden'>{nickname}</span>
 							<div className='absolute translate-y-[5rem] pr-[2rem] sm:pr-[7rem]'>
