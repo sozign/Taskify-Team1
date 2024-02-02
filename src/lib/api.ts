@@ -292,12 +292,8 @@ interface getInvitationsProps {
 /**
  * 내가 받은 초대 목록 조회
  */
-// export async function getInvitations({ size, cursorId, title }: getInvitationsProps) {
-// 	const res = await authAxios.get<InvitationsGet>(`/invitations?size=${size}&cursorId=${cursorId}&title=${title}`);
-// 	return res.data;
-// }
 
-export async function getInvitations({ size = 10, cursorId, title }: getInvitationsProps) {
+export async function getInvitations({ size, cursorId, title }: getInvitationsProps) {
 	const queryParams = cursorId ? `?size=${size}&cursorId=${cursorId}` : `?size=${size}`;
 	const titleQueryParam = title ? `&title=${title}` : '';
 	const res = await authAxios.get<InvitationsGet>(`/invitations${queryParams}${titleQueryParam}`);
