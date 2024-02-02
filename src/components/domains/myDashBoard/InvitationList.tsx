@@ -2,7 +2,7 @@ import Image from 'next/image';
 import searchIcon from '@../../../Public/assets/searchIcon.svg';
 import { InvitationDashboardData } from '@/constants/types';
 import Invitation from './Invitation';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { getInvitations } from '@/lib/api';
 
 function InvitationList({
@@ -21,13 +21,16 @@ function InvitationList({
 		const data = await getInvitations({ size: 2, cursorId: cursorId.current });
 		cursorId.current = data.cursorId;
 		setInvitationList((prevList) => [...prevList, ...data.invitations]);
-		console.log(data.invitations);
 	};
 
 	// 검색 요청
 	const handleSearchInvitation = async (keyword: string) => {
-		const data = await getInvitations({ title: keyword });
-		setInvitationList(data.invitations);
+		try {
+			const data = await getInvitations({ size: 10, title: keyword });
+			setInvitationList(data.invitations);
+		} catch (e) {
+			console.error(e);
+		}
 	};
 
 	useEffect(() => {
@@ -75,7 +78,7 @@ function InvitationList({
 				</div>
 
 				{invitationList.map((invitation) => (
-					<Invitation setInvitationList={setInvitationList} invitation={invitation} key={invitation.id} />
+					<Invitation invitation={invitation} key={invitation.id} />
 				))}
 				<div ref={lastElementRef}></div>
 			</div>

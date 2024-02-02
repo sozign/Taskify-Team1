@@ -1,10 +1,9 @@
 import Button from '@/components/common/Buttons/Button';
-import { InvitationDashboardData, InvitationPut } from '@/constants/types';
+import { InvitationDashboardData } from '@/constants/types';
 import { putInvitations } from '@/lib/api';
-import { useEffect, useState } from 'react';
 
 function Invitation({ invitation }: { invitation: InvitationDashboardData }) {
-	const handleInvitationResponse = async (inviteAccepted: InvitationPut) => {
+	const handleInvitationResponse = async (inviteAccepted: boolean) => {
 		await putInvitations(invitation.id, { inviteAccepted });
 	};
 

@@ -9,12 +9,12 @@ export interface getDashboardsProps {
 }
 
 function PaginationButton({
-	paginationInfo,
-	setPaginationInfo,
+	paginationPage,
+	setPaginationPage,
 	totalCount,
 }: {
-	paginationInfo: getDashboardsProps;
-	setPaginationInfo: React.Dispatch<React.SetStateAction<getDashboardsProps>>;
+	paginationPage: number;
+	setPaginationPage: React.Dispatch<React.SetStateAction<number>>;
 	totalCount: string;
 }) {
 	const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -26,28 +26,22 @@ function PaginationButton({
 	};
 
 	const handlePreviousPage = () => {
-		if (paginationInfo.page > 1) {
-			setPaginationInfo((prev) => ({
-				...prev,
-				page: paginationInfo.page - 1,
-			}));
+		if (paginationPage > 1) {
+			setPaginationPage(paginationPage - 1);
 		}
 	};
 
-	const totalPages = Math.ceil(+totalCount / paginationInfo.size);
+	const totalPages = Math.ceil(+totalCount / 5);
 	const handleNextPage = () => {
-		if (paginationInfo.page < totalPages) {
-			setPaginationInfo((prev) => ({
-				...prev,
-				page: paginationInfo.page + 1,
-			}));
+		if (paginationPage < totalPages) {
+			setPaginationPage(paginationPage + 1);
 		}
 	};
 
 	return (
 		<div className='flex items-center justify-end gap-[1.6rem]'>
 			<div className='text-14-500 text-black-3  sm:text-12-500'>
-				{totalPages} 페이지중 {paginationInfo.page}
+				{totalPages} 페이지중 {paginationPage}
 			</div>
 			<div className='flex'>
 				<button

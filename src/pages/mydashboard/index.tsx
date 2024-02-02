@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
 import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
 import addIcon from '@/../../Public/assets/addIcon.svg';
@@ -10,29 +10,19 @@ import Layout from '@/components/modal/Layout';
 import Button from '@/components/common/Buttons/Button';
 import { useForm } from 'react-hook-form';
 import ColorChip from '@/components/common/chips/ColorChip';
-import { postDashboard, getDashboards, getInvitations } from '@/lib/api';
+import { postDashboard, getDashboards } from '@/lib/api';
 import done from '@/../Public/assets/done.svg';
 import { DashboardsGet, InvitationDashboardData } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
-
-interface getDashboardsProps {
-	page: number;
-	cursorId: number;
-	size: number;
-	navigationMethod: 'infiniteScroll' | 'pagination';
-}
+import NotInvited from '@/components/domains/myDashBoard/NotInvited';
+import { getInvitations } from '@/lib/api';
 
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
 	const [colorPick, setColorPick] = useState('#7AC555');
 	const [dashBoardData, setDashBoardData] = useState<DashboardsGet>();
-	const [paginationInfo, setPaginationInfo] = useState<getDashboardsProps>({
-		cursorId: 0,
-		page: 1,
-		size: 5,
-		navigationMethod: 'pagination',
-	});
+	const [paginationPage, setPaginationPage] = useState<number>(1);
 	const [invitationList, setInvitationList] = useState<InvitationDashboardData[]>([]);
 
 	const RULES = {
@@ -53,7 +43,7 @@ export default function MyDashBoard() {
 	}
 
 	const dashboardLoad = async () => {
-		const data = await getDashboards(paginationInfo);
+		const data = await getDashboards({ size: 5, cursorId: 0, page: paginationPage, navigationMethod: 'pagination' });
 		setDashBoardData(data);
 	};
 
@@ -76,7 +66,7 @@ export default function MyDashBoard() {
 
 	useEffect(() => {
 		dashboardLoad();
-	}, [paginationInfo]);
+	}, [paginationPage]);
 
 	return (
 		<>
@@ -104,11 +94,15 @@ export default function MyDashBoard() {
 						</div>
 						<PaginationButton
 							totalCount={dashBoardData?.totalCount as string}
-							paginationInfo={paginationInfo}
-							setPaginationInfo={setPaginationInfo}
+							paginationPage={paginationPage}
+							setPaginationPage={setPaginationPage}
 						/>
 					</div>
-					<InvitationList setInvitationList={setInvitationList} invitationList={invitationList} />
+					{invitationList.length === 0 ? (
+						<NotInvited />
+					) : (
+						<InvitationList setInvitationList={setInvitationList} invitationList={invitationList} />
+					)}
 				</div>
 
 				{/* 대시보드 추가 모달 */}
