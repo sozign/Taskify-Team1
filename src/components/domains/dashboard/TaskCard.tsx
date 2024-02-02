@@ -28,10 +28,14 @@ export default function TaskCard({ cardItem }: TaskCardProps) {
 							</div>
 							<div className='flex flex-grow items-center justify-between'>
 								<div className='flex flex-row items-center gap-[0.6rem]'>
-									<Image alt='캘린더 모양 아이콘' src={calenderIcon} />
-									<div className='text-12-500 text-gray-7'>{cardItem.dueDate.slice(0, 10)}</div>
+									{cardItem?.dueDate && (
+										<>
+											<Image alt='캘린더 모양 아이콘' src={calenderIcon} />
+											<div className='text-12-500 text-gray-7'>{cardItem.dueDate.slice(0, 10)}</div>
+										</>
+									)}
 								</div>
-								<div>{cardItem.assignee.nickname}</div>
+								<div>{cardItem?.assignee && cardItem.assignee.nickname}</div>
 							</div>
 						</div>
 					</div>
