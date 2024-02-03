@@ -1,4 +1,4 @@
-import stringToNumber from '@/utils/stringToColor';
+import stringToNumber from '@/utils/stringToNumber';
 import clsx from 'clsx';
 
 function TagChip({ text }: { text: string }) {
