@@ -72,7 +72,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 
 	return (
 		<>
-			<header className='container fixed inset-0  z-10  flex h-[7rem] flex-row items-center justify-between  bg-white   pl-[4rem] sm:h-[6rem]'>
+			<header className='container fixed inset-0 flex h-[7rem] flex-row items-center justify-between  bg-white   pl-[4rem] sm:h-[6rem]'>
 				{router.pathname.startsWith('/mypage') ? (
 					<div className=' flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
 						<span className='md:hidden sm:hidden'>{dashboardInfo.title || title}</span>
@@ -149,7 +149,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 					</div>
 				</nav>
 			</header>
-			<InviteModal isOpen={isTaskEditModalOpen} setIsOpen={setIsTaskEditModalOpen} />
+			<InviteModal isOpen={isTaskEditModalOpen} setIsOpen={setIsTaskEditModalOpen} dashboardId={dashboardId} />
 		</>
 	);
 }

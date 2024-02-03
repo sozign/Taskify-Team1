@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
-import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
 import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
 import addIcon from '@/../../Public/assets/addIcon.svg';
 import DashboardButton from '@/components/domains/myDashBoard/DashboardButton';
@@ -14,15 +13,8 @@ import { postDashboard, getDashboards } from '@/lib/api';
 import done from '@/../Public/assets/done.svg';
 import { DashboardsGet, InvitationDashboardData } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
-import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
-
-interface getDashboardsProps {
-	page: number;
-	cursorId: number;
-	size: number;
-	navigationMethod: 'infiniteScroll' | 'pagination';
-}
+import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
