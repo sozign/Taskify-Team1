@@ -358,7 +358,7 @@ export async function getUsers() {
 
 interface putUsersProps {
 	nickname: string;
-	profileImageUrl: string;
+	profileImageUrl: string | null;
 }
 /**
  * 내 정보 수정
@@ -371,7 +371,7 @@ export async function putUsers(userData: putUsersProps) {
 /**
  * 프로필 이미지 업로드
  */
-export async function postUsersProfileImage(imageFile: ImagePost) {
+export async function postUsersProfileImage(imageFile: FormData) {
 	const res = await authAxios.post<UsersProfileImagePost>(`/users/me/image`, imageFile);
-	return res.data;
+	return res;
 }
