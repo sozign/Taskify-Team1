@@ -4,12 +4,18 @@ import TagChip from '@/components/common/chips/TagChip';
 import calenderIcon from '@/../Public/assets/calender.svg';
 import Image from 'next/image';
 import Avatar from '@/components/common/Avatar';
+import { useState } from 'react';
+import TaskModal from '@/components/modal/TaskModal';
 
 interface TaskCardProps {
 	cardItem: CardData;
+	columnTitle: string;
 }
 
-export default function TaskCard({ cardItem }: TaskCardProps) {
+export default function TaskCard({ cardItem, columnTitle }: TaskCardProps) {
+	// 모달 관련
+	const [isTaskCardModalOpen, setIsTaskCardModalOpen] = useState(false);
+
 	/**
 	 * @TODO 할 일 카드모달 추가
 	 * @TODO 할 일 수정모달 추가
@@ -17,7 +23,12 @@ export default function TaskCard({ cardItem }: TaskCardProps) {
 	return (
 		<>
 			<CardLayout>
-				<button className=' container flex flex-col md:flex-row sm:flex-col'>
+				<button
+					onClick={() => {
+						setIsTaskCardModalOpen(true);
+					}}
+					className=' container flex flex-col md:flex-row sm:flex-col'
+				>
 					{!!cardItem?.imageUrl && (
 						<div className='mb-[1.2rem] h-auto w-full flex-grow md:mb-0 md:mr-[2rem] md:h-[5.3rem] md:w-auto sm:mb-[1rem] sm:h-auto sm:w-full '>
 							<Image
@@ -54,6 +65,12 @@ export default function TaskCard({ cardItem }: TaskCardProps) {
 					</div>
 				</button>
 			</CardLayout>
+			<TaskModal
+				isTaskCardModalOpen={isTaskCardModalOpen}
+				setIsTaskCardModalOpen={setIsTaskCardModalOpen}
+				cardItem={cardItem}
+				columnTitle={columnTitle}
+			/>
 		</>
 	);
 }
