@@ -76,7 +76,6 @@ export default function Signup() {
 	};
 
 	const onSubmit = (data: SignupFormData) => {
-		console.log(data);
 		handleSignup(data);
 	};
 
@@ -140,7 +139,7 @@ export default function Signup() {
 					</div>
 					<div className='text-14-400 text-red'>{errors?.checkbox?.message}</div>
 					<div className='pb-[1.2rem] pt-[1rem]'>
-						<AuthButton disabled={!isNoError(errors)} type='submit' onClick={() => setSignupErrorState(false)}>
+						<AuthButton disabled={!isNoError(errors)} type='submit' onClick={() => setSignupErrorState(false || true)}>
 							가입하기
 						</AuthButton>
 					</div>

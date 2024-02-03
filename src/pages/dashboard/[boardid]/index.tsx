@@ -9,7 +9,6 @@ import { ColumnData } from '@/constants/types';
 export default function MyDashBoard() {
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
-
 	const [columnList, setColumnList] = useState<ColumnData[] | null>(null);
 	async function loadColumn() {
 		if (!boardId) return;
@@ -26,7 +25,7 @@ export default function MyDashBoard() {
 
 	return (
 		<>
-			<DashboardHeader id={boardId} nickname={'nickname'} profileImageUrl={''} title={'비브리지'} />
+			<DashboardHeader dashboardId={boardId} title={''} />
 			<PageLayout boardId={boardId}>
 				<div className='flex h-full flex-row bg-gray-F md:flex-col sm:flex-col'>
 					{columnList.map((columnItem) => (

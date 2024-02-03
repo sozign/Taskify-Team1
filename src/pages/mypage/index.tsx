@@ -1,9 +1,9 @@
-import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
+import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 
 export default function MyPage() {
 	return (
 		<div>
-			<MyDashboardHeader title={'내 정보'} nickname={'nickname'} profileImageUrl={''} />내 정보 페이지
+			<DashboardHeader dashboardId={0} title={'계정관리'} />내 정보 페이지
 		</div>
 	);
 }

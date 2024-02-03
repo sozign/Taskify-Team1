@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
-import MyDashboardHeader from '@/components/common/Headers/MyDashboardHeader';
 import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
 import addIcon from '@/../../Public/assets/addIcon.svg';
 import DashboardButton from '@/components/domains/myDashBoard/DashboardButton';
@@ -15,8 +14,7 @@ import done from '@/../Public/assets/done.svg';
 import { DashboardsGet, InvitationDashboardData } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
-import NotInvited from '@/components/domains/myDashBoard/NotInvited';
-import { getInvitations } from '@/lib/api';
+import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
@@ -70,7 +68,7 @@ export default function MyDashBoard() {
 
 	return (
 		<>
-			<MyDashboardHeader title={'내 대시보드'} nickname={'nickname'} profileImageUrl={''} />
+			<DashboardHeader dashboardId={0} title={'내 대시보드'} />
 			<PageLayout>
 				<div className='sm:gap:-[2.4rem] flex w-[100%] flex-col  gap-[4rem] bg-gray-F  px-[4rem] py-[4rem] sm:gap-[2.4rem]'>
 					<div className='flex w-[102.2rem] flex-col gap-[1.2rem] md:w-[50.4rem]  sm:w-[100%]'>
