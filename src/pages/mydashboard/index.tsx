@@ -76,7 +76,7 @@ export default function MyDashBoard() {
 
 	return (
 		<>
-			<DashboardHeader dashboardId={0} nickname={'nickname'} profileImageUrl={''} title={'비브리지'} />
+			<DashboardHeader dashboardId={0} title={'내 대시보드'} />
 			<PageLayout>
 				<div className='sm:gap:-[2.4rem] flex w-[100%] flex-col  gap-[4rem] bg-gray-F  px-[4rem] py-[4rem] sm:gap-[2.4rem]'>
 					<div className='flex w-[102.2rem] flex-col gap-[1.2rem] md:w-[50.4rem]  sm:w-[100%]'>
