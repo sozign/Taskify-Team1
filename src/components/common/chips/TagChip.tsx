@@ -13,7 +13,9 @@ function TagChip({ text }: { text: string }) {
 
 	return (
 		<div className={clsx('w-fit rounded-[0.4rem] px-[0.6rem] py-[0.4rem]', MAPPER[pickerNumber].bg)}>
-			<p className={clsx(' text-center text-14-500 sm:text-12-500', MAPPER[pickerNumber].text)}>{text}</p>
+			<p className={clsx('text-center text-12-500 leading-[1.4rem] sm:text-12-500', MAPPER[pickerNumber].text)}>
+				{text}
+			</p>
 		</div>
 	);
 }
