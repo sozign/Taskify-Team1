@@ -53,10 +53,6 @@ export default function MyPage() {
 				nickname,
 				profileImageUrl,
 			});
-			setDataToUpdate({
-				nickname,
-				profileImageUrl,
-			});
 		} catch (error) {
 			console.error(error);
 		}
@@ -96,12 +92,6 @@ export default function MyPage() {
 	//이함수에 imgUrl 데이터를 받아오겠다.
 	const handleImageUpload = (imgUrl: string) => {
 		//현재 상태의 데이터에 imgUrl을 추가해주겠다.
-		setDataToUpdate((prevData) => {
-			return {
-				...prevData,
-				profileImageUrl: imgUrl,
-			};
-		});
 		setDataToUpdate((prevData) => {
 			return {
 				...prevData,
