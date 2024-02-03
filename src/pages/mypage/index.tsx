@@ -15,7 +15,6 @@ import UploadImg from '@/components/myPage/UploadImg';
 
 //모달확인하기위해 import
 import MyPageProfileModal from '@/components/modal/MyPageProfileModal';
-import MyPageProfileModal from '@/components/modal/MyPageProfileModal';
 
 type profileFormData = {
 	email: string;
@@ -141,7 +140,7 @@ export default function MyPage() {
 
 	return (
 		<>
-			<DashboardHeader dashboardId={0} title={'계정관리'} />
+			<DashboardHeader title={'내 정보'} dashboardId={0} />
 			<PageLayout>
 				{/* 모달창 확인하기 위해 임시 생성 */}
 				<div>
