@@ -35,7 +35,6 @@ export default function MyPage() {
 		register,
 		handleSubmit,
 		formState: { isSubmitting, isSubmitted, errors },
-		formState: { isSubmitting, isSubmitted, errors },
 	} = useForm<FieldValues>({});
 
 	//GetApi
@@ -76,7 +75,6 @@ export default function MyPage() {
 	const PutUserInfo = async (data: putUsersData) => {
 		try {
 			const response = await putUsers(data);
-			console.log({ response });
 			console.log({ response });
 			if (response.status === 200) {
 				setUserInfo((prevUserInfo: profileFormData) => {
