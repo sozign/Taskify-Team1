@@ -2,7 +2,7 @@
 // 상태관리 라이브러리 뷰스탄드 context 새로 갱신하게
 
 import { useState, useEffect } from 'react';
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm, FieldValues, FieldError } from 'react-hook-form';
 import Button from '@/components/common/Buttons/Button';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import Image from 'next/image';
@@ -14,8 +14,7 @@ import { getUsers, putUsers } from '@/lib/api';
 import UploadImg from '@/components/myPage/UploadImg';
 
 //모달확인하기위해 import
-import MyPageModal from '@/components/modal/MyPageModal';
-import { authInstance } from '@/lib/axios';
+import MyPageProfileModal from '@/components/modal/MyPageProfileModal';
 
 type profileFormData = {
 	email: string;
@@ -37,7 +36,7 @@ export default function MyPage() {
 		register,
 		// setValue,
 		handleSubmit,
-		formState: { isSubmitting },
+		formState: { isSubmitting, isSubmitted, errors },
 	} = useForm<FieldValues>({});
 
 	//GetApi
@@ -50,11 +49,12 @@ export default function MyPage() {
 	const loadMember = async () => {
 		try {
 			const data = await getUsers();
-			console.log(data);
 			const { email, nickname, profileImageUrl } = data;
-			console.log(userInfo);
-			console.log(userInfo.profileImageUrl);
 			setUserInfo({ email, nickname, profileImageUrl });
+			setDataToUpdate({
+				nickname,
+				profileImageUrl,
+			});
 		} catch (error) {
 			console.error(error);
 		}
@@ -63,7 +63,6 @@ export default function MyPage() {
 	useEffect(() => {
 		loadMember();
 	}, []);
-
 	//PutUserData
 	const [dataToUpdate, setDataToUpdate] = useState<putUsersData>({
 		nickname: userInfo.nickname,
@@ -73,14 +72,16 @@ export default function MyPage() {
 	const PutUserInfo = async (data: putUsersData) => {
 		try {
 			const response = await putUsers(data);
-			console.log(response);
-
+			console.log({ response });
 			if (response.status === 200) {
-				setUserInfo((prevUserInfo) => ({
-					...prevUserInfo,
-					nickname: dataToUpdate.nickname || prevUserInfo.nickname,
-					profileImageUrl: data.profileImageUrl || prevUserInfo.profileImageUrl,
-				}));
+				// console.log(prevUserInfo);
+				setUserInfo((prevUserInfo: profileFormData) => {
+					return {
+						...prevUserInfo,
+						nickname: dataToUpdate.nickname || prevUserInfo.nickname,
+						profileImageUrl: response.profileImageUrl || prevUserInfo.profileImageUrl,
+					};
+				});
 			} else {
 				console.error('PUT 요청 실패:', response.status);
 			}
@@ -92,23 +93,25 @@ export default function MyPage() {
 
 	//이함수에 imgUrl 데이터를 받아오겠다.
 	const handleImageUpload = (imgUrl: string) => {
-		console.log(imgUrl);
 		//현재 상태의 데이터에 imgUrl을 추가해주겠다.
-		setDataToUpdate((prevData) => ({
-			...prevData,
-			profileImageUrl: imgUrl,
-		}));
-		console.log(dataToUpdate);
+		setDataToUpdate((prevData) => {
+			return {
+				...prevData,
+				profileImageUrl: imgUrl,
+			};
+		});
 	};
 
 	const handleSaveButtonClick = async () => {
 		try {
 			await handleSubmit(async (data) => {
-				alert(data);
+				// alert(data);
+				if (data) {
+					setOpen(true);
+				}
 				// Save 버튼에 대한 추가 동작 구현
 				// ...
 				await PutUserInfo(dataToUpdate);
-				console.log(dataToUpdate);
 			})();
 		} catch (error) {
 			console.error('데이터 처리 중 에러:', error);
@@ -120,6 +123,15 @@ export default function MyPage() {
 		setOpen((prev) => !prev);
 	};
 
+	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = event.target;
+		// setDataToUpdate({ nickname: value });
+		setDataToUpdate((prevData) => ({
+			...prevData,
+			nickname: value,
+		}));
+	};
+
 	return (
 		<>
 			<DashboardHeader dashboardId={0} title={'계정관리'} />
@@ -128,7 +140,7 @@ export default function MyPage() {
 				<div>
 					<div onClick={additionHandleClick}>모달 확인하러 가기</div>
 
-					{open === true ? <MyPageModal isOpen={open} setOpen={setOpen} /> : null}
+					{open === true ? <MyPageProfileModal isOpen={open} setOpen={setOpen} /> : null}
 				</div>
 				<div className=' bg-[#FAFAFA]'>
 					<div className=' ml-[2rem] sm:ml-[1.2rem]'>
@@ -153,7 +165,6 @@ export default function MyPage() {
 								<div className='flex w-[56.4rem] md:w-[48.8rem] sm:flex-col'>
 									{/* profileImage는 null값을 넘김 */}
 									<UploadImg profileImageUrl={userInfo.profileImageUrl} onImageUpload={handleImageUpload} />
-									{/* <Image src={plusIcon} alt='plus 이미지' className='h-[3rem] w-[3rem]' /> */}
 									<div className='w-[36.6rem]'>
 										<div>
 											<label htmlFor='email' className='text-18-500'>
@@ -162,7 +173,8 @@ export default function MyPage() {
 											<input
 												id='email'
 												type='email'
-												readOnly
+												// readOnly
+												disabled
 												placeholder={userInfo.email}
 												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D sm:mt-[2.4rem] sm:w-[24.4rem]'
 											/>
@@ -176,7 +188,20 @@ export default function MyPage() {
 												type='text'
 												defaultValue={userInfo.nickname}
 												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D sm:mt-[2.4rem] sm:w-[24.4rem]'
+												{...register('nickName', {
+													required: '',
+													maxLength: {
+														value: 10,
+														message: '열 자 이하로 작성해 주세요.',
+													},
+												})}
+												onChange={handleInputChange}
 											/>
+											{isSubmitted && errors.nickName && (
+												<small key='nickName-error' role='alert' className='text-14-400 text-red'>
+													{(errors.nickName as FieldError).message}
+												</small>
+											)}
 										</div>
 									</div>
 								</div>
@@ -186,7 +211,6 @@ export default function MyPage() {
 									type='submit'
 									onClick={() => handleSaveButtonClick()}
 									variant='confirm'
-									//check) mb-[2.8rem] 적용 못함
 									className='float-right mb-[2.8rem] mr-[2.8rem]  mt-[1.6rem] flex '
 								>
 									저장
