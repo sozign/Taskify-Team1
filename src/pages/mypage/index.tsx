@@ -15,6 +15,7 @@ import UploadImg from '@/components/myPage/UploadImg';
 
 //모달확인하기위해 import
 import MyPageProfileModal from '@/components/modal/MyPageProfileModal';
+import MyPageProfileModal from '@/components/modal/MyPageProfileModal';
 
 type profileFormData = {
 	email: string;
@@ -35,6 +36,7 @@ export default function MyPage() {
 		register,
 		handleSubmit,
 		formState: { isSubmitting, isSubmitted, errors },
+		formState: { isSubmitting, isSubmitted, errors },
 	} = useForm<FieldValues>({});
 
 	//GetApi
@@ -53,6 +55,10 @@ export default function MyPage() {
 				nickname,
 				profileImageUrl,
 			});
+			setDataToUpdate({
+				nickname,
+				profileImageUrl,
+			});
 		} catch (error) {
 			console.error(error);
 		}
@@ -61,7 +67,6 @@ export default function MyPage() {
 	useEffect(() => {
 		loadMember();
 	}, []);
-
 	//PutUserData
 	const [dataToUpdate, setDataToUpdate] = useState<putUsersData>({
 		nickname: userInfo.nickname,
@@ -71,6 +76,7 @@ export default function MyPage() {
 	const PutUserInfo = async (data: putUsersData) => {
 		try {
 			const response = await putUsers(data);
+			console.log({ response });
 			console.log({ response });
 			if (response.status === 200) {
 				setUserInfo((prevUserInfo: profileFormData) => {
@@ -92,6 +98,12 @@ export default function MyPage() {
 	//이함수에 imgUrl 데이터를 받아오겠다.
 	const handleImageUpload = (imgUrl: string) => {
 		//현재 상태의 데이터에 imgUrl을 추가해주겠다.
+		setDataToUpdate((prevData) => {
+			return {
+				...prevData,
+				profileImageUrl: imgUrl,
+			};
+		});
 		setDataToUpdate((prevData) => {
 			return {
 				...prevData,

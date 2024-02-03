@@ -26,11 +26,9 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 		// 선택한 파일 정보를 콘솔에 출력
 		const file = e.target.files?.[0];
 		if (file) {
-			console.log(file);
 			PreviewImage(file);
 			setSelectedFile(file);
 			const response = await postImageUrl(file);
-			console.log(response);
 			if (onImageUpload) {
 				onImageUpload(response);
 			}
@@ -44,7 +42,6 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 		const preview = new FileReader();
 		preview.onload = function (e) {
 			const imageDataURL = e.target?.result as string;
-			console.log({ file, target: e.target });
 			setPreviewImage(imageDataURL);
 		};
 		preview.readAsDataURL(file);
@@ -58,14 +55,11 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 
 			// 이미지 업로드를 위한 POST 요청
 			const response = await postUsersProfileImage(formData);
-			console.log(response);
 
 			const imageURL = response.data.profileImageUrl;
-			console.log(imageURL);
 			if (onImageUpload) {
 				onImageUpload(imageURL);
 			}
-			console.log(imageURL);
 
 			return imageURL;
 		} catch (error) {
@@ -93,8 +87,10 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 							id='user_image'
 							src={previewImage || profileImageUrl}
 							alt='이미지'
-							className='h-[18.2rem] w-[18.2rem]'
+							className='mr-[1.6rem] h-[18.2rem] w-[18.2rem] rounded-md'
 							onClick={handleImageClick}
+							width={182}
+							height={182}
 						/>
 					) : (
 						<div
