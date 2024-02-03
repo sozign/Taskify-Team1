@@ -1,8 +1,8 @@
-import stringToNumber from '@/utils/stringToColor';
+import stringToNumber from '@/utils/stringToNumber';
 import clsx from 'clsx';
 
 function TagChip({ text }: { text: string }) {
-	const pickerNumber = stringToNumber(text); // 0 ~ 3까지의 수를 반환
+	const pickerNumber = stringToNumber(text, 4); // string을 4가지 경우로 매핑
 
 	const MAPPER = [
 		{ bg: 'bg-[#F9EEE3]', text: 'text-[#D58D49]' },
