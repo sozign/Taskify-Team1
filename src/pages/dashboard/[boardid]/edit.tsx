@@ -120,7 +120,7 @@ export default function DashBoardEdit() {
 	return (
 		<PageLayout boardId={boardId}>
 			<div className='flex h-fit min-h-full w-full flex-col gap-[2rem] bg-gray-F pb-[5.6rem] md:pb-[4.8rem] sm:gap-[1.7rem] sm:pb-[2.4rem]'>
-				<DashboardHeader id={boardId} title={dashboardInfo.title} nickname={myInfo.nickname} profileImageUrl={''} />
+				<DashboardHeader dashboardId={boardId} title={''} />
 				<Link
 					href={`/dashboard/${boardId}`}
 					className='ml-[2rem] flex h-fit w-fit items-center justify-center gap-[0.6rem]'

@@ -25,7 +25,7 @@ export default function MyDashBoard() {
 
 	return (
 		<>
-			<DashboardHeader dashboardId={boardId} title={'dashboardTitle'} />
+			<DashboardHeader dashboardId={boardId} title={''} />
 			<PageLayout boardId={boardId}>
 				<div className='flex h-full flex-row bg-gray-F md:flex-col sm:flex-col'>
 					{columnList.map((columnItem) => (
