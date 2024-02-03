@@ -1,7 +1,8 @@
 import SquareChip from '@/components/common/chips/SquareChip';
-import { ReactNode } from 'react';
+import addIcon from '@/../../Public/assets/addIcon.svg';
+import Image from 'next/image';
 
-function AddDashboardButton({ children, onClick }: { children: ReactNode; onClick: () => void }) {
+function AddDashboardButton({ onClick }: { onClick: () => void }) {
 	return (
 		<button
 			onClick={onClick}
@@ -9,7 +10,9 @@ function AddDashboardButton({ children, onClick }: { children: ReactNode; onClic
 		>
 			<div className=' sm:text-14-600 text-16-600 text-black-3'>새로운 대시보드</div>
 			<div>
-				<SquareChip color='violet'>{children}</SquareChip>
+				<SquareChip color='violet'>
+					<Image className='h-[1rem] w-[1rem] sm:h-[0.9rem] sm:w-[0.9rem]' src={addIcon} alt='추가하기 아이콘' />
+				</SquareChip>
 			</div>
 		</button>
 	);

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import notInvited from '@/../../Public/assets/notInvited.svg';
+import notInvited from '@/../../Public/assets/NotInvited.svg';
 
 function NotInvited() {
 	return (

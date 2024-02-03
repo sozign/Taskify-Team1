@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
-import addIcon from '@/../../Public/assets/addIcon.svg';
 import DashboardButton from '@/components/domains/myDashBoard/DashboardButton';
 import PaginationButton from '@/components/domains/myDashBoard/PaginationButton';
 import FormInput from '../../components/common/Input/FormInput';
@@ -82,9 +81,7 @@ export default function MyDashBoard() {
 								onClick={() => {
 									setAddDashBoardModalOpen(true);
 								}}
-							>
-								<Image className='px-[0.6rem] py-[0.6rem]' fill src={addIcon} alt='추가하기 아이콘' />
-							</AddDashboardButton>
+							></AddDashboardButton>
 							{dashBoardData?.dashboards.map((dashboard) => (
 								<DashboardButton
 									key={dashboard.id}
