@@ -30,11 +30,9 @@ type putUsersData = {
 export default function MyPage() {
 	// 모달창 확인을 위한 useState
 	const [open, setOpen] = useState(false);
-	// const [loading, setLoading] = useState(true);
 
 	const {
 		register,
-		// setValue,
 		handleSubmit,
 		formState: { isSubmitting, isSubmitted, errors },
 	} = useForm<FieldValues>({});
@@ -63,6 +61,7 @@ export default function MyPage() {
 	useEffect(() => {
 		loadMember();
 	}, []);
+
 	//PutUserData
 	const [dataToUpdate, setDataToUpdate] = useState<putUsersData>({
 		nickname: userInfo.nickname,
@@ -74,12 +73,11 @@ export default function MyPage() {
 			const response = await putUsers(data);
 			console.log({ response });
 			if (response.status === 200) {
-				// console.log(prevUserInfo);
 				setUserInfo((prevUserInfo: profileFormData) => {
 					return {
 						...prevUserInfo,
 						nickname: dataToUpdate.nickname || prevUserInfo.nickname,
-						profileImageUrl: response.profileImageUrl || prevUserInfo.profileImageUrl,
+						profileImageUrl: response.data.profileImageUrl || prevUserInfo.profileImageUrl,
 					};
 				});
 			} else {
@@ -105,17 +103,14 @@ export default function MyPage() {
 	const handleSaveButtonClick = async () => {
 		try {
 			await handleSubmit(async (data) => {
-				// alert(data);
 				if (data) {
 					setOpen(true);
 				}
 				// Save 버튼에 대한 추가 동작 구현
-				// ...
 				await PutUserInfo(dataToUpdate);
 			})();
 		} catch (error) {
 			console.error('데이터 처리 중 에러:', error);
-			// 에러 처리 로직 추가
 		}
 	};
 
@@ -125,7 +120,6 @@ export default function MyPage() {
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
-		// setDataToUpdate({ nickname: value });
 		setDataToUpdate((prevData) => ({
 			...prevData,
 			nickname: value,
@@ -173,7 +167,6 @@ export default function MyPage() {
 											<input
 												id='email'
 												type='email'
-												// readOnly
 												disabled
 												placeholder={userInfo.email}
 												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D sm:mt-[2.4rem] sm:w-[24.4rem]'
