@@ -10,6 +10,7 @@ import royalCrownIcon from '@/../Public/assets/royalCrownIcon.svg';
 import settingIcon from '@/../Public/assets/settingIcon.svg';
 import PlusIcon from '@/../Public/assets/PlusIcon.svg';
 import Vector from '@/../Public/assets/Vector.svg';
+import Avatar from '../Avatar';
 
 interface HeaderNavProps {
 	dashboardId: number;
@@ -122,11 +123,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 								<span className='items-center text-16-500 text-gray-7'>초대하기</span>
 							</button>
 
-							<div className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full border-2 border-white bg-black-0'>
-								<span className='flex items-center justify-center text-center text-16-600 text-white '>
-									{userData.toUpperCase().slice(0, 1)}
-								</span>
-							</div>
+							<Avatar name={userData.toUpperCase().slice(0, 1)} className='h-[3.8rem] w-[3.8rem] text-16-600' />
+
 							<Image alt='영역 나누는 라인 이미지' src={Vector} className='h-[3.8rem] ' />
 						</>
 					)}
@@ -136,11 +134,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							ref={dropDownRef}
 							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						>
-							<div className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full border-2 border-white bg-black-0'>
-								<span className='flex items-center justify-center text-center text-16-600 text-white '>
-									{userData.toUpperCase().slice(0, 1)}
-								</span>
-							</div>
+							<Avatar name={userData.toUpperCase().slice(0, 1)} className='h-[3.8rem] w-[3.8rem] text-16-600' />
 							<span className='text-center text-16-600 sm:hidden'>{userData}</span>
 							<div className='absolute translate-y-[5rem] pr-[2rem] sm:pr-[7rem]'>
 								{isDropdownOpen && <HeaderNavDropdown />}
