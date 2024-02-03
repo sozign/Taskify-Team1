@@ -27,7 +27,6 @@ function Invitation({
 		>
 			<div className=' flex w-1/3 items-center  sm:mb-[1rem] sm:mt-[0.4rem] sm:w-[100%]'>
 				<span className='hidden text-14-500 text-gray-9 sm:mr-[2.8rem]  sm:block'>이름</span>
-				<div className='mr-[0.6rem] h-[0.8rem] w-[0.8rem] rounded-full bg-black-3 sm:hidden'></div>
 				<div>{invitation.dashboard.title}</div>
 			</div>
 			<div className='flex  w-1/3 items-center  sm:w-[100%]'>
