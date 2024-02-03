@@ -134,6 +134,7 @@ const config: Config = {
 			fontFamily: {
 				// 예시) <p className="text-pretendard">
 				pretendard: ['Pretendard Variable'],
+				montserrat: ['Montserrat', 'sans-serif'],
 			},
 			colors: {
 				// 예시) <p className="bg-gray-D">
