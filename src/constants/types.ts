@@ -114,7 +114,7 @@ export interface DashboardPost {
 export interface DashboardData {
 	id: number;
 	title: string;
-	color: string;
+	color: '#7AC555' | '#760DDE' | '#FFA500' | '#76A6EA' | '#E876EA';
 	createdAt: string;
 	updatedAt: string;
 	createdByMe: boolean;
@@ -172,7 +172,7 @@ export interface MembersData {
 	userId: number;
 	email: string;
 	nickname: string;
-	profileImageUrl: string;
+	profileImageUrl: null | string;
 	createdAt: string;
 	updatedAt: string;
 	isOwner: boolean;

@@ -1,14 +1,11 @@
-import Link from 'next/link';
-import Image from 'next/image';
 import PlusIcon from '@/../../Public/assets/PlusIcon.svg';
-import SettingIcon from '@/../../Public/assets/settingIcon.svg';
 import Vector from '@/../../Public/assets/Vector.svg';
 import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
+import SettingIcon from '@/../../Public/assets/settingIcon.svg';
+import InviteModal from '@/components/modal/InviteModal';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
-import FormInput from '../Input/FormInput';
-import Button from '@/components/common/Buttons/Button';
-import Layout from '../../modal/Layout';
-import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 
 interface userDataProps {
 	id: number;
@@ -16,37 +13,12 @@ interface userDataProps {
 	nickname: string;
 	profileImageUrl: string;
 }
-interface FormValuePros {
-	email: string;
-}
 
 export default function DashboardHeader({ id, title, nickname, profileImageUrl }: userDataProps) {
 	// 모달 1 열림, 닫힘 제어
 	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
-	const {
-		handleSubmit,
-		control,
-		formState: { errors },
-	} = useForm<FormValuePros>({
-		mode: 'onBlur',
-		defaultValues: {
-			email: '',
-		},
-	});
-
-	const RULES = {
-		email: {
-			required: '이메일 형식으로 작성해 주세요.',
-		},
-	};
 
 	const dashBoardIdEditUrl = `/dashboard/${id}/edit`;
-
-	// 모달 1 폼 제출
-	const onSubmit: SubmitHandler<FormValuePros> = (data) => console.log(data);
-
-	// 모달 1 제출 가능 여부 관리
-	const isNoError = (obj: FieldErrors<FormValuePros>) => Object.keys(obj).length === 0;
 
 	const handleLogout = () => {
 		localStorage.removeItem('accessToken');
@@ -110,32 +82,7 @@ export default function DashboardHeader({ id, title, nickname, profileImageUrl }
 					</nav>
 				</div>
 			</header>
-			<Layout $modalType='Modal' title='초대하기' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<FormInput<FormValuePros>
-						label='이메일'
-						name='email'
-						control={control}
-						rules={RULES.email}
-						required={!!('required' in RULES.email)}
-					/>
-					<div className='flex flex-row justify-end gap-[1.2rem]'>
-						<Button
-							onClick={() => {
-								setIsTaskEditModalOpen(false);
-							}}
-							color='modalWhite'
-							disabled={false}
-							variant='modal'
-						>
-							취소
-						</Button>
-						<Button disabled={!isNoError(errors)} type='submit' color='modalViolet' variant='modal'>
-							초대
-						</Button>
-					</div>
-				</form>
-			</Layout>
+			<InviteModal dashboardId={id} isOpen={isTaskEditModalOpen} setIsOpen={setIsTaskEditModalOpen} />
 		</>
 	);
 }

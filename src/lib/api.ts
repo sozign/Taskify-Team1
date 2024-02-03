@@ -257,7 +257,7 @@ export async function postInvitationDashboard(dashboardId: number, invitation: I
 	return res.data;
 }
 
-interface getInvitationsDashboardProps {
+export interface getInvitationsDashboardProps {
 	dashboardId: number;
 	page: number;
 	size: number;
@@ -266,7 +266,7 @@ interface getInvitationsDashboardProps {
 /**
  * 대시보드 초대 불러오기
  */
-export async function getInvitationsDashboard({ dashboardId, page, size }: getInvitationsDashboardProps) {
+export async function getInvitationsDashboard({ dashboardId, page = 1, size = 5 }: getInvitationsDashboardProps) {
 	const res = await authAxios.get<InvitationsDashboardGet>(
 		`/dashboards/${dashboardId}/invitations?page=${page}&size=${size}`,
 	);

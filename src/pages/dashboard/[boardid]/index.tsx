@@ -26,7 +26,7 @@ export default function MyDashBoard() {
 
 	return (
 		<>
-			<DashboardHeader id={0} nickname={'nickname'} profileImageUrl={''} title={'비브리지'} />
+			<DashboardHeader id={boardId} nickname={'nickname'} profileImageUrl={''} title={'비브리지'} />
 			<PageLayout boardId={boardId}>
 				<div className='flex h-full flex-row bg-gray-F md:flex-col sm:flex-col'>
 					{columnList.map((columnItem) => (
