@@ -14,7 +14,10 @@ import done from '@/../Public/assets/done.svg';
 import { DashboardsGet, InvitationDashboardData } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
+<<<<<<< HEAD
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
+=======
+>>>>>>> bbfda86 (feat:초대 랜더링  관련 1차 수정)
 
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
@@ -96,7 +99,6 @@ export default function MyDashBoard() {
 							setPaginationPage={setPaginationPage}
 						/>
 					</div>
-
 					<InvitationList setInvitationList={setInvitationList} invitationList={invitationList} />
 				</div>
 
