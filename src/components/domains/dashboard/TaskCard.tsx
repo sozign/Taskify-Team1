@@ -16,18 +16,28 @@ export default function TaskCard({ cardItem }: TaskCardProps) {
 	return (
 		<>
 			<CardLayout>
-				<button className='container flex flex-col md:flex-row sm:flex-col'>
-					{!!cardItem?.imageUrl && <div>이미지 넣기</div>}
-					<div className='container'>
-						<div className='mb-[1rem] text-left text-16-500'>{cardItem.title}</div>
-						<div className='flex flex-col md:flex-row sm:flex-col'>
-							<div className='mb-[1rem] mr-[1.6rem] flex gap-[0.6rem] md:mb-0 sm:mb-[1rem]'>
+				<button className=' container flex flex-col md:flex-row sm:flex-col'>
+					{!!cardItem?.imageUrl && (
+						<div className='mb-[1.2rem] h-auto w-full flex-grow md:mb-0 md:mr-[2rem] md:h-[5.3rem] md:w-auto sm:mb-[1rem] sm:h-auto sm:w-full '>
+							<Image
+								alt={`할 일 ${cardItem.title}을 설명하는 이미지`}
+								width={250}
+								height={150}
+								className='w-full rounded-[0.6rem] md:h-full sm:w-full'
+								src={cardItem.imageUrl}
+							/>
+						</div>
+					)}
+					<div className='container md:flex md:flex-col md:justify-between md:self-stretch'>
+						<div className='mb-[1rem] text-left text-16-500 leading-[1.9rem]'>{cardItem.title}</div>
+						<div className='flex flex-col flex-wrap md:flex-row sm:flex-col'>
+							<div className='mb-[1rem] flex gap-[0.6rem] md:mb-0 md:mr-[1.6rem] sm:mb-[1rem]'>
 								{cardItem.tags.map((tagItem) => (
 									<TagChip key={tagItem} text={tagItem} />
 								))}
 							</div>
 							<div className='flex flex-grow items-center justify-between'>
-								<div className='flex flex-row items-center gap-[0.6rem]'>
+								<div className='flex flex-row flex-wrap items-center gap-[0.6rem]'>
 									{cardItem?.dueDate && (
 										<>
 											<Image alt='캘린더 모양 아이콘' src={calenderIcon} />
