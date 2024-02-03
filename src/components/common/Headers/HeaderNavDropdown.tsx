@@ -15,7 +15,7 @@ export default function HeaderNavDropdown() {
 					로그아웃
 				</li>
 				<li className='hover:rounded-[0.4rem] hover:bg-violet-F hover:text-violet-5'>
-					<Link href='mypage'>내정보</Link>
+					<Link href='/mypage'>내정보</Link>
 				</li>
 				<li className='hover:rounded-[0.4rem] hover:bg-violet-F hover:text-violet-5'>
 					<Link href='/mydashboard'> 내 대시보드</Link>
