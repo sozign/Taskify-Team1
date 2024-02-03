@@ -1,10 +1,59 @@
-import Button from '@/components/common/Buttons/Button';
 import Image from 'next/image';
 import searchIcon from '@../../../Public/assets/searchIcon.svg';
+import { InvitationDashboardData } from '@/constants/types';
+import Invitation from './Invitation';
+import { useRef, useEffect } from 'react';
+import { getInvitations } from '@/lib/api';
 
-function InvitationList() {
+function InvitationList({
+	invitationList,
+	setInvitationList,
+}: {
+	invitationList: InvitationDashboardData[];
+	setInvitationList: React.Dispatch<React.SetStateAction<InvitationDashboardData[]>>;
+}) {
+	const cursorId = useRef<number>(0);
+	const lastElementRef = useRef<HTMLDivElement>(null);
+
+	// 추가 초대 요청
+	const loadMoreInvitations = async () => {
+		if (cursorId.current == null) return;
+		const data = await getInvitations({ size: 2, cursorId: cursorId.current });
+		cursorId.current = data.cursorId;
+		setInvitationList((prevList) => [...prevList, ...data.invitations]);
+	};
+
+	// 검색 요청
+	const handleSearchInvitation = async (keyword: string) => {
+		try {
+			const data = await getInvitations({ size: 10, title: keyword });
+			setInvitationList(data.invitations);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+
+	useEffect(() => {
+		const intersectionObserver = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (!entry.isIntersecting) return;
+				loadMoreInvitations();
+			});
+		});
+
+		if (lastElementRef.current) {
+			intersectionObserver.observe(lastElementRef.current);
+		}
+
+		return () => {
+			if (lastElementRef.current) {
+				intersectionObserver.unobserve(lastElementRef.current);
+			}
+		};
+	}, [cursorId.current]);
+
 	return (
-		<div className='flex h-[100%] w-[102.2rem] flex-col gap-[2rem] rounded-[0.8rem]  bg-white px-[2.8rem] py-[3.2rem] md:w-[50.4rem] sm:w-[100%] sm:px-[2.4rem] sm:py-[2.4rem]'>
+		<div className='flex h-[100%] w-[102.2rem] flex-col gap-[2rem] rounded-[0.8rem]  bg-white px-[2.8rem] py-[3.2rem] md:w-[100%] sm:w-[100%] sm:px-[2.4rem] sm:py-[2.4rem]'>
 			<h2 className='text-24-700 sm:text-20-600'>초대받은 대시보드</h2>
 			<div className='relative'>
 				<Image
@@ -13,49 +62,26 @@ function InvitationList() {
 					alt='검색 아이콘'
 				/>
 				<input
+					onChange={(e) => {
+						handleSearchInvitation(e.target.value);
+					}}
 					placeholder='검색'
 					className='w-[100%] rounded-[0.6rem] border border-gray-D px-[4.2rem] py-[1.1rem] text-14-500 sm:px-[4.4rem]'
 				/>
 			</div>
 
 			<div>
-				<div className='flex items-center justify-start gap-[26rem] py-[0.4rem] text-16-400 text-gray-9 md:gap-[6rem] sm:hidden'>
-					<div className='mr-[10rem] md:mr-[9.2rem]'>이름</div>
-					<div className=''>초대자</div>
-					<div className=''>수락여부</div>
-				</div>
-				<div className=' sm: flex  items-center border-b py-[2rem] text-16-500 text-black-3 sm:flex-col  sm:items-start sm:py-[0]'>
-					<div className=' flex w-[39.1rem] items-center justify-start md:w-[19rem] sm:mb-[1rem] sm:mt-[0.4rem]'>
-						<span className='hidden text-14-500 text-gray-9 sm:mr-[2.8rem]  sm:block'>이름</span>프로덕트 디자인
-					</div>
-					<div className='flex w-[30.8rem] md:w-[11.6rem] '>
-						<span className='hidden text-14-500 text-gray-9 sm:mr-[1.3rem] sm:block'>초대자</span>손동희
-					</div>
-					<div className='flex gap-[1rem]  sm:py-[1.6rem]'>
-						<Button variant='confirm' color='violet'>
-							수락
-						</Button>
-						<Button variant='confirm' color='white'>
-							거절
-						</Button>
-					</div>
-				</div>
-				<div className=' sm: flex  items-center border-b py-[2rem] text-16-500 text-black-3 sm:flex-col  sm:items-start sm:py-[0]'>
-					<div className=' flex w-[39.1rem] items-center justify-start md:w-[19rem] sm:mb-[1rem] sm:mt-[0.4rem]'>
-						<span className='hidden text-14-500 text-gray-9 sm:mr-[2.8rem]  sm:block'>이름</span>프로덕트 디자인
-					</div>
-					<div className='flex w-[30.8rem] md:w-[11.6rem] '>
-						<span className='hidden text-14-500 text-gray-9 sm:mr-[1.3rem] sm:block'>초대자</span>손동희
-					</div>
-					<div className='flex gap-[1rem]  sm:py-[1.6rem]'>
-						<Button variant='confirm' color='violet'>
-							수락
-						</Button>
-						<Button variant='confirm' color='white'>
-							거절
-						</Button>
-					</div>
-				</div>
+				<ul className='flex items-center  justify-between py-[0.4rem] text-16-400 text-gray-9 md:w-[100%]  sm:hidden'>
+					<li className=' w-1/3'>이름</li>
+					<li className='w-1/3'>초대자</li>
+					<li className='w-1/3'>수락여부</li>
+				</ul>
+				<ul className='flex flex-col  sm:w-[100%]'>
+					{invitationList.map((invitation) => (
+						<Invitation invitation={invitation} key={invitation.id} />
+					))}
+				</ul>
+				<div ref={lastElementRef}></div>
 			</div>
 		</div>
 	);
