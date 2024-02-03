@@ -3,6 +3,7 @@ import CardLayout from './CardLayout';
 import TagChip from '@/components/common/chips/TagChip';
 import calenderIcon from '@/../Public/assets/calender.svg';
 import Image from 'next/image';
+import Avatar from '@/components/common/Avatar';
 
 interface TaskCardProps {
 	cardItem: CardData;
@@ -45,7 +46,9 @@ export default function TaskCard({ cardItem }: TaskCardProps) {
 										</>
 									)}
 								</div>
-								<div>{cardItem?.assignee && cardItem.assignee.nickname}</div>
+								<div>
+									{cardItem?.assignee && <Avatar className='h-[2.4rem] w-[2.4rem]' name={cardItem.assignee.nickname} />}
+								</div>
 							</div>
 						</div>
 					</div>
