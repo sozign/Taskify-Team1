@@ -1,4 +1,5 @@
 export interface UserInfo {
+	status: number;
 	id: number;
 	email: string;
 	nickname: string;

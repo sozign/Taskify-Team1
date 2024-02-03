@@ -7,7 +7,7 @@ interface ModalProps {
 	setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-function MyPageModal({ isOpen, setOpen }: ModalProps) {
+function MyPagePassWordModal({ isOpen, setOpen }: ModalProps) {
 	return (
 		<Layout $modalType='Alert' isOpen={isOpen} setOpen={setOpen}>
 			<div>
@@ -20,4 +20,4 @@ function MyPageModal({ isOpen, setOpen }: ModalProps) {
 	);
 }
 
-export default MyPageModal;
+export default MyPagePassWordModal;
