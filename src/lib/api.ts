@@ -365,7 +365,7 @@ interface putUsersProps {
  */
 export async function putUsers(userData: putUsersProps) {
 	const res = await authAxios.put<UserInfo>(`/users/me`, userData);
-	return res.data;
+	return res;
 }
 
 /**
