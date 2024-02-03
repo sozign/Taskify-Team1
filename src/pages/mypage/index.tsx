@@ -67,6 +67,7 @@ export default function MyPage() {
 	useEffect(() => {
 		loadMember();
 	}, []);
+
 	//PutUserData
 	const [dataToUpdate, setDataToUpdate] = useState<putUsersData>({
 		nickname: userInfo.nickname,
