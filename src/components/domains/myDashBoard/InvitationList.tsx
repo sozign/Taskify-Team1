@@ -4,7 +4,7 @@ import { InvitationDashboardData } from '@/constants/types';
 import Invitation from './Invitation';
 import { useRef, useEffect, useState } from 'react';
 import { getInvitations } from '@/lib/api';
-import NotInvited from '@/components/domains/myDashBoard/NotInvited';
+import NotInvited from './NotInvited';
 
 function InvitationList({
 	onAcceptInvitation,
