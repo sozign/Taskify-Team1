@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
 import addIcon from '@/../../Public/assets/addIcon.svg';
 import DashboardButton from '@/components/domains/myDashBoard/DashboardButton';
@@ -9,15 +10,11 @@ import Layout from '@/components/modal/Layout';
 import Button from '@/components/common/Buttons/Button';
 import { useForm } from 'react-hook-form';
 import ColorChip from '@/components/common/chips/ColorChip';
-import { postDashboard, getDashboards } from '@/lib/api';
+import { postDashboard, getDashboards, putInvitations } from '@/lib/api';
 import done from '@/../Public/assets/done.svg';
-import { DashboardsGet, InvitationDashboardData } from '@/constants/types';
+import { DashboardsGet, InvitationDashboardData, InvitationsGet } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
-<<<<<<< HEAD
-import DashboardHeader from '@/components/common/Headers/DashboardHeader';
-=======
->>>>>>> bbfda86 (feat:초대 랜더링  관련 1차 수정)
 
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
@@ -25,6 +22,7 @@ export default function MyDashBoard() {
 	const [dashBoardData, setDashBoardData] = useState<DashboardsGet>();
 	const [paginationPage, setPaginationPage] = useState<number>(1);
 	const [invitationList, setInvitationList] = useState<InvitationDashboardData[]>([]);
+	const [acceptedResponse, setAcceptedResponse] = useState<InvitationsGet>();
 
 	const RULES = {
 		dashboardName: {
@@ -55,6 +53,10 @@ export default function MyDashBoard() {
 			dashboardLoad();
 		}
 	};
+	const handleAcceptInvitation = async (invitationId: number, inviteAccepted: boolean) => {
+		const data = await putInvitations(invitationId, { inviteAccepted });
+		setAcceptedResponse(data);
+	};
 
 	const colorList: Record<string, string> = {
 		green: '#7AC555',
@@ -67,12 +69,12 @@ export default function MyDashBoard() {
 
 	useEffect(() => {
 		dashboardLoad();
-	}, [paginationPage]);
+	}, [paginationPage, acceptedResponse]);
 
 	return (
 		<>
+			<DashboardHeader dashboardId={0} title={'내 대시보드'} />
 			<PageLayout>
-				<DashboardHeader dashboardId={0} title={'내 대시보드'} />
 				<div className='sm:gap:-[2.4rem] flex w-[100%] flex-col  gap-[4rem] bg-gray-F  px-[4rem] py-[4rem] sm:gap-[2.4rem]'>
 					<div className='flex w-[102.2rem] flex-col gap-[1.2rem] md:w-[50.4rem]  sm:w-[100%]'>
 						<div className='col-span-2 grid grid-cols-3 gap-[1.2rem] md:col-span-3 md:grid-cols-2 md:gap-[1rem] sm:col-span-1 sm:grid-cols-1 sm:gap-[0.8rem]'>
@@ -99,7 +101,11 @@ export default function MyDashBoard() {
 							setPaginationPage={setPaginationPage}
 						/>
 					</div>
-					<InvitationList setInvitationList={setInvitationList} invitationList={invitationList} />
+					<InvitationList
+						onAcceptInvitation={handleAcceptInvitation}
+						setInvitationList={setInvitationList}
+						invitationList={invitationList}
+					/>
 				</div>
 
 				{/* 대시보드 추가 모달 */}

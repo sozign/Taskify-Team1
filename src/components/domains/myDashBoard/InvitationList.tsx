@@ -7,9 +7,11 @@ import { getInvitations } from '@/lib/api';
 import NotInvited from '@/components/domains/myDashBoard/NotInvited';
 
 function InvitationList({
+	onAcceptInvitation,
 	invitationList,
 	setInvitationList,
 }: {
+	onAcceptInvitation: (invitationId: number, accept: boolean) => void;
 	invitationList: InvitationDashboardData[];
 	setInvitationList: React.Dispatch<React.SetStateAction<InvitationDashboardData[]>>;
 }) {
@@ -17,6 +19,8 @@ function InvitationList({
 	const lastElementRef = useRef<HTMLDivElement>(null);
 	const [loading, setLoading] = useState(true);
 	const [searchKeyword, setSearchKeyword] = useState('');
+	const [searchInvitationList, setSearchInvitationList] = useState<InvitationDashboardData[]>([]);
+
 	// 추가 초대 요청
 	const loadMoreInvitations = async () => {
 		try {
@@ -34,7 +38,7 @@ function InvitationList({
 	const handleSearchInvitation = async (keyword: string) => {
 		try {
 			const data = await getInvitations({ size: 10, title: keyword });
-			setInvitationList(data.invitations);
+			setSearchInvitationList(data.invitations);
 		} catch (e) {
 			console.error(e);
 		}
@@ -89,9 +93,13 @@ function InvitationList({
 								<li className='w-1/3'>수락여부</li>
 							</ul>
 							<ul className='flex flex-col  sm:w-[100%]'>
-								{invitationList.map((invitation) => (
-									<Invitation invitation={invitation} key={invitation.id} />
-								))}
+								{searchKeyword === ''
+									? invitationList.map((invitation) => (
+											<Invitation onAcceptInvitation={onAcceptInvitation} invitation={invitation} key={invitation.id} />
+										))
+									: searchInvitationList.map((invitation) => (
+											<Invitation onAcceptInvitation={onAcceptInvitation} invitation={invitation} key={invitation.id} />
+										))}
 							</ul>
 							<div ref={lastElementRef}></div>
 						</div>

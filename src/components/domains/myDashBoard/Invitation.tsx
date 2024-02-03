@@ -1,11 +1,24 @@
 import Button from '@/components/common/Buttons/Button';
 import { InvitationDashboardData } from '@/constants/types';
-import { putInvitations } from '@/lib/api';
+import { useState } from 'react';
 
-function Invitation({ invitation }: { invitation: InvitationDashboardData }) {
-	const handleInvitationResponse = async (inviteAccepted: boolean) => {
-		await putInvitations(invitation.id, { inviteAccepted });
+function Invitation({
+	invitation,
+	onAcceptInvitation,
+}: {
+	invitation: InvitationDashboardData;
+	onAcceptInvitation: (invitationId: number, accept: boolean) => void;
+}) {
+	const [isHidden, setIsHidden] = useState(false);
+
+	const handleAccept = () => {
+		onAcceptInvitation(invitation.id, true);
+		setIsHidden(true);
 	};
+
+	if (isHidden) {
+		return null; // 숨겨진 상태일 경우, null을 반환하여 해당 컴포넌트를 숨김
+	}
 
 	return (
 		<li
@@ -22,10 +35,26 @@ function Invitation({ invitation }: { invitation: InvitationDashboardData }) {
 				{invitation.inviter.nickname}
 			</div>
 			<div className='flex w-1/3 gap-[1rem] sm:w-[100%] sm:py-[1.6rem] '>
-				<Button disabled={false} onClick={() => handleInvitationResponse(true)} variant='confirm' color='violet'>
+				<Button
+					disabled={false}
+					onClick={() => {
+						onAcceptInvitation(invitation.id, true);
+						handleAccept();
+					}}
+					variant='confirm'
+					color='violet'
+				>
 					수락
 				</Button>
-				<Button disabled={false} onClick={() => handleInvitationResponse(false)} variant='confirm' color='white'>
+				<Button
+					disabled={false}
+					onClick={() => {
+						onAcceptInvitation(invitation.id, false);
+						handleAccept();
+					}}
+					variant='confirm'
+					color='white'
+				>
 					거절
 				</Button>
 			</div>
