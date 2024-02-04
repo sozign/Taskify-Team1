@@ -1,13 +1,13 @@
-import Layout from './Layout';
+import React, { Dispatch, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import Layout from './Layout';
+import Avatar from '../common/Avatar';
 import StatusChip from '../common/chips/StatusChip';
 import TagChip from '../common/chips/TagChip';
-import React, { Dispatch, LegacyRef, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from 'react';
 import { CardData, CommentPost, CommentData } from '@/constants/types';
-import Avatar from '../common/Avatar';
 import { getComments, postComment } from '@/lib/api';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
 
 interface TaskModalProps {
 	isTaskCardModalOpen: boolean;
@@ -25,10 +25,12 @@ export default function TaskModal({
 	const router = useRouter();
 	const boardId = +(router.query.boardid ?? 0);
 
-	const [commentsList, setCommentsList] = useState<null | CommentData[]>(null);
+	// 댓글 목록 불러오기
+	const [commentsList, setCommentsList] = useState<CommentData[]>([]);
+
 	async function loadComments() {
 		const query = {
-			size: 10,
+			size: 3,
 			cursorId: 0,
 			cardId: cardItem.id,
 		};
@@ -36,11 +38,8 @@ export default function TaskModal({
 		setCommentsList(data.comments);
 	}
 
-	useEffect(() => {
-		loadComments();
-	}, []);
-
-	const { register, handleSubmit } = useForm<Pick<CommentPost, 'content'>>({
+	// 댓글 제출 관련
+	const { register, handleSubmit, reset } = useForm<Pick<CommentPost, 'content'>>({
 		mode: 'onChange',
 		defaultValues: {
 			content: '',
@@ -56,9 +55,22 @@ export default function TaskModal({
 			content: data.content,
 		};
 
-		postComment(submitValue);
+		const newComment = await postComment(submitValue);
+
+		// 1 - 새로 올린 댓글 업데이트
+		setCommentsList([...commentsList, newComment]);
+
+		// 2 - 댓글 입력 창 초기화
+		reset();
 	};
 
+	useEffect(() => {
+		if (isTaskCardModalOpen) {
+			loadComments();
+		}
+	});
+
+	// 수정/삭제 팝오버 관련
 	const dropDownref = useRef<HTMLDivElement>(null);
 	const [isOpened, setIsOpened] = useState<boolean>(false);
 
@@ -68,7 +80,6 @@ export default function TaskModal({
 		}
 	};
 
-	if (!commentsList) return;
 	return (
 		<Layout $modalType='Task' isOpen={isTaskCardModalOpen} setOpen={setIsTaskCardModalOpen}>
 			<div onClick={handleOutsideClick as unknown as MouseEventHandler<HTMLDivElement>}>
@@ -165,25 +176,28 @@ export default function TaskModal({
 						</div>
 						{!!commentsList.length && (
 							<div className='no-scrollbar mt-[2rem] h-[12.6rem] overflow-y-auto overflow-x-hidden'>
-								{commentsList.map((commentItem) => {
-									return (
-										<div key={commentItem.id} className='mb-[2rem] flex gap-[1.4rem]'>
-											<Avatar
-												className='h-[3rem] w-[3rem] flex-shrink-0 sm:h-[2.2rem] sm:w-[2.2rem] '
-												name={commentItem.author.nickname}
-											/>
-											<div>
-												<div className='flex gap-[0.8rem]'>
-													<p className='text-14-500 text-black-3'>{commentItem.author.nickname}</p>
-													<div className='text-12-400 text-gray-9'>{commentItem.createdAt.slice(0, 16)}</div>
+								{commentsList
+									.slice()
+									.reverse() // 최신순으로 렌더링
+									.map((commentItem) => {
+										return (
+											<div key={commentItem.id} className='mb-[2rem] flex gap-[1.4rem]'>
+												<Avatar
+													className='h-[3rem] w-[3rem] flex-shrink-0 sm:h-[2.2rem] sm:w-[2.2rem] '
+													name={commentItem.author.nickname}
+												/>
+												<div>
+													<div className='flex gap-[0.8rem]'>
+														<p className='text-14-500 text-black-3'>{commentItem.author.nickname}</p>
+														<div className='text-12-400 text-gray-9'>{commentItem.createdAt.slice(0, 16)}</div>
+													</div>
+													<div className='mb-[1.2rem] text-14-400 '>{commentItem.content}</div>
+													<button className='mr-[1.2rem] text-12-400 text-gray-9 underline'>수정</button>
+													<button className='text-12-400 text-gray-9 underline'>삭제</button>
 												</div>
-												<div className='mb-[1.2rem] text-14-400 '>{commentItem.content}</div>
-												<button className='mr-[1.2rem] text-12-400 text-gray-9 underline'>수정</button>
-												<button className='text-12-400 text-gray-9 underline'>삭제</button>
 											</div>
-										</div>
-									);
-								})}
+										);
+									})}
 							</div>
 						)}
 					</div>
