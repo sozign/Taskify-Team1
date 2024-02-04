@@ -20,7 +20,7 @@ export default function Avatar({ name, className, withBorder = false }: AvatarPr
 				'text-montserrat flex items-center justify-center rounded-[50%] text-center text-12-600 text-white',
 			)}
 		>
-			{name.slice(0, 1)}
+			{name.toUpperCase().slice(0, 1)}
 		</div>
 	);
 }
