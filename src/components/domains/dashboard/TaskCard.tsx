@@ -9,10 +9,10 @@ import TaskModal from '@/components/modal/TaskModal';
 
 interface TaskCardProps {
 	cardItem: CardData;
-	columnTitle: string;
+	columnInfo: { id: number; title: string };
 }
 
-export default function TaskCard({ cardItem, columnTitle }: TaskCardProps) {
+export default function TaskCard({ cardItem, columnInfo }: TaskCardProps) {
 	// 모달 관련
 	const [isTaskCardModalOpen, setIsTaskCardModalOpen] = useState(false);
 
@@ -69,7 +69,7 @@ export default function TaskCard({ cardItem, columnTitle }: TaskCardProps) {
 				isTaskCardModalOpen={isTaskCardModalOpen}
 				setIsTaskCardModalOpen={setIsTaskCardModalOpen}
 				cardItem={cardItem}
-				columnTitle={columnTitle}
+				columnInfo={columnInfo}
 			/>
 		</>
 	);

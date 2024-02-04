@@ -188,7 +188,11 @@ export default function Column({ columnItem }: ColumnProps) {
 						</SquareChip>
 					</button>
 					{currentCardList.map((cardItem) => (
-						<TaskCard key={cardItem.id} cardItem={cardItem} columnTitle={columnItem.title} />
+						<TaskCard
+							key={cardItem.id}
+							cardItem={cardItem}
+							columnInfo={{ id: columnItem.id, title: columnItem.title }}
+						/>
 					))}
 					<div ref={trigger} />
 				</div>
