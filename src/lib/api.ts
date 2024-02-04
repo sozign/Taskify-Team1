@@ -11,7 +11,7 @@ import {
 	CommentData,
 	CommentsGet,
 	CommentPut,
-	CommnetPost,
+	CommentPost,
 	DashboardData,
 	DashboardsGet,
 	DashboardPost,
@@ -162,7 +162,7 @@ export async function postCardImage(columnId: number, imageFile: File) {
 /**
  * 댓글 생성
  */
-export async function postComment(comment: CommnetPost) {
+export async function postComment(comment: CommentPost) {
 	const res = await authAxios.post<CommentData>('/comments', comment);
 	return res.data;
 }
