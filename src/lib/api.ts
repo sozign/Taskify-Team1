@@ -11,7 +11,7 @@ import {
 	CommentData,
 	CommentsGet,
 	CommentPut,
-	CommnetPost,
+	CommentPost,
 	DashboardData,
 	DashboardsGet,
 	DashboardPost,
@@ -162,7 +162,7 @@ export async function postCardImage(columnId: number, imageFile: File) {
 /**
  * 댓글 생성
  */
-export async function postComment(comment: CommnetPost) {
+export async function postComment(comment: CommentPost) {
 	const res = await authAxios.post<CommentData>('/comments', comment);
 	return res.data;
 }
@@ -177,7 +177,8 @@ interface getCommentsProps {
  * 댓글 목록 조회
  */
 export async function getComments({ size, cursorId, cardId }: getCommentsProps) {
-	const res = await authAxios.get<CommentsGet>(`/comments?size=${size}&cursorId=${cursorId}&cardId=${cardId}`);
+	const cursorIdQuery = cursorId ? `&cursorId=${cursorId}` : '';
+	const res = await authAxios.get<CommentsGet>(`/comments?size=${size}${cursorIdQuery}&cardId=${cardId}`);
 	return res.data;
 }
 

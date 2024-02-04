@@ -77,7 +77,7 @@ export interface CardImageGet {
 	imageUrl: string;
 }
 
-export interface CommnetPost {
+export interface CommentPost {
 	content: string;
 	cardId: number;
 	columnId: number;
