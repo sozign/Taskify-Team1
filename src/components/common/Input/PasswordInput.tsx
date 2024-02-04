@@ -31,10 +31,10 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
 
 		return (
 			<div className={className}>
-				<p className='mb-[1rem] flex items-center text-18-500'>{label}</p>
+				<p className='mb-[1rem] flex items-center text-18-500 sm:text-16-500'>{label}</p>
 				<div className='relative'>
 					<input
-						className={`${borderColor} container h-[5rem] rounded-[0.8rem] border-[0.1rem] border-gray-D bg-white px-[1.6rem] py-[1.5rem] text-16-400 placeholder:text-gray-D`}
+						className={`${borderColor} container h-[5rem] rounded-[0.8rem] border-[0.1rem] border-gray-D bg-white px-[1.6rem] py-[1.5rem] text-16-400 placeholder:text-gray-D sm:placeholder:text-14-400`}
 						type={inputType}
 						ref={ref}
 						{...props}

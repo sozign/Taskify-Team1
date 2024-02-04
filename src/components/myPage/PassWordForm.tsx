@@ -77,7 +77,7 @@ function PassWord() {
 	return (
 		<>
 			<div className=' mt-[1.2rem] h-[45.4rem] w-[62rem] rounded-lg bg-white md:w-[54.4rem] sm:w-[28.4rem]'>
-				<p className='ml-[2.8rem] py-[3.2rem] text-[2.4rem] font-bold text-[#333236] sm:ml-[2rem] sm:pb-[2.8rem] sm:pt-[2.8rem] sm:text-[2rem]'>
+				<p className='ml-[2.8rem] py-[3.2rem] text-[2.4rem] font-bold text-[#333236] sm:ml-[2rem] sm:pb-[2.8rem] sm:pt-[2.8rem] sm:text-20-700 sm:text-[2rem]'>
 					비밀번호 변경
 				</p>
 				<form

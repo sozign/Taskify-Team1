@@ -133,8 +133,8 @@ export default function MyPage() {
 						</p>
 						{/* </Link> */}
 						{/* 프로필 창  */}
-						<div className='mt-[2.5rem] h-[35.5rem] w-[62rem] rounded-lg bg-white md:w-[54.4rem] sm:h-[42.2rem] sm:w-[28.4rem] sm:text-[2rem]'>
-							<p className=' ml-[2.8rem] py-[3.2rem] text-[2.4rem] font-bold text-[#332636] sm:ml-[2rem] sm:pb-[2.4rem] sm:pt-[2.8rem]'>
+						<div className='mt-[2.5rem] h-[35.5rem] w-[62rem] rounded-lg bg-white md:w-[54.4rem] sm:h-[46.2rem] sm:w-[28.4rem] sm:text-[2rem]'>
+							<p className=' ml-[2.8rem] py-[3.2rem] text-[2.4rem] font-bold text-[#332636] sm:ml-[2rem] sm:pb-[2.4rem] sm:pt-[2.8rem] sm:text-20-700'>
 								프로필
 							</p>
 							<form className='ml-[2.8rem] sm:ml-[2rem]' onSubmit={handleSubmit((data) => alert(data))}>
@@ -142,9 +142,9 @@ export default function MyPage() {
 								<div className='flex w-[56.4rem] md:w-[48.8rem] sm:flex-col'>
 									{/* profileImage는 null값을 넘김 */}
 									<UploadImg profileImageUrl={userInfo.profileImageUrl} onImageUpload={handleImageUpload} />
-									<div className='w-[36.6rem]'>
-										<div>
-											<label htmlFor='email' className='text-18-500'>
+									<div className='w-[36.6rem] md:w-[29rem] sm:w-[24.4rem]  '>
+										<div className='sm:mt-[2.4rem]'>
+											<label htmlFor='email' className='text-18-500 sm:text-16-500'>
 												이메일
 											</label>
 											<input
@@ -152,18 +152,18 @@ export default function MyPage() {
 												type='email'
 												disabled
 												placeholder={userInfo.email}
-												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D sm:mt-[2.4rem] sm:w-[24.4rem]'
+												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D md:w-[100%] '
 											/>
 										</div>
-										<div className='mt-[2rem]'>
-											<label htmlFor='nickName' className='text-18-500'>
+										<div className='mt-[1.6rem]'>
+											<label htmlFor='nickName' className='text-18-500 sm:text-16-500'>
 												닉네임
 											</label>
 											<input
 												id='nickName'
 												type='text'
 												defaultValue={userInfo.nickname}
-												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D sm:mt-[2.4rem] sm:w-[24.4rem]'
+												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D md:w-[100%]'
 												{...register('nickName', {
 													required: '',
 													maxLength: {
