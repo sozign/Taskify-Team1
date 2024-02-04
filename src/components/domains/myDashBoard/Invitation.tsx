@@ -11,13 +11,8 @@ function Invitation({
 }) {
 	const [isHidden, setIsHidden] = useState(false);
 
-	const handleAccept = () => {
-		onAcceptInvitation(invitation.id, true);
-		setIsHidden(true);
-	};
-
 	if (isHidden) {
-		return null; // 숨겨진 상태일 경우, null을 반환하여 해당 컴포넌트를 숨김
+		return null;
 	}
 
 	return (
@@ -38,7 +33,7 @@ function Invitation({
 					disabled={false}
 					onClick={() => {
 						onAcceptInvitation(invitation.id, true);
-						handleAccept();
+						setIsHidden(true);
 					}}
 					variant='confirm'
 					color='violet'
@@ -49,7 +44,7 @@ function Invitation({
 					disabled={false}
 					onClick={() => {
 						onAcceptInvitation(invitation.id, false);
-						handleAccept();
+						setIsHidden(true);
 					}}
 					variant='confirm'
 					color='white'
