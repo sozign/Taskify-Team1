@@ -261,6 +261,10 @@ const config: Config = {
 				},
 				pink: {
 					DEFAULT: '#E876EA',
+					F: '#F4D7DA',
+				},
+				pinkRed: {
+					DEFAULT: '#D25B68',
 				},
 			},
 		},
