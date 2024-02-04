@@ -4,13 +4,10 @@ import Button from '@/components/common/Buttons/Button';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import Image from 'next/image';
 import PageLayout from '@/components/common/PageLayout';
-
 import leftArrow from '@/../../Public/assets/myPage-leftArrow.svg';
 import PassWordForm from '@/components/myPage/PassWordForm';
 import { getUsers, putUsers } from '@/lib/api';
 import UploadImg from '@/components/myPage/UploadImg';
-
-//모달확인하기위해 import
 import MyPageProfileModal from '@/components/modal/MyPageProfileModal';
 
 type profileFormData = {
@@ -26,6 +23,10 @@ type putUsersData = {
 
 export default function MyPage() {
 	const [open, setOpen] = useState(false);
+
+	const prevClickHandler = () => {
+		window.history.back();
+	};
 
 	const {
 		register,
@@ -123,7 +124,10 @@ export default function MyPage() {
 					<div className=' ml-[2rem] sm:ml-[1.2rem]'>
 						{/* 바로 직전에 클릭했던 링크로 되돌아가야한다. */}
 						{/* <Link href=''> */}
-						<p className='t-[#333236] flex items-center pt-[2rem] text-[1.6rem] font-medium sm:text-[1.4rem]'>
+						<p
+							onClick={prevClickHandler}
+							className='t-[#333236] flex items-center pt-[2rem] text-[1.6rem] font-medium sm:text-[1.4rem]'
+						>
 							<Image
 								src={leftArrow}
 								alt='leftArrow 이미지'
