@@ -21,7 +21,6 @@ import { useEffect, useState } from 'react';
 export default function DashBoardEdit() {
 	const router = useRouter();
 	const boardId = +(router.query.boardid ?? 0);
-	console.log(boardId);
 
 	const [dashboardInfo, setDashboardInfo] = useState<DashboardData>({
 		id: boardId,
@@ -101,10 +100,10 @@ export default function DashBoardEdit() {
 
 	useEffect(() => {
 		loadDashboardData(boardId);
-		loadDashboardMembersData(membersPagination);
-		loadInvitationsDashboardData(invitationsPagination);
 		loadMyInfo();
-	}, []);
+		setMembersPagination({ dashboardId: boardId, page: 1, size: 4 });
+		setInvitationsPagination({ dashboardId: boardId, page: 1, size: 5 });
+	}, [boardId]);
 
 	useEffect(() => {
 		loadDashboardMembersData(membersPagination);
