@@ -2,6 +2,7 @@ import { MembersData } from '@/constants/types';
 import React from 'react';
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form';
 import Select from 'react-select';
+import Avatar from '../common/Avatar';
 
 interface DropDownProps<T extends FieldValues> extends UseControllerProps<T> {
 	dashboardMemberList: MembersData[];
@@ -10,7 +11,12 @@ interface DropDownProps<T extends FieldValues> extends UseControllerProps<T> {
 const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, name }: DropDownProps<T>) => {
 	const options = dashboardMemberList.map((member) => ({
 		value: member.userId + '',
-		label: <div>컴포넌트자리 {member.nickname}</div>,
+		label: (
+			<div className='flex gap-[0.8rem]'>
+				<Avatar className='h-[2.2rem] w-[2.2rem]' name={member.nickname} />
+				<p>{member.nickname}</p>
+			</div>
+		),
 	}));
 
 	const {
@@ -30,16 +36,7 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 				ref={ref}
 				options={options}
 				placeholder='이름을 입력해 주세요'
-				className='mb-[3.2rem] w-[50%] rounded-md'
-				theme={(theme) => ({
-					...theme,
-					borderRadius: 6,
-					colors: {
-						...theme.colors,
-						primary: '#5534DA',
-					},
-				})}
-				// select 컴포넌트 커스텀
+				className='mb-[3.2rem] w-[50%] rounded-md sm:container'
 				styles={{
 					dropdownIndicator: (provided) => ({
 						...provided,
@@ -49,10 +46,13 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 						...provided,
 						color: '#D9D9D9',
 					}),
-					control: (provided) => ({
+					control: (provided, state) => ({
 						...provided,
 						fontSize: '16px',
 						height: '50px',
+						borderRadius: '6px',
+						border: 'none',
+						boxShadow: state.isFocused ? '0 0 0 2px #5534DA' : '0 0 0 1px #D9D9D9',
 					}),
 					menu: (provided) => ({
 						...provided,
@@ -60,10 +60,10 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 						paddingBottom: '13px',
 						fontSize: '16px',
 					}),
-					option: (base, { isFocused, isSelected }) => ({
-						...base,
-						backgroundColor: isFocused ? '#ccc' : isSelected ? 'transparent' : 'transparent',
-						color: isFocused || isSelected ? '#000' : base.color,
+					option: (provided, { isFocused, isSelected }) => ({
+						...provided,
+						backgroundColor: isFocused ? '#D9D9D9' : isSelected ? 'D9D9D9' : 'transparent',
+						color: isFocused || isSelected ? '#000' : provided.color,
 						fontSize: '16px',
 					}),
 				}}
