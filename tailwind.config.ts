@@ -122,9 +122,95 @@ const config: Config = {
 				},
 			],
 
+			//fontsize: 22px
+			'22-500': [
+				'2.2rem',
+				{
+					fontWeight: '500',
+				},
+			],
+			'22-700': [
+				'2.2rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
 			//fontsize: 24px
 			'24-700': [
 				'2.4rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 28px
+			'28-700': [
+				'2.8rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 36px
+			'36-700': [
+				'3.6rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 40px
+			'40-700': [
+				'4rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 42px
+			'42-700': [
+				'4.2rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 48px
+			'48-700': [
+				'4.8rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 56px
+			'56-700': [
+				'5.6rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 70px
+			'70-700': [
+				'7rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 76px
+			'76-700': [
+				'7.6rem',
+				{
+					fontWeight: '700',
+				},
+			],
+
+			//fontsize: 90px
+			'90-700': [
+				'9rem',
 				{
 					fontWeight: '700',
 				},
