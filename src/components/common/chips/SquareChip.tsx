@@ -19,7 +19,7 @@ function SquareChip({ color, className, children, onClick }: SquareChipProps) {
 			break;
 		case 'violet':
 			combinedClassName +=
-				' flex justify-center items-center w-[2.2rem] h-[2.2rem] rounded-[0.4rem] bg-violet-F sm:w-[2rem] sm:h-[2rem] relative';
+				' flex justify-center items-center w-[2.2rem] h-[2.2rem] rounded-[0.4rem] bg-violet-F sm:w-[2rem] sm:h-[2rem]';
 			break;
 	}
 
