@@ -1,6 +1,3 @@
-// 강의 02 6:35  setting page
-// 상태관리 라이브러리 뷰스탄드 context 새로 갱신하게
-
 import { useState, useEffect } from 'react';
 import { useForm, FieldValues, FieldError } from 'react-hook-form';
 import Button from '@/components/common/Buttons/Button';
@@ -28,7 +25,6 @@ type putUsersData = {
 };
 
 export default function MyPage() {
-	// 모달창 확인을 위한 useState
 	const [open, setOpen] = useState(false);
 
 	const {
@@ -71,7 +67,6 @@ export default function MyPage() {
 	const PutUserInfo = async (data: putUsersData) => {
 		try {
 			const response = await putUsers(data);
-			console.log({ response });
 			if (response.status === 200) {
 				setUserInfo((prevUserInfo: profileFormData) => {
 					return {
@@ -89,9 +84,7 @@ export default function MyPage() {
 		}
 	};
 
-	//이함수에 imgUrl 데이터를 받아오겠다.
 	const handleImageUpload = (imgUrl: string) => {
-		//현재 상태의 데이터에 imgUrl을 추가해주겠다.
 		setDataToUpdate((prevData) => {
 			return {
 				...prevData,
@@ -104,7 +97,7 @@ export default function MyPage() {
 		try {
 			await handleSubmit(async (data) => {
 				if (data) {
-					setOpen(true);
+					setOpen((prev) => !prev);
 				}
 				// Save 버튼에 대한 추가 동작 구현
 				await PutUserInfo(dataToUpdate);
@@ -112,10 +105,6 @@ export default function MyPage() {
 		} catch (error) {
 			console.error('데이터 처리 중 에러:', error);
 		}
-	};
-
-	const additionHandleClick = () => {
-		setOpen((prev) => !prev);
 	};
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,12 +119,6 @@ export default function MyPage() {
 		<>
 			<DashboardHeader title={'내 정보'} dashboardId={0} />
 			<PageLayout>
-				{/* 모달창 확인하기 위해 임시 생성 */}
-				<div>
-					<div onClick={additionHandleClick}>모달 확인하러 가기</div>
-
-					{open === true ? <MyPageProfileModal isOpen={open} setOpen={setOpen} /> : null}
-				</div>
 				<div className=' bg-[#FAFAFA]'>
 					<div className=' ml-[2rem] sm:ml-[1.2rem]'>
 						{/* 바로 직전에 클릭했던 링크로 되돌아가야한다. */}
@@ -208,6 +191,7 @@ export default function MyPage() {
 								>
 									저장
 								</Button>
+								{open && <MyPageProfileModal isOpen={open} setOpen={setOpen} />}
 							</form>
 						</div>
 						<PassWordForm />

@@ -1,10 +1,10 @@
-// import { useRef } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { VALIDATE_RULES } from '@/constants/validation';
 import Button from '@/components/common/Buttons/Button';
-//비밀번호 변경 api
 import { putAuthPassword } from '@/lib/api';
 import PasswordInput from '../common/Input/PasswordInput';
+import MyPagePassWordModal from '../modal/MyPagePassWordModal';
 
 type passwordFormData = {
 	password: string;
@@ -13,6 +13,7 @@ type passwordFormData = {
 };
 
 function PassWord() {
+	const [open, setOpen] = useState(false);
 	const {
 		register,
 		getValues,
@@ -30,17 +31,20 @@ function PassWord() {
 	const putPasswordSubmit = async () => {
 		try {
 			const data = getValues();
-			console.log(data);
 			const { password, newPassword } = data;
-			await handleSubmit(async (data) => {
-				if (data) {
-					//모달창 띄우기
-					// setOpen(true);
-				}
-				await putAuthPassword({ password, newPassword });
-			})();
+
+			const response = await putAuthPassword({ password, newPassword });
+			console.log(response);
+			console.log(data);
+
+			if (response === 200) {
+				await handleSubmit(async () => {
+					await putAuthPassword({ password, newPassword });
+				})();
+			}
 		} catch (error) {
 			console.error(error);
+			setOpen(true);
 		}
 	};
 
@@ -105,17 +109,16 @@ function PassWord() {
 							errorMessage={errors.verifyPassword && String(errors.verifyPassword.message)}
 						/>
 					</div>
-					{/* 모달창에 현재 비밀번호가 틀렸습니다 작업 필요, 버튼 왜 한번 밖에 클릭 안됨 */}
 					<Button
 						color='violet'
 						disabled={isSubmitting}
 						type='submit'
 						variant='confirm'
 						className='float-right mb-[2.8rem]  mt-[2.4rem] flex'
-						onClick={() => putPasswordSubmit()}
 					>
 						변경
 					</Button>
+					{open && <MyPagePassWordModal isOpen={open} setOpen={setOpen} />}
 				</form>
 			</div>
 		</>
