@@ -68,7 +68,7 @@ export default function TaskModal({
 		if (isTaskCardModalOpen) {
 			loadComments();
 		}
-	});
+	}, [isTaskCardModalOpen]);
 
 	// 수정/삭제 팝오버 관련
 	const dropDownref = useRef<HTMLDivElement>(null);
