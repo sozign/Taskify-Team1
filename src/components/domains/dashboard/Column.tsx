@@ -183,7 +183,7 @@ export default function Column({ columnItem }: ColumnProps) {
 						}}
 						className='flex justify-center rounded-[0.6rem] border-[0.1rem] border-gray-D bg-white py-[0.9rem]'
 					>
-						<SquareChip color='violet'>
+						<SquareChip color='violet' className='relative'>
 							<Image className='px-[0.6rem] py-[0.6rem]' fill src={addIcon} alt='추가하기 아이콘' />
 						</SquareChip>
 					</button>
