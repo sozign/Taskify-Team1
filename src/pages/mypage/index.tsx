@@ -118,8 +118,14 @@ export default function MyPage() {
 
 	return (
 		<>
-			<DashboardHeader title={'내 정보'} dashboardId={0} />
 			<PageLayout>
+				<DashboardHeader title={'내 정보'} dashboardId={0} />
+				{/* 모달창 확인하기 위해 임시 생성 */}
+				<div>
+					<div onClick={additionHandleClick}>모달 확인하러 가기</div>
+
+					{open === true ? <MyPageProfileModal isOpen={open} setOpen={setOpen} /> : null}
+				</div>
 				<div className=' bg-[#FAFAFA]'>
 					<div className=' ml-[2rem] sm:ml-[1.2rem]'>
 						{/* 바로 직전에 클릭했던 링크로 되돌아가야한다. */}
