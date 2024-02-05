@@ -86,42 +86,33 @@ export default function TaskEditModal({ editModalControl, cardItem, columnInfo }
 	});
 
 	const onSubmit: SubmitHandler<FormValue> = async (data) => {
-		//마감일이 지정된 경우 fomatting을 진행, 그렇지 않다면 undefined로 초기화
+		//1 - 마감일이 지정된 경우 fomatting을 진행, 그렇지 않다면 undefined로 초기화
 		const formattedDueDate = data.dueDate ? format(data.dueDate, 'yyyy-MM-dd HH:mm') : undefined;
 		const newData = {
 			...data,
 			dueDate: formattedDueDate,
-
 			dashboardId: boardId,
-		};
-
-		/**
-		 * @Todo
-		 * entries 순회 후 type 깨짐 이슈 해결
-		 */
-
-		type Entries<T> = {
-			[K in keyof T]: [K, T[K]];
-		}[keyof T][];
-
-		const dataWithImageUrl = {
-			...newData,
 			imageUrl: watch('imageUrl'),
 		};
 
-		// 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 post 요청
+		//2 - 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 put 요청
 		const filteredData = Object.fromEntries(
-			Object.entries(dataWithImageUrl).filter(([key, value]) => {
+			Object.entries(newData).filter(([key, value]) => {
 				if (key === 'imageUrl' && value instanceof FileList) {
 					return value.length > 0;
 				}
 				return value !== undefined;
-			}) as Entries<FormValue>[],
+			}) as any,
 		);
 
-		console.log('filteredData', filteredData);
-		const res = await putCardItem(cardItem.id, filteredData);
-		if (res) editModalControl.setIsTaskCardEditModalOpen(false);
+		try {
+			await putCardItem(cardItem.id, filteredData as CardItemPost);
+			editModalControl.setIsTaskCardEditModalOpen(false);
+		} catch (err) {
+			/**
+			 * @TODO 수정에 실패했습니다 alert
+			 */
+		}
 	};
 
 	async function handleChangeImageInput(e: ChangeEvent<HTMLInputElement>) {
