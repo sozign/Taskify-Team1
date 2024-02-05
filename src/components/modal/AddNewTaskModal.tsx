@@ -99,9 +99,8 @@ export default function AddNewTaskModal({
 				return value !== undefined;
 			}) as Entries<FormValue>[],
 		);
-		console.log(filteredData);
 
-		const res = await postCards(dataWithImageUrl as CardItemPost);
+		const res = await postCards(filteredData as CardItemPost);
 		if (res) setIsTaskEditModalOpen(false);
 	};
 
