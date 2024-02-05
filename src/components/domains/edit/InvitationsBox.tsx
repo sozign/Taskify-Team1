@@ -6,7 +6,11 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction, useState } from 'react';
 import EditPaginationButton from './EditPaginationButton';
 import Invitation from './Invitation';
+<<<<<<< HEAD
 import notInvited from '@/../../Public/assets/notInvited.svg';
+=======
+import NotInvited from '@/../../Public/assets/notInvited.svg';
+>>>>>>> 1bbf87f (feat:common스피너 추가, useAsync훅 추가, 나의대시보드페이지 검색로딩적용)
 interface InvitationsBoxProps {
 	dashboardId: number;
 	invitations: InvitationsDashboardGet;
