@@ -3,7 +3,7 @@ import searchIcon from '@../../../Public/assets/searchIcon.svg';
 import { InvitationDashboardData } from '@/constants/types';
 import Invitation from './Invitation';
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { getInvitations } from '@/lib/api';
+import { getInvitations, getAllInvitation } from '@/lib/api';
 import NotInvited from './NotInvited';
 import useAsync from '@/hooks/useAsync';
 import BarSpinner from '@/components/common/spinner/BarSpinner';
@@ -22,14 +22,34 @@ function InvitationList({
 	const [loading, setLoading] = useState(true);
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [searchInvitationList, setSearchInvitationList] = useState<InvitationDashboardData[]>([]);
+	const allInvitation = useRef<InvitationDashboardData[]>([]);
 
 	// 추가 초대 요청
 	const loadMoreInvitations = async () => {
+		setLoading(true);
 		try {
 			if (cursorId.current == null) return;
+			const data1 = await getAllInvitation();
+			allInvitation.current = data1.invitations;
+
 			const data = await getInvitations({ size: 2, cursorId: cursorId.current });
 			cursorId.current = data.cursorId;
-			setInvitationList((prevList) => [...prevList, ...data.invitations]);
+
+			const uniqueInvitationsArray = data.invitations.reduce((accumulator, newInvitation) => {
+				const isDuplicate = accumulator.some(
+					(invitation: InvitationDashboardData) =>
+						invitation.inviter.email === newInvitation.inviter.email &&
+						invitation.dashboard.title === newInvitation.dashboard.title,
+				);
+
+				if (!isDuplicate) {
+					accumulator.push(newInvitation);
+				}
+
+				return accumulator;
+			}, [] as InvitationDashboardData[]);
+
+			setInvitationList((prevList) => [...prevList, ...uniqueInvitationsArray]);
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -104,21 +124,9 @@ function InvitationList({
 									<li className='w-1/3'>수락여부</li>
 								</ul>
 								<ul className='flex flex-col  sm:w-[100%]'>
-									{searchKeyword === ''
-										? invitationList.map((invitation) => (
-												<Invitation
-													onAcceptInvitation={onAcceptInvitation}
-													invitation={invitation}
-													key={invitation.id}
-												/>
-											))
-										: searchInvitationList.map((invitation) => (
-												<Invitation
-													onAcceptInvitation={onAcceptInvitation}
-													invitation={invitation}
-													key={invitation.id}
-												/>
-											))}
+									{(searchKeyword === '' ? invitationList : searchInvitationList).map((invitation) => (
+										<Invitation onAcceptInvitation={onAcceptInvitation} invitation={invitation} key={invitation.id} />
+									))}
 								</ul>
 								<div ref={lastElementRef}></div>
 							</div>
