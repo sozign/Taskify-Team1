@@ -71,15 +71,15 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 
 	useEffect(() => {
 		getMembersData();
-	}, []);
+	}, [boardId]);
 
 	useEffect(() => {
 		userProfileData();
-	}, []);
+	}, [boardId]);
 
 	useEffect(() => {
 		loadDashboardData(boardId);
-	}, []);
+	}, [boardId]);
 
 	useEffect(() => {
 		const clickOutside = (e: MouseEvent) => {
@@ -159,32 +159,34 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 										/>
 										<span className='items-center text-16-500 text-gray-7'>초대하기</span>
 									</button>
-									<div className='group flex items-center justify-center pl-[4rem]'>
-										{members.members.slice(0, 4).map((members, member) => {
-											return members.profileImageUrl === null ? (
-												<Avatar
-													key={member}
-													name={members.nickname}
-													className=' h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row items-center gap-[-2rem] border-2 border-white text-16-600  group-odd:ml-[-1rem] sm:hidden'
-												/>
-											) : (
-												<Image
-													key={member}
-													alt='초대 멤버 프로필 사진'
-													src={members.profileImageUrl}
-													className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] text-center'
-												/>
-											);
-										})}
-										{members.totalCount > 4 && (
-											<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pinkRed group-odd:ml-[-1.2rem] sm:hidden'>
-												+ {members.totalCount}
-											</div>
-										)}
-									</div>
-									<Image alt='영역 나누는 라인 이미지' src={Vector} className='h-[3.8rem] ' />
 								</>
 							)}
+					<div className='group flex items-center justify-center pl-[4rem] sm:pl-0'>
+						{members.members.slice(0, 4).map((members, member) => {
+							return members.profileImageUrl === null ? (
+								<Avatar
+									key={member}
+									name={members.nickname}
+									className=' h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row items-center gap-[-2rem] border-2 border-white text-16-600  group-odd:ml-[-1rem]'
+								/>
+							) : (
+								<Image
+									key={member}
+									alt='초대 멤버 프로필 사진'
+									src={members.profileImageUrl}
+									className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] text-center'
+								/>
+							);
+						})}
+						{members.totalCount > 4 && (
+							<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pinkRed group-odd:ml-[-1.2rem]'>
+								+ {members.totalCount}
+							</div>
+						)}
+					</div>
+					{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage') ? null : (
+						<Image alt='영역 나누는 라인 이미지' src={Vector} className='h-[3.8rem] ' />
+					)}
 					<div className='flex flex-row items-center justify-center gap-[0.9rem]'>
 						<div
 							className='flex cursor-pointer items-center justify-center gap-2'
