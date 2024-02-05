@@ -55,8 +55,6 @@ export default function AddNewTaskModal({
 	} = useForm<FormValue>({
 		mode: 'onBlur',
 		defaultValues: {
-			dashboardId: boardId,
-			columnId: columnId,
 			title: '',
 			description: '',
 			tags: [],
@@ -73,6 +71,9 @@ export default function AddNewTaskModal({
 		const newData = {
 			...data,
 			dueDate: formattedDueDate,
+
+			dashboardId: boardId,
+			columnId: columnId,
 		};
 
 		/**
@@ -84,21 +85,24 @@ export default function AddNewTaskModal({
 			[K in keyof T]: [K, T[K]];
 		}[keyof T][];
 
+		const dataWithImageUrl = {
+			...newData,
+			imageUrl: watch('imageUrl'),
+		};
+
 		// 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 post 요청
 		const filteredData = Object.fromEntries(
-			Object.entries(newData).filter(([key, value]) => {
+			Object.entries(dataWithImageUrl).filter(([key, value]) => {
 				if (key === 'imageUrl' && value instanceof FileList) {
 					return value.length > 0;
 				}
 				return value !== undefined;
 			}) as Entries<FormValue>[],
 		);
+		console.log(filteredData);
 
-		const dataWithImageUrl = {
-			...filteredData,
-			imageUrl: watch('imageUrl'),
-		};
-		postCards(dataWithImageUrl as CardItemPost);
+		const res = await postCards(dataWithImageUrl as CardItemPost);
+		if (res) setIsTaskEditModalOpen(false);
 	};
 
 	async function handleChangeImageInput(e: ChangeEvent<HTMLInputElement>) {
