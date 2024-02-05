@@ -20,7 +20,7 @@ export interface CardItemPost {
 	description: string;
 	dueDate?: string;
 	tags: string[];
-	imageUrl?: File;
+	imageUrl?: string;
 }
 
 export interface CardData {

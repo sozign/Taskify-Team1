@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Control, useController } from 'react-hook-form';
 import TagChip from '../chips/TagChip';
-import { FormValue } from '@/components/domains/dashboard/Column';
+import { FormValue } from '@/components/modal/AddNewTaskModal';
 
 interface TagInputProps {
 	label: string;
@@ -12,8 +12,6 @@ interface TagInputProps {
 /**
  * @todo
  * 1. 태그 최대 추가 갯수 제한
- * 2. overflow 처리
- * 3. string으로부터 hash 추출 후 랜덤한 배경색상 적용
  */
 
 export default function TagInput({ label, control, className }: TagInputProps) {
@@ -54,7 +52,7 @@ export default function TagInput({ label, control, className }: TagInputProps) {
 	return (
 		<div className={className}>
 			<p className='text-18-500'>{label}</p>
-			<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] gap-[0.5rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0  focus:outline-violet-5'>
+			<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] gap-[0.5rem] overflow-x-auto whitespace-nowrap rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 focus:outline-violet-5 '>
 				{tagList && (
 					<div className='flex gap-[0.4rem]'>
 						{tagList.map((tagItem) => (
