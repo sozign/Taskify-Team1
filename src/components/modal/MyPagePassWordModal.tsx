@@ -12,7 +12,15 @@ function MyPagePassWordModal({ isOpen, setOpen }: ModalProps) {
 		<Layout $modalType='Alert' isOpen={isOpen} setOpen={setOpen}>
 			<div>
 				<p className='text-[1.8rem]'>현재 비밀번호가 틀렸습니다.</p>
-				<Button color='modalViolet' variant='modal' disabled={false} className='relative left-[22.4rem] top-[4.4rem]'>
+				<Button
+					onClick={() => {
+						setOpen(false);
+					}}
+					color='modalViolet'
+					variant='modal'
+					disabled={false}
+					className='relative left-[22.4rem] top-[4.4rem]'
+				>
 					확인
 				</Button>
 			</div>

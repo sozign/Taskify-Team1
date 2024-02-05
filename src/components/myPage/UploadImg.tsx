@@ -81,13 +81,14 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 						multiple
 						onChange={handleChange}
 						style={{ display: 'none' }}
+						className='h-[18.2rem] w-[18.2rem]'
 					/>
 					{profileImageUrl ? (
 						<Image
 							id='user_image'
 							src={previewImage || profileImageUrl}
 							alt='이미지'
-							className='mr-[1.6rem] h-[18.2rem] w-[18.2rem] rounded-md'
+							className='mr-[1.6rem] h-[18.2rem] w-[18.2rem] rounded-md sm:h-[10rem] sm:w-[10rem]'
 							onClick={handleImageClick}
 							width={182}
 							height={182}

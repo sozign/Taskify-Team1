@@ -1,19 +1,13 @@
-// 강의 02 6:35  setting page
-// 상태관리 라이브러리 뷰스탄드 context 새로 갱신하게
-
 import { useState, useEffect } from 'react';
 import { useForm, FieldValues, FieldError } from 'react-hook-form';
 import Button from '@/components/common/Buttons/Button';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import Image from 'next/image';
 import PageLayout from '@/components/common/PageLayout';
-
 import leftArrow from '@/../../Public/assets/myPage-leftArrow.svg';
 import PassWordForm from '@/components/myPage/PassWordForm';
 import { getUsers, putUsers } from '@/lib/api';
 import UploadImg from '@/components/myPage/UploadImg';
-
-//모달확인하기위해 import
 import MyPageProfileModal from '@/components/modal/MyPageProfileModal';
 
 type profileFormData = {
@@ -28,8 +22,11 @@ type putUsersData = {
 };
 
 export default function MyPage() {
-	// 모달창 확인을 위한 useState
 	const [open, setOpen] = useState(false);
+
+	const prevClickHandler = () => {
+		window.history.back();
+	};
 
 	const {
 		register,
@@ -71,7 +68,6 @@ export default function MyPage() {
 	const PutUserInfo = async (data: putUsersData) => {
 		try {
 			const response = await putUsers(data);
-			console.log({ response });
 			if (response.status === 200) {
 				setUserInfo((prevUserInfo: profileFormData) => {
 					return {
@@ -89,9 +85,7 @@ export default function MyPage() {
 		}
 	};
 
-	//이함수에 imgUrl 데이터를 받아오겠다.
 	const handleImageUpload = (imgUrl: string) => {
-		//현재 상태의 데이터에 imgUrl을 추가해주겠다.
 		setDataToUpdate((prevData) => {
 			return {
 				...prevData,
@@ -104,7 +98,7 @@ export default function MyPage() {
 		try {
 			await handleSubmit(async (data) => {
 				if (data) {
-					setOpen(true);
+					setOpen((prev) => !prev);
 				}
 				// Save 버튼에 대한 추가 동작 구현
 				await PutUserInfo(dataToUpdate);
@@ -112,10 +106,6 @@ export default function MyPage() {
 		} catch (error) {
 			console.error('데이터 처리 중 에러:', error);
 		}
-	};
-
-	const additionHandleClick = () => {
-		setOpen((prev) => !prev);
 	};
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,17 +120,14 @@ export default function MyPage() {
 		<>
 			<DashboardHeader title={'내 정보'} dashboardId={0} />
 			<PageLayout>
-				{/* 모달창 확인하기 위해 임시 생성 */}
-				<div>
-					<div onClick={additionHandleClick}>모달 확인하러 가기</div>
-
-					{open === true ? <MyPageProfileModal isOpen={open} setOpen={setOpen} /> : null}
-				</div>
 				<div className=' bg-[#FAFAFA]'>
 					<div className=' ml-[2rem] sm:ml-[1.2rem]'>
 						{/* 바로 직전에 클릭했던 링크로 되돌아가야한다. */}
 						{/* <Link href=''> */}
-						<p className='t-[#333236] flex items-center pt-[2rem] text-[1.6rem] font-medium sm:text-[1.4rem]'>
+						<p
+							onClick={prevClickHandler}
+							className='t-[#333236] flex items-center pt-[2rem] text-[1.6rem] font-medium sm:text-[1.4rem]'
+						>
 							<Image
 								src={leftArrow}
 								alt='leftArrow 이미지'
@@ -150,8 +137,8 @@ export default function MyPage() {
 						</p>
 						{/* </Link> */}
 						{/* 프로필 창  */}
-						<div className='mt-[2.5rem] h-[35.5rem] w-[62rem] rounded-lg bg-white md:w-[54.4rem] sm:h-[42.2rem] sm:w-[28.4rem] sm:text-[2rem]'>
-							<p className=' ml-[2.8rem] py-[3.2rem] text-[2.4rem] font-bold text-[#332636] sm:ml-[2rem] sm:pb-[2.4rem] sm:pt-[2.8rem]'>
+						<div className='mt-[2.5rem] h-[35.5rem] w-[62rem] rounded-lg bg-white md:w-[54.4rem] sm:h-[46.2rem] sm:w-[28.4rem] sm:text-[2rem]'>
+							<p className=' ml-[2.8rem] py-[3.2rem] text-[2.4rem] font-bold text-[#332636] sm:ml-[2rem] sm:pb-[2.4rem] sm:pt-[2.8rem] sm:text-20-700'>
 								프로필
 							</p>
 							<form className='ml-[2.8rem] sm:ml-[2rem]' onSubmit={handleSubmit((data) => alert(data))}>
@@ -159,9 +146,9 @@ export default function MyPage() {
 								<div className='flex w-[56.4rem] md:w-[48.8rem] sm:flex-col'>
 									{/* profileImage는 null값을 넘김 */}
 									<UploadImg profileImageUrl={userInfo.profileImageUrl} onImageUpload={handleImageUpload} />
-									<div className='w-[36.6rem]'>
-										<div>
-											<label htmlFor='email' className='text-18-500'>
+									<div className='w-[36.6rem] md:w-[29rem] sm:w-[24.4rem]  '>
+										<div className='sm:mt-[2.4rem]'>
+											<label htmlFor='email' className='text-18-500 sm:text-16-500'>
 												이메일
 											</label>
 											<input
@@ -169,18 +156,18 @@ export default function MyPage() {
 												type='email'
 												disabled
 												placeholder={userInfo.email}
-												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D sm:mt-[2.4rem] sm:w-[24.4rem]'
+												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D md:w-[100%] '
 											/>
 										</div>
-										<div className='mt-[2rem]'>
-											<label htmlFor='nickName' className='text-18-500'>
+										<div className='mt-[1.6rem]'>
+											<label htmlFor='nickName' className='text-18-500 sm:text-16-500'>
 												닉네임
 											</label>
 											<input
 												id='nickName'
 												type='text'
 												defaultValue={userInfo.nickname}
-												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D sm:mt-[2.4rem] sm:w-[24.4rem]'
+												className='container mt-[1rem] h-[4.8rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D md:w-[100%]'
 												{...register('nickName', {
 													required: '',
 													maxLength: {
@@ -208,6 +195,7 @@ export default function MyPage() {
 								>
 									저장
 								</Button>
+								{open && <MyPageProfileModal isOpen={open} setOpen={setOpen} />}
 							</form>
 						</div>
 						<PassWordForm />
