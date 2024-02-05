@@ -112,7 +112,6 @@ export default function Column({ columnItem }: ColumnProps) {
 				</div>
 			</div>
 			<AddNewTaskModal
-				boardId={boardId}
 				columnId={columnItem.id}
 				isTaskEditModalOpen={isTaskEditModalOpen}
 				setIsTaskEditModalOpen={setIsTaskEditModalOpen}
