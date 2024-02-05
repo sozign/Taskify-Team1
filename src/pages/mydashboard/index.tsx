@@ -64,6 +64,7 @@ export default function MyDashBoard() {
 		blue: '#76A6EA',
 		pink: '#E876EA',
 	};
+
 	const colorNameList = Object.keys(colorList);
 
 	useEffect(() => {
@@ -72,9 +73,9 @@ export default function MyDashBoard() {
 
 	return (
 		<>
-			<DashboardHeader dashboardId={0} title={'내 대시보드'} />
 			<PageLayout>
-				<div className='sm:gap:-[2.4rem] flex w-[100%] flex-col  gap-[4rem] bg-gray-F  px-[4rem] py-[4rem] sm:gap-[2.4rem]'>
+				<DashboardHeader dashboardId={0} title={'내 대시보드'} />
+				<div className='sm:gap:-[2.4rem] flex h-[100vh] w-[100%] flex-col gap-[4rem] bg-gray-F  px-[4rem] py-[4rem] sm:gap-[2.4rem]'>
 					<div className='flex w-[102.2rem] flex-col gap-[1.2rem] md:w-[50.4rem]  sm:w-[100%]'>
 						<div className='col-span-2 grid grid-cols-3 gap-[1.2rem] md:col-span-3 md:grid-cols-2 md:gap-[1rem] sm:col-span-1 sm:grid-cols-1 sm:gap-[0.8rem]'>
 							<AddDashboardButton

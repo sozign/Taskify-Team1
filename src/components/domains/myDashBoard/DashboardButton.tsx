@@ -8,7 +8,6 @@ type DashboardInfo = {
 	color: string;
 	title: string;
 	createdByMe?: boolean;
-	onClick?: () => void;
 	dashboardId: number;
 };
 
@@ -20,7 +19,7 @@ const colorList: Record<string, string> = {
 	'#E876EA': 'bg-pink',
 };
 
-function DashboardButton({ color, title, createdByMe, onClick, dashboardId }: DashboardInfo) {
+function DashboardButton({ color, title, createdByMe, dashboardId }: DashboardInfo) {
 	return (
 		<Link href={`dashboard/${dashboardId}`}>
 			<button className=' flex h-[7rem] w-[33.2rem] items-center justify-between gap-[1.2rem] overflow-hidden rounded-[0.8rem]  border border-gray-D bg-white px-[2rem] py-[2.6rme] md:h-[6.8rem] md:w-[24.7rem] sm:h-[5.8rem] sm:w-[100%]'>
