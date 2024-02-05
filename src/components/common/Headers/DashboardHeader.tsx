@@ -187,7 +187,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 					{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage') ? null : (
 						<Image alt='영역 나누는 라인 이미지' src={Vector} className='h-[3.8rem] ' />
 					)}
-					<div className='flex flex-row items-center justify-center gap-[0.9rem]'>
+					<div className='ms:pr-[1.2rem] flex flex-row items-center justify-center gap-[0.9rem] pr-[8rem] md:pr-[4rem]'>
 						<div
 							className='flex cursor-pointer items-center justify-center gap-2'
 							ref={dropDownRef}
