@@ -13,7 +13,7 @@ export default function LandingHeader() {
 				<Image alt='TaskifyLogo' src={Taskify} className='h-[2.2rem] w-[8rem] sm:hidden' />
 			</Link>
 
-			<div className='flex flex-row gap-[3.6rem] pr-[8rem]'>
+			<div className='flex flex-row gap-[3.6rem] pr-[4%]'>
 				<Link href='/login' className='text-16-400  text-black-3'>
 					로그인
 				</Link>
