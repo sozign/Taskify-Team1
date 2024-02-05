@@ -17,7 +17,7 @@ export default function Avatar({ name, className, withBorder = false }: AvatarPr
 			className={clsx(
 				className,
 				MAPPER[pickerNumber],
-				'text-montserrat flex items-center justify-center rounded-[50%] text-center text-12-600 text-white',
+				'text-montserrat flex shrink-0 items-center justify-center rounded-[50%] text-center text-12-600 text-white',
 			)}
 		>
 			{name.slice(0, 1)}
