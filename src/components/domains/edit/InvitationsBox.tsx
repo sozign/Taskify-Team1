@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction, useState } from 'react';
 import EditPaginationButton from './EditPaginationButton';
 import Invitation from './Invitation';
-import notInvited from '@/../../Public/assets/NotInvited.svg';
+import NotInvited from '@/../../Public/assets/NotInvited.svg';
 interface InvitationsBoxProps {
 	dashboardId: number;
 	invitations: InvitationsDashboardGet;
@@ -57,7 +57,7 @@ function InvitationsBox({ dashboardId, invitations, paginationInfo, setPaginatio
 					</>
 				) : (
 					<div className='flex h-[31.8rem] flex-col items-center justify-center gap-[2.4rem] sm:h-[29.8rem]'>
-						<Image fill src={notInvited} alt='아직 초대한 멤버가 없을 때' />
+						<Image src={NotInvited} alt='아직 초대한 멤버가 없을 때' />
 						<span className='text-18-400 text-gray-9'>아직 초대한 멤버가 없어요.</span>
 					</div>
 				)}
