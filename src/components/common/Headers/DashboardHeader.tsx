@@ -174,7 +174,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									key={member}
 									alt='초대 멤버 프로필 사진'
 									src={members.profileImageUrl}
-									className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] text-center'
+									className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
 								/>
 							);
 						})}
