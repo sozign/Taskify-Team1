@@ -10,18 +10,19 @@ import { CardData, CommentPost, CommentData } from '@/constants/types';
 import { getComments, postComment } from '@/lib/api';
 
 interface TaskModalProps {
-	isTaskCardModalOpen: boolean;
-	setIsTaskCardModalOpen: Dispatch<SetStateAction<boolean>>;
+	taskModalControl: {
+		isTaskCardModalOpen: boolean;
+		setIsTaskCardModalOpen: Dispatch<SetStateAction<boolean>>;
+	};
+	editModalControl: {
+		isTaskCardEditModalOpen: boolean;
+		setIsTaskCardEditModalOpen: Dispatch<SetStateAction<boolean>>;
+	};
 	cardItem: CardData;
 	columnInfo: { id: number; title: string };
 }
 
-export default function TaskModal({
-	isTaskCardModalOpen,
-	setIsTaskCardModalOpen,
-	cardItem,
-	columnInfo,
-}: TaskModalProps) {
+export default function TaskModal({ taskModalControl, editModalControl, cardItem, columnInfo }: TaskModalProps) {
 	const router = useRouter();
 	const boardId = +(router.query.boardid ?? 0);
 
@@ -65,10 +66,10 @@ export default function TaskModal({
 	};
 
 	useEffect(() => {
-		if (isTaskCardModalOpen) {
+		if (taskModalControl.isTaskCardModalOpen) {
 			loadComments();
 		}
-	}, [isTaskCardModalOpen]);
+	}, [taskModalControl.isTaskCardModalOpen]);
 
 	// 수정/삭제 팝오버 관련
 	const dropDownref = useRef<HTMLDivElement>(null);
@@ -81,7 +82,11 @@ export default function TaskModal({
 	};
 
 	return (
-		<Layout $modalType='Task' isOpen={isTaskCardModalOpen} setOpen={setIsTaskCardModalOpen}>
+		<Layout
+			$modalType='Task'
+			isOpen={taskModalControl.isTaskCardModalOpen}
+			setOpen={taskModalControl.setIsTaskCardModalOpen}
+		>
 			<div onClick={handleOutsideClick as unknown as MouseEventHandler<HTMLDivElement>}>
 				<div className='mb-[2.4rem] flex flex-row justify-between sm:mb-[1.6rem] sm:flex-col-reverse'>
 					<p className='text-24-700'>{cardItem.title}</p>
@@ -95,19 +100,25 @@ export default function TaskModal({
 								<Image alt='할 일을 수정하거나 삭제할 수 있는 버튼' width={28} height={28} src={'/assets/kebab.png'} />
 							</button>
 							{isOpened && (
-								<ul className='absolute right-[0.8rem] top-[2.8rem] w-[9.6rem] rounded-[0.6rem] border-[0.1rem] border-gray-D bg-white px-[0.6rem] py-[0.6rem] sm:w-[8.6rem]'>
-									<li className='flex h-[3.2rem] items-center justify-center rounded-[0.4rem] text-14-400 text-black-3 hover:bg-violet-F hover:text-violet-5'>
+								<ul className='absolute right-[0.8rem] top-[2.8rem] flex w-[9.6rem] flex-col items-center rounded-[0.6rem] border-[0.1rem] border-gray-D bg-white px-[0.6rem] py-[0.6rem] sm:w-[8.6rem]'>
+									<button
+										onClick={(e) => {
+											taskModalControl.setIsTaskCardModalOpen(false);
+											editModalControl.setIsTaskCardEditModalOpen(true);
+										}}
+										className='h-[3.2rem] w-full items-center justify-center rounded-[0.4rem] text-14-400 text-black-3 hover:bg-violet-F hover:text-violet-5 '
+									>
 										수정하기
-									</li>
-									<li className='flex h-[3.2rem] items-center justify-center rounded-[0.4rem] text-14-400 text-black-3 hover:bg-violet-F hover:text-violet-5'>
+									</button>
+									<button className='h-[3.2rem] w-full items-center justify-center rounded-[0.4rem] text-14-400 text-black-3 hover:bg-violet-F hover:text-violet-5'>
 										삭제하기
-									</li>
+									</button>
 								</ul>
 							)}
 						</div>
 						<button
 							onClick={() => {
-								setIsTaskCardModalOpen(false);
+								taskModalControl.setIsTaskCardModalOpen(false);
 							}}
 						>
 							<Image alt='모달창을 닫을 수 있는 버튼' width={28} height={28} src={'/assets/Close.svg'} />
