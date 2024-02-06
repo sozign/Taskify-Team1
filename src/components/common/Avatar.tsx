@@ -1,3 +1,4 @@
+import { montserrat } from '@/styles/font.js';
 import stringToNumber from '@/utils/stringToNumber';
 import clsx from 'clsx';
 
@@ -17,7 +18,8 @@ export default function Avatar({ name, className, withBorder = false }: AvatarPr
 			className={clsx(
 				className,
 				MAPPER[pickerNumber],
-				'text-montserrat flex shrink-0 items-center justify-center rounded-[50%] text-center text-12-600 text-white',
+				montserrat.className,
+				'flex items-center justify-center rounded-[50%] text-center text-12-600 text-white',
 			)}
 		>
 			{name.toUpperCase().slice(0, 1)}
