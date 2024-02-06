@@ -137,7 +137,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 			<header className='container sticky inset-0 flex h-[7rem]  flex-row items-center justify-between border-b-[0.1rem] border-gray-D   bg-white pl-[2rem] sm:h-[6rem]'>
 				{router.pathname.startsWith('/mypage') ? (
 					<div className='container flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
-						<span className='md:hidden sm:hidden'>{dashboardInfo.title ?? title}</span>
+						<span className='md:hidden sm:hidden'>{dashboardInfo.title ? dashboardInfo.title : title}</span>
 						{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage')
 							? null
 							: dashboardInfo.createdByMe && (
@@ -155,7 +155,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 						href='/mydashboard'
 						className=' flex flex-row gap-[0.4rem]  text-20-700 text-black-3 md:w-[0.8rem] sm:w-[1.2rem]'
 					>
-						<span className='md:hidden sm:hidden'>{dashboardInfo.title || title}</span>
+						<span className='md:hidden sm:hidden'>{dashboardInfo.title ? dashboardInfo.title : title}</span>
 						{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage')
 							? null
 							: dashboardInfo.createdByMe && (
@@ -213,8 +213,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 										/>
 									) : (
 										<Image
-											width={3.8}
-											height={3.8}
+											width={38}
+											height={38}
 											key={member}
 											alt='초대 멤버 프로필 사진'
 											src={members.profileImageUrl}
@@ -265,8 +265,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 						>
 							{userInfo.profileImageUrl ? (
 								<Image
-									width={3.8}
-									height={3.8}
+									width={38}
+									height={38}
 									alt='초대 멤버 프로필 사진'
 									src={userInfo.profileImageUrl}
 									className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
