@@ -118,8 +118,8 @@ export default function MyPage() {
 
 	return (
 		<>
-			<DashboardHeader title={'내 정보'} dashboardId={0} />
 			<PageLayout>
+				<DashboardHeader title={'내 정보'} dashboardId={0} />
 				<div className=' bg-[#FAFAFA]'>
 					<div className=' ml-[2rem] sm:ml-[1.2rem]'>
 						{/* 바로 직전에 클릭했던 링크로 되돌아가야한다. */}
