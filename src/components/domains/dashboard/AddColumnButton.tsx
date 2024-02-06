@@ -1,7 +1,6 @@
-import SquareChip from '@/components/common/chips/SquareChip';
 import addIcon from '@/../../Public/assets/addIcon.svg';
+import SquareChip from '@/components/common/chips/SquareChip';
 import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
 
 function AddColumnButton({ onClick }: { onClick: () => void }) {
 	return (

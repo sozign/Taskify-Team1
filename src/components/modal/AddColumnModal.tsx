@@ -1,10 +1,10 @@
+import { ColumnGet } from '@/constants/types';
+import { getColumns, postColumn } from '@/lib/api';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
+import Button from '../common/Buttons/Button';
 import FormInput from '../common/Input/FormInput';
 import Layout from './Layout';
-import { getColumns, postColumn } from '@/lib/api';
-import Button from '../common/Buttons/Button';
-import { ColumnGet } from '@/constants/types';
 
 interface ColumnAddModalProps {
 	isOpen: boolean;
