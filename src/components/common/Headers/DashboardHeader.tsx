@@ -17,6 +17,12 @@ interface HeaderNavProps {
 	title?: string | null;
 }
 
+type profileFormData = {
+	email: string;
+	nickname: string;
+	profileImageUrl: string | null;
+};
+
 export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) {
 	// 모달 1 열림, 닫힘 제어
 	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
@@ -30,6 +36,26 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	const router = useRouter();
 	const boardId = +(router.query.boardid ?? 0);
 	const dropDownRef = useRef<HTMLDivElement>(null);
+
+	const [userInfo, setUserInfo] = useState<profileFormData>({
+		email: '',
+		nickname: '',
+		profileImageUrl: '',
+	});
+
+	const loadMember = async () => {
+		try {
+			const data = await getUsers();
+			const { email, nickname, profileImageUrl } = data;
+			setUserInfo({ email, nickname, profileImageUrl });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		loadMember();
+	}, []);
 
 	const [dashboardInfo, setDashboardInfo] = useState<DashboardData>({
 		id: boardId,
@@ -111,11 +137,13 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 			<header className='container sticky inset-0 flex h-[7rem]  flex-row items-center justify-between border-b-[0.1rem] border-gray-D   bg-white pl-[2rem] sm:h-[6rem]'>
 				{router.pathname.startsWith('/mypage') ? (
 					<div className='container flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
-						<span className='md:hidden sm:hidden'>{dashboardInfo.title ?? title}</span>
+						<span className='md:hidden sm:hidden'>{dashboardInfo.title ? dashboardInfo.title : title}</span>
 						{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage')
 							? null
 							: dashboardInfo.createdByMe && (
 									<Image
+										width={3.8}
+										height={3.8}
 										alt='대시보드 왕관 아이콘'
 										src={royalCrownIcon}
 										className=' w-[2.103rem]  md:hidden sm:hidden'
@@ -127,11 +155,13 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 						href='/mydashboard'
 						className=' flex flex-row gap-[0.4rem]  text-20-700 text-black-3 md:w-[0.8rem] sm:w-[1.2rem]'
 					>
-						<span className='md:hidden sm:hidden'>{dashboardInfo.title || title}</span>
+						<span className='md:hidden sm:hidden'>{dashboardInfo.title ? dashboardInfo.title : title}</span>
 						{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage')
 							? null
 							: dashboardInfo.createdByMe && (
 									<Image
+										width={3.8}
+										height={3.8}
 										alt='대시보드 왕관 아이콘'
 										src={royalCrownIcon}
 										className=' w-[2.103rem] md:hidden sm:hidden'
@@ -183,6 +213,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 										/>
 									) : (
 										<Image
+											width={38}
+											height={38}
 											key={member}
 											alt='초대 멤버 프로필 사진'
 											src={members.profileImageUrl}
@@ -200,6 +232,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									) : (
 										<Image
 											key={member}
+											width={3.8}
+											height={3.8}
 											alt='초대 멤버 프로필 사진'
 											src={members.profileImageUrl}
 											className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
@@ -208,12 +242,13 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 								})}
 						{windowWidth > 1199
 							? members.totalCount > 4 && (
-									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pinkRed group-odd:ml-[-1.2rem]'>
+									//수정부분
+									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pink-D group-odd:ml-[-1.2rem]'>
 										+ {members.totalCount}
 									</div>
 								)
 							: members.totalCount > 4 && (
-									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pinkRed group-odd:ml-[-1.2rem]'>
+									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pink-D group-odd:ml-[-1.2rem]'>
 										+ {members.totalCount + 2}
 									</div>
 								)}
@@ -228,7 +263,17 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							ref={dropDownRef}
 							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						>
-							<Avatar name={userData} className='h-[3.8rem] w-[3.8rem] border-2 border-white text-16-600' />
+							{userInfo.profileImageUrl ? (
+								<Image
+									width={38}
+									height={38}
+									alt='초대 멤버 프로필 사진'
+									src={userInfo.profileImageUrl}
+									className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
+								/>
+							) : (
+								<Avatar name={userData} className='h-[3.8rem] w-[3.8rem] border-2 border-white text-16-600' />
+							)}
 							<span className='text-center text-16-600 sm:hidden'>{userData}</span>
 							<div className='absolute translate-y-[5rem] pr-[2rem] sm:pr-[7rem]'>
 								{isDropdownOpen && <HeaderNavDropdown />}
