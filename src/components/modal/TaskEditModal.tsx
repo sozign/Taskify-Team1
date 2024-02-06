@@ -1,7 +1,8 @@
+import { CardData, ColumnData } from '@/constants/types';
+import Layout from './Layout';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useForm, SubmitHandler, Controller, FieldErrors } from 'react-hook-form';
-import Layout from '@/components/modal/Layout';
 import FormInput from '@/components/common/Input/FormInput';
 import DatePicker from 'react-datepicker';
 import addIcon from '@/../../Public/assets/addIcon.svg';
@@ -10,9 +11,10 @@ import Button from '@/components/common/Buttons/Button';
 import TagInput from '@/components/common/Input/TagInput';
 import DropDownManager from '@/components/dropdown/DropDownManager';
 import { CardItemPost, MembersData } from '@/constants/types';
-import { postCardImage, postCards } from '@/lib/api';
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { getColumns, getMembers, postCardImage, putCardItem } from '@/lib/api';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import DropDownProgress from '../dropdown/DropDownProgress';
 
 export interface FormValue extends Omit<CardItemPost, 'dueDate'> {
 	dueDate: Date;
@@ -29,21 +31,38 @@ const RULES = {
 	},
 };
 
-interface AddNewTaskModalProps {
-	isTaskModalOpen: boolean;
-	setIsTaskModalOpen: Dispatch<SetStateAction<boolean>>;
-	dashboardMemberList: MembersData[];
-	columnId: number;
+interface TaskEditModalProps {
+	editModalControl: {
+		isTaskCardEditModalOpen: boolean;
+		setIsTaskCardEditModalOpen: Dispatch<SetStateAction<boolean>>;
+	};
+	cardItem: CardData;
+	columnInfo: { id: number; title: string };
 }
 
-export default function AddNewTaskModal({
-	isTaskModalOpen,
-	setIsTaskModalOpen,
-	dashboardMemberList,
-	columnId,
-}: AddNewTaskModalProps) {
+export default function TaskEditModal({ editModalControl, cardItem, columnInfo }: TaskEditModalProps) {
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
+
+	// 대시보드 멤버 데이터 페칭
+	const [dashboardMemberList, setDashboardMemberList] = useState<MembersData[]>([]);
+	async function loadDashboardMemberList() {
+		const data = await getMembers({ page: 0, size: 0, dashboardId: boardId });
+		setDashboardMemberList(data.members);
+	}
+	useEffect(() => {
+		loadDashboardMemberList();
+	}, []);
+
+	// 컬럼 리스트 데이터 페칭
+	const [columnList, setColumnList] = useState<ColumnData[]>([]);
+	async function loadColumnList() {
+		const data = await getColumns(boardId);
+		setColumnList(data.data);
+	}
+	useEffect(() => {
+		loadColumnList();
+	}, []);
 
 	const {
 		control,
@@ -55,12 +74,13 @@ export default function AddNewTaskModal({
 	} = useForm<FormValue>({
 		mode: 'onBlur',
 		defaultValues: {
-			title: '',
-			description: '',
-			tags: [],
-			assigneeUserId: undefined,
-			dueDate: undefined,
-			imageUrl: undefined,
+			title: cardItem.title,
+			description: cardItem.description,
+			tags: cardItem.tags,
+			assigneeUserId: cardItem?.assignee?.id,
+			dueDate: new Date(cardItem.dueDate),
+			imageUrl: cardItem?.imageUrl,
+			columnId: columnInfo.id,
 		},
 		shouldUnregister: true,
 	});
@@ -71,13 +91,11 @@ export default function AddNewTaskModal({
 		const newData = {
 			...data,
 			dueDate: formattedDueDate,
-
 			dashboardId: boardId,
-			columnId: columnId,
 			imageUrl: watch('imageUrl'),
 		};
 
-		//2 - 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 post 요청
+		//2 - 값이 지정되지 않은 Field의 값 (undefined, imageUrl의 경우 file length가 0)을 제외하고 put 요청
 		const filteredData = Object.fromEntries(
 			Object.entries(newData).filter(([key, value]) => {
 				if (key === 'imageUrl' && value instanceof FileList) {
@@ -88,8 +106,8 @@ export default function AddNewTaskModal({
 		);
 
 		try {
-			await postCards(filteredData as CardItemPost);
-			setIsTaskModalOpen(false);
+			await putCardItem(cardItem.id, filteredData as CardItemPost);
+			editModalControl.setIsTaskCardEditModalOpen(false);
 		} catch (err) {
 			/**
 			 * @TODO 수정에 실패했습니다 alert
@@ -99,16 +117,32 @@ export default function AddNewTaskModal({
 
 	async function handleChangeImageInput(e: ChangeEvent<HTMLInputElement>) {
 		if (!e.target.files) return;
-		const uploadedImage = await postCardImage(columnId, e.target?.files[0]);
+		const uploadedImage = await postCardImage(columnInfo.id, e.target?.files[0]);
 		setValue('imageUrl', uploadedImage.imageUrl);
 	}
 
 	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0;
 
 	return (
-		<Layout $modalType='Modal' title='할 일 생성' isOpen={isTaskModalOpen} setOpen={setIsTaskModalOpen}>
+		<Layout
+			$modalType='Modal'
+			title='할 일 수정'
+			isOpen={editModalControl.isTaskCardEditModalOpen}
+			setOpen={editModalControl.setIsTaskCardEditModalOpen}
+		>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<DropDownManager<FormValue> name='assigneeUserId' dashboardMemberList={dashboardMemberList} control={control} />
+				<div className='flex gap-[1.6rem]'>
+					<div className='w-[50%] sm:container'>
+						<DropDownManager<FormValue>
+							name='assigneeUserId'
+							dashboardMemberList={dashboardMemberList}
+							control={control}
+						/>
+					</div>
+					<div className='w-[50%] sm:container'>
+						<DropDownProgress<FormValue> name='columnId' columnList={columnList} control={control} />
+					</div>
+				</div>
 				<FormInput<FormValue>
 					label='제목'
 					name='title'
@@ -201,11 +235,10 @@ export default function AddNewTaskModal({
 						onChange={handleChangeImageInput}
 					/>
 				</div>
-
 				<div className='mt-[2.8rem] flex flex-row justify-end gap-[1.2rem]'>
 					<Button
 						onClick={() => {
-							setIsTaskModalOpen(false);
+							editModalControl.setIsTaskCardEditModalOpen(false);
 						}}
 						color='modalWhite'
 						disabled={false}

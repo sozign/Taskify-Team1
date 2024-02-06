@@ -32,11 +32,11 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 					onChange(+(selectedOption?.value ?? ''));
 				}}
 				onBlur={onBlur}
-				value={options.find((option) => option.value === value)}
+				value={options.find((option) => option.value == value)}
 				ref={ref}
 				options={options}
 				placeholder='이름을 입력해 주세요'
-				className='mb-[3.2rem] w-[50%] rounded-md sm:container'
+				className='container mb-[3.2rem] rounded-md'
 				styles={{
 					dropdownIndicator: (provided) => ({
 						...provided,

@@ -1,77 +1,75 @@
-// 📍 참고
-// {teamId}/columns/{columnId} tilte 데이터를 받아온다.
-// title로 (to do / on progress / done) 값을 받아오도록
-// react-hook-form에 외부라이브러리 react-select 양식을 따른 컴포넌트 제작
-
-import React, { useEffect, useState } from 'react';
+import { ColumnData } from '@/constants/types';
+import React from 'react';
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form';
 import Select from 'react-select';
 import StatusChip from '../common/chips/StatusChip';
 
-interface Option {
-	value: string;
-	label: string;
+interface DropDownProps<T extends FieldValues> extends UseControllerProps<T> {
+	columnList: ColumnData[];
 }
 
-type OptionLabeProps = {
-	value: string;
-};
+const DropDownProgress = <T extends FieldValues>({ columnList, control, name }: DropDownProps<T>) => {
+	const options = columnList.map((columnItem) => ({
+		value: columnItem.id + '',
+		label: (
+			<div className='flex gap-[0.8rem]'>
+				<StatusChip value={columnItem.title} />
+			</div>
+		),
+	}));
 
-const DropDownProgress = () => {
-	const [selectValue, setSelectValue] = useState<string>('');
-
-	//값 입력
-	const options: Option[] = [
-		{ value: 'to do', label: 'to do' },
-		{ value: 'on progress', label: 'on progress' },
-		{ value: 'done', label: 'done' },
-	];
-
-	const formatOptionLabel: React.FC<OptionLabeProps> = ({ value }) => (
-		<div style={{ display: 'flex' }}>
-			<StatusChip value={value} />
-		</div>
-	);
-
-	useEffect(() => {
-		console.log('Select Value changed:', selectValue);
-	}, [selectValue]);
+	const {
+		field: { onChange, onBlur, value, ref },
+	} = useController({ name, control, shouldUnregister: true });
 
 	return (
 		<>
-			<h3 className='text-lg mb-2.5 text-12-500'>상태</h3>
+			<h3 className='mb-[1rem] text-18-500'>상태</h3>
 			<Select
-				inputId='situation'
-				//react-hook-form 라이브러리 사용시 필수
-				// ref={ref}
-				onChange={(selectedOption: Option | null) => {
-					if (selectedOption) {
-						setSelectValue(selectedOption.value);
-					} else {
-						setSelectValue('');
-					}
+				inputId='contact'
+				onChange={(selectedOption) => {
+					onChange(+(selectedOption?.value ?? ''));
 				}}
+				onBlur={onBlur}
+				value={options.find((option) => option.value == value)}
+				ref={ref}
 				options={options}
-				placeholder='선택하세요.'
-				className='css-b62m3t w-[13.6rem] rounded-md '
-				theme={(theme) => ({
-					...theme,
-					borderRadius: 6,
-					colors: {
-						...theme.colors,
-						primary: '#5534DA',
-					},
-				})}
+				placeholder='이름을 입력해 주세요'
+				className='container mb-[3.2rem] rounded-md'
 				styles={{
-					option: (base, { isFocused, isSelected }) => ({
-						...base,
-						backgroundColor: isFocused ? '#ccc' : isSelected ? 'transparent' : 'transparent',
-						color: isFocused || isSelected ? '#000' : base.color,
+					dropdownIndicator: (provided) => ({
+						...provided,
+						color: '#333236',
+					}),
+					placeholder: (provided) => ({
+						...provided,
+						color: '#D9D9D9',
+					}),
+					control: (provided, state) => ({
+						...provided,
+						fontSize: '16px',
+						height: '50px',
+						borderRadius: '6px',
+						border: 'none',
+						boxShadow: state.isFocused ? '0 0 0 2px #5534DA' : '0 0 0 1px #D9D9D9',
+					}),
+					menu: (provided) => ({
+						...provided,
+						paddingTop: '13px',
+						paddingBottom: '13px',
+						fontSize: '16px',
+					}),
+					option: (provided, { isFocused, isSelected }) => ({
+						...provided,
+						backgroundColor: isFocused ? '#D9D9D9' : isSelected ? 'D9D9D9' : 'transparent',
+						color: isFocused || isSelected ? '#000' : provided.color,
+						fontSize: '16px',
 					}),
 				}}
 				components={{
+					// 구분선 숨김
 					IndicatorSeparator: () => null,
 				}}
-				formatOptionLabel={formatOptionLabel}
 			/>
 		</>
 	);

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Avatar from '@/components/common/Avatar';
 import { useState } from 'react';
 import TaskModal from '@/components/modal/TaskModal';
+import TaskEditModal from '@/components/modal/TaskEditModal';
 
 interface TaskCardProps {
 	cardItem: CardData;
@@ -14,7 +15,8 @@ interface TaskCardProps {
 
 export default function TaskCard({ cardItem, columnInfo }: TaskCardProps) {
 	// 모달 관련
-	const [isTaskCardModalOpen, setIsTaskCardModalOpen] = useState(false);
+	const [isTaskCardModalOpen, setIsTaskCardModalOpen] = useState<boolean>(false);
+	const [isTaskCardEditModalOpen, setIsTaskCardEditModalOpen] = useState<boolean>(false);
 
 	/**
 	 * @TODO 할 일 카드모달 추가
@@ -66,8 +68,22 @@ export default function TaskCard({ cardItem, columnInfo }: TaskCardProps) {
 				</button>
 			</CardLayout>
 			<TaskModal
-				isTaskCardModalOpen={isTaskCardModalOpen}
-				setIsTaskCardModalOpen={setIsTaskCardModalOpen}
+				taskModalControl={{
+					isTaskCardModalOpen: isTaskCardModalOpen,
+					setIsTaskCardModalOpen: setIsTaskCardModalOpen,
+				}}
+				editModalControl={{
+					isTaskCardEditModalOpen: isTaskCardEditModalOpen,
+					setIsTaskCardEditModalOpen: setIsTaskCardEditModalOpen,
+				}}
+				cardItem={cardItem}
+				columnInfo={columnInfo}
+			/>
+			<TaskEditModal
+				editModalControl={{
+					isTaskCardEditModalOpen: isTaskCardEditModalOpen,
+					setIsTaskCardEditModalOpen: setIsTaskCardEditModalOpen,
+				}}
 				cardItem={cardItem}
 				columnInfo={columnInfo}
 			/>
