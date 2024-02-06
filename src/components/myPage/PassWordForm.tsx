@@ -14,10 +14,14 @@ type passwordFormData = {
 
 function PassWord() {
 	const [open, setOpen] = useState(false);
+	//값 여부 확인 후 버튼 클릭 유도
+	const [isActive, setIsActive] = useState(true);
+
 	const {
 		register,
 		getValues,
 		handleSubmit,
+		watch,
 		formState: { isSubmitting, errors },
 	} = useForm<passwordFormData>({
 		defaultValues: {
@@ -72,6 +76,22 @@ function PassWord() {
 		},
 	});
 
+	const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.target.value && watch('password') && watch('newPassword') && watch('verifyPassword')
+			? setIsActive(false)
+			: setIsActive(true);
+	};
+	const onChangeNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.target.value && watch('password') && watch('newPassword') && watch('verifyPassword')
+			? setIsActive(false)
+			: setIsActive(true);
+	};
+	const onChangeVerifyPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.target.value && watch('password') && watch('newPassword') && watch('verifyPassword')
+			? setIsActive(false)
+			: setIsActive(true);
+	};
+
 	return (
 		<>
 			<div className=' mt-[1.2rem] h-[45.4rem] w-[62rem] rounded-lg bg-white md:w-[54.4rem] sm:w-[28.4rem]'>
@@ -87,6 +107,7 @@ function PassWord() {
 						type='password'
 						label='현재 비밀번호'
 						placeholder='현재 비밀번호 입력'
+						onChange={onChangePassword}
 						errorMessage={errors.password && String(errors.password.message)}
 					/>
 					<div className='mt-[2rem]'>
@@ -95,6 +116,7 @@ function PassWord() {
 							type='password'
 							label='새 비밀번호'
 							placeholder='새 비밀번호 입력'
+							onChange={onChangeNewPassword}
 							errorMessage={errors.newPassword && String(errors.newPassword.message)}
 						/>
 					</div>
@@ -104,15 +126,16 @@ function PassWord() {
 							type='password'
 							label='새 비밀번호 확인'
 							placeholder='새 비밀번호 입력'
+							onChange={onChangeVerifyPassword}
 							errorMessage={errors.verifyPassword && String(errors.verifyPassword.message)}
 						/>
 					</div>
 					<Button
-						color='violet'
+						color='toggleColor'
 						disabled={isSubmitting}
 						type='submit'
 						variant='confirm'
-						className='float-right mb-[2.8rem]  mt-[2.4rem] flex'
+						className={`float-right mb-[2.8rem]  mt-[2.4rem] flex ${isActive ? 'bg-gray-D' : 'bg-violet-5'} `}
 					>
 						변경
 					</Button>
