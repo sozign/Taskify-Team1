@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import searchIcon from '@../../../Public/assets/searchIcon.svg';
-import { InvitationDashboardData } from '@/constants/types';
+import { InvitationDashboardData, DashboardsGet } from '@/constants/types';
 import Invitation from './Invitation';
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { getInvitations, getAllInvitation } from '@/lib/api';
@@ -9,33 +9,46 @@ import useAsync from '@/hooks/useAsync';
 import BarSpinner from '@/components/common/spinner/BarSpinner';
 
 function InvitationList({
+	dashBoardData,
 	onAcceptInvitation,
-	invitationList,
-	setInvitationList,
 }: {
-	onAcceptInvitation: (invitationId: number, accept: boolean) => void;
-	invitationList: InvitationDashboardData[];
-	setInvitationList: React.Dispatch<React.SetStateAction<InvitationDashboardData[]>>;
+	dashBoardData: DashboardsGet | undefined;
+	onAcceptInvitation: (invitationId: number, accept: boolean) => Promise<void>;
 }) {
+	const [invitationList, setInvitationList] = useState<(InvitationDashboardData | undefined)[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [searchKeyword, setSearchKeyword] = useState('');
 	const cursorId = useRef<number>(0);
 	const lastElementRef = useRef<HTMLDivElement>(null);
-	const [loading, setLoading] = useState(false);
-	const [searchKeyword, setSearchKeyword] = useState('');
-	const [searchInvitationList, setSearchInvitationList] = useState<InvitationDashboardData[]>([]);
+	const allInvitation = useRef<InvitationDashboardData[]>();
 
-	// 추가 초대 요청
+	//중복 대시보드 체크
+	const checkDuplicateDashboard = (invitations: InvitationDashboardData[]) => {
+		const uniqueDashBoard = invitations.filter(
+			(addInvitation) => !dashBoardData?.dashboards.some((dashboard) => addInvitation.dashboard.id === dashboard.id),
+		);
+		return uniqueDashBoard;
+	};
+
+	// 초대 요청
 	const loadMoreInvitations = async () => {
 		setLoading(true);
 		try {
-			if (cursorId.current == null) return;
+			if (cursorId.current === null) return;
+
+			if (cursorId.current === 0) {
+				const allData = await getAllInvitation();
+				allInvitation.current = allData.invitations;
+			}
 			const data = await getInvitations({ size: 2, cursorId: cursorId.current });
 			const addInvitations = data.invitations;
 			cursorId.current = data.cursorId;
 
 			// 중복 초대장 필터링
-			const uniqueInvitations = addInvitations.filter(
-				(addInvitation) => !invitationList.some((invitation) => addInvitation.dashboard.id === invitation.dashboard.id),
-			);
+			const uniqueInvitations = checkDuplicateDashboard(addInvitations)?.filter((invitation, index, self) => {
+				const currentDashboardId = invitation.dashboard.id;
+				return self.findIndex((invitation) => invitation.dashboard.id === currentDashboardId) === index;
+			});
 
 			setInvitationList((prevList) => [...prevList, ...uniqueInvitations]);
 		} catch (error) {
@@ -48,7 +61,16 @@ function InvitationList({
 	// 검색 요청, 로딩
 	const [searchLoading, searchError, executeSearch] = useAsync(async (keyword: string) => {
 		const data = await getInvitations({ size: 10, title: keyword });
-		setSearchInvitationList(data.invitations);
+		const searchInvitations = data.invitations;
+
+		// 중복 초대 체크
+		const uniqueInvitations = Array.from(
+			new Set(checkDuplicateDashboard(searchInvitations).map((invitation) => invitation.dashboard.id)),
+		).map((dashboardId) =>
+			checkDuplicateDashboard(searchInvitations).find((invitation) => invitation.dashboard.id === dashboardId),
+		);
+
+		setInvitationList(uniqueInvitations);
 	});
 
 	const handleSearchInvitation = useCallback(
@@ -112,8 +134,8 @@ function InvitationList({
 									<li className='w-1/3'>수락여부</li>
 								</ul>
 								<ul className='flex flex-col  sm:w-[100%]'>
-									{(searchKeyword === '' ? invitationList : searchInvitationList).map((invitation) => (
-										<Invitation onAcceptInvitation={onAcceptInvitation} invitation={invitation} key={invitation.id} />
+									{invitationList.map((invitation) => (
+										<Invitation onAcceptInvitation={onAcceptInvitation} invitation={invitation} key={invitation?.id} />
 									))}
 								</ul>
 								<div ref={lastElementRef}></div>

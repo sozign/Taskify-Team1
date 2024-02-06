@@ -312,7 +312,7 @@ export async function getAllInvitation() {
 /**
  * 초대 응답
  */
-export async function putInvitations(invitationId: number, inviteAccepted: InvitationPut) {
+export async function putInvitations(invitationId: number | undefined, inviteAccepted: InvitationPut) {
 	const res = await authAxios.put<InvitationsGet>(`/invitations/${invitationId}`, inviteAccepted);
 	return res.data;
 }
