@@ -232,6 +232,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									) : (
 										<Image
 											key={member}
+											width={3.8}
+											height={3.8}
 											alt='초대 멤버 프로필 사진'
 											src={members.profileImageUrl}
 											className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
@@ -240,12 +242,12 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 								})}
 						{windowWidth > 1199
 							? members.totalCount > 4 && (
-									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pinkRed group-odd:ml-[-1.2rem]'>
+									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pink-D group-odd:ml-[-1.2rem]'>
 										+ {members.totalCount}
 									</div>
 								)
 							: members.totalCount > 4 && (
-									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pinkRed group-odd:ml-[-1.2rem]'>
+									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pink-D group-odd:ml-[-1.2rem]'>
 										+ {members.totalCount + 2}
 									</div>
 								)}
