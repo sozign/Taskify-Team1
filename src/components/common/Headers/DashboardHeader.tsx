@@ -40,7 +40,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 		createdByMe: true,
 		userId: 0,
 	});
-	const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+	const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
 	const handleResize = () => {
 		setWindowWidth(window.innerWidth);
 	};
