@@ -19,37 +19,25 @@ function InvitationList({
 }) {
 	const cursorId = useRef<number>(0);
 	const lastElementRef = useRef<HTMLDivElement>(null);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [searchInvitationList, setSearchInvitationList] = useState<InvitationDashboardData[]>([]);
-	const allInvitation = useRef<InvitationDashboardData[]>([]);
 
 	// 추가 초대 요청
 	const loadMoreInvitations = async () => {
 		setLoading(true);
 		try {
 			if (cursorId.current == null) return;
-			const data1 = await getAllInvitation();
-			allInvitation.current = data1.invitations;
-
 			const data = await getInvitations({ size: 2, cursorId: cursorId.current });
+			const addInvitations = data.invitations;
 			cursorId.current = data.cursorId;
 
-			const uniqueInvitationsArray = data.invitations.reduce((accumulator, newInvitation) => {
-				const isDuplicate = accumulator.some(
-					(invitation: InvitationDashboardData) =>
-						invitation.inviter.email === newInvitation.inviter.email &&
-						invitation.dashboard.title === newInvitation.dashboard.title,
-				);
+			// 중복 초대장 필터링
+			const uniqueInvitations = addInvitations.filter(
+				(addInvitation) => !invitationList.some((invitation) => addInvitation.dashboard.id === invitation.dashboard.id),
+			);
 
-				if (!isDuplicate) {
-					accumulator.push(newInvitation);
-				}
-
-				return accumulator;
-			}, [] as InvitationDashboardData[]);
-
-			setInvitationList((prevList) => [...prevList, ...uniqueInvitationsArray]);
+			setInvitationList((prevList) => [...prevList, ...uniqueInvitations]);
 		} catch (error) {
 			console.error(error);
 		} finally {
