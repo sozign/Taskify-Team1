@@ -242,6 +242,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 								})}
 						{windowWidth > 1199
 							? members.totalCount > 4 && (
+									//수정부분
 									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pink-D group-odd:ml-[-1.2rem]'>
 										+ {members.totalCount}
 									</div>
