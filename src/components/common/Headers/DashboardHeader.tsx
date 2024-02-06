@@ -40,14 +40,14 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 		createdByMe: true,
 		userId: 0,
 	});
-	const [windowWidth, setWindowWidth] = useState<number>(0);
+	const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 	const handleResize = () => {
 		setWindowWidth(window.innerWidth);
 	};
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
-	}, []);
+	}, [windowWidth]);
 
 	const getMembersData = async () => {
 		try {
@@ -108,9 +108,9 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 
 	return (
 		<>
-			<header className='container sticky inset-0 top-0 flex h-[7rem] flex-row items-center justify-between  bg-white   pl-[4rem] sm:h-[6rem]'>
+			<header className='container sticky inset-0 flex h-[7rem]  flex-row items-center justify-between border-b-[0.1rem] border-gray-D   bg-white pl-[2rem] sm:h-[6rem]'>
 				{router.pathname.startsWith('/mypage') ? (
-					<div className=' flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
+					<div className='container flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
 						<span className='md:hidden sm:hidden'>{dashboardInfo.title ?? title}</span>
 						{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage')
 							? null
@@ -123,7 +123,10 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 								)}
 					</div>
 				) : (
-					<Link href='/mydashboard' className=' flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
+					<Link
+						href='/mydashboard'
+						className=' flex flex-row gap-[0.4rem]  text-20-700 text-black-3 md:w-[0.8rem] sm:w-[1.2rem]'
+					>
 						<span className='md:hidden sm:hidden'>{dashboardInfo.title || title}</span>
 						{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage')
 							? null
@@ -131,13 +134,13 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									<Image
 										alt='대시보드 왕관 아이콘'
 										src={royalCrownIcon}
-										className=' w-[2.103rem]  md:hidden sm:hidden'
+										className=' w-[2.103rem] md:hidden sm:hidden'
 									/>
 								)}
 					</Link>
 				)}
 
-				<nav className='flex flex-row items-center  gap-[1.6rem]'>
+				<nav className='flex flex-row items-center  gap-[1.6rem] md:gap-[1.2rem] sm:gap-[0.6rem]'>
 					{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage')
 						? null
 						: dashboardInfo.createdByMe && (
@@ -169,9 +172,9 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 								</>
 							)}
 
-					<div className='group flex items-center justify-center pl-[4rem] sm:pl-0'>
-						{windowWidth < 1199
-							? members.members.slice(0, 2).map((members, member) => {
+					<div className='group flex items-center justify-center pl-[4rem] sm:pl-[1.6rem]'>
+						{windowWidth > 1199
+							? members.members.slice(0, 4).map((members, member) => {
 									return members.profileImageUrl === null ? (
 										<Avatar
 											key={member}
@@ -187,7 +190,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 										/>
 									);
 								})
-							: members.members.slice(0, 4).map((members, member) => {
+							: members.members.slice(0, 2).map((members, member) => {
 									return members.profileImageUrl === null ? (
 										<Avatar
 											key={member}
@@ -203,15 +206,15 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 										/>
 									);
 								})}
-						{windowWidth < 1199
+						{windowWidth > 1199
 							? members.totalCount > 4 && (
 									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pinkRed group-odd:ml-[-1.2rem]'>
-										+ {members.totalCount + 2}
+										+ {members.totalCount}
 									</div>
 								)
 							: members.totalCount > 4 && (
 									<div className='text-montserrat flex h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row  items-center justify-center gap-[-2rem] rounded-[50%] border-2 border-white bg-pink-F text-center text-16-600 text-pinkRed group-odd:ml-[-1.2rem]'>
-										+ {members.totalCount}
+										+ {members.totalCount + 2}
 									</div>
 								)}
 					</div>
@@ -219,7 +222,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 					{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage') ? null : (
 						<Image alt='영역 나누는 라인 이미지' src={Vector} className='h-[3.8rem] ' />
 					)}
-					<div className='ms:pr-[1.2rem] flex flex-row items-center justify-center gap-[0.9rem] pr-[8rem] md:pr-[4rem]'>
+					<div className='flex flex-row items-center justify-center gap-[0.9rem] px-[2rem] sm:px-[1.2rem]'>
 						<div
 							className='flex cursor-pointer items-center justify-center gap-2'
 							ref={dropDownRef}
