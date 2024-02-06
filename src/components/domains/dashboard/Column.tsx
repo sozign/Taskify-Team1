@@ -17,7 +17,7 @@ interface ColumnProps {
 export default function Column({ columnItem }: ColumnProps) {
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
-	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
+	const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 
 	// 대시보드 멤버 데이터 페칭
 	const [dashboardMemberList, setDashboardMemberList] = useState<MembersData[]>([]);
@@ -93,7 +93,7 @@ export default function Column({ columnItem }: ColumnProps) {
 				<div className='flex flex-col gap-[1.6rem]'>
 					<button
 						onClick={() => {
-							setIsTaskEditModalOpen(true);
+							setIsTaskModalOpen(true);
 						}}
 						className='flex justify-center rounded-[0.6rem] border-[0.1rem] border-gray-D bg-white py-[0.9rem]'
 					>
@@ -113,8 +113,8 @@ export default function Column({ columnItem }: ColumnProps) {
 			</div>
 			<AddNewTaskModal
 				columnId={columnItem.id}
-				isTaskEditModalOpen={isTaskEditModalOpen}
-				setIsTaskEditModalOpen={setIsTaskEditModalOpen}
+				isTaskModalOpen={isTaskModalOpen}
+				setIsTaskModalOpen={setIsTaskModalOpen}
 				dashboardMemberList={dashboardMemberList}
 			/>
 		</>

@@ -30,15 +30,15 @@ const RULES = {
 };
 
 interface AddNewTaskModalProps {
-	isTaskEditModalOpen: boolean;
-	setIsTaskEditModalOpen: Dispatch<SetStateAction<boolean>>;
+	isTaskModalOpen: boolean;
+	setIsTaskModalOpen: Dispatch<SetStateAction<boolean>>;
 	dashboardMemberList: MembersData[];
 	columnId: number;
 }
 
 export default function AddNewTaskModal({
-	isTaskEditModalOpen,
-	setIsTaskEditModalOpen,
+	isTaskModalOpen,
+	setIsTaskModalOpen,
 	dashboardMemberList,
 	columnId,
 }: AddNewTaskModalProps) {
@@ -89,7 +89,7 @@ export default function AddNewTaskModal({
 
 		try {
 			await postCards(filteredData as CardItemPost);
-			setIsTaskEditModalOpen(false);
+			setIsTaskModalOpen(false);
 		} catch (err) {
 			/**
 			 * @TODO 수정에 실패했습니다 alert
@@ -106,7 +106,7 @@ export default function AddNewTaskModal({
 	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0;
 
 	return (
-		<Layout $modalType='Modal' title='할 일 생성' isOpen={isTaskEditModalOpen} setOpen={setIsTaskEditModalOpen}>
+		<Layout $modalType='Modal' title='할 일 생성' isOpen={isTaskModalOpen} setOpen={setIsTaskModalOpen}>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<DropDownManager<FormValue> name='assigneeUserId' dashboardMemberList={dashboardMemberList} control={control} />
 				<FormInput<FormValue>
@@ -205,7 +205,7 @@ export default function AddNewTaskModal({
 				<div className='mt-[2.8rem] flex flex-row justify-end gap-[1.2rem]'>
 					<Button
 						onClick={() => {
-							setIsTaskEditModalOpen(false);
+							setIsTaskModalOpen(false);
 						}}
 						color='modalWhite'
 						disabled={false}
