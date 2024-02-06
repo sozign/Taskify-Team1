@@ -7,6 +7,8 @@ import { getColumns } from '@/lib/api';
 import { ColumnData } from '@/constants/types';
 import NotInvitedMemberAlert from '@/components/modal/NotInvitedMemberAlert';
 import { isAxiosError } from 'axios';
+import AddColumnButton from '@/components/domains/dashboard/AddColumnButton';
+import AddColumnModal from '@/components/modal/AddColumnModal';
 
 export default function MyDashBoard() {
 	const router = useRouter();
@@ -15,6 +17,7 @@ export default function MyDashBoard() {
 	const [isAlertModalOpen, setIsAlertModalOpen] = useState<boolean>(false);
 
 	const [columnList, setColumnList] = useState<ColumnData[] | null>(null);
+	const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
 	async function loadColumn() {
 		if (!boardId) return;
 		try {
@@ -43,8 +46,17 @@ export default function MyDashBoard() {
 						{columnList.map((columnItem) => (
 							<Column key={columnItem.id} columnItem={columnItem} />
 						))}
+						<div className='w-full px-[2rem] pt-[6.8rem] md:w-full md:p-[2rem]'>
+						<AddColumnButton onClick={() => setIsAddColumnModalOpen(true)} />
 					</div>
-				</PageLayout>
+				</div>
+					<AddColumnModal
+					loadColumn={loadColumn}
+					isOpen={isAddColumnModalOpen}
+					setOpen={setIsAddColumnModalOpen}
+					dashboardId={boardId}
+				/>
+			</PageLayout>
 			) : (
 				<></>
 			)}
