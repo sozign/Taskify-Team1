@@ -301,15 +301,6 @@ export async function getInvitations({ size, cursorId, title }: getInvitationsPr
 }
 
 /**
- * 내가 받은 초대 목록 전체 조회
- */
-
-export async function getAllInvitation() {
-	const res = await authAxios.get<InvitationsGet>(`/invitations`);
-	return res.data;
-}
-
-/**
  * 초대 응답
  */
 export async function putInvitations(invitationId: number | undefined, inviteAccepted: InvitationPut) {
