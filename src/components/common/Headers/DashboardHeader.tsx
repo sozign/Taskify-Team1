@@ -17,6 +17,12 @@ interface HeaderNavProps {
 	title?: string | null;
 }
 
+type profileFormData = {
+	email: string;
+	nickname: string;
+	profileImageUrl: string | null;
+};
+
 export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) {
 	// 모달 1 열림, 닫힘 제어
 	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
@@ -30,6 +36,26 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	const router = useRouter();
 	const boardId = +(router.query.boardid ?? 0);
 	const dropDownRef = useRef<HTMLDivElement>(null);
+
+	const [userInfo, setUserInfo] = useState<profileFormData>({
+		email: '',
+		nickname: '',
+		profileImageUrl: '',
+	});
+
+	const loadMember = async () => {
+		try {
+			const data = await getUsers();
+			const { email, nickname, profileImageUrl } = data;
+			setUserInfo({ email, nickname, profileImageUrl });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		loadMember();
+	}, []);
 
 	const [dashboardInfo, setDashboardInfo] = useState<DashboardData>({
 		id: boardId,
@@ -116,6 +142,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							? null
 							: dashboardInfo.createdByMe && (
 									<Image
+										width={3.8}
+										height={3.8}
 										alt='대시보드 왕관 아이콘'
 										src={royalCrownIcon}
 										className=' w-[2.103rem]  md:hidden sm:hidden'
@@ -132,6 +160,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							? null
 							: dashboardInfo.createdByMe && (
 									<Image
+										width={3.8}
+										height={3.8}
 										alt='대시보드 왕관 아이콘'
 										src={royalCrownIcon}
 										className=' w-[2.103rem] md:hidden sm:hidden'
@@ -183,6 +213,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 										/>
 									) : (
 										<Image
+											width={3.8}
+											height={3.8}
 											key={member}
 											alt='초대 멤버 프로필 사진'
 											src={members.profileImageUrl}
@@ -228,7 +260,17 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							ref={dropDownRef}
 							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						>
-							<Avatar name={userData} className='h-[3.8rem] w-[3.8rem] border-2 border-white text-16-600' />
+							{userInfo.profileImageUrl ? (
+								<Image
+									width={3.8}
+									height={3.8}
+									alt='초대 멤버 프로필 사진'
+									src={userInfo.profileImageUrl}
+									className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
+								/>
+							) : (
+								<Avatar name={userData} className='h-[3.8rem] w-[3.8rem] border-2 border-white text-16-600' />
+							)}
 							<span className='text-center text-16-600 sm:hidden'>{userData}</span>
 							<div className='absolute translate-y-[5rem] pr-[2rem] sm:pr-[7rem]'>
 								{isDropdownOpen && <HeaderNavDropdown />}
