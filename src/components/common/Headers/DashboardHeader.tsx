@@ -36,27 +36,11 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	const router = useRouter();
 	const boardId = +(router.query.boardid ?? 0);
 	const dropDownRef = useRef<HTMLDivElement>(null);
-
 	const [userInfo, setUserInfo] = useState<profileFormData>({
 		email: '',
 		nickname: '',
 		profileImageUrl: '',
 	});
-
-	const loadMember = async () => {
-		try {
-			const data = await getUsers();
-			const { email, nickname, profileImageUrl } = data;
-			setUserInfo({ email, nickname, profileImageUrl });
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	useEffect(() => {
-		loadMember();
-	}, []);
-
 	const [dashboardInfo, setDashboardInfo] = useState<DashboardData>({
 		id: boardId,
 		title: '',
@@ -101,6 +85,19 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 			console.error('Error fetching data:', error);
 		}
 	}
+	const loadMember = async () => {
+		try {
+			const data = await getUsers();
+			const { email, nickname, profileImageUrl } = data;
+			setUserInfo({ email, nickname, profileImageUrl });
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		loadMember();
+	}, []);
 
 	useEffect(() => {
 		getMembersData();
@@ -232,8 +229,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									) : (
 										<Image
 											key={member}
-											width={3.8}
-											height={3.8}
+											width={38}
+											height={38}
 											alt='초대 멤버 프로필 사진'
 											src={members.profileImageUrl}
 											className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
