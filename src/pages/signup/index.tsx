@@ -80,7 +80,7 @@ export default function Signup() {
 
 	return (
 		<>
-			<div className='flex h-[100rem] w-[100%] flex-col items-center justify-center gap-[0.1rem] bg-gray-F'>
+			<div className='flex h-full min-h-[100vh] w-[100%] flex-col items-center justify-center gap-[0.1rem] bg-gray-F '>
 				<Link href='/'>
 					<div className='flex h-[27.9rem] w-[20rem] flex-col items-end justify-center gap-[3.071rem] pb-[0.03947rem] pl-[0.114rem] pr-[0rem] pt-[0rem] '>
 						<Image alt='Taskify 로고 이미지' src={TaskifyImg} className='h-[18.9rem] w-[16.4rem]' />
