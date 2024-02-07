@@ -24,7 +24,7 @@ const DropDownProgress = <T extends FieldValues>({ columnList, control, name }: 
 
 	return (
 		<>
-			<h3 className='mb-[1rem] text-18-500'>상태</h3>
+			<h3 className='mb-[1rem] text-18-500 leading-[1.9rem] leading-[2.1rem]'>상태</h3>
 			<Select
 				inputId='contact'
 				onChange={(selectedOption) => {
@@ -35,7 +35,7 @@ const DropDownProgress = <T extends FieldValues>({ columnList, control, name }: 
 				ref={ref}
 				options={options}
 				placeholder='이름을 입력해 주세요'
-				className='container mb-[3.2rem] rounded-md'
+				className='container rounded-md'
 				styles={{
 					dropdownIndicator: (provided) => ({
 						...provided,
