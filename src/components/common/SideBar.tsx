@@ -111,8 +111,10 @@ export default function SideBar({ boardId }: SideBarProps) {
 										boardId === dashBoardItem.id && 'bg-violet-F',
 									)}
 								>
-									<div className={clsx(COLOR_PICK[dashBoardItem.color], 'h-[0.8rem] w-[0.8rem] rounded-[50%] ')} />
-									<div className='ml-[1rem] text-18-500 text-gray-7 sm:hidden sm:text-16-500'>
+									<div
+										className={clsx(COLOR_PICK[dashBoardItem.color], 'h-[0.8rem] w-[0.8rem] shrink-0 rounded-[50%]')}
+									/>
+									<div className='ml-[1rem] text-ellipsis break-all text-18-500 text-gray-7 md:overflow-hidden md:whitespace-nowrap sm:hidden sm:text-16-500'>
 										{dashBoardItem.title}
 									</div>
 									{dashBoardItem.createdByMe && (
