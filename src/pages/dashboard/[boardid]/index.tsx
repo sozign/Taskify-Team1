@@ -5,34 +5,49 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getColumns } from '@/lib/api';
 import { ColumnData } from '@/constants/types';
+import NotInvitedMemberAlert from '@/components/modal/NotInvitedMemberAlert';
+import { isAxiosError } from 'axios';
 
 export default function MyDashBoard() {
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
+
+	const [isAlertModalOpen, setIsAlertModalOpen] = useState<boolean>(false);
+
 	const [columnList, setColumnList] = useState<ColumnData[] | null>(null);
 	async function loadColumn() {
 		if (!boardId) return;
-		const data = await getColumns(boardId);
-		setColumnList(data.data);
-		return data;
+		try {
+			const data = await getColumns(boardId);
+			setColumnList(data.data);
+		} catch (err) {
+			if (isAxiosError(err)) {
+				if (err?.response?.status === 404) {
+					setIsAlertModalOpen(true);
+				}
+			}
+		}
 	}
 
 	useEffect(() => {
 		loadColumn();
 	}, [boardId]);
 
-	if (!columnList) return;
-
 	return (
 		<>
-			<PageLayout boardId={boardId}>
-				<DashboardHeader dashboardId={boardId} title={''} />
-				<div className='flex h-full flex-row bg-gray-F md:flex-col sm:flex-col'>
-					{columnList.map((columnItem) => (
-						<Column key={columnItem.id} columnItem={columnItem} />
-					))}
-				</div>
-			</PageLayout>
+			<NotInvitedMemberAlert modalControl={{ isOpen: isAlertModalOpen, setOpen: setIsAlertModalOpen }} />
+			{columnList ? (
+				<PageLayout boardId={boardId}>
+					<DashboardHeader dashboardId={boardId} title={''} />
+					<div className='flex h-full flex-row bg-gray-F md:flex-col sm:flex-col'>
+						{columnList.map((columnItem) => (
+							<Column key={columnItem.id} columnItem={columnItem} />
+						))}
+					</div>
+				</PageLayout>
+			) : (
+				<></>
+			)}
 		</>
 	);
 }
