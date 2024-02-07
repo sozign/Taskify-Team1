@@ -22,7 +22,8 @@ type putUsersData = {
 };
 
 export default function MyPage() {
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>(false);
+	const [isProfileActive, setIsProfileActive] = useState<boolean>(true);
 
 	const prevClickHandler = () => {
 		window.history.back();
@@ -31,6 +32,7 @@ export default function MyPage() {
 	const {
 		register,
 		handleSubmit,
+		watch,
 		formState: { isSubmitting, isSubmitted, errors },
 	} = useForm<FieldValues>({});
 
@@ -110,6 +112,8 @@ export default function MyPage() {
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
+		watch('nickname') || dataToUpdate.profileImageUrl ? setIsProfileActive(false) : setIsProfileActive(true);
+		console.log(dataToUpdate.profileImageUrl);
 		setDataToUpdate((prevData) => ({
 			...prevData,
 			nickname: value,
@@ -146,7 +150,7 @@ export default function MyPage() {
 								<div className='flex w-[56.4rem] md:w-[48.8rem] sm:flex-col'>
 									{/* profileImage는 null값을 넘김 */}
 									<UploadImg profileImageUrl={userInfo.profileImageUrl} onImageUpload={handleImageUpload} />
-									<div className='w-[36.6rem] md:w-[29rem] sm:w-[24.4rem]  '>
+									<div className=' w-[36.6rem] md:w-[29rem] sm:w-[24.4rem]  '>
 										<div className='sm:mt-[2.4rem]'>
 											<label htmlFor='email' className='text-18-500 sm:text-16-500'>
 												이메일
@@ -186,12 +190,12 @@ export default function MyPage() {
 									</div>
 								</div>
 								<Button
-									color='violet'
+									color='toggleColor'
 									disabled={isSubmitting}
 									type='submit'
 									onClick={() => handleSaveButtonClick()}
 									variant='confirm'
-									className='float-right mb-[2.8rem] mr-[2.8rem]  mt-[1.6rem] flex '
+									className={`float-right mb-[2.8rem] mr-[2.8rem] mt-[2.4rem] flex ${isProfileActive ? 'bg-gray-D' : 'bg-violet-5'} `}
 								>
 									저장
 								</Button>

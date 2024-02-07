@@ -1,4 +1,4 @@
-import React, { useRef, ChangeEvent, useState } from 'react';
+import React, { useRef, ChangeEvent, useState, useEffect } from 'react';
 import Image from 'next/image';
 // import axios from 'axios';
 import plusIcon from '@/../../Public/assets/myPage-plusIcon.svg';
@@ -27,7 +27,9 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 		const file = e.target.files?.[0];
 		if (file) {
 			PreviewImage(file);
+			console.log(PreviewImage);
 			setSelectedFile(file);
+			console.log(selectedFile);
 			const response = await postImageUrl(file);
 			if (onImageUpload) {
 				onImageUpload(response);
@@ -42,6 +44,7 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 		const preview = new FileReader();
 		preview.onload = function (e) {
 			const imageDataURL = e.target?.result as string;
+			console.log(imageDataURL);
 			setPreviewImage(imageDataURL);
 		};
 		preview.readAsDataURL(file);
@@ -68,6 +71,13 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 		}
 	};
 
+	useEffect(() => {
+		if (selectedFile instanceof File) {
+			// selectedFile이 File 객체인지 확인
+			PreviewImage(selectedFile); // File 객체인 경우에만 PreviewImage 호출
+		}
+	}, [selectedFile]);
+
 	return (
 		<>
 			<div>
@@ -81,7 +91,7 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 						multiple
 						onChange={handleChange}
 						style={{ display: 'none' }}
-						className='h-[18.2rem] w-[18.2rem]'
+						className='h-[18.2rem] w-[18.2rem] '
 					/>
 					{profileImageUrl ? (
 						<Image
@@ -96,7 +106,7 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 					) : (
 						<div
 							onClick={handleImageClick}
-							className='flex h-[18.2rem] w-[18.2rem] items-center justify-center rounded-md bg-[#F5F5F5]'
+							className='mr-[1.6rem] flex h-[18.2rem] w-[18.2rem] items-center justify-center rounded-md bg-[#F5F5F5] sm:h-[10rem] sm:w-[10rem]'
 						>
 							<Image src={plusIcon} alt='plus 이미지' className='h-[3rem] w-[3rem]' />
 						</div>

@@ -13,9 +13,9 @@ type passwordFormData = {
 };
 
 function PassWord() {
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>(false);
 	//값 여부 확인 후 버튼 클릭 유도
-	const [isActive, setIsActive] = useState(true);
+	const [isActive, setIsActive] = useState<boolean>(true);
 
 	const {
 		register,
