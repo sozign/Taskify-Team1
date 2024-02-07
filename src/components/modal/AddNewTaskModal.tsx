@@ -94,6 +94,7 @@ export default function AddNewTaskModal({
 		try {
 			await postCards(filteredData as CardItemPost);
 			setIsTaskModalOpen(false);
+			router.reload();
 		} catch (err) {
 			/**
 			 * @TODO 수정에 실패했습니다 alert
