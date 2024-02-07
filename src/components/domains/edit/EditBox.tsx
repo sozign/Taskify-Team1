@@ -27,7 +27,7 @@ function EditBox({ title, color, dashboardId, loadDashboardData }: EditBoxProps)
 	});
 
 	const onSubmit: SubmitHandler<FormValue> = async (data) => {
-		const res = await putDashboard(dashboardId, data);
+		await putDashboard(dashboardId, data);
 		loadDashboardData(dashboardId);
 	};
 
@@ -80,14 +80,11 @@ function EditBox({ title, color, dashboardId, loadDashboardData }: EditBoxProps)
 					}}
 				/>
 			</div>
-			<div className='flex flex-col gap-[2rem] sm:gap-[1.6rem]'>
+			<div className='flex flex-col gap-[2.4rem] sm:gap-[1.6rem]'>
 				<FormInput<FormValue> label='대시보드 이름' name='title' control={control} required={false} />
-				<div className=' flex justify-between'>
-					<div></div>
-					<Button type='submit' disabled={false} color='violet' variant='confirm'>
-						변경
-					</Button>
-				</div>
+				<Button className='self-end' type='submit' disabled={false} color='violet' variant='confirm'>
+					변경
+				</Button>
 			</div>
 		</form>
 	);

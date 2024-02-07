@@ -69,7 +69,7 @@ function AddColumnModal({ isOpen, setOpen, dashboardId, loadColumn }: ColumnAddM
 					rules={RULES.title}
 					required={!!('required' in RULES.title)}
 				/>
-				<div className='mt-[2rem] flex justify-end gap-[1.2rem]'>
+				<div className='mt-[2.8rem] flex justify-end gap-[1.2rem] sm:mt-[2.4rem]'>
 					<Button disabled={false} color='modalWhite' variant='modal' onClick={() => setOpen(false)}>
 						취소
 					</Button>
