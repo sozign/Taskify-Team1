@@ -1,12 +1,14 @@
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import PageLayout from '@/components/common/PageLayout';
-import Column from '@/components/domains/dashboard/Column';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { getColumns } from '@/lib/api';
-import { ColumnData } from '@/constants/types';
 import NotInvitedMemberAlert from '@/components/modal/NotInvitedMemberAlert';
 import { isAxiosError } from 'axios';
+import AddColumnButton from '@/components/domains/dashboard/AddColumnButton';
+import Column from '@/components/domains/dashboard/Column';
+import AddColumnModal from '@/components/modal/AddColumnModal';
+import { ColumnData } from '@/constants/types';
+import { getColumns } from '@/lib/api';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export default function MyDashBoard() {
 	const router = useRouter();
@@ -15,6 +17,7 @@ export default function MyDashBoard() {
 	const [isAlertModalOpen, setIsAlertModalOpen] = useState<boolean>(false);
 
 	const [columnList, setColumnList] = useState<ColumnData[] | null>(null);
+	const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
 	async function loadColumn() {
 		if (!boardId) return;
 		try {
@@ -35,7 +38,12 @@ export default function MyDashBoard() {
 
 	return (
 		<>
-			<NotInvitedMemberAlert modalControl={{ isOpen: isAlertModalOpen, setOpen: setIsAlertModalOpen }} />
+			<NotInvitedMemberAlert
+				modalControl={{
+					isOpen: isAlertModalOpen,
+					setOpen: setIsAlertModalOpen,
+				}}
+			/>
 			{columnList ? (
 				<PageLayout boardId={boardId}>
 					<DashboardHeader dashboardId={boardId} title={''} />
@@ -43,7 +51,16 @@ export default function MyDashBoard() {
 						{columnList.map((columnItem) => (
 							<Column key={columnItem.id} columnItem={columnItem} />
 						))}
+						<div className='w-full px-[2rem] pt-[6.8rem] md:w-full md:p-[2rem]'>
+							<AddColumnButton onClick={() => setIsAddColumnModalOpen(true)} />
+						</div>
 					</div>
+					<AddColumnModal
+						loadColumn={loadColumn}
+						isOpen={isAddColumnModalOpen}
+						setOpen={setIsAddColumnModalOpen}
+						dashboardId={boardId}
+					/>
 				</PageLayout>
 			) : (
 				<></>
