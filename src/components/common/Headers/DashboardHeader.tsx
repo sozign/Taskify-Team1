@@ -176,7 +176,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 						: dashboardInfo.createdByMe && (
 								<>
 									<button
-										className='flex h-[4rem] w-[8.8rem] flex-shrink-0 flex-row items-center justify-center gap-[0.8rem] rounded-[0.8rem] border-2 border-gray-D bg-white md:h-[3.6rem] md:w-[8.5rem] sm:h-[3rem] sm:w-[4.9rem]'
+										className='flex h-[4rem] w-[8.8rem] flex-shrink-0 flex-row items-center justify-center gap-[0.8rem] rounded-[0.8rem] border-[0.1rem] border-gray-D bg-white md:h-[3.6rem] md:w-[8.5rem] sm:h-[3rem] sm:w-[4.9rem]'
 										onClick={moveHandler}
 									>
 										<Image
@@ -184,20 +184,20 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 											src={settingIcon}
 											className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
 										/>
-										<span className='items-center text-16-500 text-gray-7'>관리</span>
+										<span className='items-center text-16-500 text-gray-7 md:text-14-500'>관리</span>
 									</button>
 									<button
 										onClick={() => {
 											setIsTaskEditModalOpen(true);
 										}}
-										className='flex h-[4rem] w-[11.6rem] flex-shrink-0 flex-row items-center justify-center gap-[0.8rem] rounded-[0.8rem] border-2 border-gray-D bg-white md:h-[3.6rem] md:w-[10.9rem] sm:h-[3rem] sm:w-[7.3rem]'
+										className='flex h-[4rem] w-[11.6rem] flex-shrink-0 flex-row items-center justify-center gap-[0.8rem] rounded-[0.8rem] border-[0.1rem] border-gray-D bg-white md:h-[3.6rem] md:w-[10.9rem] sm:h-[3rem] sm:w-[7.3rem]'
 									>
 										<Image
 											alt='초대하기 버튼 플러스 아이콘'
 											src={PlusIcon}
 											className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
 										/>
-										<span className='items-center text-16-500 text-gray-7'>초대하기</span>
+										<span className='items-center text-16-500 text-gray-7 md:text-14-500'>초대하기</span>
 									</button>
 								</>
 							)}
@@ -263,20 +263,20 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							ref={dropDownRef}
 							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						>
-							{userInfo.profileImageUrl ? (
-								<Image
-									width={38}
-									height={38}
-									alt='초대 멤버 프로필 사진'
-									src={userInfo.profileImageUrl}
-									className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
-								/>
-							) : (
-								<Avatar name={userData} className='h-[3.8rem] w-[3.8rem] border-2 border-white text-16-600' />
-							)}
-							<span className='text-center text-16-600 sm:hidden'>{userData}</span>
-							<div className='absolute translate-y-[5rem] pr-[2rem] sm:pr-[7rem]'>
-								{isDropdownOpen && <HeaderNavDropdown />}
+							<div className='relative flex items-center gap-[1.2rem]'>
+								{userInfo.profileImageUrl ? (
+									<Image
+										width={38}
+										height={38}
+										alt='초대 멤버 프로필 사진'
+										src={userInfo.profileImageUrl}
+										className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
+									/>
+								) : (
+									<Avatar name={userData} className='h-[3.8rem] w-[3.8rem] border-2 border-white text-16-600' />
+								)}
+								<span className='text-center text-16-600 sm:hidden'>{userData}</span>
+								<div className='absolute right-0 top-[4.5rem]'>{isDropdownOpen && <HeaderNavDropdown />}</div>
 							</div>
 						</div>
 					</div>
