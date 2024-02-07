@@ -16,12 +16,13 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
 	const [isToken, setIsToken] = useState<string | null>();
+	const router = useRouter();
+
 	useEffect(() => {
 		const accessToken = localStorage.getItem('accessToken');
 		setIsToken(accessToken);
 	}, []);
 
-	const router = useRouter();
 	return (
 		<div>
 			<LandingHeader />

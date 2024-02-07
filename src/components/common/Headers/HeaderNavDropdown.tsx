@@ -6,7 +6,9 @@ export default function HeaderNavDropdown() {
 
 	const handleLogout = () => {
 		localStorage.removeItem('accessToken');
-		router.reload.call('/');
+		if (!localStorage.getItem('accessToken')) {
+			router.push('/login');
+		}
 	};
 	return (
 		<div className='w-[9.3rem] flex-shrink-0 rounded-[0.6rem] border-solid border-gray-D bg-white px-[0.6rem] py-[0.6rem] shadow-[30px_30px_100px_-18px_rgba(0,0,0,0.67)] shadow-black-0'>
