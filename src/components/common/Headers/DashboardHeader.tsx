@@ -11,6 +11,7 @@ import settingIcon from '@/../Public/assets/settingIcon.svg';
 import PlusIcon from '@/../Public/assets/PlusIcon.svg';
 import Vector from '@/../Public/assets/Vector.svg';
 import Avatar from '../Avatar';
+import _debounce from 'lodash/debounce';
 
 interface HeaderNavProps {
 	dashboardId: number;
@@ -51,9 +52,9 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 		userId: 0,
 	});
 	const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
-	const handleResize = () => {
+	const handleResize = _debounce(() => {
 		setWindowWidth(window.innerWidth);
-	};
+	}, 500);
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
