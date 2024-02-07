@@ -114,6 +114,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 											alt='내가 만든 대시보드에 붙는 왕관모양 아이콘'
 											className='sm:hidden'
 											height={14}
+											width={18}
 											src={'/assets/royalCrownIcon.svg'}
 										/>
 									)}

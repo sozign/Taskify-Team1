@@ -6,10 +6,6 @@ import { useRouter } from 'next/router';
 import HeaderNavDropdown from './HeaderNavDropdown';
 import { getDashboardItem, getMembers, getUsers } from '@/lib/api';
 import { DashboardData, MembersGet } from '@/constants/types';
-import royalCrownIcon from '@/../public/assets/royalCrownIcon.svg';
-import settingIcon from '@/../public/assets/settingIcon.svg';
-import PlusIcon from '@/../public/assets/PlusIcon.svg';
-import Vector from '@/../public/assets/Vector.svg';
 import Avatar from '../Avatar';
 
 interface HeaderNavProps {
@@ -145,7 +141,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 										width={3.8}
 										height={3.8}
 										alt='대시보드 왕관 아이콘'
-										src={royalCrownIcon}
+										src={'/assets/royalCrownIcon.svg'}
 										className=' w-[2.103rem]  md:hidden sm:hidden'
 									/>
 								)}
@@ -163,7 +159,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 										width={3.8}
 										height={3.8}
 										alt='대시보드 왕관 아이콘'
-										src={royalCrownIcon}
+										src={'/assets/royalCrownIcon.svg'}
 										className=' w-[2.103rem] md:hidden sm:hidden'
 									/>
 								)}
@@ -181,7 +177,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									>
 										<Image
 											alt='관리 버튼 셋팅 아이콘'
-											src={settingIcon}
+											src={''}
 											className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
 										/>
 										<span className='items-center text-16-500 text-gray-7'>관리</span>
@@ -194,7 +190,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									>
 										<Image
 											alt='초대하기 버튼 플러스 아이콘'
-											src={PlusIcon}
+											src={'/assets/PlusIcon.svg'}
 											className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
 										/>
 										<span className='items-center text-16-500 text-gray-7'>초대하기</span>
@@ -255,7 +251,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 					</div>
 
 					{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage') ? null : (
-						<Image alt='영역 나누는 라인 이미지' src={Vector} className='h-[3.8rem] ' />
+						<Image alt='영역 나누는 라인 이미지' src={'/assets/Vector.svg'} className='h-[3.8rem] ' />
 					)}
 					<div className='flex flex-row items-center justify-center gap-[0.9rem] px-[2rem] sm:px-[1.2rem]'>
 						<div

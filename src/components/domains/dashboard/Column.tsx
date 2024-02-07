@@ -2,12 +2,9 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { CardData, ColumnData, MembersData } from '@/constants/types';
 import { getCards, getMembers } from '@/lib/api';
-import TaskCard from './TaskCard';
-import bullet from '@/../public/assets/bullet.svg';
-import setting from '@/../public/assets/settingIcon.svg';
-import addIcon from '@/../../public/assets/addIcon.svg';
-import SquareChip from '@/components/common/chips/SquareChip';
 import { useRouter } from 'next/router';
+import TaskCard from './TaskCard';
+import SquareChip from '@/components/common/chips/SquareChip';
 import AddNewTaskModal from '@/components/modal/AddNewTaskModal';
 
 interface ColumnProps {
@@ -82,12 +79,12 @@ export default function Column({ columnItem }: ColumnProps) {
 			<div className='w-[35.4rem] flex-shrink-0 overflow-y-auto whitespace-nowrap border-b-[0.1rem] border-r-[0.1rem] bg-gray-F px-[2rem] pb-[2rem] pt-[2.2rem] md:container sm:container sm:px-[1.2rem] sm:pt-[1.7rem]'>
 				<div className='mb-[2.5rem] flex items-center justify-between sm:mb-[1.7rem] '>
 					<div className='flex items-center'>
-						<Image className='mr-[0.6rem]' alt='불렛모양 아이콘' src={bullet} />
+						<Image className='mr-[0.6rem]' alt='불렛모양 아이콘' src={'/assets/bullet.svg'} />
 						<div className='sm:text-16-700 mr-[1.2rem] text-18-700 text-black-3'>{columnItem.title}</div>
 						<SquareChip color='gray'>{cardListTotalCount.current}</SquareChip>
 					</div>
 					<button>
-						<Image alt='설정 아이콘' src={setting} />
+						<Image alt='설정 아이콘' src={'/assets/settingIcon.svg'} />
 					</button>
 				</div>
 				<div className='flex flex-col gap-[1.6rem]'>
@@ -98,7 +95,7 @@ export default function Column({ columnItem }: ColumnProps) {
 						className='flex justify-center rounded-[0.6rem] border-[0.1rem] border-gray-D bg-white py-[0.9rem]'
 					>
 						<SquareChip color='violet' className='relative'>
-							<Image className='px-[0.6rem] py-[0.6rem]' fill src={addIcon} alt='추가하기 아이콘' />
+							<Image className='px-[0.6rem] py-[0.6rem]' fill src={'/assets/addIcon.svg'} alt='추가하기 아이콘' />
 						</SquareChip>
 					</button>
 					{currentCardList.map((cardItem) => (

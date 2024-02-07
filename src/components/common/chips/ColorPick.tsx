@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import done from '@/../public/assets/done.svg';
 import ColorChip from './ColorChip';
 
 function ColorPick({ colorPick, onClick }: { colorPick: string; onClick: (pick: string) => void }) {
@@ -18,7 +17,13 @@ function ColorPick({ colorPick, onClick }: { colorPick: string; onClick: (pick: 
 			{colorNameList.map((color) => (
 				<div key={color} className='relative'>
 					{color === colorPick ? (
-						<Image src={done} alt='체크 아이콘' className='absolute left-[0.3rem] top-[0.3rem] z-10' />
+						<Image
+							src={'/assets/done.svg'}
+							width={24}
+							height={24}
+							alt='체크 아이콘'
+							className='absolute left-[0.3rem] top-[0.3rem] z-10'
+						/>
 					) : null}
 					<ColorChip color={color} onClick={() => onClick(color)} />
 				</div>
