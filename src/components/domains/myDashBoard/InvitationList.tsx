@@ -2,7 +2,7 @@ import Image from 'next/image';
 import searchIcon from '@../../../Public/assets/searchIcon.svg';
 import { InvitationDashboardData, DashboardsGet } from '@/constants/types';
 import Invitation from './Invitation';
-import React, { useRef, useEffect, useState, useCallback, ChangeEvent } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { getInvitations } from '@/lib/api';
 import NotInvited from './NotInvited';
 import useAsync from '@/hooks/useAsync';
