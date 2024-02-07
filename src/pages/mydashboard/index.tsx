@@ -18,9 +18,8 @@ import InvitationList from '@/components/domains/myDashBoard/InvitationList';
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
 	const [colorPick, setColorPick] = useState('#7AC555');
-	const [dashBoardData, setDashBoardData] = useState<DashboardsGet>();
+	const [dashBoardData, setDashBoardData] = useState<DashboardsGet | undefined>();
 	const [paginationPage, setPaginationPage] = useState<number>(1);
-	const [invitationList, setInvitationList] = useState<InvitationDashboardData[]>([]);
 	const [acceptedResponse, setAcceptedResponse] = useState<InvitationsGet>();
 
 	const RULES = {
@@ -99,11 +98,7 @@ export default function MyDashBoard() {
 							setPaginationPage={setPaginationPage}
 						/>
 					</div>
-					<InvitationList
-						onAcceptInvitation={handleAcceptInvitation}
-						setInvitationList={setInvitationList}
-						invitationList={invitationList}
-					/>
+					<InvitationList dashBoardData={dashBoardData} onAcceptInvitation={handleAcceptInvitation} />
 				</div>
 
 				{/* 대시보드 추가 모달 */}

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import searchIcon from '@../../../Public/assets/searchIcon.svg';
-import { InvitationDashboardData } from '@/constants/types';
+import { InvitationDashboardData, DashboardsGet } from '@/constants/types';
 import Invitation from './Invitation';
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { getInvitations } from '@/lib/api';
@@ -9,27 +9,52 @@ import useAsync from '@/hooks/useAsync';
 import BarSpinner from '@/components/common/spinner/BarSpinner';
 
 function InvitationList({
+	dashBoardData,
 	onAcceptInvitation,
-	invitationList,
-	setInvitationList,
 }: {
-	onAcceptInvitation: (invitationId: number, accept: boolean) => void;
-	invitationList: InvitationDashboardData[];
-	setInvitationList: React.Dispatch<React.SetStateAction<InvitationDashboardData[]>>;
+	dashBoardData: DashboardsGet | undefined;
+	onAcceptInvitation: (invitationId: number, accept: boolean) => Promise<void>;
 }) {
-	const cursorId = useRef<number>(0);
-	const lastElementRef = useRef<HTMLDivElement>(null);
+	const [invitationList, setInvitationList] = useState<(InvitationDashboardData | undefined)[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [searchKeyword, setSearchKeyword] = useState('');
-	const [searchInvitationList, setSearchInvitationList] = useState<InvitationDashboardData[]>([]);
+	const cursorId = useRef<number>(0);
+	const lastElementRef = useRef<HTMLDivElement>(null);
 
-	// 추가 초대 요청
+	//중복 대시보드 처리
+	const removeDuplicateDashboard = (invitations: InvitationDashboardData[]) => {
+		const uniqueDashBoard = invitations.filter(
+			(addInvitation) => !dashBoardData?.dashboards.some((dashboard) => addInvitation.dashboard.id === dashboard.id),
+		);
+		return uniqueDashBoard;
+	};
+
+	//중복 초대 처리
+	const removeDuplicates = (invitations: InvitationDashboardData[]) => {
+		const uniqueInvitation = removeDuplicateDashboard(invitations as InvitationDashboardData[])?.filter(
+			(invitation, index, self) => {
+				const currentDashboardId = invitation.dashboard.id;
+				return self.findIndex((invitation) => invitation.dashboard.id === currentDashboardId) === index;
+			},
+		);
+		return uniqueInvitation;
+	};
+
+	//초기 초대 요청
+	const loadInitialInvitations = () => {
+		setInvitationList(removeDuplicates(invitationList as InvitationDashboardData[]));
+	};
+
+	//추가 초대 요청
 	const loadMoreInvitations = async () => {
+		setLoading(true);
 		try {
-			if (cursorId.current == null) return;
+			if (cursorId.current === null) return;
 			const data = await getInvitations({ size: 2, cursorId: cursorId.current });
+			const addInvitations = data.invitations;
 			cursorId.current = data.cursorId;
-			setInvitationList((prevList) => [...prevList, ...data.invitations]);
+
+			setInvitationList((prevList) => [...prevList, ...removeDuplicates(addInvitations)]);
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -37,13 +62,27 @@ function InvitationList({
 		}
 	};
 
-	// 검색 요청, 로딩
-	const [searchLoading, searchError, executeSearch] = useAsync(async (keyword: string) => {
-		const data = await getInvitations({ size: 10, title: keyword });
-		setSearchInvitationList(data.invitations);
-	});
+	// 검색
+	const searchInvitation = async (keyword: string) => {
+		try {
+			const data = await getInvitations({ size: 10, title: keyword });
+			const searchInvitations = data.invitations;
 
-	const handleSearchInvitation = useCallback(
+			// 중복 체크
+			const uniqueInvitations = Array.from(
+				new Set(removeDuplicateDashboard(searchInvitations).map((invitation) => invitation.dashboard.id)),
+			).map((dashboardId) =>
+				removeDuplicateDashboard(searchInvitations).find((invitation) => invitation.dashboard.id === dashboardId),
+			);
+			setInvitationList(uniqueInvitations);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	//검색 로딩
+	const [searchLoading, searchError, executeSearch] = useAsync(searchInvitation);
+	const handleSearch = useCallback(
 		(keyword: string) => {
 			executeSearch(keyword);
 		},
@@ -51,6 +90,8 @@ function InvitationList({
 	);
 
 	useEffect(() => {
+		console.log(invitationList);
+		loadInitialInvitations();
 		const intersectionObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
 				if (!entry.isIntersecting) return;
@@ -86,7 +127,7 @@ function InvitationList({
 							<input
 								value={searchKeyword}
 								onChange={(e) => {
-									handleSearchInvitation(e.target.value);
+									handleSearch(e.target.value);
 									setSearchKeyword(e.target.value);
 								}}
 								placeholder='검색'
@@ -104,21 +145,9 @@ function InvitationList({
 									<li className='w-1/3'>수락여부</li>
 								</ul>
 								<ul className='flex flex-col  sm:w-[100%]'>
-									{searchKeyword === ''
-										? invitationList.map((invitation) => (
-												<Invitation
-													onAcceptInvitation={onAcceptInvitation}
-													invitation={invitation}
-													key={invitation.id}
-												/>
-											))
-										: searchInvitationList.map((invitation) => (
-												<Invitation
-													onAcceptInvitation={onAcceptInvitation}
-													invitation={invitation}
-													key={invitation.id}
-												/>
-											))}
+									{invitationList.map((invitation) => (
+										<Invitation onAcceptInvitation={onAcceptInvitation} invitation={invitation} key={invitation?.id} />
+									))}
 								</ul>
 								<div ref={lastElementRef}></div>
 							</div>
