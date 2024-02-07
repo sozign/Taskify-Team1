@@ -193,6 +193,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 										<Image
 											alt='초대하기 버튼 플러스 아이콘'
 											src={'/assets/PlusIcon.svg'}
+											width={20}
+											height={20}
 											className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
 										/>
 										<span className='items-center text-16-500 text-gray-7'>초대하기</span>
@@ -253,7 +255,13 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 					</div>
 
 					{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage') ? null : (
-						<Image alt='영역 나누는 라인 이미지' src={'/assets/Vector.svg'} className='h-[3.8rem] ' />
+						<Image
+							alt='영역 나누는 라인 이미지'
+							width={1}
+							height={38}
+							src={'/assets/Vector.svg'}
+							className='h-[3.8rem] '
+						/>
 					)}
 					<div className='flex flex-row items-center justify-center gap-[0.9rem] px-[2rem] sm:px-[1.2rem]'>
 						<div

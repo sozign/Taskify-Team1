@@ -79,12 +79,12 @@ export default function Column({ columnItem }: ColumnProps) {
 			<div className='w-[35.4rem] flex-shrink-0 overflow-y-auto whitespace-nowrap border-b-[0.1rem] border-r-[0.1rem] bg-gray-F px-[2rem] pb-[2rem] pt-[2.2rem] md:container sm:container sm:px-[1.2rem] sm:pt-[1.7rem]'>
 				<div className='mb-[2.5rem] flex items-center justify-between sm:mb-[1.7rem] '>
 					<div className='flex items-center'>
-						<Image className='mr-[0.6rem]' alt='불렛모양 아이콘' src={'/assets/bullet.svg'} />
+						<Image className='mr-[0.6rem]' alt='불렛모양 아이콘' width={8} height={8} src={'/assets/bullet.svg'} />
 						<div className='sm:text-16-700 mr-[1.2rem] text-18-700 text-black-3'>{columnItem.title}</div>
 						<SquareChip color='gray'>{cardListTotalCount.current}</SquareChip>
 					</div>
 					<button>
-						<Image alt='설정 아이콘' src={'/assets/settingIcon.svg'} />
+						<Image alt='설정 아이콘' width={19} height={19} src={'/assets/settingIcon.svg'} />
 					</button>
 				</div>
 				<div className='flex flex-col gap-[1.6rem]'>
