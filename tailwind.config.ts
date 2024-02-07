@@ -265,6 +265,13 @@ const config: Config = {
 					D: '#D25B68',
 				},
 			},
+			zIndex: {
+				HEADER: '1',
+				MODALLAYOUT: '2',
+				MODAL: '3',
+				NESTEDMODALLAYOUT: '4',
+				NESTEDMODAL: '5',
+			},
 		},
 	},
 	plugins: [],
