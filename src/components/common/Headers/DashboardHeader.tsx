@@ -68,7 +68,6 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 				size: 4,
 				dashboardId: boardId,
 			});
-			console.log('대시보드헤더 멤버 페칭');
 			setMembers(resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);

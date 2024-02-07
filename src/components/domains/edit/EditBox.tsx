@@ -28,7 +28,6 @@ function EditBox({ title, color, dashboardId, loadDashboardData }: EditBoxProps)
 
 	const onSubmit: SubmitHandler<FormValue> = async (data) => {
 		const res = await putDashboard(dashboardId, data);
-		console.log(res);
 		loadDashboardData(dashboardId);
 	};
 

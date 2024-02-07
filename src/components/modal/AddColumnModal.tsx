@@ -52,8 +52,7 @@ function AddColumnModal({ isOpen, setOpen, dashboardId, loadColumn }: ColumnAddM
 	};
 
 	const onSubmit: SubmitHandler<FormValueProps> = async (data) => {
-		const resData = await postColumn(data);
-		console.log('컬럼 추가', resData);
+		await postColumn(data);
 		setOpen((prev) => !prev);
 		loadColumn();
 	};

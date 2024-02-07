@@ -62,7 +62,6 @@ export default function DashBoardEdit() {
 		try {
 			const resData = await getUsers();
 			setMyInfo(resData);
-			console.log('내 정보 로드', resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -72,7 +71,6 @@ export default function DashBoardEdit() {
 		try {
 			const resData = await getDashboardItem(dashboardId);
 			setDashboardInfo(resData);
-			console.log('대시보드 로드', resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -82,7 +80,6 @@ export default function DashBoardEdit() {
 		try {
 			const resData = await getMembers(membersPagination);
 			setMembers(resData);
-			console.log('대시보드 멤버 목록 로드', resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -92,7 +89,6 @@ export default function DashBoardEdit() {
 		try {
 			const resData = await getInvitationsDashboard(invitationsPagination);
 			setInvitationsDashboard(resData);
-			console.log('대시보드 초대 목록 로드', resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -111,8 +107,7 @@ export default function DashBoardEdit() {
 	}, [membersPagination, invitationsPagination]);
 
 	async function handleDelete(dashboardId: number) {
-		const resStatus = await deleteDashboard(dashboardId);
-		console.log(resStatus);
+		await deleteDashboard(dashboardId);
 		router.push('/mydashboard');
 	}
 
