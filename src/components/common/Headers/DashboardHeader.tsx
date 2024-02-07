@@ -60,12 +60,14 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	}, [windowWidth]);
 
 	const getMembersData = async () => {
+		if (!boardId) return;
 		try {
 			const { ...resData } = await getMembers({
 				page: 1,
 				size: 4,
 				dashboardId: boardId,
 			});
+			console.log('대시보드헤더 멤버 페칭');
 			setMembers(resData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
