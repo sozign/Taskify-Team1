@@ -1,9 +1,3 @@
-import TaskifyImage from '@/../../public/assets/TaskifyImage.svg';
-import Taskify from '@/../../public/assets/Taskify.svg';
-import RoyalCrownIcon from '@/../../public/assets/royalCrownIcon.svg';
-import PlusIcon from '@/../../public/assets/PlusIcon.svg';
-import CheckedIcon from '@/../../public/assets/checked.svg';
-
 import clsx from 'clsx';
 import Link from 'next/link';
 
@@ -87,8 +81,8 @@ export default function SideBar({ boardId }: SideBarProps) {
 		<>
 			<div className='h-full w-full border-r border-gray-D p-[1.2rem]'>
 				<Link href={'/'} className='mb-[4.4rem] mt-[0.8rem] flex justify-start p-[1.2rem]'>
-					<Image alt='로고' src={TaskifyImage} />
-					<Image alt='폰트 로고' className='sm:hidden' width={80} height={22} src={Taskify} />
+					<Image alt='로고' width={110} height={20} src={'/assets/TaskifyImage.svg'} />
+					<Image alt='폰트 로고' className='sm:hidden' width={80} height={22} src={'/assets/Taskify.svg'} />
 				</Link>
 				<div className=' p-[1.2rem]'>
 					<button
@@ -98,7 +92,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 						}}
 					>
 						<div className='text-12-700 text-gray-7 sm:hidden'>Dash Boards</div>
-						<Image alt='대시보드 추가 버튼 아이콘' width={20} height={20} src={PlusIcon} />
+						<Image alt='대시보드 추가 버튼 아이콘' width={20} height={20} src={'/assets/PlusIcon.svg'} />
 					</button>
 				</div>
 				<div>
@@ -120,7 +114,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 											alt='내가 만든 대시보드에 붙는 왕관모양 아이콘'
 											className='sm:hidden'
 											height={14}
-											src={RoyalCrownIcon}
+											src={'/assets/royalCrownIcon.svg'}
 										/>
 									)}
 								</div>
@@ -155,31 +149,51 @@ export default function SideBar({ boardId }: SideBarProps) {
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-green'>
 										<input className=' opacity-0 ' type='radio' {...field} value='#7AC555' />
 										{field.value === '#7AC555' && (
-											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+											<Image
+												src={'/assets/checked.svg'}
+												alt='Check Icon'
+												className='absolute right-[0.3rem] top-[0.3rem]'
+											/>
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-purple'>
 										<input className=' opacity-0 ' type='radio' {...field} value='#760DDE' />
 										{field.value === '#760DDE' && (
-											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+											<Image
+												src={'/assets/checked.svg'}
+												alt='Check Icon'
+												className='absolute right-[0.3rem] top-[0.3rem]'
+											/>
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-orange'>
 										<input className=' opacity-0 ' type='radio' {...field} value='#FFA500' />
 										{field.value === '#FFA500' && (
-											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+											<Image
+												src={'/assets/checked.svg'}
+												alt='Check Icon'
+												className='absolute right-[0.3rem] top-[0.3rem]'
+											/>
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-blue'>
 										<input className=' opacity-0 ' type='radio' {...field} value='#76A6EA' />
 										{field.value === '#76A6EA' && (
-											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+											<Image
+												src={'/assets/checked.svg'}
+												alt='Check Icon'
+												className='absolute right-[0.3rem] top-[0.3rem]'
+											/>
 										)}
 									</label>
 									<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-pink'>
 										<input className=' opacity-0 ' type='radio' {...field} value='#E876EA' />
 										{field.value === '#E876EA' && (
-											<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+											<Image
+												src={'/assets/checked.svg'}
+												alt='Check Icon'
+												className='absolute right-[0.3rem] top-[0.3rem]'
+											/>
 										)}
 									</label>
 								</div>
