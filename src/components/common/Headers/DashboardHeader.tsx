@@ -134,7 +134,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 
 	return (
 		<>
-			<header className='container sticky inset-0 flex h-[7rem]  flex-row items-center justify-between border-b-[0.1rem] border-gray-D   bg-white pl-[2rem] sm:h-[6rem]'>
+			<header className='container sticky inset-0 flex h-[7rem]  flex-row items-center justify-between border-b-[0.1rem] border-gray-D   bg-white pl-[2rem] sm:h-[6rem] sm:pl-0'>
 				{router.pathname.startsWith('/mypage') ? (
 					<div className='container flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
 						<span className='md:hidden sm:hidden'>{dashboardInfo.title ? dashboardInfo.title : title}</span>
@@ -153,7 +153,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 				) : (
 					<Link
 						href='/mydashboard'
-						className=' flex flex-row gap-[0.4rem]  text-20-700 text-black-3 md:w-[0.8rem] sm:w-[1.2rem]'
+						className='flex flex-row gap-[0.4rem]  text-20-700 text-black-3 md:w-[0.8rem] sm:w-[1.2rem]'
 					>
 						<span className='md:hidden sm:hidden'>{dashboardInfo.title ? dashboardInfo.title : title}</span>
 						{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage')
@@ -202,7 +202,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 								</>
 							)}
 
-					<div className='group flex items-center justify-center pl-[4rem] sm:pl-[1.6rem]'>
+					<div className='group flex items-center justify-center  sm:pl-[1.6rem]'>
 						{windowWidth > 1199
 							? members.members.slice(0, 4).map((members, member) => {
 									return members.profileImageUrl === null ? (
@@ -236,7 +236,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 											height={38}
 											alt='초대 멤버 프로필 사진'
 											src={members.profileImageUrl}
-											className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
+											className='flex h-[3.8rem] w-[3.8rem] flex-shrink-0 items-center justify-center rounded-[50%] border-2 border-white text-center'
 										/>
 									);
 								})}
@@ -257,26 +257,29 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 					{router.pathname.startsWith('/mydashboard') || router.pathname.startsWith('/mypage') ? null : (
 						<Image alt='영역 나누는 라인 이미지' src={Vector} className='h-[3.8rem] ' />
 					)}
-					<div className='flex flex-row items-center justify-center gap-[0.9rem] px-[2rem] sm:px-[1.2rem]'>
+					<div className='flex flex-row items-center justify-center gap-[0.9rem] pr-[1.2rem] sm:pr-0'>
 						<div
 							className='flex cursor-pointer items-center justify-center gap-2'
 							ref={dropDownRef}
 							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						>
-							<div className='relative flex items-center gap-[1.2rem]'>
+							<div className='relative mr-[1.2rem] flex items-center gap-[1.2rem]'>
 								{userInfo.profileImageUrl ? (
 									<Image
 										width={38}
 										height={38}
 										alt='초대 멤버 프로필 사진'
 										src={userInfo.profileImageUrl}
-										className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
+										className='flex h-[3.8rem] w-[3.8rem] flex-shrink-0 items-center justify-center rounded-[50%] border-2 border-white text-center'
 									/>
 								) : (
-									<Avatar name={userData} className='h-[3.8rem] w-[3.8rem] border-2 border-white text-16-600' />
+									<Avatar
+										name={userData}
+										className='h-[3.8rem] w-[3.8rem] flex-shrink-0 border-2 border-white text-16-600'
+									/>
 								)}
 								<span className='text-center text-16-600 sm:hidden'>{userData}</span>
-								<div className='absolute right-0 top-[4.5rem]'>{isDropdownOpen && <HeaderNavDropdown />}</div>
+								<div className='absolute right-0 top-[3.5rem]'>{isDropdownOpen && <HeaderNavDropdown />}</div>
 							</div>
 						</div>
 					</div>
