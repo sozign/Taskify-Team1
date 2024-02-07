@@ -47,7 +47,7 @@ export default function MyDashBoard() {
 			{columnList ? (
 				<PageLayout boardId={boardId}>
 					<DashboardHeader dashboardId={boardId} title={''} />
-					<div className='flex h-full flex-row bg-gray-F md:flex-col sm:flex-col'>
+					<div className='flex h-[calc(100vh-7rem)] flex-row bg-gray-F md:h-[calc(100vh-6rem)] md:flex-col sm:flex-col'>
 						{columnList.map((columnItem) => (
 							<Column key={columnItem.id} columnItem={columnItem} />
 						))}
