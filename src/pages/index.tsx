@@ -18,7 +18,7 @@ export default function Home() {
 	return (
 		<div>
 			<LandingHeader />
-			<div className='mt-[9.4rem] flex flex-col items-center gap-[9rem] px-[4rem] sm:mt-[4.2rem] sm:gap-[8rem] sm:px-[1.6rem]'>
+			<div className=' mt-[9.4rem] flex flex-col items-center gap-[9rem] px-[4rem] sm:mt-[4.2rem] sm:gap-[8rem] sm:px-[1.6rem]'>
 				<div className='mb-[9.4rem] flex flex-col items-center gap-[4.82rem] sm:mb-0 sm:gap-[2.6rem]'>
 					<div className='relative h-[42.3rem] w-[72.2rem] bg-violet-5 md:h-[31.5rem] md:w-[53.7rem] sm:h-[16.8rem] sm:w-[28.7rem]'>
 						<div className='mt-[9.1rem] flex items-center justify-center md:mt-[6.6rem] sm:mt-[3.7rem]'>
@@ -47,7 +47,7 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				<div className='box1 flex h-[60rem] w-[120rem] justify-between rounded-[0.8rem] bg-black-1 md:h-fit md:w-full md:flex-col md:items-end md:gap-[11.7rem]'>
+				<div className='box1 flex h-[60rem] w-[120rem] justify-between rounded-[0.8rem] bg-black-4 md:h-fit md:w-full md:flex-col md:items-end md:gap-[11.7rem]'>
 					<div className='mt-[12.3rem] flex flex-col gap-[10rem] pl-[6rem] md:mt-[6.3rem] md:w-full sm:mt-[6rem] sm:items-center sm:gap-[6.1rem] sm:p-0'>
 						<span className='text-22-500 text-gray-9 sm:text-18-500'>Point 1</span>
 						<div className='flex flex-col text-48-700 leading-[6.4rem] text-white sm:items-center sm:text-36-700'>
@@ -59,7 +59,7 @@ export default function Home() {
 						<Image className='rounded-tl-[0.8rem]' src={landing1} alt='랜딩 페이지 이미지 1' />
 					</div>
 				</div>
-				<div className='box2 flex h-[60rem] w-[120rem] gap-[10rem] rounded-[0.8rem] bg-black-1 md:h-fit md:w-full md:flex-col-reverse'>
+				<div className='box2 flex h-[60rem] w-[120rem] gap-[10rem] rounded-[0.8rem] bg-black-4  md:h-fit md:w-full md:flex-col-reverse'>
 					<div className='ml-[10.8rem] mt-[9.8rem] flex h-[50.2rem] w-[43.6rem] flex-shrink-0 justify-end md:mx-auto md:mt-[14rem] md:h-[41.5rem] md:w-[36rem] sm:mt-[9.2rem] sm:h-[25rem] sm:w-[21.7rem]'>
 						<Image className='rounded-t-[0.8rem]' src={landing2} alt='랜딩 페이지 이미지 2' />
 					</div>

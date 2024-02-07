@@ -19,8 +19,8 @@ function InvitationsBox({ dashboardId, invitations, paginationInfo, setPaginatio
 
 	return (
 		<>
-			<div className='mx-[2rem] flex h-fit min-h-[47.7rem] w-[62rem] flex-shrink-0 flex-col rounded-[0.8rem] bg-white p-[2.8rem] pb-[2rem] sm:mx-[1.2rem] sm:min-h-[40.6rem]'>
-				<div className='mb-[2.7rem] flex items-center justify-between'>
+			<div className=' flex w-[62rem] flex-col rounded-[0.8rem] bg-white px-[2.8rem] py-[3.2rem] md:w-[54.4rem] sm:w-[100%] '>
+				<div className=' flex justify-between'>
 					<span className='text-24-700 text-black-3 sm:text-20-700'>초대 내역</span>
 					<div className='flex items-center gap-[1.6rem] sm:flex-col sm:items-end'>
 						{invitations.totalCount > 5 ? (
@@ -34,7 +34,7 @@ function InvitationsBox({ dashboardId, invitations, paginationInfo, setPaginatio
 						) : null}
 						<button
 							onClick={() => setIsInviteModalOpen((prev) => !prev)}
-							className='flex h-[3.2rem] w-[10.5rem] items-center justify-center rounded-md bg-violet-5 px-[1.6rem] py-[0.8rem]'
+							className='flex h-[3.2rem] w-[10.5rem] items-center justify-center rounded-md bg-violet-5'
 						>
 							<div className='flex h-fit flex-shrink-0 gap-[0.8rem] text-14-500 text-white'>
 								<Image src={addBox} width={16} height={16} alt='초대하기 버튼 이미지' />
@@ -45,7 +45,7 @@ function InvitationsBox({ dashboardId, invitations, paginationInfo, setPaginatio
 				</div>
 				{invitations.totalCount !== 0 ? (
 					<>
-						<div className='mb-[2.4rem] text-16-400 text-gray-9 sm:mb-[2rem] sm:text-14-400'>이메일</div>
+						<div className=' py-[2.4rem] text-16-400 text-gray-9 sm:text-14-400'>이메일</div>
 						<div>
 							{invitations.invitations.map((invitation, index) => (
 								<>

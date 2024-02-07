@@ -94,7 +94,6 @@ function InvitationList({
 	}, []);
 
 	useEffect(() => {
-		console.log(invitationList);
 		loadInitialInvitations();
 		const intersectionObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {

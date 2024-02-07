@@ -127,7 +127,7 @@ export default function DashBoardEdit() {
 					<Image src={arrowForward} alt='돌아가기 버튼' className='sm:h-[1.8rem] sm:w-[1.8rem]' />
 					<span className='text-16-500 text-black-3 sm:text-14-500'>돌아가기</span>
 				</Link>
-				<div className='flex flex-col gap-[1.2rem] sm:gap-[1.1rem]'>
+				<div className='flex flex-col gap-[1.2rem] px-[2.8rem] sm:gap-[1.1rem]'>
 					<EditBox
 						loadDashboardData={loadDashboardData}
 						dashboardId={boardId}
@@ -146,13 +146,13 @@ export default function DashBoardEdit() {
 						setPaginationInfo={setInvitationsPagination}
 						invitations={invitationsDashboard}
 					/>
+					<button
+						onClick={() => handleDelete(boardId)}
+						className='flex  h-[6.2rem]  w-[32.5rem]  items-center justify-center rounded-[0.8rem]  border border-gray-D bg-gray-F text-18-500 text-black-3 sm:w-[100%] sm:text-16-500'
+					>
+						<div>대시보드 삭제하기</div>
+					</button>
 				</div>
-				<button
-					onClick={() => handleDelete(boardId)}
-					className='ml-[2rem] mt-[2rem] flex h-[6.2rem] w-fit flex-shrink-0 items-center justify-center rounded-[0.8rem] border border-gray-D bg-gray-F px-[9.5rem] py-[2rem] text-center text-18-500 text-black-3 md:mt-[2.8rem] sm:mx-[1.2rem] sm:mt-[1.5rem] sm:text-16-500'
-				>
-					대시보드 삭제하기
-				</button>
 			</div>
 		</PageLayout>
 	);
