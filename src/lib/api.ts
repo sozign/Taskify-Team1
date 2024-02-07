@@ -293,18 +293,17 @@ interface getInvitationsProps {
 /**
  * 내가 받은 초대 목록 조회
  */
-
 export async function getInvitations({ size, cursorId, title }: getInvitationsProps) {
-	const queryParams = cursorId ? `?size=${size}&cursorId=${cursorId}` : `?size=${size}`;
+	const cursorIdParam = cursorId ? `?size=${size}&cursorId=${cursorId}` : `?size=${size}`;
 	const titleQueryParam = title ? `&title=${title}` : '';
-	const res = await authAxios.get<InvitationsGet>(`/invitations${queryParams}${titleQueryParam}`);
+	const res = await authAxios.get<InvitationsGet>(`/invitations${cursorIdParam}${titleQueryParam}`);
 	return res.data;
 }
 
 /**
  * 초대 응답
  */
-export async function putInvitations(invitationId: number, inviteAccepted: InvitationPut) {
+export async function putInvitations(invitationId: number | undefined, inviteAccepted: InvitationPut) {
 	const res = await authAxios.put<InvitationsGet>(`/invitations/${invitationId}`, inviteAccepted);
 	return res.data;
 }
