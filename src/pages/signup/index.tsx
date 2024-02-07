@@ -64,7 +64,6 @@ export default function Signup() {
 	const handleSignup = async (data: SignupFormData) => {
 		try {
 			const { ...response } = await postUsers(data as SignupFormData);
-			console.log('회원가입 성공:', response);
 			setSignupAlertState('가입이 완료되었습니다!');
 		} catch (error) {
 			if (error instanceof AxiosError) {

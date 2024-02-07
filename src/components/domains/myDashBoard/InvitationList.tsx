@@ -68,7 +68,6 @@ function InvitationList({
 		try {
 			const data = await getInvitations({ size: 10, title: keyword });
 			const searchInvitations = data.invitations;
-			console.log(keyword);
 			// 중복 체크
 			const uniqueInvitations = Array.from(
 				new Set(removeDuplicateDashboard(searchInvitations).map((invitation) => invitation.dashboard.id)),

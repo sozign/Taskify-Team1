@@ -34,8 +34,6 @@ function PassWord() {
 			const { password, newPassword } = data;
 
 			const response = await putAuthPassword({ password, newPassword });
-			console.log(response);
-			console.log(data);
 
 			if (response === 200) {
 				await handleSubmit(async () => {

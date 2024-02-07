@@ -11,8 +11,7 @@ interface MemberProps {
 
 function Member({ hostId, memberData }: MemberProps) {
 	async function handleDeleteMember(memberId: number) {
-		const resStatus = await deleteMembers(memberId);
-		console.log(resStatus);
+		await deleteMembers(memberId);
 	}
 
 	return (

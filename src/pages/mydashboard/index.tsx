@@ -1,70 +1,29 @@
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
 import DashboardButton from '@/components/domains/myDashBoard/DashboardButton';
 import PaginationButton from '@/components/domains/myDashBoard/PaginationButton';
-import FormInput from '../../components/common/Input/FormInput';
-import Layout from '@/components/modal/Layout';
-import Button from '@/components/common/Buttons/Button';
-import { useForm } from 'react-hook-form';
-import ColorChip from '@/components/common/chips/ColorChip';
-import { postDashboard, getDashboards, putInvitations } from '@/lib/api';
-import done from '@/../Public/assets/done.svg';
-import { DashboardsGet, InvitationDashboardData, InvitationsGet } from '@/constants/types';
+import { getDashboards, putInvitations } from '@/lib/api';
+import { DashboardsGet, InvitationsGet } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
+import AddNewDashBoard from '@/components/modal/AddNewDashBoard';
 
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
-	const [colorPick, setColorPick] = useState('#7AC555');
 	const [dashBoardData, setDashBoardData] = useState<DashboardsGet | undefined>();
 	const [paginationPage, setPaginationPage] = useState<number>(1);
 	const [acceptedResponse, setAcceptedResponse] = useState<InvitationsGet>();
-
-	const RULES = {
-		dashboardName: {
-			required: '생성할 대시보드 제목을 입력해주세요.',
-		},
-	};
-
-	const { control, getValues, handleSubmit } = useForm<FormValue>({
-		mode: 'onBlur',
-		defaultValues: {
-			dashboardName: '',
-		},
-	});
-
-	interface FormValue {
-		dashboardName: string;
-	}
 
 	const dashboardLoad = async () => {
 		const data = await getDashboards({ size: 5, cursorId: 0, page: paginationPage, navigationMethod: 'pagination' });
 		setDashBoardData(data);
 	};
 
-	const onSubmit = async () => {
-		if (getValues('dashboardName') && colorPick !== null) {
-			await postDashboard({ title: getValues('dashboardName'), color: colorPick });
-			setAddDashBoardModalOpen(false);
-			dashboardLoad();
-		}
-	};
 	const handleAcceptInvitation = async (invitationId: number, inviteAccepted: boolean) => {
 		const data = await putInvitations(invitationId, { inviteAccepted });
 		setAcceptedResponse(data);
 	};
-
-	const colorList: Record<string, string> = {
-		green: '#7AC555',
-		purple: '#760DDE',
-		orange: '#FFA500',
-		blue: '#76A6EA',
-		pink: '#E876EA',
-	};
-
-	const colorNameList = Object.keys(colorList);
 
 	useEffect(() => {
 		dashboardLoad();
@@ -100,51 +59,7 @@ export default function MyDashBoard() {
 					</div>
 					<InvitationList dashBoardData={dashBoardData} onAcceptInvitation={handleAcceptInvitation} />
 				</div>
-
-				{/* 대시보드 추가 모달 */}
-				<Layout
-					$modalType='Modal'
-					title='새로운 대시보드'
-					isOpen={addDashBoardModalOpen}
-					setOpen={setAddDashBoardModalOpen}
-				>
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<div className=' flex flex-col justify-end gap-[1.2rem]'>
-							<FormInput<FormValue>
-								label='대시보드 이름'
-								name='dashboardName'
-								control={control}
-								rules={RULES.dashboardName}
-								required={!!('required' in RULES.dashboardName)}
-							/>
-							<div className='flex gap-[1rem]'>
-								{colorNameList.map((color) => (
-									<div key={color} className='relative'>
-										{colorList[color as string] === colorPick ? (
-											<Image src={done} alt='체크 아이콘' className='absolute left-[0.3rem] top-[0.3rem] z-10' />
-										) : null}
-										<ColorChip key={color} color={color} onClick={() => setColorPick(colorList[color as string])} />
-									</div>
-								))}
-							</div>
-							<div className='flex justify-end gap-[1.2rem]'>
-								<Button
-									onClick={() => {
-										setAddDashBoardModalOpen(false);
-									}}
-									color='modalWhite'
-									disabled={false}
-									variant='modal'
-								>
-									취소
-								</Button>
-								<Button disabled={false} type='submit' color='modalViolet' variant='modal'>
-									확인
-								</Button>
-							</div>
-						</div>
-					</form>
-				</Layout>
+				<AddNewDashBoard isOpen={addDashBoardModalOpen} setOpen={setAddDashBoardModalOpen} />
 			</PageLayout>
 		</>
 	);

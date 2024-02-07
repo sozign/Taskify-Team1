@@ -9,8 +9,7 @@ interface InvitationProps {
 
 function Invitation({ invitationData, dashboardId }: InvitationProps) {
 	async function handleDeleteMember(dashboardId: number, invitationId: number) {
-		const resStatus = await deleteInvitationDashboard(dashboardId, invitationId);
-		console.log(resStatus);
+		await deleteInvitationDashboard(dashboardId, invitationId);
 	}
 
 	return (

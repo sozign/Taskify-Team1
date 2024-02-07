@@ -35,8 +35,7 @@ function InviteModal({ isOpen, setIsOpen, dashboardId }: ModalProps) {
 
 	// 모달 1 폼 제출
 	const onSubmit: SubmitHandler<FormValueProps> = async (data) => {
-		const resData = await postInvitationDashboard(dashboardId, data);
-		console.log(resData);
+		await postInvitationDashboard(dashboardId, data);
 		setIsOpen((prev) => !prev);
 	};
 
