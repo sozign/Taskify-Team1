@@ -1,4 +1,4 @@
-import CheckedIcon from '@/../../Public/assets/checked.svg';
+import CheckedIcon from '@/../../public/assets/checked.svg';
 import { putDashboard } from '@/lib/api';
 import Image from 'next/image';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';

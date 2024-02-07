@@ -2,7 +2,7 @@ import { MembersData } from '@/constants/types';
 import Image from 'next/image';
 import Button from '../../common/Buttons/Button';
 import { deleteMembers } from '@/lib/api';
-import Crown from '@/../../Public/assets/royalCrownIcon.svg';
+import Crown from '@/../../public/assets/royalCrownIcon.svg';
 
 interface MemberProps {
 	memberData: MembersData;

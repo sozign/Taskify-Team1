@@ -4,7 +4,7 @@ import Button from '@/components/common/Buttons/Button';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import Image from 'next/image';
 import PageLayout from '@/components/common/PageLayout';
-import leftArrow from '@/../../Public/assets/myPage-leftArrow.svg';
+import leftArrow from '@/../../public/assets/myPage-leftArrow.svg';
 import PassWordForm from '@/components/myPage/PassWordForm';
 import { getUsers, putUsers } from '@/lib/api';
 import UploadImg from '@/components/myPage/UploadImg';

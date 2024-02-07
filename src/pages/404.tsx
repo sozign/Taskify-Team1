@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Button from '@/components/common/Buttons/Button';
-import notFound from '@/../../Public/images/notFound.png';
+import notFound from '@/../../public/images/notFound.png';
 
 export default function Home() {
 	const router = useRouter();

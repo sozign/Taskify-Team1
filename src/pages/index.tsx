@@ -1,17 +1,17 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import LandingHeader from '@/components/common/Headers/LandingHeader';
-import people from '@/../../Public/images/people.png';
-import landing1 from '@/../../Public/images/landing1.png';
-import landing2 from '@/../../Public/images/landing2.png';
-import landing3 from '@/../../Public/images/landing3.png';
-import landing4 from '@/../../Public/images/landing4.png';
-import landing5 from '@/../../Public/images/landing5.png';
-import email from '@/../../Public/assets/email.svg';
-import facebook from '@/../../Public/assets/facebook.svg';
-import instagram from '@/../../Public/assets/instagram.svg';
-import logo from '@/../../Public/assets/logo.svg';
-import logoTitle from '@/../../Public/assets/logoTitle.svg';
+import people from '@/../../public/images/people.png';
+import landing1 from '@/../../public/images/landing1.png';
+import landing2 from '@/../../public/images/landing2.png';
+import landing3 from '@/../../public/images/landing3.png';
+import landing4 from '@/../../public/images/landing4.png';
+import landing5 from '@/../../public/images/landing5.png';
+import email from '@/../../public/assets/email.svg';
+import facebook from '@/../../public/assets/facebook.svg';
+import instagram from '@/../../public/assets/instagram.svg';
+import logo from '@/../../public/assets/logo.svg';
+import logoTitle from '@/../../public/assets/logoTitle.svg';
 
 export default function Home() {
 	const router = useRouter();

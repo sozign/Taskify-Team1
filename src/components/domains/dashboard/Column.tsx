@@ -5,7 +5,7 @@ import { getCards, getMembers } from '@/lib/api';
 import TaskCard from './TaskCard';
 import bullet from '@/../Public/assets/bullet.svg';
 import setting from '@/../Public/assets/settingIcon.svg';
-import addIcon from '@/../../Public/assets/addIcon.svg';
+import addIcon from '@/../../public/assets/addIcon.svg';
 import SquareChip from '@/components/common/chips/SquareChip';
 import { useRouter } from 'next/router';
 import AddNewTaskModal from '@/components/modal/AddNewTaskModal';

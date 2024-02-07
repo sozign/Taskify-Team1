@@ -1,8 +1,8 @@
-import TaskifyImage from '@/../../Public/assets/TaskifyImage.svg';
-import Taskify from '@/../../Public/assets/Taskify.svg';
-import RoyalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
-import PlusIcon from '@/../../Public/assets/PlusIcon.svg';
-import CheckedIcon from '@/../../Public/assets/checked.svg';
+import TaskifyImage from '@/../../public/assets/TaskifyImage.svg';
+import Taskify from '@/../../public/assets/Taskify.svg';
+import RoyalCrownIcon from '@/../../public/assets/royalCrownIcon.svg';
+import PlusIcon from '@/../../public/assets/PlusIcon.svg';
+import CheckedIcon from '@/../../public/assets/checked.svg';
 
 import clsx from 'clsx';
 import Link from 'next/link';

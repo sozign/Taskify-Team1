@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction, useState } from 'react';
 import EditPaginationButton from './EditPaginationButton';
 import Invitation from './Invitation';
-import notInvited from '@/../../Public/assets/notInvited.svg';
+import notInvited from '@/../../public/assets/notInvited.svg';
 interface InvitationsBoxProps {
 	dashboardId: number;
 	invitations: InvitationsDashboardGet;
