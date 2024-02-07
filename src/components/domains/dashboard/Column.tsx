@@ -1,39 +1,26 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { CardData, ColumnData, MembersData } from '@/constants/types';
-import { getCards, getMembers } from '@/lib/api';
+import { CardData, ColumnData } from '@/constants/types';
+import { getCards } from '@/lib/api';
 import TaskCard from './TaskCard';
 import bullet from '@/../Public/assets/bullet.svg';
 import setting from '@/../Public/assets/settingIcon.svg';
 import addIcon from '@/../../Public/assets/addIcon.svg';
 import SquareChip from '@/components/common/chips/SquareChip';
-import { useRouter } from 'next/router';
 import AddNewTaskModal from '@/components/modal/AddNewTaskModal';
 import ColumnsEditModal from '@/components/modal/ColumnsEditModal';
+import { useDashboardContext } from '@/context/DashboardContext';
 
 interface ColumnProps {
 	columnItem: ColumnData;
 }
 
 export default function Column({ columnItem }: ColumnProps) {
-	const router = useRouter();
-	const boardId = +(router.query?.boardid ?? '');
+	const { value } = useDashboardContext();
 	const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 	const [columnsEditModalOpen, setColumnsEditModalOpen] = useState(false);
 
-	// 대시보드 멤버 데이터 페칭
-	const [dashboardMemberList, setDashboardMemberList] = useState<MembersData[]>([]);
-
-	async function loadDashboardMemberList() {
-		const data = await getMembers({ page: 0, size: 0, dashboardId: boardId });
-		setDashboardMemberList(data.members);
-	}
-
-	useEffect(() => {
-		loadDashboardMemberList();
-	}, []);
-
-	// 컬럼 데이터 페칭 + 무한 스크롤
+	// 카드 데이터 페칭 + 무한 스크롤
 	const [currentCardList, setCurrentCardList] = useState<CardData[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const trigger = useRef<HTMLDivElement>(null);
@@ -121,7 +108,7 @@ export default function Column({ columnItem }: ColumnProps) {
 				columnId={columnItem.id}
 				isTaskModalOpen={isTaskModalOpen}
 				setIsTaskModalOpen={setIsTaskModalOpen}
-				dashboardMemberList={dashboardMemberList}
+				dashboardMemberList={value.memberList}
 			/>
 			<ColumnsEditModal isOpen={columnsEditModalOpen} setIsOpen={setColumnsEditModalOpen} columnId={columnItem.id} />
 		</>

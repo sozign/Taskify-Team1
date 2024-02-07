@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Button from '../common/Buttons/Button';
 import Layout from './Layout';
 import { deleteColumn } from '@/lib/api';

@@ -1,10 +1,10 @@
-import { ColumnGet } from '@/constants/types';
-import { getColumns, postColumn } from '@/lib/api';
+import { postColumn } from '@/lib/api';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../common/Buttons/Button';
 import FormInput from '../common/Input/FormInput';
 import Layout from './Layout';
+import { useDashboardContext } from '@/context/DashboardContext';
 
 interface ColumnAddModalProps {
 	isOpen: boolean;
@@ -19,16 +19,16 @@ interface FormValueProps {
 }
 
 function AddColumnModal({ isOpen, setOpen, dashboardId, loadColumn }: ColumnAddModalProps) {
+	const { value } = useDashboardContext();
+
 	const [existColumns, setExistColumns] = useState<string[]>([]);
 
-	async function loadExistColumns(dashboardId: number) {
-		const data = await getColumns(dashboardId);
-		setExistColumns(data.data.map((temp) => temp.title));
-		console.log(existColumns);
+	async function loadExistColumns() {
+		setExistColumns(value.columnList.map((temp) => temp.title));
 	}
 
 	useEffect(() => {
-		loadExistColumns(dashboardId);
+		loadExistColumns();
 	}, []);
 
 	const {

@@ -1,4 +1,4 @@
-import { CardData, ColumnData } from '@/constants/types';
+import { CardData } from '@/constants/types';
 import Layout from './Layout';
 import { format } from 'date-fns';
 import Image from 'next/image';
@@ -10,11 +10,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/common/Buttons/Button';
 import TagInput from '@/components/common/Input/TagInput';
 import DropDownManager from '@/components/dropdown/DropDownManager';
-import { CardItemPost, MembersData } from '@/constants/types';
-import { getColumns, getMembers, postCardImage, putCardItem } from '@/lib/api';
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { CardItemPost } from '@/constants/types';
+import { postCardImage, putCardItem } from '@/lib/api';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 import DropDownProgress from '../dropdown/DropDownProgress';
+import { useDashboardContext } from '@/context/DashboardContext';
 
 export interface FormValue extends Omit<CardItemPost, 'dueDate'> {
 	dueDate: Date;
@@ -44,25 +45,7 @@ export default function TaskEditModal({ editModalControl, cardItem, columnInfo }
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
 
-	// 대시보드 멤버 데이터 페칭
-	const [dashboardMemberList, setDashboardMemberList] = useState<MembersData[]>([]);
-	async function loadDashboardMemberList() {
-		const data = await getMembers({ page: 0, size: 0, dashboardId: boardId });
-		setDashboardMemberList(data.members);
-	}
-	useEffect(() => {
-		loadDashboardMemberList();
-	}, []);
-
-	// 컬럼 리스트 데이터 페칭
-	const [columnList, setColumnList] = useState<ColumnData[]>([]);
-	async function loadColumnList() {
-		const data = await getColumns(boardId);
-		setColumnList(data.data);
-	}
-	useEffect(() => {
-		loadColumnList();
-	}, []);
+	const { value } = useDashboardContext();
 
 	const {
 		control,
@@ -135,12 +118,12 @@ export default function TaskEditModal({ editModalControl, cardItem, columnInfo }
 					<div className='w-[50%] sm:container'>
 						<DropDownManager<FormValue>
 							name='assigneeUserId'
-							dashboardMemberList={dashboardMemberList}
+							dashboardMemberList={value.memberList}
 							control={control}
 						/>
 					</div>
 					<div className='w-[50%] sm:container'>
-						<DropDownProgress<FormValue> name='columnId' columnList={columnList} control={control} />
+						<DropDownProgress<FormValue> name='columnId' columnList={value.columnList} control={control} />
 					</div>
 				</div>
 				<FormInput<FormValue>
