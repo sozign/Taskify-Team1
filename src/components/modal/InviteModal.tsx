@@ -45,7 +45,7 @@ function InviteModal({ isOpen, setIsOpen, dashboardId }: ModalProps) {
 	return (
 		<>
 			<Layout $modalType='Modal' title='초대하기' isOpen={isOpen} setOpen={setIsOpen}>
-				<form onSubmit={handleSubmit(onSubmit)}>
+				<form className='flex flex-col gap-[2.8rem] sm:gap-[2.4rem]' onSubmit={handleSubmit(onSubmit)}>
 					<FormInput<FormValueProps>
 						label='이메일'
 						name='email'

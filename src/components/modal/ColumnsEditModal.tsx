@@ -56,7 +56,7 @@ function ColumnsEditModal({ isOpen, setIsOpen, columnId }: ModalProps) {
 	return (
 		<>
 			<Layout $modalType='Modal' title='컬럼 관리' isOpen={isOpen} setOpen={setIsOpen}>
-				<form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-[2rem]'>
+				<form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-[2.8rem] sm:gap-[2.4rem]'>
 					<FormInput<FormValueProps>
 						label='이름'
 						name='title'
@@ -64,7 +64,7 @@ function ColumnsEditModal({ isOpen, setIsOpen, columnId }: ModalProps) {
 						rules={RULES.title}
 						required={!!('required' in RULES.title)}
 					/>
-					<div className='flex flex-row justify-end gap-[18rem]'>
+					<div className='flex flex-row justify-between sm:flex-col sm:items-start sm:gap-[1.6rem]'>
 						<div
 							onClick={() => {
 								setIsOpen(false);

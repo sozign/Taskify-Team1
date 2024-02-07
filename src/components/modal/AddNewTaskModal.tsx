@@ -115,7 +115,7 @@ export default function AddNewTaskModal({
 	return (
 		<Layout $modalType='Modal' title='할 일 생성' isOpen={isTaskModalOpen} setOpen={setIsTaskModalOpen}>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<div className='flex flex-col gap-[3.2] sm:gap-[2.4rem]'>
+				<div className='flex flex-col gap-[3.2rem] sm:gap-[2.4rem]'>
 					<DropDownManager<FormValue>
 						name='assigneeUserId'
 						dashboardMemberList={dashboardMemberList}

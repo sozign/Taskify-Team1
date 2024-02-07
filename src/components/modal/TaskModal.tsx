@@ -100,7 +100,7 @@ export default function TaskModal({ taskModalControl, editModalControl, cardItem
 								<Image alt='할 일을 수정하거나 삭제할 수 있는 버튼' width={28} height={28} src={'/assets/kebab.png'} />
 							</button>
 							{isOpened && (
-								<ul className='absolute right-[0.8rem] top-[2.8rem] flex w-[9.6rem] flex-col items-center rounded-[0.6rem] border-[0.1rem] border-gray-D bg-white px-[0.6rem] py-[0.6rem] sm:w-[8.6rem]'>
+								<ul className='absolute right-[0.8rem] top-[2.8rem] flex w-[9.6rem] flex-col items-center rounded-[0.6rem] border-[0.1rem] border-gray-D bg-white px-[0.6rem] py-[0.6rem] shadow-[0_4px_20px_0_rgba(0,0,0,0.08)] sm:w-[8.6rem]'>
 									<button
 										onClick={(e) => {
 											taskModalControl.setIsTaskCardModalOpen(false);

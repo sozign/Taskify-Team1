@@ -91,6 +91,7 @@ export default function TaskEditModal({ editModalControl, cardItem, columnInfo }
 		try {
 			await putCardItem(cardItem.id, filteredData as CardItemPost);
 			editModalControl.setIsTaskCardEditModalOpen(false);
+			router.reload();
 		} catch (err) {
 			/**
 			 * @TODO 수정에 실패했습니다 alert
