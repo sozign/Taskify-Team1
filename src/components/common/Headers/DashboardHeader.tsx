@@ -263,7 +263,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							ref={dropDownRef}
 							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						>
-							<div className='relative flex items-center gap-[1.2rem]'>
+							<div className='relative mr-[1.2rem] flex items-center gap-[1.2rem]'>
 								{userInfo.profileImageUrl ? (
 									<Image
 										width={38}
