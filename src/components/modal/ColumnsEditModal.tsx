@@ -1,11 +1,11 @@
-import { putColumn } from '@/lib/api';
+import { deleteColumn, putColumn } from '@/lib/api';
+import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../common/Buttons/Button';
 import FormInput from '../common/Input/FormInput';
+import ConfirmModal from './ConfirmModal';
 import Layout from './Layout';
-import ColumnsDeletedModal from './ColumnsDeletedModal';
-import { useRouter } from 'next/router';
 
 interface ModalProps {
 	isOpen: boolean;
@@ -28,7 +28,7 @@ function ColumnsEditModal({ isOpen, setIsOpen, columnId }: ModalProps) {
 			title: '',
 		},
 	});
-	const [columnsDeletedModalOpen, setColumnsDeletedModalOpen] = useState(false);
+	const [isColumnsDeletedModalOpen, setIsColumnsDeletedModalOpen] = useState(false);
 	const [columnsTitleState, setColumnsTitleState] = useState({
 		title: '',
 		id: 0,
@@ -67,8 +67,8 @@ function ColumnsEditModal({ isOpen, setIsOpen, columnId }: ModalProps) {
 					<div className='flex flex-row justify-between sm:flex-col sm:items-start sm:gap-[1.6rem]'>
 						<div
 							onClick={() => {
-								setIsOpen(false);
-								setColumnsDeletedModalOpen(true);
+								// setIsOpen(false);
+								setIsColumnsDeletedModalOpen(true);
 							}}
 							className=' flex cursor-pointer flex-row items-end justify-end border-b-[0.1rem] border-gray-9 text-14-400 text-gray-9'
 						>
@@ -92,11 +92,15 @@ function ColumnsEditModal({ isOpen, setIsOpen, columnId }: ModalProps) {
 					</div>
 				</form>
 			</Layout>
-			<ColumnsDeletedModal
-				isOpen={columnsDeletedModalOpen}
-				setIsOpen={setColumnsDeletedModalOpen}
-				columnId={columnId}
-			/>
+			{isColumnsDeletedModalOpen && (
+				<ConfirmModal
+					request={deleteColumn}
+					content='컬럼의 모든 카드가 삭제 됩니다.'
+					isOpen={isColumnsDeletedModalOpen}
+					setOpen={setIsColumnsDeletedModalOpen}
+					id={columnId}
+				/>
+			)}
 		</>
 	);
 }

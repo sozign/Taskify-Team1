@@ -20,7 +20,7 @@ function Layout({ children, $modalType, title, isOpen, setOpen }: LayoutProps) {
 
 	return createPortal(
 		<div
-			className='overlay fixed left-0 top-0 z-MODALLAYOUT flex h-full w-full items-center justify-center bg-black-0/70'
+			className='overlay fixed left-0 top-0 z-MODALLAYOUT flex h-full w-full items-center justify-center bg-black-0/50'
 			onClick={() => setOpen((prev) => !prev)}
 		>
 			<div
