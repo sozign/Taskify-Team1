@@ -12,7 +12,7 @@ function Layout({ children, $modalType, title, isOpen, setOpen }: LayoutProps) {
 	if (!isOpen) return null;
 	const modalType = {
 		Alert:
-			'rounded-[0.8rem] flex h-[25rem] w-[54rem] justify-center rounded-lg bg-white px-[2.8rem] pt-[10.8rem] sm:h-[22rem] sm:w-[32.7rem] sm:pt-[8.1rem]',
+			'rounded-[0.8rem] flex h-[25rem] w-[54rem] justify-center rounded-lg bg-white px-[2.8rem] py-[2.8rem] sm:h-[22rem] sm:w-[32.7rem]',
 		Modal:
 			'rounded-[0.8rem] flex min-h-[22rem] h-fit w-[54rem] flex-col bg-white px-[2.8rem] pb-[2.8rem] pt-[3.2rem] sm:px-[2rem] sm:py-[2.8rem]',
 		Task: 'rounded-[0.8rem] flex h-fit w-[73rem] flex-shrink-0 flex-col bg-white px-[2.8rem] py-[3.2rem] md:w-[68rem] sm:w-[32.7rem] sm:px-[2rem] sm:pb-[2.8rem] sm:pt-[1.4rem]',
