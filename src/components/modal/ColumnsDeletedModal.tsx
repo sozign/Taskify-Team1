@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Button from '../common/Buttons/Button';
 import Layout from './Layout';
-import { deleteColumn, getColumns } from '@/lib/api';
+import { deleteColumn } from '@/lib/api';
 import { useRouter } from 'next/router';
 
 interface ModalProps {
@@ -15,6 +15,7 @@ export default function ColumnsDeletedModal({ columnId, isOpen, setIsOpen }: Mod
 	const router = useRouter();
 	const columnDeleteHandler = async () => {
 		await deleteColumn(isColumnId);
+		setIsColumnId(isColumnId);
 		router.reload();
 		setIsOpen((prev) => !prev);
 	};
