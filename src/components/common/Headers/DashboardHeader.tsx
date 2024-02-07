@@ -138,8 +138,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							? null
 							: dashboardInfo.createdByMe && (
 									<Image
-										width={3.8}
-										height={3.8}
+										width={38}
+										height={38}
 										alt='대시보드 왕관 아이콘'
 										src={'/assets/royalCrownIcon.svg'}
 										className=' w-[2.103rem]  md:hidden sm:hidden'
@@ -156,8 +156,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							? null
 							: dashboardInfo.createdByMe && (
 									<Image
-										width={3.8}
-										height={3.8}
+										width={38}
+										height={38}
 										alt='대시보드 왕관 아이콘'
 										src={'/assets/royalCrownIcon.svg'}
 										className=' w-[2.103rem] md:hidden sm:hidden'
@@ -177,7 +177,9 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									>
 										<Image
 											alt='관리 버튼 셋팅 아이콘'
-											src={''}
+											width={20}
+											height={20}
+											src={'/assets/settingIcon.svg'}
 											className='flex h-[2rem] w-[2rem] flex-shrink-0 flex-row items-center sm:hidden'
 										/>
 										<span className='items-center text-16-500 text-gray-7'>관리</span>
@@ -228,8 +230,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									) : (
 										<Image
 											key={member}
-											width={3.8}
-											height={3.8}
+											width={38}
+											height={38}
 											alt='초대 멤버 프로필 사진'
 											src={members.profileImageUrl}
 											className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
