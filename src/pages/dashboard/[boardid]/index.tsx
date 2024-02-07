@@ -24,7 +24,6 @@ export default function MyDashBoard() {
 			if (isAxiosError(err)) {
 				if (err?.response?.status === 404) {
 					setIsAlertModalOpen(true);
-					console.log('하이');
 				}
 			}
 		}
