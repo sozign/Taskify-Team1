@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { VALIDATE_RULES } from '@/constants/validation';
-import Button from '@/components/common/Buttons/Button';
 import { putAuthPassword } from '@/lib/api';
 import PasswordInput from '../common/Input/PasswordInput';
 import MyPagePassWordModal from '../modal/MyPagePassWordModal';
+import MyPageConfirmModal from '../modal/MyPageConfirmModal';
 
 type passwordFormData = {
 	password: string;
@@ -14,16 +13,19 @@ type passwordFormData = {
 
 function PassWord() {
 	const [open, setOpen] = useState<boolean>(false);
-	//값 여부 확인 후 버튼 클릭 유도
-	const [isActive, setIsActive] = useState<boolean>(true);
+	const [confirm, setConfirm] = useState<boolean>(false);
 
 	const {
 		register,
 		getValues,
 		handleSubmit,
 		watch,
-		formState: { isSubmitting, errors },
+		// setError,
+		// clearErrors,
+		reset,
+		formState: { errors, isValid },
 	} = useForm<passwordFormData>({
+		mode: 'onChange',
 		defaultValues: {
 			password: '',
 			newPassword: '',
@@ -33,16 +35,24 @@ function PassWord() {
 
 	//api 바뀐 비밀 번호 put
 	const putPasswordSubmit = async () => {
+		console.log('제출됨');
 		try {
 			const data = getValues();
 			const { password, newPassword } = data;
 
+			// async;
 			const response = await putAuthPassword({ password, newPassword });
 
-			if (response === 200) {
-				await handleSubmit(async () => {
-					await putAuthPassword({ password, newPassword });
-				})();
+			// if (response === 200) {
+			// 	await handleSubmit(async () => {
+			// 		await putAuthPassword({ password, newPassword });
+			// 		setConfirm(true);
+			// 	})();
+			// }
+
+			if (response === 204) {
+				setConfirm(true); // 비밀번호 변경 성공 시 확인 모달 열기
+				reset(); // 폼 초기화
 			}
 		} catch (error) {
 			console.error(error);
@@ -50,47 +60,17 @@ function PassWord() {
 		}
 	};
 
-	const passwordRegister = register('password', {
-		...VALIDATE_RULES.passwordInLogin,
-		required: {
-			value: true,
-			message: '현재 비밀번호를 입력하세요.',
-		},
-	});
-
-	const newPasswordRegister = register('newPassword', {
-		...VALIDATE_RULES.passwordInLogin,
-		required: {
-			value: true,
-			message: '새 비밀번호를 입력하세요.',
-		},
-		validate: (value, formValues) => {
-			return value != formValues.password || '현재와 다른 비밀번호를 사용하세요.';
-		},
-	});
-
-	const newPasswordCheckRegister = register('verifyPassword', {
-		...VALIDATE_RULES.passwordInLogin,
-		validate: (value, formValues) => {
-			return value === formValues.newPassword || '비밀번호가 일치하지 않습니다.';
-		},
-	});
-
-	const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-		e.target.value && watch('password') && watch('newPassword') && watch('verifyPassword')
-			? setIsActive(false)
-			: setIsActive(true);
-	};
-	const onChangeNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-		e.target.value && watch('password') && watch('newPassword') && watch('verifyPassword')
-			? setIsActive(false)
-			: setIsActive(true);
-	};
-	const onChangeVerifyPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-		e.target.value && watch('password') && watch('newPassword') && watch('verifyPassword')
-			? setIsActive(false)
-			: setIsActive(true);
-	};
+	useEffect(() => {
+		// if (watch('newPassword') !== watch('verifyPassword')) {
+		// 	setError('newPassword', {
+		// 		type: 'password-mismatch',
+		// 		message: '비밀번호가 일치하지 않습니다',
+		// 	});
+		// } else {
+		// 	// 비밀번호 일치시 오류 제거
+		// 	clearErrors('newPassword');
+		// }
+	}, [watch('password'), watch('newPassword'), watch('verifyPassword')]);
 
 	return (
 		<>
@@ -103,43 +83,67 @@ function PassWord() {
 					onSubmit={handleSubmit(putPasswordSubmit)}
 				>
 					<PasswordInput
-						{...passwordRegister}
 						type='password'
 						label='현재 비밀번호'
 						placeholder='현재 비밀번호 입력'
-						onChange={onChangePassword}
+						{...register('password', {
+							required: '현재 비밀번호를 입력하세요.',
+							pattern: {
+								value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
+								message: '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.',
+							},
+						})}
 						errorMessage={errors.password && String(errors.password.message)}
 					/>
 					<div className='mt-[2rem]'>
 						<PasswordInput
-							{...newPasswordRegister}
 							type='password'
 							label='새 비밀번호'
 							placeholder='새 비밀번호 입력'
-							onChange={onChangeNewPassword}
+							{...register('newPassword', {
+								required: '새 비밀번호를 입력하세요.',
+								pattern: {
+									value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
+									message: '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.',
+								},
+								validate: (value: string) => {
+									if (value === watch('password')) {
+										return '현재와 다른 비밀번호를 입력하세요.';
+									}
+								},
+							})}
 							errorMessage={errors.newPassword && String(errors.newPassword.message)}
 						/>
 					</div>
 					<div className='mt-[2rem]'>
 						<PasswordInput
-							{...newPasswordCheckRegister}
 							type='password'
 							label='새 비밀번호 확인'
 							placeholder='새 비밀번호 입력'
-							onChange={onChangeVerifyPassword}
+							{...register('verifyPassword', {
+								required: '새 비밀번호를 입력하세요.',
+								pattern: {
+									value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
+									message: '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.',
+								},
+								validate: (value: string) => {
+									if (value !== watch('newPassword')) {
+										return '비밀번호가 일치하지 않습니다.';
+									}
+								},
+							})}
 							errorMessage={errors.verifyPassword && String(errors.verifyPassword.message)}
 						/>
 					</div>
-					<Button
-						color='toggleColor'
-						disabled={isSubmitting}
+					<button
 						type='submit'
-						variant='confirm'
-						className={`float-right mb-[2.8rem]  mt-[2.4rem] flex ${isActive ? 'bg-gray-D' : 'bg-violet-5'} `}
+						disabled={!isValid}
+						className={` float-right mb-[2.8rem] mt-[2.4rem] flex h-[3.2rem] w-[8.4rem] items-center  justify-center rounded-md text-14-500 text-white md:h-[3rem] md:w-[7.2rem] sm:h-[2.8rem]  sm:w-[10.9rem] sm:text-12-500 ${isValid ? 'bg-violet-5' : 'bg-gray-D'}`}
 					>
 						변경
-					</Button>
+					</button>
 					{open && <MyPagePassWordModal isOpen={open} setOpen={setOpen} />}
+					{confirm && <MyPageConfirmModal confirm={confirm} setConfirm={setConfirm} />}
 				</form>
 			</div>
 		</>

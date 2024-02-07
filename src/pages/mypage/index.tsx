@@ -23,7 +23,7 @@ type putUsersData = {
 
 export default function MyPage() {
 	const [open, setOpen] = useState<boolean>(false);
-	const [isProfileActive, setIsProfileActive] = useState<boolean>(true);
+	const [isProfileActive, setIsProfileActive] = useState<boolean>(false);
 
 	const prevClickHandler = () => {
 		window.history.back();
@@ -101,6 +101,7 @@ export default function MyPage() {
 			await handleSubmit(async (data) => {
 				if (data) {
 					setOpen((prev) => !prev);
+					setIsProfileActive(false);
 				}
 				// Save 버튼에 대한 추가 동작 구현
 				await PutUserInfo(dataToUpdate);
@@ -112,8 +113,11 @@ export default function MyPage() {
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
-		watch('nickname') || dataToUpdate.profileImageUrl ? setIsProfileActive(false) : setIsProfileActive(true);
-		console.log(dataToUpdate.profileImageUrl);
+		if (value || watch('nickname')) {
+			setIsProfileActive(true);
+		} else {
+			setIsProfileActive(false);
+		}
 		setDataToUpdate((prevData) => ({
 			...prevData,
 			nickname: value,
@@ -149,7 +153,11 @@ export default function MyPage() {
 								{/* 이미지와 인풋 */}
 								<div className='flex w-[56.4rem] md:w-[48.8rem] sm:flex-col'>
 									{/* profileImage는 null값을 넘김 */}
-									<UploadImg profileImageUrl={userInfo.profileImageUrl} onImageUpload={handleImageUpload} />
+									<UploadImg
+										profileImageUrl={userInfo.profileImageUrl}
+										onImageUpload={handleImageUpload}
+										setIsProfileActive={setIsProfileActive}
+									/>
 									<div className=' w-[36.6rem] md:w-[29rem] sm:w-[24.4rem]  '>
 										<div className='sm:mt-[2.4rem]'>
 											<label htmlFor='email' className='text-18-500 sm:text-16-500'>
@@ -195,7 +203,7 @@ export default function MyPage() {
 									type='submit'
 									onClick={() => handleSaveButtonClick()}
 									variant='confirm'
-									className={`float-right mb-[2.8rem] mr-[2.8rem] mt-[2.4rem] flex ${isProfileActive ? 'bg-gray-D' : 'bg-violet-5'} `}
+									className={`float-right mb-[2.8rem] mr-[2.8rem] mt-[2.4rem] flex ${isProfileActive ? 'bg-violet-5' : 'bg-gray-D'} `}
 								>
 									저장
 								</Button>
