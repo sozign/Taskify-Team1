@@ -10,16 +10,16 @@ interface ModalProps {
 function MyPageProfileModal({ isOpen, setOpen }: ModalProps) {
 	return (
 		<Layout $modalType='Alert' isOpen={isOpen} setOpen={setOpen}>
-			<div>
-				<p className='text-[1.8rem]'>프로필 수정이 완료되었습니다.</p>
+			<div className='flex h-full w-full flex-col justify-end gap-[4.5rem] sm:gap-[5rem]'>
+				<p className='self-center text-[1.8rem]'>프로필 수정이 완료되었습니다.</p>
 				<Button
 					onClick={() => {
 						setOpen(false);
 					}}
 					color='modalViolet'
 					variant='modal'
+					className='self-end sm:self-center'
 					disabled={false}
-					className='relative left-[22.4rem] top-[4.4rem]'
 				>
 					확인
 				</Button>
