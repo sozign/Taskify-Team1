@@ -1,10 +1,11 @@
-import { getColumns, putColumn } from '@/lib/api';
+import { putColumn } from '@/lib/api';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../common/Buttons/Button';
 import FormInput from '../common/Input/FormInput';
 import Layout from './Layout';
 import ColumnsDeletedModal from './ColumnsDeletedModal';
+import { useRouter } from 'next/router';
 
 interface ModalProps {
 	isOpen: boolean;
@@ -32,7 +33,7 @@ function ColumnsEditModal({ isOpen, setIsOpen, columnId }: ModalProps) {
 		title: '',
 		id: 0,
 	});
-
+	const router = useRouter();
 	const RULES = {
 		title: {
 			required: '이름을 입력해주세요.',
@@ -42,7 +43,7 @@ function ColumnsEditModal({ isOpen, setIsOpen, columnId }: ModalProps) {
 	const onSubmit: SubmitHandler<FormValueProps> = async (data) => {
 		const resData = await putColumn(columnId, data);
 		setColumnsTitleState(resData);
-		console.log('성공', resData);
+		router.reload();
 		setIsOpen((prev) => !prev);
 	};
 
