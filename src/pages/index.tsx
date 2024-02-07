@@ -12,8 +12,15 @@ import facebook from '@/../../Public/assets/facebook.svg';
 import instagram from '@/../../Public/assets/instagram.svg';
 import logo from '@/../../Public/assets/logo.svg';
 import logoTitle from '@/../../Public/assets/logoTitle.svg';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+	const [isToken, setIsToken] = useState<string | null>();
+	useEffect(() => {
+		const accessToken = localStorage.getItem('accessToken');
+		setIsToken(accessToken);
+	}, []);
+
 	const router = useRouter();
 	return (
 		<div>
@@ -38,12 +45,21 @@ export default function Home() {
 							<span className='text-18-400 text-black-0 md:text-16-400 sm:text-12-400'>
 								서비스의 메인 설명 들어갑니다.
 							</span>
-							<button
-								onClick={() => router.push('/login')}
-								className='flex h-[5rem] w-[28rem] items-center justify-center rounded-[0.8rem] bg-violet-5 pb-[1.4rem] pt-[1.5rem] text-18-500 text-white md:text-16-500 sm:h-[4.2rem] sm:w-[23.52rem] sm:pb-[1.2rem] sm:pt-[1.3rem] sm:text-14-500'
-							>
-								로그인하기
-							</button>
+							{isToken ? (
+								<button
+									onClick={() => router.push('/mydashboard')}
+									className='flex h-[5rem] w-[28rem] items-center justify-center rounded-[0.8rem] bg-violet-5 pb-[1.4rem] pt-[1.5rem] text-18-500 text-white md:text-16-500 sm:h-[4.2rem] sm:w-[23.52rem] sm:pb-[1.2rem] sm:pt-[1.3rem] sm:text-14-500'
+								>
+									대시보드로 이동하기
+								</button>
+							) : (
+								<button
+									onClick={() => router.push('/login')}
+									className='flex h-[5rem] w-[28rem] items-center justify-center rounded-[0.8rem] bg-violet-5 pb-[1.4rem] pt-[1.5rem] text-18-500 text-white md:text-16-500 sm:h-[4.2rem] sm:w-[23.52rem] sm:pb-[1.2rem] sm:pt-[1.3rem] sm:text-14-500'
+								>
+									로그인하기
+								</button>
+							)}
 						</div>
 					</div>
 				</div>
