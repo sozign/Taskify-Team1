@@ -13,6 +13,8 @@ import { CardItemPost, MembersData } from '@/constants/types';
 import { postCardImage, postCards } from '@/lib/api';
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
+import useAsync from '@/hooks/useAsync';
+import RingSpinner from '../common/spinner/RingSpinner ';
 
 export interface FormValue extends Omit<CardItemPost, 'dueDate'> {
 	dueDate: Date;
@@ -25,7 +27,6 @@ const RULES = {
 	},
 	description: {
 		required: '필수값 입니다.',
-		maxLength: { value: 20, message: '최대 20자를 넘을 수 없습니다.' },
 	},
 };
 
@@ -44,6 +45,7 @@ export default function AddNewTaskModal({
 }: AddNewTaskModalProps) {
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
+	const [isLoading, err, wrappedPostCardImage] = useAsync(postCardImage);
 
 	const {
 		control,
@@ -51,7 +53,7 @@ export default function AddNewTaskModal({
 		handleSubmit,
 		setValue,
 		watch,
-		formState: { errors },
+		formState: { errors, isSubmitting, isValid },
 	} = useForm<FormValue>({
 		mode: 'onBlur',
 		defaultValues: {
@@ -66,6 +68,8 @@ export default function AddNewTaskModal({
 	});
 
 	const onSubmit: SubmitHandler<FormValue> = async (data) => {
+		if (isSubmitting) return;
+
 		//1 - 마감일이 지정된 경우 fomatting을 진행, 그렇지 않다면 undefined로 초기화
 		const formattedDueDate = data.dueDate ? format(data.dueDate, 'yyyy-MM-dd HH:mm') : undefined;
 		const newData = {
@@ -99,11 +103,13 @@ export default function AddNewTaskModal({
 
 	async function handleChangeImageInput(e: ChangeEvent<HTMLInputElement>) {
 		if (!e.target.files) return;
-		const uploadedImage = await postCardImage(columnId, e.target?.files[0]);
-		setValue('imageUrl', uploadedImage.imageUrl);
+		const imageToUpload = e.target?.files[0];
+		const uploadedImage = await wrappedPostCardImage(columnId, imageToUpload);
+
+		setValue('imageUrl', uploadedImage?.imageUrl);
 	}
 
-	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0;
+	const isNoError = (obj: FieldErrors<FormValue>) => Object.keys(obj).length === 0 && isValid && !isLoading;
 
 	return (
 		<Layout $modalType='Modal' title='할 일 생성' isOpen={isTaskModalOpen} setOpen={setIsTaskModalOpen}>
@@ -163,21 +169,27 @@ export default function AddNewTaskModal({
 						<div className='relative mt-[1rem] h-[7.6rem] w-[7.6rem]'>
 							{watch('imageUrl')?.length ? (
 								<>
-									<Image
-										fill
-										alt='업로드 한 이미지 프리뷰'
-										className=' rounded-[0.6rem]'
-										style={{ objectFit: 'cover' }}
-										src={watch('imageUrl') ?? ''}
-									/>
-									<div className='flex h-full w-full items-center justify-center rounded-[0.6rem] bg-black-0 opacity-0 hover:opacity-60'>
-										<Image
-											alt='이미지 인풋창에 hover시 나타나는 연필 모양 아이콘'
-											width={30}
-											height={30}
-											src={'/assets/editPencil.svg'}
-										/>
-									</div>
+									{isLoading ? (
+										<RingSpinner className='absolute right-[2.4rem] top-[2.4rem]' />
+									) : (
+										<>
+											<Image
+												fill
+												alt='업로드 한 이미지 프리뷰'
+												className=' rounded-[0.6rem]'
+												style={{ objectFit: 'cover' }}
+												src={watch('imageUrl') ?? ''}
+											/>
+											<div className='flex h-full w-full items-center justify-center rounded-[0.6rem] bg-black-0 opacity-0 hover:opacity-60'>
+												<Image
+													alt='이미지 인풋창에 hover시 나타나는 연필 모양 아이콘'
+													width={30}
+													height={30}
+													src={'/assets/editPencil.svg'}
+												/>
+											</div>
+										</>
+									)}
 								</>
 							) : (
 								<div className='flex rounded-[0.6rem]  bg-gray-F hover:bg-gray-E'>
