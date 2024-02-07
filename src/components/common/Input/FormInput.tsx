@@ -23,7 +23,7 @@ export default function FormInput<T extends FieldValues>({
 
 	const hasError = !!(error ?? '');
 	const commonStyle =
-		'container mb-[0.8rem] mt-[1rem] h-[5rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D';
+		'container mt-[1rem] h-[5rem] rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 placeholder:text-gray-D';
 	const borderColor = error ?? '' ? 'focus:outline-red' : 'focus:outline-violet-5';
 
 	let inputComponent;
@@ -38,7 +38,7 @@ export default function FormInput<T extends FieldValues>({
 
 	return (
 		<div className={className}>
-			<p className='text-18-500'>
+			<p className='text-18-500 leading-[2.1rem] sm:leading-[1.9rem]'>
 				{label}
 				{required && <span className='text-violet-5'> *</span>}
 			</p>

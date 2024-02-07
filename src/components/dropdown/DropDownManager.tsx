@@ -24,8 +24,8 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 	} = useController({ name, control, shouldUnregister: true });
 
 	return (
-		<>
-			<h3 className='mb-[1rem] text-18-500'>담당자</h3>
+		<div>
+			<h3 className='mb-[1rem] text-18-500 leading-[2.1rem] sm:leading-[1.9rem]'>담당자</h3>
 			<Select
 				inputId='contact'
 				onChange={(selectedOption) => {
@@ -36,7 +36,7 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 				ref={ref}
 				options={options}
 				placeholder='이름을 입력해 주세요'
-				className='container mb-[3.2rem] rounded-md'
+				className='container rounded-md'
 				styles={{
 					dropdownIndicator: (provided) => ({
 						...provided,
@@ -72,7 +72,7 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 					IndicatorSeparator: () => null,
 				}}
 			/>
-		</>
+		</div>
 	);
 };
 

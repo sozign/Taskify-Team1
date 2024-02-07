@@ -51,8 +51,8 @@ export default function TagInput({ label, control, className }: TagInputProps) {
 
 	return (
 		<div className={className}>
-			<p className='text-18-500'>{label}</p>
-			<div className='container mb-[0.8rem] mt-[1rem] flex h-[5rem] gap-[0.5rem] overflow-x-auto whitespace-nowrap rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 focus:outline-violet-5 '>
+			<p className='text-18-500 leading-[2.1rem] sm:leading-[1.9rem]'>{label}</p>
+			<div className='container mt-[1rem] flex h-[5rem] gap-[0.5rem] overflow-x-auto whitespace-nowrap rounded-[0.8rem] border border-gray-D bg-white px-[1.5rem] py-[1.2rem] align-top text-16-400 placeholder:mt-0 focus:outline-violet-5 '>
 				{tagList && (
 					<div className='flex gap-[0.4rem]'>
 						{tagList.map((tagItem) => (
