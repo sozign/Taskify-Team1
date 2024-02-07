@@ -1,4 +1,4 @@
-import addBox from '@/../Public/assets/addBox.svg';
+import addBox from '@/../public/assets/addBox.svg';
 import InviteModal from '@/components/modal/InviteModal';
 import { InvitationsDashboardGet } from '@/constants/types';
 import { getInvitationsDashboardProps } from '@/lib/api';

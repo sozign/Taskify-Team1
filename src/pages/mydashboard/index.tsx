@@ -10,7 +10,7 @@ import Button from '@/components/common/Buttons/Button';
 import { useForm } from 'react-hook-form';
 import ColorChip from '@/components/common/chips/ColorChip';
 import { postDashboard, getDashboards, putInvitations } from '@/lib/api';
-import done from '@/../Public/assets/done.svg';
+import done from '@/../public/assets/done.svg';
 import { DashboardsGet, InvitationDashboardData, InvitationsGet } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';

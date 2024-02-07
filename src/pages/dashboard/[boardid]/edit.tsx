@@ -1,4 +1,4 @@
-import arrowForward from '@/../Public/assets/arrowForward.svg';
+import arrowForward from '@/../public/assets/arrowForward.svg';
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import PageLayout from '@/components/common/PageLayout';
 import EditBox from '@/components/domains/edit/EditBox';

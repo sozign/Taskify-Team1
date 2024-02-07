@@ -6,10 +6,10 @@ import { useRouter } from 'next/router';
 import HeaderNavDropdown from './HeaderNavDropdown';
 import { getDashboardItem, getMembers, getUsers } from '@/lib/api';
 import { DashboardData, MembersGet } from '@/constants/types';
-import royalCrownIcon from '@/../Public/assets/royalCrownIcon.svg';
-import settingIcon from '@/../Public/assets/settingIcon.svg';
-import PlusIcon from '@/../Public/assets/PlusIcon.svg';
-import Vector from '@/../Public/assets/Vector.svg';
+import royalCrownIcon from '@/../public/assets/royalCrownIcon.svg';
+import settingIcon from '@/../public/assets/settingIcon.svg';
+import PlusIcon from '@/../public/assets/PlusIcon.svg';
+import Vector from '@/../public/assets/Vector.svg';
 import Avatar from '../Avatar';
 
 interface HeaderNavProps {
