@@ -58,6 +58,7 @@ export default function MyDashBoard() {
 	return (
 		<>
 			<NotInvitedMemberAlert
+				alertMessage='대시보드의 멤버가 아닙니다.'
 				modalControl={{
 					isOpen: isAlertModalOpen,
 					setOpen: setIsAlertModalOpen,
