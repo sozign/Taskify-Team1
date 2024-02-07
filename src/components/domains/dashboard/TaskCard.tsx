@@ -18,10 +18,6 @@ export default function TaskCard({ cardItem, columnInfo }: TaskCardProps) {
 	const [isTaskCardModalOpen, setIsTaskCardModalOpen] = useState<boolean>(false);
 	const [isTaskCardEditModalOpen, setIsTaskCardEditModalOpen] = useState<boolean>(false);
 
-	/**
-	 * @TODO 할 일 카드모달 추가
-	 * @TODO 할 일 수정모달 추가
-	 */
 	return (
 		<>
 			<CardLayout>
@@ -45,7 +41,7 @@ export default function TaskCard({ cardItem, columnInfo }: TaskCardProps) {
 					<div className='container md:flex md:flex-col md:justify-between md:self-stretch'>
 						<div className='mb-[1rem] text-left text-16-500 leading-[1.9rem]'>{cardItem.title}</div>
 						<div className='flex flex-col flex-wrap md:flex-row sm:flex-col'>
-							<div className='mb-[1rem] flex gap-[0.6rem] md:mb-0 md:mr-[1.6rem] sm:mb-[1rem]'>
+							<div className='mb-[1rem] flex flex-wrap gap-[0.6rem] md:mb-0 md:mr-[1.6rem] sm:mb-[1rem]'>
 								{cardItem.tags.map((tagItem) => (
 									<TagChip key={tagItem} text={tagItem} />
 								))}
