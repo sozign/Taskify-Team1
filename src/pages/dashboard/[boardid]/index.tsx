@@ -51,7 +51,7 @@ export default function MyDashBoard() {
 						{columnList.map((columnItem) => (
 							<Column key={columnItem.id} columnItem={columnItem} />
 						))}
-						<div className='w-full px-[2rem] pt-[6.8rem] md:w-full md:p-[2rem]'>
+						<div className='w-full bg-gray-F px-[2rem] pt-[6.8rem] md:w-full md:p-[2rem]'>
 							<AddColumnButton onClick={() => setIsAddColumnModalOpen(true)} />
 						</div>
 					</div>
