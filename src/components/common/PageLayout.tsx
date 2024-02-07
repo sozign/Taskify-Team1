@@ -63,7 +63,7 @@ interface PageLayoutProps {
 export default function PageLayout({ children, boardId }: PageLayoutProps) {
 	return (
 		<div className='flex h-[100vh]'>
-			<div className='h-full w-[30rem] bg-white md:w-[16rem] sm:w-[6.7rem]'>
+			<div className='h-full w-[30rem] shrink-0 overflow-y-auto bg-white md:w-[16rem] sm:w-[6.7rem]'>
 				<SideBar boardId={boardId} />
 			</div>
 			<div className='h-full w-full overflow-auto'>{children}</div>
