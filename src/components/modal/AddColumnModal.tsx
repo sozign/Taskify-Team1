@@ -10,7 +10,7 @@ interface ColumnAddModalProps {
 	isOpen: boolean;
 	setOpen: Dispatch<SetStateAction<boolean>>;
 	dashboardId: number;
-	loadColumn: () => Promise<ColumnGet | undefined>;
+	loadColumn: () => Promise<void>;
 }
 
 interface FormValueProps {

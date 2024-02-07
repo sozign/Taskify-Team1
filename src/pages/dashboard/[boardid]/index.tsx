@@ -38,7 +38,12 @@ export default function MyDashBoard() {
 
 	return (
 		<>
-			<NotInvitedMemberAlert modalControl={{ isOpen: isAlertModalOpen, setOpen: setIsAlertModalOpen }} />
+			<NotInvitedMemberAlert
+				modalControl={{
+					isOpen: isAlertModalOpen,
+					setOpen: setIsAlertModalOpen,
+				}}
+			/>
 			{columnList ? (
 				<PageLayout boardId={boardId}>
 					<DashboardHeader dashboardId={boardId} title={''} />
@@ -47,16 +52,16 @@ export default function MyDashBoard() {
 							<Column key={columnItem.id} columnItem={columnItem} />
 						))}
 						<div className='w-full px-[2rem] pt-[6.8rem] md:w-full md:p-[2rem]'>
-						<AddColumnButton onClick={() => setIsAddColumnModalOpen(true)} />
+							<AddColumnButton onClick={() => setIsAddColumnModalOpen(true)} />
+						</div>
 					</div>
-				</div>
 					<AddColumnModal
-					loadColumn={loadColumn}
-					isOpen={isAddColumnModalOpen}
-					setOpen={setIsAddColumnModalOpen}
-					dashboardId={boardId}
-				/>
-			</PageLayout>
+						loadColumn={loadColumn}
+						isOpen={isAddColumnModalOpen}
+						setOpen={setIsAddColumnModalOpen}
+						dashboardId={boardId}
+					/>
+				</PageLayout>
 			) : (
 				<></>
 			)}
