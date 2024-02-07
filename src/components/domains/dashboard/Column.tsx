@@ -9,6 +9,7 @@ import addIcon from '@/../../Public/assets/addIcon.svg';
 import SquareChip from '@/components/common/chips/SquareChip';
 import { useRouter } from 'next/router';
 import AddNewTaskModal from '@/components/modal/AddNewTaskModal';
+import ColumnsEditModal from '@/components/modal/ColumnsEditModal';
 
 interface ColumnProps {
 	columnItem: ColumnData;
@@ -18,6 +19,7 @@ export default function Column({ columnItem }: ColumnProps) {
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
 	const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+	const [columnsEditModalOpen, setColumnsEditModalOpen] = useState(false);
 
 	// 대시보드 멤버 데이터 페칭
 	const [dashboardMemberList, setDashboardMemberList] = useState<MembersData[]>([]);
@@ -86,7 +88,11 @@ export default function Column({ columnItem }: ColumnProps) {
 						<div className='sm:text-16-700 mr-[1.2rem] text-18-700 text-black-3'>{columnItem.title}</div>
 						<SquareChip color='gray'>{cardListTotalCount.current}</SquareChip>
 					</div>
-					<button>
+					<button
+						onClick={() => {
+							setColumnsEditModalOpen(true);
+						}}
+					>
 						<Image alt='설정 아이콘' src={setting} />
 					</button>
 				</div>
@@ -117,6 +123,7 @@ export default function Column({ columnItem }: ColumnProps) {
 				setIsTaskModalOpen={setIsTaskModalOpen}
 				dashboardMemberList={dashboardMemberList}
 			/>
+			<ColumnsEditModal isOpen={columnsEditModalOpen} setIsOpen={setColumnsEditModalOpen} columnId={columnItem.id} />
 		</>
 	);
 }
