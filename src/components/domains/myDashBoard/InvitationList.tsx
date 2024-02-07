@@ -2,11 +2,12 @@ import Image from 'next/image';
 import searchIcon from '@../../../Public/assets/searchIcon.svg';
 import { InvitationDashboardData, DashboardsGet } from '@/constants/types';
 import Invitation from './Invitation';
-import { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback, ChangeEvent } from 'react';
 import { getInvitations } from '@/lib/api';
 import NotInvited from './NotInvited';
 import useAsync from '@/hooks/useAsync';
 import BarSpinner from '@/components/common/spinner/BarSpinner';
+import _debounce from 'lodash/debounce';
 
 function InvitationList({
 	dashBoardData,
@@ -67,7 +68,7 @@ function InvitationList({
 		try {
 			const data = await getInvitations({ size: 10, title: keyword });
 			const searchInvitations = data.invitations;
-
+			console.log(keyword);
 			// 중복 체크
 			const uniqueInvitations = Array.from(
 				new Set(removeDuplicateDashboard(searchInvitations).map((invitation) => invitation.dashboard.id)),
@@ -82,12 +83,15 @@ function InvitationList({
 
 	//검색 로딩
 	const [searchLoading, searchError, executeSearch] = useAsync(searchInvitation);
-	const handleSearch = useCallback(
-		(keyword: string) => {
-			executeSearch(keyword);
-		},
+	const handleSearch = React.useMemo(
+		() => _debounce((keyword: string) => executeSearch(keyword), 400),
 		[executeSearch],
 	);
+
+	const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchKeyword(e.target.value);
+		handleSearch(e.target.value);
+	}, []);
 
 	useEffect(() => {
 		console.log(invitationList);
@@ -126,10 +130,7 @@ function InvitationList({
 							/>
 							<input
 								value={searchKeyword}
-								onChange={(e) => {
-									handleSearch(e.target.value);
-									setSearchKeyword(e.target.value);
-								}}
+								onChange={handleChange}
 								placeholder='검색'
 								className='w-[100%] rounded-[0.6rem] border border-gray-D px-[4rem] py-[1.1rem] text-14-500 sm:px-[4.4rem]'
 							/>
