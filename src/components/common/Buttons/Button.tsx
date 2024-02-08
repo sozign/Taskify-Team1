@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-type Color = 'violet' | 'white' | 'modalWhite' | 'modalViolet';
+type Color = 'violet' | 'white' | 'modalWhite' | 'modalViolet' | 'toggleColor';
 type Variant = 'delete-lg' | 'delete-sm' | 'confirm' | 'commentInput' | 'modal';
 
 interface ButtonProps {
@@ -28,12 +28,15 @@ function Button({ type, color, className, onClick, children, variant, disabled =
 			break;
 
 		case 'modalViolet':
-			combinedClassName += ` flex justify-center items-center rounded-[0.8rem] text-white ${disabled ? 'bg-gray-D' : 'bg-violet-5'} `;
+			combinedClassName += ` flex justify-center items-center rounded-[0.8rem] text-white ${disabled ? 'bg-gray-D' : 'bg-violet-5'}`;
 			break;
 
 		case 'modalWhite':
 			combinedClassName +=
 				' border border-[gray-D] flex justify-center items-center rounded-[0.8rem] bg-white text-gray-7 ';
+			break;
+		case 'toggleColor':
+			combinedClassName += ' flex justify-center items-center rounded-md text-white ';
 			break;
 	}
 	switch (variant) {

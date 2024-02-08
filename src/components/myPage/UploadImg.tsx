@@ -1,4 +1,4 @@
-import React, { useRef, ChangeEvent, useState } from 'react';
+import React, { useRef, ChangeEvent, useState, useEffect } from 'react';
 import Image from 'next/image';
 // import axios from 'axios';
 import plusIcon from '@/../../Public/assets/myPage-plusIcon.svg';
@@ -7,12 +7,14 @@ import { postUsersProfileImage } from '@/lib/api';
 interface AddImageProp {
 	profileImageUrl: string | null;
 	onImageUpload?: (imageUrl: string) => void | null;
+	setIsProfileActive: (active: boolean) => void;
 }
 
-export default function UploadImg({ profileImageUrl, onImageUpload }: AddImageProp) {
+export default function UploadImg({ profileImageUrl, onImageUpload, setIsProfileActive }: AddImageProp) {
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
-	const [previewImage, setPreviewImage] = useState<string | null>(null);
+	const [previewImage, setPreviewImage] = useState<string | undefined>(undefined);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	// const [isProfileActive, setIsProfileActive] = useState<boolean>(false); // 프로필 이미지가 선택되었는지 여부를 추적하는 상태
 
 	//클릭 하면 파일 입력창을 열리게 하겠다.
 	const handleImageClick = () => {
@@ -27,22 +29,29 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 		const file = e.target.files?.[0];
 		if (file) {
 			PreviewImage(file);
+			// console.log(PreviewImage);
 			setSelectedFile(file);
+			// console.log(selectedFile);
 			const response = await postImageUrl(file);
 			if (onImageUpload) {
 				onImageUpload(response);
 			}
 		} else {
-			setPreviewImage(null);
+			setPreviewImage(undefined);
 			setSelectedFile(null);
 		}
 	};
 
 	const PreviewImage = (file: File) => {
 		const preview = new FileReader();
-		preview.onload = function (e) {
-			const imageDataURL = e.target?.result as string;
-			setPreviewImage(imageDataURL);
+		preview.onload = function () {
+			// const imageDataURL = e.target?.result as string;
+			// console.log(imageDataURL);
+			setPreviewImage(preview.result as string);
+			// setPreviewImage(imageDataURL);
+			setIsProfileActive(true);
+
+			console.log(previewImage);
 		};
 		preview.readAsDataURL(file);
 	};
@@ -68,6 +77,10 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 		}
 	};
 
+	useEffect(() => {
+		console.log(previewImage); // previewImage가 변경될 때마다 콘솔에 출력
+	}, [previewImage]);
+
 	return (
 		<>
 			<div>
@@ -81,24 +94,36 @@ export default function UploadImg({ profileImageUrl, onImageUpload }: AddImagePr
 						multiple
 						onChange={handleChange}
 						style={{ display: 'none' }}
-						className='h-[18.2rem] w-[18.2rem]'
+						className='h-[18.2rem] w-[18.2rem] '
 					/>
-					{profileImageUrl ? (
+					{previewImage && (
 						<Image
 							id='user_image'
-							src={previewImage || profileImageUrl}
-							alt='이미지'
+							src={previewImage}
+							alt='미리보기 이미지'
 							className='mr-[1.6rem] h-[18.2rem] w-[18.2rem] rounded-md sm:h-[10rem] sm:w-[10rem]'
 							onClick={handleImageClick}
 							width={182}
 							height={182}
 						/>
-					) : (
+					)}
+					{profileImageUrl && !previewImage && (
+						<Image
+							id='user_image'
+							src={profileImageUrl}
+							alt='프로필 이미지'
+							className='mr-[1.6rem] h-[18.2rem] w-[18.2rem] rounded-md sm:h-[10rem] sm:w-[10rem]'
+							onClick={handleImageClick}
+							width={182}
+							height={182}
+						/>
+					)}
+					{!previewImage && !profileImageUrl && (
 						<div
 							onClick={handleImageClick}
-							className='flex h-[18.2rem] w-[18.2rem] items-center justify-center rounded-md bg-[#F5F5F5]'
+							className='mr-[1.6rem] flex h-[18.2rem] w-[18.2rem] items-center justify-center rounded-md bg-[#F5F5F5] sm:h-[10rem] sm:w-[10rem]'
 						>
-							<Image src={plusIcon} alt='plus 이미지' className='h-[3rem] w-[3rem]' />
+							<Image src={plusIcon} alt='플러스 이미지' className='h-[3rem] w-[3rem]' />
 						</div>
 					)}
 				</label>

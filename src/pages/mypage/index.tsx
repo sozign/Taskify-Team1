@@ -22,7 +22,8 @@ type putUsersData = {
 };
 
 export default function MyPage() {
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>(false);
+	const [isProfileActive, setIsProfileActive] = useState<boolean>(false);
 
 	const prevClickHandler = () => {
 		window.history.back();
@@ -31,6 +32,7 @@ export default function MyPage() {
 	const {
 		register,
 		handleSubmit,
+		watch,
 		formState: { isSubmitting, isSubmitted, errors },
 	} = useForm<FieldValues>({});
 
@@ -99,6 +101,7 @@ export default function MyPage() {
 			await handleSubmit(async (data) => {
 				if (data) {
 					setOpen((prev) => !prev);
+					setIsProfileActive(false);
 				}
 				// Save 버튼에 대한 추가 동작 구현
 				await PutUserInfo(dataToUpdate);
@@ -110,6 +113,11 @@ export default function MyPage() {
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
+		if (value || watch('nickname')) {
+			setIsProfileActive(true);
+		} else {
+			setIsProfileActive(false);
+		}
 		setDataToUpdate((prevData) => ({
 			...prevData,
 			nickname: value,
@@ -121,7 +129,7 @@ export default function MyPage() {
 			<PageLayout>
 				<DashboardHeader title={'내 정보'} dashboardId={0} />
 				<div className=' bg-[#FAFAFA]'>
-					<div className=' ml-[2rem] sm:ml-[1.2rem]'>
+					<div className=' ml-[2rem] pb-[12.5rem] sm:ml-[1.2rem]'>
 						{/* 바로 직전에 클릭했던 링크로 되돌아가야한다. */}
 						{/* <Link href=''> */}
 						<p
@@ -145,8 +153,12 @@ export default function MyPage() {
 								{/* 이미지와 인풋 */}
 								<div className='flex w-[56.4rem] md:w-[48.8rem] sm:flex-col'>
 									{/* profileImage는 null값을 넘김 */}
-									<UploadImg profileImageUrl={userInfo.profileImageUrl} onImageUpload={handleImageUpload} />
-									<div className='w-[36.6rem] md:w-[29rem] sm:w-[24.4rem]  '>
+									<UploadImg
+										profileImageUrl={userInfo.profileImageUrl}
+										onImageUpload={handleImageUpload}
+										setIsProfileActive={setIsProfileActive}
+									/>
+									<div className=' w-[36.6rem] md:w-[29rem] sm:w-[24.4rem]  '>
 										<div className='sm:mt-[2.4rem]'>
 											<label htmlFor='email' className='text-18-500 sm:text-16-500'>
 												이메일
@@ -186,12 +198,12 @@ export default function MyPage() {
 									</div>
 								</div>
 								<Button
-									color='violet'
+									color='toggleColor'
 									disabled={isSubmitting}
 									type='submit'
 									onClick={() => handleSaveButtonClick()}
 									variant='confirm'
-									className='float-right mb-[2.8rem] mr-[2.8rem]  mt-[1.6rem] flex '
+									className={`float-right mb-[2.8rem] mr-[2.8rem] mt-[2.4rem] flex ${isProfileActive ? 'bg-violet-5' : 'bg-gray-D'} `}
 								>
 									저장
 								</Button>
