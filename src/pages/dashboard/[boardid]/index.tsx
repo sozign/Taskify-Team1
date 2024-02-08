@@ -1,15 +1,15 @@
 import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import PageLayout from '@/components/common/PageLayout';
-import NotInvitedMemberAlert from '@/components/modal/NotInvitedMemberAlert';
-import { isAxiosError } from 'axios';
 import AddColumnButton from '@/components/domains/dashboard/AddColumnButton';
 import Column from '@/components/domains/dashboard/Column';
 import AddColumnModal from '@/components/modal/AddColumnModal';
-import { getColumns, getMembers, getUsers } from '@/lib/api';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import NotInvitedMemberAlert from '@/components/modal/NotInvitedMemberAlert';
 import { useDashboardContext } from '@/context/DashboardContext';
 import { useUserContext } from '@/context/UserContext';
+import { getColumns, getMembers, getUsers } from '@/lib/api';
+import { isAxiosError } from 'axios';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export default function MyDashBoard() {
 	const router = useRouter();
@@ -71,16 +71,20 @@ export default function MyDashBoard() {
 						{value.columnList.map((columnItem) => (
 							<Column key={columnItem.id} columnItem={columnItem} />
 						))}
-						<div className='w-full bg-gray-F px-[2rem] pt-[6.8rem] md:w-full md:p-[2rem]'>
-							<AddColumnButton onClick={() => setIsAddColumnModalOpen(true)} />
-						</div>
+						{value.columnList.length < 10 && (
+							<div className='w-full bg-gray-F px-[2rem] pt-[6.8rem] md:w-full md:p-[2rem]'>
+								<AddColumnButton onClick={() => setIsAddColumnModalOpen(true)} />
+							</div>
+						)}
 					</div>
-					<AddColumnModal
-						loadColumn={loadColumn}
-						isOpen={isAddColumnModalOpen}
-						setOpen={setIsAddColumnModalOpen}
-						dashboardId={boardId}
-					/>
+					{isAddColumnModalOpen && (
+						<AddColumnModal
+							loadColumn={loadColumn}
+							isOpen={isAddColumnModalOpen}
+							setOpen={setIsAddColumnModalOpen}
+							dashboardId={boardId}
+						/>
+					)}
 				</PageLayout>
 			) : (
 				<></>
