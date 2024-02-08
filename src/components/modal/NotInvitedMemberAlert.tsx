@@ -13,7 +13,7 @@ interface NotInvitedMemberAlertProps {
 
 export default function NotInvitedMemberAlert({ modalControl, alertMessage }: NotInvitedMemberAlertProps) {
 	return (
-		<Layout $modalType='Alert' isOpen={modalControl.isOpen} setOpen={modalControl.setOpen}>
+		<Layout $modalType='NotFound' isOpen={modalControl.isOpen} setOpen={modalControl.setOpen}>
 			<div className='flex h-full w-full flex-col justify-end gap-[4.5rem] sm:gap-[5rem]'>
 				<p className='self-center text-[1.8rem]'>{alertMessage}</p>
 				<Button
