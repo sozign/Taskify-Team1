@@ -39,36 +39,39 @@ export default function MyDashBoard() {
 		loadUserInfo();
 		dashboardLoad();
 	}, [paginationPage, acceptedResponse]);
-
 	return (
 		<>
 			<PageLayout>
 				<DashboardHeader dashboardId={0} title={'내 대시보드'} />
-				<div className='sm:gap:-[2.4rem] flex h-[100vh] w-[100%] flex-col gap-[4rem] bg-gray-F px-[4rem] py-[4rem] sm:gap-[2.4rem]'>
-					<div className='flex w-[102.2rem] flex-col gap-[1.2rem] md:w-[50.4rem]  sm:w-[100%]'>
-						<div className='col-span-2 grid grid-cols-3 gap-[1.2rem] md:col-span-3 md:grid-cols-2 md:gap-[1rem] sm:col-span-1 sm:grid-cols-1 sm:gap-[0.8rem]'>
-							<AddDashboardButton
-								onClick={() => {
-									setAddDashBoardModalOpen(true);
-								}}
-							></AddDashboardButton>
-							{dashBoardData?.dashboards.map((dashboard) => (
-								<DashboardButton
-									key={dashboard.id}
-									color={dashboard.color}
-									title={dashboard.title}
-									createdByMe={dashboard.createdByMe}
-									dashboardId={dashboard.id}
-								/>
-							))}
+				<div className='h-full bg-gray-F'>
+					<div className='sm:gap:-[2.4rem] flex h-fit w-[100%] flex-col gap-[4rem] bg-gray-F px-[4rem] py-[4rem] sm:gap-[2.4rem]'>
+						<div className='flex w-[102.2rem] flex-col gap-[1.2rem] md:w-[50.4rem]  sm:w-[100%]'>
+							<div className='col-span-2 grid grid-cols-3 gap-[1.2rem] md:col-span-3 md:grid-cols-2 md:gap-[1rem] sm:col-span-1 sm:grid-cols-1 sm:gap-[0.8rem]'>
+								<AddDashboardButton
+									onClick={() => {
+										setAddDashBoardModalOpen(true);
+									}}
+								></AddDashboardButton>
+								{dashBoardData?.dashboards.map((dashboard) => (
+									<DashboardButton
+										key={dashboard.id}
+										color={dashboard.color}
+										title={dashboard.title}
+										createdByMe={dashboard.createdByMe}
+										dashboardId={dashboard.id}
+									/>
+								))}
+							</div>
+							<PaginationButton
+								totalCount={dashBoardData?.totalCount as string}
+								paginationPage={paginationPage}
+								setPaginationPage={setPaginationPage}
+							/>
 						</div>
-						<PaginationButton
-							totalCount={dashBoardData?.totalCount as string}
-							paginationPage={paginationPage}
-							setPaginationPage={setPaginationPage}
-						/>
+						<div className='h-[100%]'>
+							<InvitationList dashBoardData={dashBoardData} onAcceptInvitation={handleAcceptInvitation} />
+						</div>
 					</div>
-					<InvitationList dashBoardData={dashBoardData} onAcceptInvitation={handleAcceptInvitation} />
 				</div>
 				<AddNewDashBoard isOpen={addDashBoardModalOpen} setOpen={setAddDashBoardModalOpen} />
 			</PageLayout>
