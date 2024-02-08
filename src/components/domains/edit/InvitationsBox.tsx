@@ -1,4 +1,4 @@
-import addBox from '@/../Public/assets/addBox.svg';
+import addBox from '@/../public/assets/addBox.svg';
 import InviteModal from '@/components/modal/InviteModal';
 import { InvitationsDashboardGet } from '@/constants/types';
 import { getInvitationsDashboardProps } from '@/lib/api';
@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction, useState } from 'react';
 import EditPaginationButton from './EditPaginationButton';
 import Invitation from './Invitation';
-import notInvited from '@/../../Public/assets/notInvited.svg';
+import notInvited from '@/../../public/assets/notInvited.svg';
 interface InvitationsBoxProps {
 	dashboardId: number;
 	invitations: InvitationsDashboardGet;

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import done from '@/../Public/assets/done.svg';
+import done from '@/../public/assets/done.svg';
 import ColorChip from './ColorChip';
 
 function ColorPick({ colorPick, onClick }: { colorPick: string; onClick: (pick: string) => void }) {

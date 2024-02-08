@@ -1,7 +1,7 @@
 import { CardData } from '@/constants/types';
 import CardLayout from './CardLayout';
 import TagChip from '@/components/common/chips/TagChip';
-import calenderIcon from '@/../Public/assets/calender.svg';
+import calenderIcon from '@/../public/assets/calender.svg';
 import Image from 'next/image';
 import Avatar from '@/components/common/Avatar';
 import { useState } from 'react';

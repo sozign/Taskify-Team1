@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import TaskifyImage from '@/../../Public/assets/TaskifyImage.svg';
-import Taskify from '@/../../Public/assets/Taskify.svg';
+import TaskifyImage from '@/../../public/assets/TaskifyImage.svg';
+import Taskify from '@/../../public/assets/Taskify.svg';
 import { useEffect, useRef, useState } from 'react';
 import Avatar from '../Avatar';
 import { getUsers } from '@/lib/api';

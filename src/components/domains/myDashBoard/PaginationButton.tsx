@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import arrowIcon from '@/../../Public/assets/arrowIcon.svg';
+import arrowIcon from '@/../../public/assets/arrowIcon.svg';
 
 export interface getDashboardsProps {
 	page: number;

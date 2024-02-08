@@ -1,4 +1,4 @@
-import addIcon from '@/../../Public/assets/addIcon.svg';
+import addIcon from '@/../../public/assets/addIcon.svg';
 import SquareChip from '@/components/common/chips/SquareChip';
 import Image from 'next/image';
 

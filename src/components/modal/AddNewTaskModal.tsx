@@ -4,7 +4,7 @@ import { useForm, SubmitHandler, Controller, FieldErrors } from 'react-hook-form
 import Layout from '@/components/modal/Layout';
 import FormInput from '@/components/common/Input/FormInput';
 import DatePicker from 'react-datepicker';
-import addIcon from '@/../../Public/assets/addIcon.svg';
+import addIcon from '@/../../public/assets/addIcon.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/common/Buttons/Button';
 import TagInput from '@/components/common/Input/TagInput';

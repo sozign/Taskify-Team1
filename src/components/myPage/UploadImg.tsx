@@ -1,7 +1,7 @@
 import React, { useRef, ChangeEvent, useState, useEffect } from 'react';
 import Image from 'next/image';
 // import axios from 'axios';
-import plusIcon from '@/../../Public/assets/myPage-plusIcon.svg';
+import plusIcon from '@/../../public/assets/myPage-plusIcon.svg';
 import { postUsersProfileImage } from '@/lib/api';
 
 interface AddImageProp {
