@@ -130,8 +130,6 @@ export default function MyPage() {
 				<DashboardHeader title={'내 정보'} dashboardId={0} />
 				<div className=' bg-[#FAFAFA]'>
 					<div className=' ml-[2rem] sm:ml-[1.2rem]'>
-						{/* 바로 직전에 클릭했던 링크로 되돌아가야한다. */}
-						{/* <Link href=''> */}
 						<p
 							onClick={prevClickHandler}
 							className='t-[#333236] flex items-center pt-[2rem] text-[1.6rem] font-medium sm:text-[1.4rem]'
@@ -143,7 +141,6 @@ export default function MyPage() {
 							/>
 							돌아가기
 						</p>
-						{/* </Link> */}
 						{/* 프로필 창  */}
 						<div className='mt-[2.5rem] h-[35.5rem] w-[62rem] rounded-lg bg-white md:w-[54.4rem] sm:h-[46.2rem] sm:w-[28.4rem] sm:text-[2rem]'>
 							<p className=' ml-[2.8rem] py-[3.2rem] text-[2.4rem] font-bold text-[#332636] sm:ml-[2rem] sm:pb-[2.4rem] sm:pt-[2.8rem] sm:text-20-700'>
