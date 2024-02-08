@@ -1,21 +1,47 @@
-import addBox from '@/../public/assets/addBox.svg';
+import notInvited from '@/../../Public/assets/notInvited.svg';
+import addBox from '@/../Public/assets/addBox.svg';
 import InviteModal from '@/components/modal/InviteModal';
 import { InvitationsDashboardGet } from '@/constants/types';
-import { getInvitationsDashboardProps } from '@/lib/api';
+import { getInvitationsDashboard, getInvitationsDashboardProps } from '@/lib/api';
 import Image from 'next/image';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditPaginationButton from './EditPaginationButton';
 import Invitation from './Invitation';
-import notInvited from '@/../../public/assets/notInvited.svg';
 interface InvitationsBoxProps {
 	dashboardId: number;
-	invitations: InvitationsDashboardGet;
-	paginationInfo: getInvitationsDashboardProps;
-	setPaginationInfo: Dispatch<SetStateAction<getInvitationsDashboardProps>>;
 }
 
-function InvitationsBox({ dashboardId, invitations, paginationInfo, setPaginationInfo }: InvitationsBoxProps) {
+function InvitationsBox({ dashboardId }: InvitationsBoxProps) {
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+
+	const [invitationsDashboard, setInvitationsDashboard] = useState<InvitationsDashboardGet>({
+		invitations: [],
+		totalCount: 5,
+	});
+
+	const [invitationsPagination, setInvitationsPagination] = useState<getInvitationsDashboardProps>({
+		dashboardId: dashboardId,
+		page: 1,
+		size: 5,
+	});
+
+	async function loadInvitationsDashboardData() {
+		try {
+			const resData = await getInvitationsDashboard(invitationsPagination);
+			setInvitationsDashboard(resData);
+		} catch (err) {
+			console.error('Error fetching data:', err);
+		}
+	}
+
+	useEffect(() => {
+		setInvitationsPagination({ dashboardId: dashboardId, page: 1, size: 5 });
+	}, [dashboardId]);
+
+	useEffect(() => {
+		if (invitationsPagination.dashboardId === 0) return;
+		loadInvitationsDashboardData();
+	}, [invitationsPagination]);
 
 	return (
 		<>
@@ -23,12 +49,12 @@ function InvitationsBox({ dashboardId, invitations, paginationInfo, setPaginatio
 				<div className=' flex justify-between'>
 					<span className='text-24-700 text-black-3 sm:text-20-700'>초대 내역</span>
 					<div className='flex items-center gap-[1.6rem] sm:flex-col sm:items-end'>
-						{invitations.totalCount > 5 ? (
+						{invitationsDashboard.totalCount > 5 ? (
 							<div className='flex'>
 								<EditPaginationButton
-									paginationInfo={paginationInfo}
-									setPaginationInfo={setPaginationInfo}
-									totalCount={invitations.totalCount}
+									paginationInfo={invitationsPagination}
+									setPaginationInfo={setInvitationsPagination}
+									totalCount={invitationsDashboard.totalCount}
 								/>
 							</div>
 						) : null}
@@ -43,13 +69,18 @@ function InvitationsBox({ dashboardId, invitations, paginationInfo, setPaginatio
 						</button>
 					</div>
 				</div>
-				{invitations.totalCount !== 0 ? (
+				{invitationsDashboard.totalCount !== 0 ? (
 					<>
 						<div className=' py-[2.4rem] text-16-400 text-gray-9 sm:text-14-400'>이메일</div>
 						<div>
-							{invitations.invitations.map((invitation, index) => (
+							{invitationsDashboard.invitations.map((invitation, index) => (
 								<>
-									<Invitation key={invitation.id} dashboardId={dashboardId} invitationData={invitation} />
+									<Invitation
+										key={invitation.id}
+										loadInvitationsDashboardData={loadInvitationsDashboardData}
+										dashboardId={dashboardId}
+										invitationData={invitation}
+									/>
 									{(index + 1) % 5 !== 0 && <div className='mb-[1.5rem] mt-[1.6rem] border border-t-0 border-gray-E' />}
 								</>
 							))}
@@ -63,7 +94,12 @@ function InvitationsBox({ dashboardId, invitations, paginationInfo, setPaginatio
 				)}
 			</div>
 			{isInviteModalOpen && (
-				<InviteModal isOpen={isInviteModalOpen} setIsOpen={setIsInviteModalOpen} dashboardId={dashboardId} />
+				<InviteModal
+					loadInvitationsDashboardData={loadInvitationsDashboardData}
+					isOpen={isInviteModalOpen}
+					setIsOpen={setIsInviteModalOpen}
+					dashboardId={dashboardId}
+				/>
 			)}
 		</>
 	);

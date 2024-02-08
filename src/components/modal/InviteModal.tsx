@@ -9,13 +9,14 @@ interface ModalProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	dashboardId: number;
+	loadInvitationsDashboardData?: () => Promise<void>;
 }
 
 interface FormValueProps {
 	email: string;
 }
 
-function InviteModal({ isOpen, setIsOpen, dashboardId }: ModalProps) {
+function InviteModal({ isOpen, setIsOpen, dashboardId, loadInvitationsDashboardData }: ModalProps) {
 	const {
 		handleSubmit,
 		control,
@@ -36,6 +37,7 @@ function InviteModal({ isOpen, setIsOpen, dashboardId }: ModalProps) {
 	// 모달 1 폼 제출
 	const onSubmit: SubmitHandler<FormValueProps> = async (data) => {
 		await postInvitationDashboard(dashboardId, data);
+		if (loadInvitationsDashboardData !== undefined) loadInvitationsDashboardData();
 		setIsOpen((prev) => !prev);
 	};
 

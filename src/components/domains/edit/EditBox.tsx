@@ -1,6 +1,7 @@
 import CheckedIcon from '@/../../public/assets/checked.svg';
 import { putDashboard } from '@/lib/api';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../../common/Buttons/Button';
 import FormInput from '../../common/Input/FormInput';
@@ -9,10 +10,9 @@ interface EditBoxProps {
 	title: string;
 	color: '#7AC555' | '#760DDE' | '#FFA500' | '#76A6EA' | '#E876EA';
 	dashboardId: number;
-	loadDashboardData: (dashboardId: number) => Promise<void>;
 }
 
-function EditBox({ title, color, dashboardId, loadDashboardData }: EditBoxProps) {
+function EditBox({ title, color, dashboardId }: EditBoxProps) {
 	interface FormValue {
 		title: string;
 		color: '#7AC555' | '#760DDE' | '#FFA500' | '#76A6EA' | '#E876EA';
@@ -26,9 +26,11 @@ function EditBox({ title, color, dashboardId, loadDashboardData }: EditBoxProps)
 		},
 	});
 
+	const router = useRouter();
+
 	const onSubmit: SubmitHandler<FormValue> = async (data) => {
 		await putDashboard(dashboardId, data);
-		loadDashboardData(dashboardId);
+		router.reload();
 	};
 
 	return (

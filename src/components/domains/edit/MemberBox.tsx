@@ -1,17 +1,43 @@
 import { MembersGet } from '@/constants/types';
-import { getInvitationsDashboardProps } from '@/lib/api';
-import { Dispatch, SetStateAction } from 'react';
+import { getInvitationsDashboardProps, getMembers } from '@/lib/api';
+import { useEffect, useState } from 'react';
 import EditPaginationButton from './EditPaginationButton';
 import Member from './Member';
 
 interface MemberBoxProps {
 	hostId: number;
-	members: MembersGet;
-	paginationInfo: getInvitationsDashboardProps;
-	setPaginationInfo: Dispatch<SetStateAction<getInvitationsDashboardProps>>;
+	boardId: number;
 }
 
-function MemberBox({ hostId, members, paginationInfo, setPaginationInfo }: MemberBoxProps) {
+function MemberBox({ boardId, hostId }: MemberBoxProps) {
+	const [membersPagination, setMembersPagination] = useState<getInvitationsDashboardProps>({
+		dashboardId: boardId,
+		page: 1,
+		size: 4,
+	});
+	const [members, setMembers] = useState<MembersGet>({
+		members: [],
+		totalCount: 4,
+	});
+
+	async function loadDashboardMembersData() {
+		try {
+			const resData = await getMembers(membersPagination);
+			setMembers(resData);
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	}
+
+	useEffect(() => {
+		setMembersPagination({ dashboardId: boardId, page: 1, size: 4 });
+	}, [boardId]);
+
+	useEffect(() => {
+		if (membersPagination.dashboardId === 0) return;
+		loadDashboardMembersData();
+	}, [membersPagination]);
+
 	return (
 		<div className='flex w-[62rem] flex-col gap-[2.7rem] rounded-[0.8rem] bg-white px-[2.8rem] py-[3.1rem] md:w-[54.5rem] sm:w-[100%]'>
 			<div className='flex items-center justify-between'>
@@ -19,8 +45,8 @@ function MemberBox({ hostId, members, paginationInfo, setPaginationInfo }: Membe
 				{members.totalCount > 4 ? (
 					<div className='flex gap-[1.6rem]'>
 						<EditPaginationButton
-							paginationInfo={paginationInfo}
-							setPaginationInfo={setPaginationInfo}
+							paginationInfo={membersPagination}
+							setPaginationInfo={setMembersPagination}
 							totalCount={members.totalCount}
 						/>
 					</div>
@@ -30,7 +56,12 @@ function MemberBox({ hostId, members, paginationInfo, setPaginationInfo }: Membe
 				<div className='mb-[2.4rem] text-16-400 text-gray-9 sm:mb-[2rem] sm:text-14-400'>이름</div>
 				{members.members.map((member, index) => (
 					<>
-						<Member key={member.id} hostId={hostId} memberData={member} />
+						<Member
+							loadDashboardMembersData={loadDashboardMembersData}
+							key={member.id}
+							hostId={hostId}
+							memberData={member}
+						/>
 						{(index + 1) % 4 !== 0 && (
 							<div className='mb-[1.5rem] mt-[1.6rem] border border-t-0 border-gray-E sm:mb-[1.1rem] sm:mt-[1.2rem]' />
 						)}
