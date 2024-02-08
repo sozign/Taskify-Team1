@@ -16,7 +16,7 @@ function InvitationsBox({ dashboardId }: InvitationsBoxProps) {
 
 	const [invitationsDashboard, setInvitationsDashboard] = useState<InvitationsDashboardGet>({
 		invitations: [],
-		totalCount: 5,
+		totalCount: 0,
 	});
 
 	const [invitationsPagination, setInvitationsPagination] = useState<getInvitationsDashboardProps>({
@@ -28,6 +28,7 @@ function InvitationsBox({ dashboardId }: InvitationsBoxProps) {
 	async function loadInvitationsDashboardData() {
 		try {
 			const resData = await getInvitationsDashboard(invitationsPagination);
+			// formatData = resData.invitations.filter()
 			setInvitationsDashboard(resData);
 		} catch (err) {
 			console.error('Error fetching data:', err);
