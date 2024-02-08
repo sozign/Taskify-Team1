@@ -52,11 +52,8 @@ export default function MyDashBoard() {
 	useEffect(() => {
 		loadColumn();
 		loadDashboardMemberList();
-	}, [boardId]);
-
-	useEffect(() => {
 		loadUserInfo();
-	}, []);
+	}, [boardId]);
 
 	return (
 		<>
