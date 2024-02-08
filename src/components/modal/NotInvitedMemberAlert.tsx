@@ -8,13 +8,14 @@ interface NotInvitedMemberAlertProps {
 		isOpen: boolean;
 		setOpen: Dispatch<SetStateAction<boolean>>;
 	};
+	alertMessage: string;
 }
 
-export default function NotInvitedMemberAlert({ modalControl }: NotInvitedMemberAlertProps) {
+export default function NotInvitedMemberAlert({ modalControl, alertMessage }: NotInvitedMemberAlertProps) {
 	return (
-		<Layout $modalType='Alert' isOpen={modalControl.isOpen} setOpen={modalControl.setOpen}>
+		<Layout $modalType='NotFound' isOpen={modalControl.isOpen} setOpen={modalControl.setOpen}>
 			<div className='flex h-full w-full flex-col justify-end gap-[4.5rem] sm:gap-[5rem]'>
-				<p className='self-center text-[1.8rem]'>대시보드의 멤버가 아닙니다.</p>
+				<p className='self-center text-[1.8rem]'>{alertMessage}</p>
 				<Button
 					onClick={() => {
 						modalControl.setOpen(false);

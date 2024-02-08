@@ -17,6 +17,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import NotInvitedMemberAlert from '@/components/modal/NotInvitedMemberAlert';
+import { isAxiosError } from 'axios';
 
 export default function DashBoardEdit() {
 	const router = useRouter();
@@ -51,6 +53,8 @@ export default function DashBoardEdit() {
 		size: 5,
 	});
 
+	const [isAccessPermissionModal, setIsAccessPermissionModal] = useState(false);
+
 	async function loadDashboardData(dashboardId: number) {
 		try {
 			const resData = await getDashboardItem(dashboardId);
@@ -73,8 +77,14 @@ export default function DashBoardEdit() {
 		try {
 			const resData = await getInvitationsDashboard(invitationsPagination);
 			setInvitationsDashboard(resData);
-		} catch (error) {
-			console.error('Error fetching data:', error);
+			console.log('대시보드 초대 목록 로드', resData);
+		} catch (err) {
+			console.error('Error fetching data:', err);
+			if (isAxiosError(err)) {
+				if (err?.response?.status === 403) {
+					setIsAccessPermissionModal(true);
+				}
+			}
 		}
 	}
 
@@ -98,53 +108,53 @@ export default function DashBoardEdit() {
 
 	return (
 		<>
-			<PageLayout boardId={boardId}>
-				<div className='flex h-fit min-h-full w-full flex-col gap-[2rem] bg-gray-F pb-[5.6rem] md:pb-[4.8rem] sm:gap-[1.7rem] sm:pb-[2.4rem]'>
-					<DashboardHeader dashboardId={boardId} title={''} />
-					<Link
-						href={`/dashboard/${boardId}`}
-						className='ml-[2rem] flex h-fit w-fit items-center justify-center gap-[0.6rem]'
-					>
-						<Image src={arrowForward} alt='돌아가기 버튼' className='sm:h-[1.8rem] sm:w-[1.8rem]' />
-						<span className='text-16-500 text-black-3 sm:text-14-500'>돌아가기</span>
-					</Link>
-					<div className='flex flex-col gap-[1.2rem] px-[2.8rem] sm:gap-[1.1rem]'>
-						<EditBox
-							loadDashboardData={loadDashboardData}
-							dashboardId={boardId}
-							title={dashboardInfo.title}
-							color={dashboardInfo.color}
-						/>
-						<MemberBox
-							hostId={dashboardInfo.userId}
-							members={members}
-							paginationInfo={membersPagination}
-							setPaginationInfo={setMembersPagination}
-						/>
-						<InvitationsBox
-							dashboardId={boardId}
-							paginationInfo={invitationsPagination}
-							setPaginationInfo={setInvitationsPagination}
-							invitations={invitationsDashboard}
-						/>
-						<button
-							onClick={() => setIsDashboardDeleteConfirmModalOpen(true)}
-							className='flex h-[6.2rem] w-[32.5rem] items-center justify-center rounded-[0.8rem]  border border-gray-D bg-gray-F text-18-500 text-black-3 sm:w-[100%] sm:text-16-500'
+			<NotInvitedMemberAlert
+				alertMessage='접근권한이 없습니다.'
+				modalControl={{
+					isOpen: isAccessPermissionModal,
+					setOpen: setIsAccessPermissionModal,
+				}}
+			/>
+			{!isAccessPermissionModal ? (
+				<PageLayout boardId={boardId}>
+					<div className='flex h-fit min-h-full w-full flex-col gap-[2rem] bg-gray-F pb-[5.6rem] md:pb-[4.8rem] sm:gap-[1.7rem] sm:pb-[2.4rem]'>
+						<DashboardHeader dashboardId={boardId} title={''} />
+						<Link
+							href={`/dashboard/${boardId}`}
+							className='ml-[2rem] flex h-fit w-fit items-center justify-center gap-[0.6rem]'
 						>
-							<div>대시보드 삭제하기</div>
-						</button>
+							<Image src={arrowForward} alt='돌아가기 버튼' className='sm:h-[1.8rem] sm:w-[1.8rem]' />
+							<span className='text-16-500 text-black-3 sm:text-14-500'>돌아가기</span>
+						</Link>
+						<div className='flex flex-col gap-[1.2rem] px-[2.8rem] sm:gap-[1.1rem]'>
+							<EditBox
+								loadDashboardData={loadDashboardData}
+								dashboardId={boardId}
+								title={dashboardInfo.title}
+								color={dashboardInfo.color}
+							/>
+							<MemberBox
+								hostId={dashboardInfo.userId}
+								members={members}
+								paginationInfo={membersPagination}
+								setPaginationInfo={setMembersPagination}
+							/>
+							<InvitationsBox
+								dashboardId={boardId}
+								paginationInfo={invitationsPagination}
+								setPaginationInfo={setInvitationsPagination}
+								invitations={invitationsDashboard}
+							/>
+							<button
+								onClick={() => handleDelete(boardId)}
+								className='flex  h-[6.2rem]  w-[32.5rem]  items-center justify-center rounded-[0.8rem]  border border-gray-D bg-gray-F text-18-500 text-black-3 sm:w-[100%] sm:text-16-500'
+							>
+								<div>대시보드 삭제하기</div>
+							</button>
+						</div>
 					</div>
-				</div>
-			</PageLayout>
-			{isDashboardDeleteConfirmModalOpen && (
-				<ConfirmModal
-					content='대시보드를 삭제하시겠습니까?'
-					id={boardId}
-					isOpen={isDashboardDeleteConfirmModalOpen}
-					setOpen={setIsDashboardDeleteConfirmModalOpen}
-					request={handleDelete}
-				/>
-			)}
+				</PageLayout>
+			) : null}
 		</>
 	);
 }

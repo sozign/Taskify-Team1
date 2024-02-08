@@ -2,7 +2,7 @@ import Image from 'next/image';
 import searchIcon from '@../../../Public/assets/searchIcon.svg';
 import { InvitationDashboardData, DashboardsGet } from '@/constants/types';
 import Invitation from './Invitation';
-import React, { useRef, useEffect, useState, useCallback, ChangeEvent } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { getInvitations } from '@/lib/api';
 import NotInvited from './NotInvited';
 import useAsync from '@/hooks/useAsync';
@@ -137,7 +137,7 @@ function InvitationList({
 							)}
 						</div>
 						{!searchLoading && (
-							<div className='mt-[2rem]'>
+							<div className='mt-[2rem] sm:mt-[0.8rem]'>
 								<ul className='flex items-center  justify-between py-[0.4rem] text-16-400 text-gray-9 md:w-[100%]  sm:hidden'>
 									<li className=' w-1/3'>이름</li>
 									<li className='w-1/3'>초대자</li>
