@@ -62,7 +62,9 @@ function InvitationsBox({ dashboardId, invitations, paginationInfo, setPaginatio
 					</div>
 				)}
 			</div>
-			<InviteModal isOpen={isInviteModalOpen} setIsOpen={setIsInviteModalOpen} dashboardId={dashboardId} />
+			{isInviteModalOpen && (
+				<InviteModal isOpen={isInviteModalOpen} setIsOpen={setIsInviteModalOpen} dashboardId={dashboardId} />
+			)}
 		</>
 	);
 }

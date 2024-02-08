@@ -7,7 +7,8 @@ import Avatar from '../common/Avatar';
 import StatusChip from '../common/chips/StatusChip';
 import TagChip from '../common/chips/TagChip';
 import { CardData, CommentPost, CommentData } from '@/constants/types';
-import { getComments, postComment } from '@/lib/api';
+import { deleteCardItem, getComments, postComment } from '@/lib/api';
+import ConfirmModal from './ConfirmModal';
 
 interface TaskModalProps {
 	taskModalControl: {
@@ -81,6 +82,9 @@ export default function TaskModal({ taskModalControl, editModalControl, cardItem
 		}
 	};
 
+	// 태스크 카드 삭제하기 모달 관련
+	const [isTaskCardDeleteModalOpen, setIsTaskCardDeleteModalOpen] = useState(false);
+
 	return (
 		<Layout
 			$modalType='Task'
@@ -110,10 +114,22 @@ export default function TaskModal({ taskModalControl, editModalControl, cardItem
 									>
 										수정하기
 									</button>
-									<button className='h-[3.2rem] w-full items-center justify-center rounded-[0.4rem] text-14-400 text-black-3 hover:bg-violet-F hover:text-violet-5'>
+									<button
+										onClick={() => setIsTaskCardDeleteModalOpen(true)}
+										className='h-[3.2rem] w-full items-center justify-center rounded-[0.4rem] text-14-400 text-black-3 hover:bg-violet-F hover:text-violet-5'
+									>
 										삭제하기
 									</button>
 								</ul>
+							)}
+							{isTaskCardDeleteModalOpen && (
+								<ConfirmModal
+									request={deleteCardItem}
+									id={cardItem.id}
+									isOpen={isTaskCardDeleteModalOpen}
+									setOpen={setIsTaskCardDeleteModalOpen}
+									content='카드를 삭제하시겠습니까?'
+								/>
 							)}
 						</div>
 						<button

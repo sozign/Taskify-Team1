@@ -4,6 +4,7 @@ import PageLayout from '@/components/common/PageLayout';
 import EditBox from '@/components/domains/edit/EditBox';
 import InvitationsBox from '@/components/domains/edit/InvitationsBox';
 import MemberBox from '@/components/domains/edit/MemberBox';
+import ConfirmModal from '@/components/modal/ConfirmModal';
 import { DashboardData, InvitationsDashboardGet, MembersGet, UserInfo } from '@/constants/types';
 import {
 	deleteDashboard,
@@ -22,6 +23,7 @@ export default function DashBoardEdit() {
 	const router = useRouter();
 	const boardId = +(router.query.boardid ?? 0);
 
+	const [isDashboardDeleteConfirmModalOpen, setIsDashboardDeleteConfirmModalOpen] = useState(false);
 	const [dashboardInfo, setDashboardInfo] = useState<DashboardData>({
 		id: boardId,
 		title: '',
@@ -95,6 +97,7 @@ export default function DashBoardEdit() {
 	}
 
 	useEffect(() => {
+		if (boardId === 0) return;
 		loadDashboardData(boardId);
 		loadMyInfo();
 		setMembersPagination({ dashboardId: boardId, page: 1, size: 4 });
@@ -102,6 +105,7 @@ export default function DashBoardEdit() {
 	}, [boardId]);
 
 	useEffect(() => {
+		if (membersPagination.dashboardId === 0 || invitationsPagination.dashboardId === 0) return;
 		loadDashboardMembersData(membersPagination);
 		loadInvitationsDashboardData(invitationsPagination);
 	}, [membersPagination, invitationsPagination]);
@@ -112,43 +116,54 @@ export default function DashBoardEdit() {
 	}
 
 	return (
-		<PageLayout boardId={boardId}>
-			<div className='flex h-fit min-h-full w-full flex-col gap-[2rem] bg-gray-F pb-[5.6rem] md:pb-[4.8rem] sm:gap-[1.7rem] sm:pb-[2.4rem]'>
-				<DashboardHeader dashboardId={boardId} title={''} />
-				<Link
-					href={`/dashboard/${boardId}`}
-					className='ml-[2rem] flex h-fit w-fit items-center justify-center gap-[0.6rem]'
-				>
-					<Image src={arrowForward} alt='돌아가기 버튼' className='sm:h-[1.8rem] sm:w-[1.8rem]' />
-					<span className='text-16-500 text-black-3 sm:text-14-500'>돌아가기</span>
-				</Link>
-				<div className='flex flex-col gap-[1.2rem] px-[2.8rem] sm:gap-[1.1rem]'>
-					<EditBox
-						loadDashboardData={loadDashboardData}
-						dashboardId={boardId}
-						title={dashboardInfo.title}
-						color={dashboardInfo.color}
-					/>
-					<MemberBox
-						hostId={dashboardInfo.userId}
-						members={members}
-						paginationInfo={membersPagination}
-						setPaginationInfo={setMembersPagination}
-					/>
-					<InvitationsBox
-						dashboardId={boardId}
-						paginationInfo={invitationsPagination}
-						setPaginationInfo={setInvitationsPagination}
-						invitations={invitationsDashboard}
-					/>
-					<button
-						onClick={() => handleDelete(boardId)}
-						className='flex  h-[6.2rem]  w-[32.5rem]  items-center justify-center rounded-[0.8rem]  border border-gray-D bg-gray-F text-18-500 text-black-3 sm:w-[100%] sm:text-16-500'
+		<>
+			<PageLayout boardId={boardId}>
+				<div className='flex h-fit min-h-full w-full flex-col gap-[2rem] bg-gray-F pb-[5.6rem] md:pb-[4.8rem] sm:gap-[1.7rem] sm:pb-[2.4rem]'>
+					<DashboardHeader dashboardId={boardId} title={''} />
+					<Link
+						href={`/dashboard/${boardId}`}
+						className='ml-[2rem] flex h-fit w-fit items-center justify-center gap-[0.6rem]'
 					>
-						<div>대시보드 삭제하기</div>
-					</button>
+						<Image src={arrowForward} alt='돌아가기 버튼' className='sm:h-[1.8rem] sm:w-[1.8rem]' />
+						<span className='text-16-500 text-black-3 sm:text-14-500'>돌아가기</span>
+					</Link>
+					<div className='flex flex-col gap-[1.2rem] px-[2.8rem] sm:gap-[1.1rem]'>
+						<EditBox
+							loadDashboardData={loadDashboardData}
+							dashboardId={boardId}
+							title={dashboardInfo.title}
+							color={dashboardInfo.color}
+						/>
+						<MemberBox
+							hostId={dashboardInfo.userId}
+							members={members}
+							paginationInfo={membersPagination}
+							setPaginationInfo={setMembersPagination}
+						/>
+						<InvitationsBox
+							dashboardId={boardId}
+							paginationInfo={invitationsPagination}
+							setPaginationInfo={setInvitationsPagination}
+							invitations={invitationsDashboard}
+						/>
+						<button
+							onClick={() => setIsDashboardDeleteConfirmModalOpen(true)}
+							className='flex h-[6.2rem] w-[32.5rem] items-center justify-center rounded-[0.8rem]  border border-gray-D bg-gray-F text-18-500 text-black-3 sm:w-[100%] sm:text-16-500'
+						>
+							<div>대시보드 삭제하기</div>
+						</button>
+					</div>
 				</div>
-			</div>
-		</PageLayout>
+			</PageLayout>
+			{isDashboardDeleteConfirmModalOpen && (
+				<ConfirmModal
+					content='대시보드를 삭제하시겠습니까?'
+					id={boardId}
+					isOpen={isDashboardDeleteConfirmModalOpen}
+					setOpen={setIsDashboardDeleteConfirmModalOpen}
+					request={handleDelete}
+				/>
+			)}
+		</>
 	);
 }

@@ -133,7 +133,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 
 	return (
 		<>
-			<header className='container sticky inset-0 flex h-[7rem]  flex-row items-center justify-between border-b-[0.1rem] border-gray-D   bg-white pl-[2rem] sm:h-[6rem] sm:pl-0'>
+			<header className='container sticky inset-0 z-HEADER flex h-[7rem] flex-row items-center justify-between border-b-[0.1rem] border-gray-D bg-white pl-[2rem] sm:h-[6rem] sm:pl-0'>
 				{router.pathname.startsWith('/mypage') ? (
 					<div className='container flex flex-row gap-[0.4rem]  text-20-700 text-black-3'>
 						<span className='md:hidden sm:hidden'>{dashboardInfo.title ? dashboardInfo.title : title}</span>
