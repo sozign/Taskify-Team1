@@ -54,7 +54,7 @@ export default function DashBoardEdit() {
 	}, [boardId]);
 
 	useEffect(() => {
-		if (myId !== undefined && dashboardInfo.userId !== undefined) {
+		if (myId !== undefined && dashboardInfo.userId !== 0) {
 			setIsAccessPermissionModal(myId !== dashboardInfo.userId);
 		}
 	}, [myId, dashboardInfo.userId]);
@@ -66,15 +66,7 @@ export default function DashBoardEdit() {
 
 	return (
 		<>
-			{isAccessPermissionModal ? (
-				<NotInvitedMemberAlert
-					alertMessage='접근 권한이 없습니다.'
-					modalControl={{
-						isOpen: isAccessPermissionModal,
-						setOpen: setIsAccessPermissionModal,
-					}}
-				/>
-			) : (
+			{!isAccessPermissionModal ? (
 				<PageLayout boardId={boardId}>
 					<div className='flex h-fit min-h-full w-full flex-col gap-[2rem] bg-gray-F pb-[5.6rem] md:pb-[4.8rem] sm:gap-[1.7rem] sm:pb-[2.4rem]'>
 						<DashboardHeader dashboardId={boardId} title={''} />
@@ -108,6 +100,14 @@ export default function DashBoardEdit() {
 						/>
 					)}
 				</PageLayout>
+			) : (
+				<NotInvitedMemberAlert
+					alertMessage='접근 권한이 없습니다.'
+					modalControl={{
+						isOpen: isAccessPermissionModal,
+						setOpen: setIsAccessPermissionModal,
+					}}
+				/>
 			)}
 		</>
 	);
