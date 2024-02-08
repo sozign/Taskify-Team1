@@ -70,6 +70,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	};
 
 	async function loadDashboardData(dashboardId: number) {
+		if (!boardId) return;
 		try {
 			const resData = await getDashboardItem(dashboardId);
 			setDashboardInfo(resData);
