@@ -1,5 +1,5 @@
 import { postColumn } from '@/lib/api';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../common/Buttons/Button';
 import FormInput from '../common/Input/FormInput';
@@ -19,17 +19,9 @@ interface FormValueProps {
 }
 
 function AddColumnModal({ isOpen, setOpen, dashboardId, loadColumn }: ColumnAddModalProps) {
-	const { value } = useDashboardContext();
-
-	const [existColumns, setExistColumns] = useState<string[]>([]);
-
-	async function loadExistColumns() {
-		setExistColumns(value.columnList.map((temp) => temp.title));
-	}
-
-	useEffect(() => {
-		loadExistColumns();
-	}, []);
+	const {
+		value: { columnList },
+	} = useDashboardContext();
 
 	const {
 		handleSubmit,
@@ -46,6 +38,7 @@ function AddColumnModal({ isOpen, setOpen, dashboardId, loadColumn }: ColumnAddM
 	const RULES = {
 		title: {
 			validate: (value: string | number) => {
+				const existColumns = columnList.map((column) => column.title);
 				return !existColumns.includes(String(value)) || '중복된 컬럼 이름입니다.';
 			},
 		},
