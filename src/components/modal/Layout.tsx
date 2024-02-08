@@ -22,9 +22,9 @@ function Layout({ children, $modalType, title, isOpen, setOpen }: LayoutProps) {
 
 	if ($modalType === 'NotFound')
 		return createPortal(
-			<div className='overlay fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black-0/50'>
+			<div className='overlay fixed left-0 top-0 z-MODALLAYOUT flex h-full w-full items-center justify-center bg-black-0/50'>
 				<div
-					className={`modal relative z-10 ${modalType[$modalType]}`}
+					className={`modal relative z-MODAL ${modalType[$modalType]}`}
 					onClick={(e) => {
 						e.stopPropagation();
 					}}
@@ -37,11 +37,11 @@ function Layout({ children, $modalType, title, isOpen, setOpen }: LayoutProps) {
 	else
 		return createPortal(
 			<div
-				className='overlay fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black-0/50'
+				className='overlay fixed left-0 top-0 z-MODALLAYOUT flex h-full w-full items-center justify-center bg-black-0/50'
 				onClick={() => setOpen((prev) => !prev)}
 			>
 				<div
-					className={`modal relative z-10 ${modalType[$modalType]}`}
+					className={`modal relative z-MODAL ${modalType[$modalType]}`}
 					onClick={(e) => {
 						e.stopPropagation();
 					}}
