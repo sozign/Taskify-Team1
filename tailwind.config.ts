@@ -272,6 +272,10 @@ const config: Config = {
 				NESTEDMODALLAYOUT: '4',
 				NESTEDMODAL: '5',
 			},
+			scale: {
+				103: '1.03',
+				104: '1.04',
+			},
 		},
 	},
 	plugins: [],

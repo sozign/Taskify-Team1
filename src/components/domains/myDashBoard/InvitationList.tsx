@@ -66,7 +66,7 @@ function InvitationList({
 	// 검색
 	const searchInvitation = async (keyword: string) => {
 		try {
-			const data = await getInvitations({ size: 10, title: keyword });
+			const data = await getInvitations({ size: 100, title: keyword });
 			const searchInvitations = data.invitations;
 			// 중복 체크
 			const uniqueInvitations = Array.from(
@@ -75,6 +75,9 @@ function InvitationList({
 				removeDuplicateDashboard(searchInvitations).find((invitation) => invitation.dashboard.id === dashboardId),
 			);
 			setInvitationList(uniqueInvitations);
+			if (keyword == '') {
+				loadInitialInvitations();
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -110,13 +113,13 @@ function InvitationList({
 				intersectionObserver.unobserve(lastElementRef.current);
 			}
 		};
-	}, [cursorId.current]);
+	}, [cursorId.current, searchKeyword]);
 
 	return (
 		<div>
 			<div className='flex h-[100%] w-[102.2rem] flex-col gap-[2rem] rounded-[0.8rem]  bg-white px-[2.8rem] py-[3.2rem] md:w-[100%] sm:w-[100%] sm:px-[2.4rem] sm:py-[2.4rem]'>
 				<h2 className='text-24-700 sm:text-20-600'>초대받은 대시보드</h2>
-				{!loading && !searchLoading && invitationList.length === 0 && searchKeyword === '' ? (
+				{!loading && !searchLoading && invitationList?.length === 0 && searchKeyword === '' ? (
 					<NotInvited />
 				) : (
 					<div>
@@ -144,7 +147,7 @@ function InvitationList({
 									<li className='w-1/3'>수락여부</li>
 								</ul>
 								<ul className='flex flex-col  sm:w-[100%]'>
-									{invitationList.map((invitation) => (
+									{invitationList?.map((invitation) => (
 										<Invitation onAcceptInvitation={onAcceptInvitation} invitation={invitation} key={invitation?.id} />
 									))}
 								</ul>
