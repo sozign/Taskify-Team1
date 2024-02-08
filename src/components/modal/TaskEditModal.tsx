@@ -61,7 +61,7 @@ export default function TaskEditModal({ editModalControl, cardItem, columnInfo }
 			description: cardItem.description,
 			tags: cardItem.tags,
 			assigneeUserId: cardItem?.assignee?.id,
-			dueDate: new Date(cardItem.dueDate),
+			dueDate: cardItem.dueDate === null ? undefined : new Date(cardItem.dueDate),
 			imageUrl: cardItem?.imageUrl,
 			columnId: columnInfo.id,
 		},
