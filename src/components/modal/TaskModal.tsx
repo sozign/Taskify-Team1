@@ -208,7 +208,7 @@ export default function TaskModal({ taskModalControl, editModalControl, cardItem
 									.slice()
 									.reverse() // 최신순으로 렌더링
 									.map((commentItem) => (
-										<Comment key={commentItem.id} commentItem={commentItem} />
+										<Comment loadComments={loadComments} key={commentItem.id} commentItem={commentItem} />
 									))}
 							</div>
 						)}
