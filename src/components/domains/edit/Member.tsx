@@ -1,17 +1,18 @@
-import { MembersData } from '@/constants/types';
-import Image from 'next/image';
-import Button from '../../common/Buttons/Button';
-import { deleteMembers } from '@/lib/api';
-import Crown from '@/../../public/assets/royalCrownIcon.svg';
-import { useState } from 'react';
+import Crown from '@/../../Public/assets/royalCrownIcon.svg';
 import ConfirmModal from '@/components/modal/ConfirmModal';
+import { MembersData } from '@/constants/types';
+import { deleteMembers } from '@/lib/api';
+import Image from 'next/image';
+import { useState } from 'react';
+import Button from '../../common/Buttons/Button';
 
 interface MemberProps {
 	memberData: MembersData;
 	hostId: number;
+	loadDashboardMembersData: () => Promise<void>;
 }
 
-function Member({ hostId, memberData }: MemberProps) {
+function Member({ hostId, memberData, loadDashboardMembersData }: MemberProps) {
 	const [isMemberDeleteModalOpen, setIsMemberDeleteModalOpen] = useState(false);
 
 	async function handleDeleteMember(memberId: number) {
@@ -55,6 +56,7 @@ function Member({ hostId, memberData }: MemberProps) {
 					isOpen={isMemberDeleteModalOpen}
 					setOpen={setIsMemberDeleteModalOpen}
 					request={handleDeleteMember}
+					reload={loadDashboardMembersData}
 					id={memberData.id}
 				/>
 			)}
