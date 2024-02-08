@@ -185,8 +185,8 @@ export async function getComments({ size, cursorId, cardId }: getCommentsProps) 
 /**
  * 댓글 수정
  */
-export async function putComment(commentId: number, comment: CommentPut) {
-	const res = await authAxios.put<CommentData>(`/comments/${commentId}`, comment);
+export async function putComment(commentId: number, content: string) {
+	const res = await authAxios.put<CommentData>(`/comments/${commentId}`, { content });
 	return res.data;
 }
 

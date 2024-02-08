@@ -1,11 +1,14 @@
 import { DashBoardContextProvider } from '@/context/DashboardContext';
-import '@/styles/globals.css';
+import { UserContextProvider } from '@/context/UserContext';
 import type { AppProps } from 'next/app';
+import '@/styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<DashBoardContextProvider>
-			<Component {...pageProps} />
-		</DashBoardContextProvider>
+		<UserContextProvider>
+			<DashBoardContextProvider>
+				<Component {...pageProps} />
+			</DashBoardContextProvider>
+		</UserContextProvider>
 	);
 }

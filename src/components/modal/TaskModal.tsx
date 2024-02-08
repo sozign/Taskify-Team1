@@ -9,6 +9,7 @@ import TagChip from '../common/chips/TagChip';
 import { CardData, CommentPost, CommentData } from '@/constants/types';
 import { deleteCardItem, getComments, postComment } from '@/lib/api';
 import ConfirmModal from './ConfirmModal';
+import Comment from '../domains/dashboard/Comment';
 
 interface TaskModalProps {
 	taskModalControl: {
@@ -32,7 +33,7 @@ export default function TaskModal({ taskModalControl, editModalControl, cardItem
 
 	async function loadComments() {
 		const query = {
-			size: 3,
+			size: 20,
 			cursorId: 0,
 			cardId: cardItem.id,
 		};
@@ -206,25 +207,9 @@ export default function TaskModal({ taskModalControl, editModalControl, cardItem
 								{commentsList
 									.slice()
 									.reverse() // 최신순으로 렌더링
-									.map((commentItem) => {
-										return (
-											<div key={commentItem.id} className='mb-[2rem] flex gap-[1.4rem]'>
-												<Avatar
-													className='h-[3rem] w-[3rem] flex-shrink-0 sm:h-[2.2rem] sm:w-[2.2rem] '
-													name={commentItem.author.nickname}
-												/>
-												<div>
-													<div className='flex gap-[0.8rem]'>
-														<p className='text-14-500 text-black-3'>{commentItem.author.nickname}</p>
-														<div className='text-12-400 text-gray-9'>{commentItem.createdAt.slice(0, 16)}</div>
-													</div>
-													<div className='mb-[1.2rem] text-14-400 '>{commentItem.content}</div>
-													<button className='mr-[1.2rem] text-12-400 text-gray-9 underline'>수정</button>
-													<button className='text-12-400 text-gray-9 underline'>삭제</button>
-												</div>
-											</div>
-										);
-									})}
+									.map((commentItem) => (
+										<Comment key={commentItem.id} commentItem={commentItem} />
+									))}
 							</div>
 						)}
 					</div>
