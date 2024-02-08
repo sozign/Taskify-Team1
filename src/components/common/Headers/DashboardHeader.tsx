@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import InviteModal from '@/components/modal/InviteModal';
 import { useRouter } from 'next/router';
 import HeaderNavDropdown from './HeaderNavDropdown';
-import { getDashboardItem, getMembers, getUsers } from '@/lib/api';
+import { getDashboardItem, getMembers } from '@/lib/api';
 import { DashboardData, MembersGet } from '@/constants/types';
 import royalCrownIcon from '@/../Public/assets/royalCrownIcon.svg';
 import settingIcon from '@/../Public/assets/settingIcon.svg';
@@ -12,23 +12,22 @@ import PlusIcon from '@/../Public/assets/PlusIcon.svg';
 import Vector from '@/../Public/assets/Vector.svg';
 import Avatar from '../Avatar';
 import _debounce from 'lodash/debounce';
+import { useUserContext } from '@/context/UserContext';
 
 interface HeaderNavProps {
 	dashboardId: number;
 	title?: string | null;
 }
 
-type profileFormData = {
-	email: string;
-	nickname: string;
-	profileImageUrl: string | null;
-};
-
 export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) {
+	const {
+		value: { userInfo },
+	} = useUserContext();
+
 	// 모달 1 열림, 닫힘 제어
 	const [isTaskEditModalOpen, setIsTaskEditModalOpen] = useState(false);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-	const [userData, setUserData] = useState<string>('');
+
 	const [members, setMembers] = useState<MembersGet>({
 		members: [],
 		totalCount: 4,
@@ -37,11 +36,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	const router = useRouter();
 	const boardId = +(router.query.boardid ?? 0);
 	const dropDownRef = useRef<HTMLDivElement>(null);
-	const [userInfo, setUserInfo] = useState<profileFormData>({
-		email: '',
-		nickname: '',
-		profileImageUrl: '',
-	});
+
 	const [dashboardInfo, setDashboardInfo] = useState<DashboardData>({
 		id: boardId,
 		title: '',
@@ -74,11 +69,6 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 		}
 	};
 
-	const userProfileData = async () => {
-		const response = await getUsers();
-		setUserData(response?.nickname);
-	};
-
 	async function loadDashboardData(dashboardId: number) {
 		try {
 			const resData = await getDashboardItem(dashboardId);
@@ -87,26 +77,9 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 			console.error('Error fetching data:', error);
 		}
 	}
-	const loadMember = async () => {
-		try {
-			const data = await getUsers();
-			const { email, nickname, profileImageUrl } = data;
-			setUserInfo({ email, nickname, profileImageUrl });
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	useEffect(() => {
-		loadMember();
-	}, []);
 
 	useEffect(() => {
 		getMembersData();
-	}, [boardId]);
-
-	useEffect(() => {
-		userProfileData();
 	}, [boardId]);
 
 	useEffect(() => {
@@ -130,7 +103,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	const moveHandler = () => {
 		router.push(dashBoardIdEditUrl);
 	};
-
+	if (!userInfo) return;
 	return (
 		<>
 			<header className='container sticky inset-0 z-HEADER flex h-[7rem] flex-row items-center justify-between border-b-[0.1rem] border-gray-D bg-white pl-[2rem] sm:h-[6rem] sm:pl-0'>
@@ -273,11 +246,11 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 									/>
 								) : (
 									<Avatar
-										name={userData}
+										name={userInfo.nickname}
 										className='h-[3.8rem] w-[3.8rem] flex-shrink-0 border-2 border-white text-16-600'
 									/>
 								)}
-								<span className='text-center text-16-600 sm:hidden'>{userData}</span>
+								<span className='text-center text-16-600 sm:hidden'>{userInfo.nickname}</span>
 								<div className='absolute right-0 top-[3.5rem]'>{isDropdownOpen && <HeaderNavDropdown />}</div>
 							</div>
 						</div>
