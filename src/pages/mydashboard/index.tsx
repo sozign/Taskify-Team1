@@ -3,17 +3,22 @@ import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
 import DashboardButton from '@/components/domains/myDashBoard/DashboardButton';
 import PaginationButton from '@/components/domains/myDashBoard/PaginationButton';
-import { getDashboards, putInvitations } from '@/lib/api';
+import { getDashboards, getUsers, putInvitations } from '@/lib/api';
 import { DashboardsGet, InvitationsGet } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
 import AddNewDashBoard from '@/components/modal/AddNewDashBoard';
+import { useUserContext } from '@/context/UserContext';
 
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
 	const [dashBoardData, setDashBoardData] = useState<DashboardsGet | undefined>();
 	const [paginationPage, setPaginationPage] = useState<number>(1);
 	const [acceptedResponse, setAcceptedResponse] = useState<InvitationsGet>();
+
+	const {
+		action: { setUserInfo },
+	} = useUserContext();
 
 	const dashboardLoad = async () => {
 		const data = await getDashboards({ size: 5, cursorId: 0, page: paginationPage, navigationMethod: 'pagination' });
@@ -25,7 +30,13 @@ export default function MyDashBoard() {
 		setAcceptedResponse(data);
 	};
 
+	async function loadUserInfo() {
+		const data = await getUsers();
+		setUserInfo(data);
+	}
+
 	useEffect(() => {
+		loadUserInfo();
 		dashboardLoad();
 	}, [paginationPage, acceptedResponse]);
 
