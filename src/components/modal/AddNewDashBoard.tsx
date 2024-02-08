@@ -1,4 +1,4 @@
-import CheckedIcon from '@/../../Public/assets/checked.svg';
+import CheckedIcon from '@/../../public/assets/checked.svg';
 import Layout from '../modal/Layout';
 import Button from '../common/Buttons/Button';
 import FormInput from '../common/Input/FormInput';

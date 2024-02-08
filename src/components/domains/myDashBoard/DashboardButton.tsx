@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import arrowIcon from '@/../../Public/assets/arrowIcon.svg';
-import royalCrownIcon from '@/../../Public/assets/royalCrownIcon.svg';
+import arrowIcon from '@/../../public/assets/arrowIcon.svg';
+import royalCrownIcon from '@/../../public/assets/royalCrownIcon.svg';
 import clsx from 'clsx';
 import Link from 'next/link';
 

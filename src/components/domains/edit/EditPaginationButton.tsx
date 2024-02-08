@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import arrowIcon from '@/../../Public/assets/arrowIcon.svg';
+import arrowIcon from '@/../../public/assets/arrowIcon.svg';
 import { getInvitationsDashboardProps } from '@/lib/api';
 
 function EditPaginationButton({
