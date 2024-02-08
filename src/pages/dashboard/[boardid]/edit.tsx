@@ -12,7 +12,6 @@ import {
 	getInvitationsDashboard,
 	getInvitationsDashboardProps,
 	getMembers,
-	getUsers,
 } from '@/lib/api';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,14 +40,6 @@ export default function DashBoardEdit() {
 		invitations: [],
 		totalCount: 5,
 	});
-	const [myInfo, setMyInfo] = useState<UserInfo>({
-		id: 0,
-		email: '',
-		nickname: '',
-		profileImageUrl: null,
-		createdAt: '',
-		updatedAt: '',
-	});
 	const [membersPagination, setMembersPagination] = useState<getInvitationsDashboardProps>({
 		dashboardId: boardId,
 		page: 1,
@@ -59,15 +50,6 @@ export default function DashBoardEdit() {
 		page: 1,
 		size: 5,
 	});
-
-	async function loadMyInfo() {
-		try {
-			const resData = await getUsers();
-			setMyInfo(resData);
-		} catch (error) {
-			console.error('Error fetching data:', error);
-		}
-	}
 
 	async function loadDashboardData(dashboardId: number) {
 		try {
@@ -99,7 +81,6 @@ export default function DashBoardEdit() {
 	useEffect(() => {
 		if (boardId === 0) return;
 		loadDashboardData(boardId);
-		loadMyInfo();
 		setMembersPagination({ dashboardId: boardId, page: 1, size: 4 });
 		setInvitationsPagination({ dashboardId: boardId, page: 1, size: 5 });
 	}, [boardId]);

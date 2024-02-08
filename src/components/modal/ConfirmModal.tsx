@@ -15,8 +15,8 @@ interface ConfirmModalProps {
 function ConfirmModal({ isOpen, setOpen, id, content, reload, request }: ConfirmModalProps) {
 	const router = useRouter();
 	async function handleConfirm(id: number) {
-		const status = await request(id);
-		console.log(status);
+		await request(id);
+
 		if (reload) await reload();
 		else router.reload();
 	}
