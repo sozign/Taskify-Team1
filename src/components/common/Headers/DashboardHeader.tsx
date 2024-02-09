@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import InviteModal from '@/components/modal/InviteModal';
 import { useRouter } from 'next/router';
 import HeaderNavDropdown from './HeaderNavDropdown';
-import { getDashboardItem, getMembers } from '@/lib/api';
+import { getDashboardItem, getMembers, getUsers } from '@/lib/api';
 import { DashboardData, MembersGet } from '@/constants/types';
 import royalCrownIcon from '@/../public/assets/royalCrownIcon.svg';
 import settingIcon from '@/../public/assets/settingIcon.svg';
@@ -22,6 +22,7 @@ interface HeaderNavProps {
 export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) {
 	const {
 		value: { userInfo },
+		action: { setUserInfo },
 	} = useUserContext();
 
 	// 모달 1 열림, 닫힘 제어
@@ -79,8 +80,14 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 		}
 	}
 
+	async function loadUserInfo() {
+		const data = await getUsers();
+		setUserInfo(data);
+	}
+
 	useEffect(() => {
 		getMembersData();
+		loadUserInfo();
 	}, [boardId]);
 
 	useEffect(() => {
@@ -104,6 +111,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	const moveHandler = () => {
 		router.push(dashBoardIdEditUrl);
 	};
+	console.log(userInfo);
 	if (!userInfo) return;
 	return (
 		<>

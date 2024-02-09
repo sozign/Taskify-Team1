@@ -16,10 +16,6 @@ export default function MyDashBoard() {
 	const [paginationPage, setPaginationPage] = useState<number>(1);
 	const [acceptedResponse, setAcceptedResponse] = useState<InvitationsGet>();
 
-	const {
-		action: { setUserInfo },
-	} = useUserContext();
-
 	const dashboardLoad = async () => {
 		const data = await getDashboards({ size: 5, cursorId: 0, page: paginationPage, navigationMethod: 'pagination' });
 		setDashBoardData(data);
@@ -30,13 +26,7 @@ export default function MyDashBoard() {
 		setAcceptedResponse(data);
 	};
 
-	async function loadUserInfo() {
-		const data = await getUsers();
-		setUserInfo(data);
-	}
-
 	useEffect(() => {
-		loadUserInfo();
 		dashboardLoad();
 	}, [paginationPage, acceptedResponse]);
 

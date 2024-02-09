@@ -5,20 +5,16 @@ import { isAxiosError } from 'axios';
 import AddColumnButton from '@/components/domains/dashboard/AddColumnButton';
 import Column from '@/components/domains/dashboard/Column';
 import AddColumnModal from '@/components/modal/AddColumnModal';
-import { getColumns, getMembers, getUsers } from '@/lib/api';
+import { getColumns, getMembers } from '@/lib/api';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDashboardContext } from '@/context/DashboardContext';
-import { useUserContext } from '@/context/UserContext';
 
 export default function MyDashBoard() {
 	const router = useRouter();
 	const boardId = +(router.query?.boardid ?? '');
 
 	const { value, action } = useDashboardContext();
-	const {
-		action: { setUserInfo },
-	} = useUserContext();
 
 	const [isAlertModalOpen, setIsAlertModalOpen] = useState<boolean>(false);
 	const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
@@ -43,16 +39,9 @@ export default function MyDashBoard() {
 		action.setMemberList(data.members);
 	}
 
-	async function loadUserInfo() {
-		if (!boardId) return;
-		const data = await getUsers();
-		setUserInfo(data);
-	}
-
 	useEffect(() => {
 		loadColumn();
 		loadDashboardMemberList();
-		loadUserInfo();
 	}, [boardId]);
 
 	return (
