@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import searchIcon from '@../../../Public/assets/searchIcon.svg';
+import searchIcon from '@../../../public/assets/searchIcon.svg';
 import { InvitationDashboardData, DashboardsGet } from '@/constants/types';
 import Invitation from './Invitation';
 import { useRef, useEffect, useState, useCallback } from 'react';
