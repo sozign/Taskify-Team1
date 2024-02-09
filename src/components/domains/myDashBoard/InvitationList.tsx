@@ -1,13 +1,12 @@
 import Image from 'next/image';
-import searchIcon from '@../../../public/assets/searchIcon.svg';
+import searchIcon from '@../../../Public/assets/searchIcon.svg';
 import { InvitationDashboardData, DashboardsGet } from '@/constants/types';
 import Invitation from './Invitation';
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { getInvitations } from '@/lib/api';
 import NotInvited from './NotInvited';
 import useAsync from '@/hooks/useAsync';
 import BarSpinner from '@/components/common/spinner/BarSpinner';
-import _debounce from 'lodash/debounce';
 
 function InvitationList({
 	dashBoardData,
@@ -66,8 +65,9 @@ function InvitationList({
 	// 검색
 	const searchInvitation = async (keyword: string) => {
 		try {
-			const data = await getInvitations({ size: 100, title: keyword });
+			const data = await getInvitations({ size: 10, title: keyword });
 			const searchInvitations = data.invitations;
+
 			// 중복 체크
 			const uniqueInvitations = Array.from(
 				new Set(removeDuplicateDashboard(searchInvitations).map((invitation) => invitation.dashboard.id)),
@@ -75,9 +75,6 @@ function InvitationList({
 				removeDuplicateDashboard(searchInvitations).find((invitation) => invitation.dashboard.id === dashboardId),
 			);
 			setInvitationList(uniqueInvitations);
-			if (keyword == '') {
-				loadInitialInvitations();
-			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -85,17 +82,15 @@ function InvitationList({
 
 	//검색 로딩
 	const [searchLoading, searchError, executeSearch] = useAsync(searchInvitation);
-	const handleSearch = React.useMemo(
-		() => _debounce((keyword: string) => executeSearch(keyword), 400),
+	const handleSearch = useCallback(
+		(keyword: string) => {
+			executeSearch(keyword);
+		},
 		[executeSearch],
 	);
 
-	const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchKeyword(e.target.value);
-		handleSearch(e.target.value);
-	}, []);
-
 	useEffect(() => {
+		console.log(invitationList);
 		loadInitialInvitations();
 		const intersectionObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
@@ -113,13 +108,13 @@ function InvitationList({
 				intersectionObserver.unobserve(lastElementRef.current);
 			}
 		};
-	}, [cursorId.current, searchKeyword]);
+	}, [cursorId.current]);
 
 	return (
 		<div>
 			<div className='flex h-[100%] w-[102.2rem] flex-col gap-[2rem] rounded-[0.8rem]  bg-white px-[2.8rem] py-[3.2rem] md:w-[100%] sm:w-[100%] sm:px-[2.4rem] sm:py-[2.4rem]'>
 				<h2 className='text-24-700 sm:text-20-600'>초대받은 대시보드</h2>
-				{!loading && !searchLoading && invitationList?.length === 0 && searchKeyword === '' ? (
+				{!loading && !searchLoading && invitationList.length === 0 && searchKeyword === '' ? (
 					<NotInvited />
 				) : (
 					<div>
@@ -131,7 +126,10 @@ function InvitationList({
 							/>
 							<input
 								value={searchKeyword}
-								onChange={handleChange}
+								onChange={(e) => {
+									handleSearch(e.target.value);
+									setSearchKeyword(e.target.value);
+								}}
 								placeholder='검색'
 								className='w-[100%] rounded-[0.6rem] border border-gray-D px-[4rem] py-[1.1rem] text-14-500 sm:px-[4.4rem]'
 							/>
@@ -140,14 +138,14 @@ function InvitationList({
 							)}
 						</div>
 						{!searchLoading && (
-							<div className='mt-[2rem] sm:mt-[0.8rem]'>
+							<div className='mt-[2rem]'>
 								<ul className='flex items-center  justify-between py-[0.4rem] text-16-400 text-gray-9 md:w-[100%]  sm:hidden'>
 									<li className=' w-1/3'>이름</li>
 									<li className='w-1/3'>초대자</li>
 									<li className='w-1/3'>수락여부</li>
 								</ul>
 								<ul className='flex flex-col  sm:w-[100%]'>
-									{invitationList?.map((invitation) => (
+									{invitationList.map((invitation) => (
 										<Invitation onAcceptInvitation={onAcceptInvitation} invitation={invitation} key={invitation?.id} />
 									))}
 								</ul>
