@@ -20,20 +20,20 @@ function Button({ type, color, className, onClick, children, variant, disabled =
 	};
 	switch (color) {
 		case 'violet':
-			combinedClassName += ' flex justify-center items-center rounded-md bg-violet-5 text-white ';
+			combinedClassName += ' hover:bg-indigo-400 flex justify-center items-center rounded-md bg-violet-5 text-white ';
 			break;
 		case 'white':
 			combinedClassName +=
-				' border border-[gray-D] flex justify-center items-center rounded-md bg-white text-violet-5 ';
+				' border border-[gray-D] hover:bg-gray-100 flex justify-center items-center rounded-md bg-white text-violet-5 ';
 			break;
 
 		case 'modalViolet':
-			combinedClassName += ` flex justify-center items-center rounded-[0.8rem] text-white ${disabled ? 'bg-gray-D' : 'bg-violet-5'}`;
+			combinedClassName += ` flex hover:bg-indigo-400 justify-center items-center rounded-[0.8rem] text-white ${disabled ? 'bg-gray-D' : 'bg-violet-5'}`;
 			break;
 
 		case 'modalWhite':
 			combinedClassName +=
-				' border border-[gray-D] flex justify-center items-center rounded-[0.8rem] bg-white text-gray-7 ';
+				' border border-[gray-D] hover:bg-gray-100 flex justify-center items-center rounded-[0.8rem] bg-white text-gray-7 ';
 			break;
 		case 'toggleColor':
 			combinedClassName += ' flex justify-center items-center rounded-md text-white ';

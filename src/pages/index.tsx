@@ -49,7 +49,7 @@ export default function Home() {
 							{isToken ? (
 								<button
 									onClick={() => router.push('/mydashboard')}
-									className='flex h-[5rem] w-[28rem] items-center justify-center rounded-[0.8rem] bg-violet-5 pb-[1.4rem] pt-[1.5rem] text-18-500 text-white md:text-16-500 sm:h-[4.2rem] sm:w-[23.52rem] sm:pb-[1.2rem] sm:pt-[1.3rem] sm:text-14-500'
+									className='flex h-[5rem] w-[28rem] items-center justify-center rounded-[0.8rem] bg-violet-5 pb-[1.4rem] pt-[1.5rem] text-18-500 text-white hover:scale-104 md:text-16-500 sm:h-[4.2rem] sm:w-[23.52rem] sm:pb-[1.2rem] sm:pt-[1.3rem] sm:text-14-500'
 								>
 									대시보드로 이동하기
 								</button>

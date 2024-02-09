@@ -22,7 +22,7 @@ const colorList: Record<string, string> = {
 function DashboardButton({ color, title, createdByMe, dashboardId }: DashboardInfo) {
 	return (
 		<Link href={`dashboard/${dashboardId}`}>
-			<button className=' flex h-[7rem] w-[33.2rem] items-center justify-between gap-[1.2rem] overflow-hidden rounded-[0.8rem]  border border-gray-D bg-white px-[2rem] py-[2.6rme] md:h-[6.8rem] md:w-[24.7rem] sm:h-[5.8rem] sm:w-[100%]'>
+			<button className=' flex h-[7rem] w-[33.2rem] transform items-center justify-between gap-[1.2rem] overflow-hidden rounded-[0.8rem] border  border-gray-D bg-white px-[2rem] py-[2.6rme] hover:scale-103 md:h-[6.8rem] md:w-[24.7rem] sm:h-[5.8rem] sm:w-[100%]'>
 				<div className='flex items-center'>
 					<div className={clsx('mr-[1.6rem] h-[0.8rem] w-[0.8rem] rounded-full', `${colorList[color]}`)}></div>
 					<div className='flex w-[22rem] items-center gap-[0.8rem] md:w-[15rem] '>
