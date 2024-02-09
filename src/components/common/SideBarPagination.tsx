@@ -37,7 +37,7 @@ function SideBarPagination({
 		}
 	};
 
-	const totalPages = Math.ceil(+paginationInfo.totalCount / 3);
+	const totalPages = Math.ceil(+paginationInfo.totalCount / 10);
 	const handleNextPage = () => {
 		if (paginationInfo.page < totalPages) {
 			setPaginationInfo((prevPaginationInfo: any) => ({
@@ -49,6 +49,9 @@ function SideBarPagination({
 
 	return (
 		<div className='flex items-center justify-end gap-[1.6rem]'>
+			<div className='text-14-500 text-black-3  sm:text-12-500'>
+				{totalPages} 페이지중 {paginationInfo.page}
+			</div>
 			<div className='flex'>
 				<button
 					onClick={() => handlePreviousPage()}

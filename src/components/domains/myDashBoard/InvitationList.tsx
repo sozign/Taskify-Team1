@@ -65,7 +65,7 @@ function InvitationList({
 	// 검색
 	const searchInvitation = async (keyword: string) => {
 		try {
-			const data = await getInvitations({ size: 10, title: keyword });
+			const data = await getInvitations({ size: 100, title: keyword });
 			const searchInvitations = data.invitations;
 
 			// 중복 체크
@@ -90,7 +90,6 @@ function InvitationList({
 	);
 
 	useEffect(() => {
-		console.log(invitationList);
 		loadInitialInvitations();
 		const intersectionObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {

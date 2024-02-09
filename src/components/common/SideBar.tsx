@@ -33,7 +33,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 			navigationMethod: 'pagination',
 			cursorId: 0,
 			page: paginationInfo.page,
-			size: 5,
+			size: 10,
 		});
 		setDashBoardList(data.dashboards);
 		setPaginationInfo((prev) => ({
