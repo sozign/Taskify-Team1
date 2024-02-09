@@ -18,6 +18,7 @@ function InvitationList({
 	const [invitationList, setInvitationList] = useState<(InvitationDashboardData | undefined)[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [searchKeyword, setSearchKeyword] = useState('');
+
 	const cursorId = useRef<number>(0);
 	const lastElementRef = useRef<HTMLDivElement>(null);
 
@@ -65,20 +66,35 @@ function InvitationList({
 	// 검색
 	const searchInvitation = async (keyword: string) => {
 		try {
-			const data = await getInvitations({ size: 100, title: keyword });
+			const data = await getInvitations({ size: 20, title: keyword });
 			const searchInvitations = data.invitations;
+
+			if (keyword === '') {
+				loadInitialInvitations();
+			}
 
 			// 중복 체크
 			const uniqueInvitations = Array.from(
-				new Set(removeDuplicateDashboard(searchInvitations).map((invitation) => invitation.dashboard.id)),
+				new Set(removeDuplicates(searchInvitations).map((invitation) => invitation.dashboard.id)),
 			).map((dashboardId) =>
-				removeDuplicateDashboard(searchInvitations).find((invitation) => invitation.dashboard.id === dashboardId),
+				removeDuplicates(searchInvitations).find((invitation) => invitation.dashboard.id === dashboardId),
 			);
+
 			setInvitationList(uniqueInvitations);
 		} catch (error) {
 			console.error(error);
 		}
 	};
+
+	// const searchLink = async (keyword: string) => {
+	// 	const filteredLinks = folderList[0].links?.filter(
+	// 	  (link: Link) =>
+	// 		link.url?.includes(keyword) ||
+	// 		link.title?.includes(keyword) ||
+	// 		link.description?.includes(keyword)
+	// 	);
+	// 	setSearchLinks(filteredLinks);
+	//   };
 
 	//검색 로딩
 	const [searchLoading, searchError, executeSearch] = useAsync(searchInvitation);
@@ -91,6 +107,7 @@ function InvitationList({
 
 	useEffect(() => {
 		loadInitialInvitations();
+
 		const intersectionObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
 				if (!entry.isIntersecting) return;
