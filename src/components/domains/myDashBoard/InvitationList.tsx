@@ -86,16 +86,6 @@ function InvitationList({
 		}
 	};
 
-	// const searchLink = async (keyword: string) => {
-	// 	const filteredLinks = folderList[0].links?.filter(
-	// 	  (link: Link) =>
-	// 		link.url?.includes(keyword) ||
-	// 		link.title?.includes(keyword) ||
-	// 		link.description?.includes(keyword)
-	// 	);
-	// 	setSearchLinks(filteredLinks);
-	//   };
-
 	//검색 로딩
 	const [searchLoading, searchError, executeSearch] = useAsync(searchInvitation);
 	const handleSearch = useCallback(
