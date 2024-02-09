@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import searchIcon from '@../../../public/assets/searchIcon.svg';
-import { InvitationDashboardData, DashboardsGet } from '@/constants/types';
+import { InvitationDashboardData } from '@/constants/types';
 import Invitation from './Invitation';
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { getInvitations } from '@/lib/api';
@@ -9,53 +9,26 @@ import useAsync from '@/hooks/useAsync';
 import BarSpinner from '@/components/common/spinner/BarSpinner';
 
 function InvitationList({
-	dashBoardData,
 	onAcceptInvitation,
 }: {
-	dashBoardData: DashboardsGet | undefined;
 	onAcceptInvitation: (invitationId: number, accept: boolean) => Promise<void>;
 }) {
 	const [invitationList, setInvitationList] = useState<(InvitationDashboardData | undefined)[]>([]);
 	const [loading, setLoading] = useState(true);
-	const [searchKeyword, setSearchKeyword] = useState('');
-
+	const [searchKeyword, setSearchKeyword] = useState<string>('');
 	const cursorId = useRef<number>(0);
 	const lastElementRef = useRef<HTMLDivElement>(null);
 
-	//중복 대시보드 처리
-	const removeDuplicateDashboard = (invitations: InvitationDashboardData[]) => {
-		const uniqueDashBoard = invitations.filter(
-			(addInvitation) => !dashBoardData?.dashboards.some((dashboard) => addInvitation.dashboard.id === dashboard.id),
-		);
-		return uniqueDashBoard;
-	};
-
-	//중복 초대 처리
-	const removeDuplicates = (invitations: InvitationDashboardData[]) => {
-		const uniqueInvitation = removeDuplicateDashboard(invitations as InvitationDashboardData[])?.filter(
-			(invitation, index, self) => {
-				const currentDashboardId = invitation.dashboard.id;
-				return self.findIndex((invitation) => invitation.dashboard.id === currentDashboardId) === index;
-			},
-		);
-		return uniqueInvitation;
-	};
-
-	//초기 초대 요청
-	const loadInitialInvitations = () => {
-		setInvitationList(removeDuplicates(invitationList as InvitationDashboardData[]));
-	};
-
-	//추가 초대 요청
+	// 추가 초대 요청
 	const loadMoreInvitations = async () => {
 		setLoading(true);
+
 		try {
 			if (cursorId.current === null) return;
 			const data = await getInvitations({ size: 2, cursorId: cursorId.current });
-			const addInvitations = data.invitations;
 			cursorId.current = data.cursorId;
 
-			setInvitationList((prevList) => [...prevList, ...removeDuplicates(addInvitations)]);
+			setInvitationList((prevList) => [...prevList, ...data.invitations]);
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -67,20 +40,7 @@ function InvitationList({
 	const searchInvitation = async (keyword: string) => {
 		try {
 			const data = await getInvitations({ size: 20, title: keyword });
-			const searchInvitations = data.invitations;
-
-			if (keyword === '') {
-				loadInitialInvitations();
-			}
-
-			// 중복 체크
-			const uniqueInvitations = Array.from(
-				new Set(removeDuplicates(searchInvitations).map((invitation) => invitation.dashboard.id)),
-			).map((dashboardId) =>
-				removeDuplicates(searchInvitations).find((invitation) => invitation.dashboard.id === dashboardId),
-			);
-
-			setInvitationList(uniqueInvitations);
+			setInvitationList(data.invitations);
 		} catch (error) {
 			console.error(error);
 		}
@@ -88,16 +48,23 @@ function InvitationList({
 
 	//검색 로딩
 	const [searchLoading, searchError, executeSearch] = useAsync(searchInvitation);
-	const handleSearch = useCallback(
-		(keyword: string) => {
+
+	const debounce = (func: (keyword: string) => void, delay: number) => {
+		let timer: ReturnType<typeof setTimeout>;
+		return (keyword: string) => {
+			clearTimeout(timer);
+			timer = setTimeout(() => func(keyword), delay);
+		};
+	};
+
+	const handleSearchDebounced = useCallback(
+		debounce((keyword: string) => {
 			executeSearch(keyword);
-		},
-		[executeSearch],
+		}, 300),
+		[],
 	);
 
 	useEffect(() => {
-		loadInitialInvitations();
-
 		const intersectionObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
 				if (!entry.isIntersecting) return;
@@ -133,7 +100,7 @@ function InvitationList({
 							<input
 								value={searchKeyword}
 								onChange={(e) => {
-									handleSearch(e.target.value);
+									handleSearchDebounced(e.target.value);
 									setSearchKeyword(e.target.value);
 								}}
 								placeholder='검색'

@@ -48,14 +48,14 @@ function SideBarPagination({
 	};
 
 	return (
-		<div className='flex items-center justify-end gap-[1.6rem]'>
-			<div className='text-14-500 text-black-3  sm:text-12-500'>
+		<div className='md: flex items-center justify-end gap-[1rem]'>
+			<div className='md:text-10-500 text-14-500 text-black-3 md:hidden sm:hidden '>
 				{totalPages} 페이지중 {paginationInfo.page}
 			</div>
-			<div className='flex'>
+			<div className='flex items-center justify-center'>
 				<button
 					onClick={() => handlePreviousPage()}
-					className='flex h-[4rem] w-[4rem] items-center justify-center rounded-l-lg sm:h-[3.6rem] sm:w-[3.6rem]'
+					className='flex h-[4rem] w-[4rem] items-center justify-center  sm:h-[2.5rem] sm:w-[2.5rem]'
 				>
 					<Image
 						onMouseEnter={handleHover}
@@ -68,7 +68,7 @@ function SideBarPagination({
 				</button>
 				<button
 					onClick={() => handleNextPage()}
-					className='flex h-[4rem]  w-[4rem] scale-x-[-1] transform items-center justify-center rounded-l-lg sm:h-[3.6rem] sm:w-[3.6rem]'
+					className='flex h-[4rem]  w-[4rem] scale-x-[-1] transform items-center justify-center  sm:h-[2.5rem] sm:w-[2.5rem]'
 				>
 					<Image
 						onMouseEnter={handleHover}

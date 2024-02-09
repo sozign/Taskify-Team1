@@ -3,12 +3,11 @@ import DashboardHeader from '@/components/common/Headers/DashboardHeader';
 import AddDashboardButton from '@/components/common/Buttons/addDashboardButton';
 import DashboardButton from '@/components/domains/myDashBoard/DashboardButton';
 import PaginationButton from '@/components/domains/myDashBoard/PaginationButton';
-import { getDashboards, getUsers, putInvitations } from '@/lib/api';
+import { getDashboards, putInvitations } from '@/lib/api';
 import { DashboardsGet, InvitationsGet } from '@/constants/types';
 import PageLayout from '@/components/common/PageLayout';
 import InvitationList from '@/components/domains/myDashBoard/InvitationList';
 import AddNewDashBoard from '@/components/modal/AddNewDashBoard';
-import { useUserContext } from '@/context/UserContext';
 
 export default function MyDashBoard() {
 	const [addDashBoardModalOpen, setAddDashBoardModalOpen] = useState(false);
@@ -59,7 +58,7 @@ export default function MyDashBoard() {
 							/>
 						</div>
 						<div className='h-[100%]'>
-							<InvitationList dashBoardData={dashBoardData} onAcceptInvitation={handleAcceptInvitation} />
+							<InvitationList onAcceptInvitation={handleAcceptInvitation} />
 						</div>
 					</div>
 				</div>

@@ -50,7 +50,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 
 	return (
 		<>
-			<div className='flex h-full w-full flex-col justify-between border-r border-gray-D  px-[1.2rem] pb-[3rem] '>
+			<div className='flex h-full w-full flex-col justify-between border-r border-gray-D px-[1.2rem] pb-[3rem] sm:items-center  '>
 				<div>
 					<Link href={'/'} className='mb-[4.4rem] mt-[0.8rem] flex justify-start p-[1.2rem]'>
 						<Image alt='로고' src={TaskifyImage} />
