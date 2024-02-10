@@ -5,7 +5,6 @@ import Column from '@/components/domains/dashboard/Column';
 import AddColumnModal from '@/components/modal/AddColumnModal';
 import NotInvitedMemberAlert from '@/components/modal/NotInvitedMemberAlert';
 import { useDashboardContext } from '@/context/DashboardContext';
-import { useUserContext } from '@/context/UserContext';
 import { getColumns, getMembers } from '@/lib/api';
 import { isAxiosError } from 'axios';
 import { useRouter } from 'next/router';
