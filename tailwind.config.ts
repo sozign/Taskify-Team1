@@ -267,10 +267,9 @@ const config: Config = {
 			},
 			zIndex: {
 				HEADER: '1',
-				MODALLAYOUT: '2',
-				MODAL: '3',
-				NESTEDMODALLAYOUT: '4',
-				NESTEDMODAL: '5',
+				NAVDROPDOWN: '2',
+				MODALLAYOUT: '3',
+				MODAL: '4',
 			},
 			scale: {
 				103: '1.03',
