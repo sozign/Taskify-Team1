@@ -1,5 +1,5 @@
-import notInvited from '@/../../Public/assets/notInvited.svg';
-import addBox from '@/../Public/assets/addBox.svg';
+import notInvited from '@/../../public/assets/notInvited.svg';
+import addBox from '@/../public/assets/addBox.svg';
 import InviteModal from '@/components/modal/InviteModal';
 import { InvitationsDashboardGet } from '@/constants/types';
 import { getInvitationsDashboard, getInvitationsDashboardProps } from '@/lib/api';

@@ -1,4 +1,4 @@
-import Crown from '@/../../Public/assets/royalCrownIcon.svg';
+import Crown from '@/../../public/assets/royalCrownIcon.svg';
 import ConfirmModal from '@/components/modal/ConfirmModal';
 import { MembersData } from '@/constants/types';
 import { deleteMembers } from '@/lib/api';
