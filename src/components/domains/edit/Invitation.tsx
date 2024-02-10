@@ -1,19 +1,21 @@
+import Layout from '@/components/modal/Layout';
 import { InvitationDashboardData } from '@/constants/types';
-import Button from '../../common/Buttons/Button';
 import { deleteInvitationDashboard } from '@/lib/api';
 import { useState } from 'react';
-import Layout from '@/components/modal/Layout';
+import Button from '../../common/Buttons/Button';
 
 interface InvitationProps {
 	invitationData: InvitationDashboardData;
 	dashboardId: number;
+	loadInvitationsDashboardData: () => Promise<void>;
 }
 
-function Invitation({ invitationData, dashboardId }: InvitationProps) {
+function Invitation({ invitationData, dashboardId, loadInvitationsDashboardData }: InvitationProps) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	async function handleDeleteMember(dashboardId: number, invitationId: number) {
 		await deleteInvitationDashboard(dashboardId, invitationId);
+		loadInvitationsDashboardData();
 	}
 
 	return (

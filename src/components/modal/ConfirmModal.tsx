@@ -1,7 +1,7 @@
+import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import Button from '../common/Buttons/Button';
 import Layout from './Layout';
-import { useRouter } from 'next/router';
 
 interface ConfirmModalProps {
 	isOpen: boolean;
@@ -9,7 +9,7 @@ interface ConfirmModalProps {
 	content: string;
 	id: number;
 	request: (id: number) => Promise<number | void>;
-	reload?: () => Promise<void>;
+	reload?: () => Promise<void | boolean>;
 }
 
 function ConfirmModal({ isOpen, setOpen, id, content, reload, request }: ConfirmModalProps) {

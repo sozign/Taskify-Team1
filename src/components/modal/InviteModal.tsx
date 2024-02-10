@@ -1,42 +1,48 @@
 import { postInvitationDashboard } from '@/lib/api';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../common/Buttons/Button';
-import FormInput from '../common/Input/FormInput';
 import Layout from './Layout';
+import { VALIDATE_RULES } from '@/constants/validation';
+import { AxiosError } from 'axios';
+import AuthInput from '../common/Input/AuthInput';
 
 interface ModalProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	dashboardId: number;
+	loadInvitationsDashboardData?: () => Promise<void>;
 }
 
 interface FormValueProps {
 	email: string;
 }
 
-function InviteModal({ isOpen, setIsOpen, dashboardId }: ModalProps) {
+function InviteModal({ isOpen, setIsOpen, dashboardId, loadInvitationsDashboardData }: ModalProps) {
+	const [errorMessage, setErrorMessage] = useState<string>();
+
 	const {
 		handleSubmit,
-		control,
+		register,
 		formState: { errors },
 	} = useForm<FormValueProps>({
-		mode: 'onBlur',
+		mode: 'onChange',
 		defaultValues: {
 			email: '',
 		},
 	});
 
-	const RULES = {
-		email: {
-			required: '이메일 형식으로 작성해 주세요.',
-		},
-	};
-
 	// 모달 1 폼 제출
 	const onSubmit: SubmitHandler<FormValueProps> = async (data) => {
-		await postInvitationDashboard(dashboardId, data);
-		setIsOpen((prev) => !prev);
+		try {
+			const res = await postInvitationDashboard(dashboardId, data);
+			if (loadInvitationsDashboardData !== undefined) loadInvitationsDashboardData();
+			setIsOpen((prev) => !prev);
+		} catch (err) {
+			if (err instanceof AxiosError) {
+				setErrorMessage(err.response?.data.message);
+			}
+		}
 	};
 
 	// 모달 1 제출 가능 여부 관리
@@ -46,12 +52,13 @@ function InviteModal({ isOpen, setIsOpen, dashboardId }: ModalProps) {
 		<>
 			<Layout $modalType='Modal' title='초대하기' isOpen={isOpen} setOpen={setIsOpen}>
 				<form className='flex flex-col gap-[2.8rem] sm:gap-[2.4rem]' onSubmit={handleSubmit(onSubmit)}>
-					<FormInput<FormValueProps>
+					<AuthInput
+						type='email'
+						required={!!VALIDATE_RULES.email?.required}
 						label='이메일'
-						name='email'
-						control={control}
-						rules={RULES.email}
-						required={!!('required' in RULES.email)}
+						placeholder='이메일을 입력해 주세요.'
+						errorMessage={errorMessage || errors?.email?.message}
+						{...register('email', VALIDATE_RULES.email)}
 					/>
 					<div className='flex flex-row justify-end gap-[1.2rem]'>
 						<Button

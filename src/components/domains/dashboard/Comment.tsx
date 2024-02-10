@@ -5,7 +5,13 @@ import { useUserContext } from '@/context/UserContext';
 import { deleteComment, putComment } from '@/lib/api';
 import { useState } from 'react';
 
-export default function Comment({ commentItem }: { commentItem: CommentData }) {
+export default function Comment({
+	commentItem,
+	loadComments,
+}: {
+	commentItem: CommentData;
+	loadComments: () => Promise<void>;
+}) {
 	const {
 		value: { userInfo },
 	} = useUserContext();
@@ -66,6 +72,7 @@ export default function Comment({ commentItem }: { commentItem: CommentData }) {
 			</div>
 			<ConfirmModal
 				request={deleteComment}
+				reload={loadComments}
 				id={commentItem.id}
 				isOpen={isConfirmOpen}
 				setOpen={setIsConfirmOpen}
