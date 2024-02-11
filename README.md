@@ -166,7 +166,7 @@ src
 <br>
 
   ### 박운성<br>
-- landing, dashboard/{boardId}/edit Page ui제작<br>
+- landing, dashboard/{boardId}/edit Page ui 제작<br>
 - 페이지네이션 기반 초대 기록, 구성원 조회 및 삭제 기능 구현<br>
 - Modal 관련 공통 컴포넌트 제작<br>
   (Modal Layout, ConfirmModal)
@@ -174,7 +174,7 @@ src
 - 전체 api, api 관련 type 추가<br>
 
 ### 박지원<br>
-- login, signup Page ui제작<br>
+- login, signup Page ui 제작<br>
 - react-hook-form 기반 회원가입, 로그인 기능 구현<br>
 - Auth 관련 유효성 검사, debounce 적용<br>
 - Auth 관련 동적 에러 메세지 모달 제작<br>
@@ -191,7 +191,7 @@ src
   (FormInput, TagInput, AuthInput)<br>
 
 ### 정현진<br>
-- mypage Page ui제작<br>
+- mypage Page ui 제작<br>
 - react-hook-form 기반 form 제작<br>
 - input 값 기반 버튼 활성화 기능 구현 및 관련 모달 제작<br>
 - 이미지 upload 및 preview 기능 구현
