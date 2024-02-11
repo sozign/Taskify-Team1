@@ -89,10 +89,64 @@ $ npm run dev
 <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
 <img src="https://img.shields.io/badge/reactRouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
 <img src="https://img.shields.io/badge/react--hook--form-663399?style=for-the-badge&logo=react&logoColor=white">
+
 <br>
 
 ### 2) Directory 구조
-
+<pre>
+src
+ ┣ components
+ ┃ ┣ common
+ ┃ ┃ ┣ Buttons
+ ┃ ┃ ┣ Chips
+ ┃ ┃ ┣ Headers
+ ┃ ┃ ┣ Input
+ ┃ ┃ ┣ spinner
+ ┃ ┃ ┣ Avatar.tsx
+ ┃ ┃ ┣ PageLayout.tsx
+ ┃ ┃ ┣ SideBar.tsx
+ ┃ ┃ ┗ SideBarPagination.tsx
+ ┃ ┣ domains
+ ┃ ┃ ┣ dashboard
+ ┃ ┃ ┣ edit
+ ┃ ┃ ┗ myDashBoard
+ ┃ ┣ dropdown
+ ┃ ┣ modal
+ ┣ constants
+ ┃ ┣ types.ts
+ ┃ ┗ validation.ts
+ ┣ context
+ ┃ ┣ DashboardContext.tsx
+ ┃ ┗ UserContext.tsx
+ ┣ hooks
+ ┃ ┗ useAsync.ts
+ ┣ lib
+ ┃ ┣ api.ts
+ ┃ ┗ axios.ts
+ ┣ pages
+ ┃ ┣ dashboard
+ ┃ ┃ ┗ [boardid]
+ ┃ ┃ ┃ ┣ edit.tsx
+ ┃ ┃ ┃ ┗ index.tsx
+ ┃ ┣ login
+ ┃ ┃ ┗ index.tsx
+ ┃ ┣ mydashboard
+ ┃ ┃ ┗ index.tsx
+ ┃ ┣ mypage
+ ┃ ┃ ┗ index.tsx
+ ┃ ┣ signup
+ ┃ ┃ ┗ index.tsx
+ ┃ ┣ 404.tsx
+ ┃ ┣ index.tsx
+ ┃ ┣ _app.tsx
+ ┃ ┗ _document.tsx
+ ┣ styles
+ ┃ ┣ font.js
+ ┃ ┗ globals.css
+ ┗ utils
+    ┗ stringToNumber.ts
+</pre>
+  
 <br>
 
 ## 팀원 소개 & 역할
