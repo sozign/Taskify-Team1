@@ -1,7 +1,7 @@
-<h1 align="center">우리들의 일정관리 Taskify</h1>
+<h1 align="center">우리의 일정관리 Taskify</h1>
 <div align="center">
   <img width="1920" alt="pc" src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/bdf445a0-362d-4058-8c29-77e321a62ba2">
-  <div><h3>"항상 열심히 살아가는 당신에게 도움이 된다면 좋겠어요"</h3>
+  <div><h3>"열심히 살아가는 당신에게 도움이 된다면 좋겠어요"</h3>
     <p>모달 기반 일정 관리 서비스</p>
 </div>
  <br/>
@@ -9,7 +9,7 @@
   <p>멤버를 초대해 일정 카드를 만들고, 마감일을 정해 일을 시작해봅시다.</P>
   <p>가끔은 일 뿐만 아니라 맛집이나 일상을 사진에 담아 올리고 댓글로 소통해 보아요 :)</p>
   <br/>
-  <a href="http://www.naver.com/"><p>Taskify로 함께 일정관리 하기👩‍👧‍👦</p></a>
+  <a href="https://codeit-top-secret-x.vercel.app/"><p>Taskify로 함께 일정관리 하기👩‍👧‍👦</p></a>
   <a href="https://github.com/sozign/codeit-top-secret-X/wiki"><p>wiki 바로가기🔗</p></a>
 </div>
 
@@ -19,14 +19,15 @@
 
 # 목차
 ### 1. [프로젝트 소개](#프로젝트-소개)
-   + 주요기능 설명
+   + 주요기능
    + 프로젝트 실행방법
 ### 2. [프로젝트 구성](#프로젝트-구성)
   + 기술 스택
   + Directory 구조
-### 3. [팀원소개](#팀--역할)
-  + 팀원 소개
-  + 역할
+### 3. [팀원 소개 & 역할](#팀원-소개--역할)
+### 4. [트러블 슈팅](#트러블-슈팅)
+
+    
     
 <br/>
 
@@ -37,7 +38,7 @@
 
 <br/>
 
-### 주요 기능 소개
+### 1) 주요 기능
 **[대시보드 조회, 초대 기능]**<br>
 
 ![대시보드 페이지네이션](https://github.com/sozign/codeit-top-secret-X/assets/148179726/87056737-9ae2-424c-978f-3ab591a96c03)<br>
@@ -70,7 +71,7 @@
 
 <br>
 
-### 실행방법
+### 2) 실행방법
 <pre>
 $ git clone git@github.com:sozign/codeit-top-secret-X.git
 $ npm install
@@ -81,21 +82,74 @@ $ npm run dev
 <br>
 
 ## 프로젝트 구성
-### 기술스택
+### 1) 기술스택
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white">
-<img src="https://img.shields.io/badge/reactRouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
 <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white">
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
 <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
+<img src="https://img.shields.io/badge/reactRouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
 <img src="https://img.shields.io/badge/react--hook--form-663399?style=for-the-badge&logo=react&logoColor=white">
 <br>
 
-### Directory 구조
+### 2) Directory 구조
 
 <br>
 
-## 팀원소개
+## 팀원 소개 & 역할
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/Useong0"><img src="width="128px;" alt=""/><br /><sub><b>박운성</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/PJW980921"><img src="" width="128px;" alt=""/><br /><sub><b>박지원</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/sozign"><img src="" width="128px;" alt=""/><br /><sub><b>안소연</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/hyun522"><img src="" width="128px;" alt=""/><br /><sub><b>정현진</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/JIS0098"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/b7c92c59-2cb6-4d35-ba08-2687132e5109" width="128px;" alt=""/><br /><sub><b>한지수</b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
 
+<br>
 
+  ### 박운성<br>
+- 랜딩 페이지, 대시보드 수정 페이지 ui제작<br>
+- 페이지네이션 기반 초대 기록, 구성원 조회 및 삭제 기능 구현<br>
+- Modal 관련 공통 컴포넌트 제작<br>
+  (Modal Layout, ConfirmModal)
+- 컬럼 추가 모달 제작 <br>
+- 전체 api, api 관련 type 추가<br>
 
+### 박지원<br>
+- 회원가입, 로그인 페이지 ui제작<br>
+- react-hook-form 기반 회원가입, 로그인 기능 구현<br>
+- Auth 관련 유효성 검사, debounce 적용<br>
+- Auth 관련 동적 에러 메세지 모달 제작<br>
+- 각 페이지의 Header 공통 컴포넌트 제작<br>
 
+### 안소연<br>
+- 프로젝트 및 레포 셋팅<br>
+- 브랜치 전략 문서화<br>
+- 대시보드 상세 페이지 ui 제작
+- 무한스크롤 기반 컬럼 조회 기능 구현
+- 카드 추가, 수정 및 멤버 외 접근 제한 모달 제작
+- 아바타, 태그 컴포넌트 랜덤한 배경 지정 기능 구현
+- react-hook-form 기반 Input, SideBar 공통 컴포넌트 제작 <br>
+  (FormInput, TagInput, AuthInput)<br>
+
+### 정현진<br>
+- 유저 정보 수정 페이지 ui제작<br>
+- react-hook-form 기반 form 제작<br>
+- input 값 기반 버튼 활성화 기능 구현 및 관련 모달 제작<br>
+- 이미지 upload 및 preview 기능 구현
+
+### 한지수<br>
+- 대시보드 메인 페이지 ui 제작<br>
+- 페이지네이션 기반 대시보드 조회 기능 구현<br>
+- 무한스크롤 기반 초대 조회 및 수락, 거절 및 검색 기능 구현<br>
+- 검색 관련 debounce, 로딩ui 적용<br>
+- Button, Chip 관련 공통 컴포넌트 제작<br>
+- 로딩 관련 커스텀 훅, 로딩 ui 추가<br>
+
+<br>
+
+## 트러블 슈팅
+  **<a href="https://almond-year-fc3.notion.site/a341c05392924be5a718da02815d1e30">트러블 슈팅 노션 바로가기🛠</a>**
