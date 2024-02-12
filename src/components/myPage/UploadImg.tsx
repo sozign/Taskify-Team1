@@ -44,11 +44,11 @@ export default function UploadImg({ profileImageUrl, onImageUpload, setIsProfile
 
 	const PreviewImage = (file: File) => {
 		const preview = new FileReader();
-		preview.onload = function () {
-			// const imageDataURL = e.target?.result as string;
+		preview.onload = function (e) {
+			const imageDataURL = e.target?.result as string;
 			// console.log(imageDataURL);
 			setPreviewImage(preview.result as string);
-			// setPreviewImage(imageDataURL);
+			setPreviewImage(imageDataURL);
 			setIsProfileActive(true);
 
 			console.log(previewImage);
