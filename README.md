@@ -147,13 +147,9 @@
 
 **[반응형]**
 
-<img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/d71b5171-6478-40f7-8c7f-54aa103f4b18" alt="반응형1" style="margin-right: 20px">
-<img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/6bce80ee-c8c8-44ea-bc3e-4fe1cd1c7dbe" alt="반응형2">
+![반응형2](https://github.com/sozign/codeit-top-secret-X/assets/114739219/d71b5171-6478-40f7-8c7f-54aa103f4b18)&nbsp;&nbsp;![반응형3](https://github.com/sozign/codeit-top-secret-X/assets/114739219/6bce80ee-c8c8-44ea-bc3e-4fe1cd1c7dbe)
 
-
-
-
-
+<br/>
 
 ### 2) 실행방법
 <pre>
