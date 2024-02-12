@@ -148,10 +148,9 @@
 <br/>
 
 **[반응형]**
-![반응형1](https://github.com/sozign/codeit-top-secret-X/assets/114739219/1c032055-2ce4-4f31-87a4-16cada609893)
-![반응형2](https://github.com/sozign/codeit-top-secret-X/assets/114739219/d71b5171-6478-40f7-8c7f-54aa103f4b18)<br>
+![반응형2](https://github.com/sozign/codeit-top-secret-X/assets/114739219/d71b5171-6478-40f7-8c7f-54aa103f4b18)
 ![반응형3](https://github.com/sozign/codeit-top-secret-X/assets/114739219/6bce80ee-c8c8-44ea-bc3e-4fe1cd1c7dbe)
-![반응형4](https://github.com/sozign/codeit-top-secret-X/assets/114739219/4b811c93-fdf0-498d-adef-c5bbf113a1e8)
+
 
 
 
