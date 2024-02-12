@@ -78,9 +78,9 @@ export default function Signup() {
 		handleSignup(data);
 	};
 
-	const handleKeyPress = (e: { type: string; code: string }) => {
-		if (e.type === 'keypress' && e.code === 'Enter') {
-			e.type = 'click';
+	const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
 		}
 	};
 
@@ -104,6 +104,7 @@ export default function Signup() {
 						label={INPUT_SETTING.label.email}
 						placeholder={INPUT_SETTING.placeholder.email}
 						errorMessage={errors?.email?.message}
+						onKeyDown={handleEnterKey}
 						{...register('email', VALIDATE_RULES.email)}
 					/>
 					<AuthInput
@@ -112,6 +113,7 @@ export default function Signup() {
 						label={INPUT_SETTING.label.nickname}
 						placeholder={INPUT_SETTING.placeholder.nickname}
 						errorMessage={errors?.nickname?.message}
+						onKeyDown={handleEnterKey}
 						{...register('nickname', VALIDATE_RULES.nickname)}
 					/>
 					<AuthInput
@@ -120,6 +122,7 @@ export default function Signup() {
 						label={INPUT_SETTING.label.password}
 						placeholder={INPUT_SETTING.placeholder.password}
 						errorMessage={errors?.password?.message}
+						onKeyDown={handleEnterKey}
 						{...register('password', VALIDATE_RULES.passwordInLogin)}
 					/>
 					<AuthInput
@@ -128,7 +131,7 @@ export default function Signup() {
 						label={INPUT_SETTING.label.validPassword}
 						placeholder={INPUT_SETTING.placeholder.validPassword}
 						errorMessage={errors?.validPassword?.message}
-						onKeyDown={handleKeyPress}
+						onKeyDown={handleEnterKey}
 						{...register('validPassword', {
 							...VALIDATE_RULES.passwordInSignup.pattern,
 							validate: (value) => value === watch('password') || '비밀번호가 일치하지 않습니다.',
