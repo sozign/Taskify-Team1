@@ -22,7 +22,8 @@
       <td align="center"><a href="https://github.com/Useong0"><img src="width="128px;" alt=""/><br /><sub><b>박운성</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/PJW980921"><img src="" width="128px;" alt=""/><br /><sub><b>박지원</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/sozign"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/328b8ddb-4811-4d44-880c-973e53c92537" width="128px;" alt=""/><br /><sub><b>안소연</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/hyun522"><img src="" width="128px;" alt=""/><br /><sub><b>정현진</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/hyun522"><img src="![KakaoTalk_20240212_234950146](https://github.com/sozign/codeit-top-secret-X/assets/134246845/e0b125a0-a475-4943-b264-1d04225f0b68)
+" width="128px;" alt=""/><br /><sub><b>정현진</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/JIS0098"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/3816c811-e11d-41fa-af8d-dd82a4a4825d" width="128px;" alt=""/><br /><sub><b>한지수</b></sub></a><br /></td>
     </tr>
   </tbody>
@@ -139,7 +140,8 @@
 
 **[계정 관련]**<br>
 
-![계정 프로필 비밀번호 수정](https://github.com/sozign/codeit-top-secret-X/assets/134246845/6a3ed4a3-e4b5-4415-9f83-221a66608d8c)<br/>
+![계정 프로필/비밀번호 수정](https://github.com/sozign/codeit-top-secret-X/assets/134246845/f728343a-536a-4f71-a807-27a41b9b6e73)
+<br/>
 
 + 프로필 업로드 ,닉네임·비밀번호 수정 기능<br/>
 
