@@ -133,6 +133,13 @@
 + 초대받지 않은 대시보드에 접근하거나 로그인 하지 않은 상태로 페이지에 접근 시 모달<br/>
 <br/>
 
+**[계정관련]**<br>
+
+![계정 프로필 비밀번호 수정](https://github.com/sozign/codeit-top-secret-X/assets/134246845/6a3ed4a3-e4b5-4415-9f83-221a66608d8c)<br/>
+
++ 프로필 업로드 ,닉네임·비밀번호 수정 기능<br/>
+<br/>
+
 ### 2) 실행방법
 <pre>
 $ git clone git@github.com:sozign/codeit-top-secret-X.git
