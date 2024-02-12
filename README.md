@@ -156,7 +156,7 @@ src
     <tr>
       <td align="center"><a href="https://github.com/Useong0"><img src="width="128px;" alt=""/><br /><sub><b>박운성</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/PJW980921"><img src="" width="128px;" alt=""/><br /><sub><b>박지원</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/sozign"><img src="" width="128px;" alt=""/><br /><sub><b>안소연</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/sozign"><img src="https://github.com/sozign/codeit-top-secret-X/assets/148179726/6cbb26ed-be50-4cfb-a964-f00ed5c40211" width="128px;" alt=""/><br /><sub><b>안소연</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/hyun522"><img src="" width="128px;" alt=""/><br /><sub><b>정현진</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/JIS0098"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/b7c92c59-2cb6-4d35-ba08-2687132e5109" width="128px;" alt=""/><br /><sub><b>한지수</b></sub></a><br /></td>
     </tr>
