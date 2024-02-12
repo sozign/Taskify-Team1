@@ -20,7 +20,7 @@
   <tbody>
     <tr>
       <td align="center"><a href="https://github.com/Useong0"><img src="width="128px;" alt=""/><br /><sub><b>박운성</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/PJW980921"><img src="" width="128px;" alt=""/><br /><sub><b>박지원</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/PJW980921"><img src="https://github.com/sozign/codeit-top-secret-X/assets/124119421/ee39bc37-5825-4b4f-8831-ed814b019129" width="128px;" alt=""/><br /><sub><b>박지원</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/sozign"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/328b8ddb-4811-4d44-880c-973e53c92537" width="128px;" alt=""/><br /><sub><b>안소연</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/hyun522"><img src="https://github.com/sozign/codeit-top-secret-X/assets/134246845/035ad426-6511-45de-bf3b-d89129c743a5" width="128px;" alt=""/><br /><sub><b>정현진</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/JIS0098"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/3816c811-e11d-41fa-af8d-dd82a4a4825d" width="128px;" alt=""/><br /><sub><b>한지수</b></sub></a><br /></td>
@@ -95,11 +95,10 @@
 <br/>
 
 ### 1) 주요 기능
+**[회원가입, 로그인]**<br>
+![회원가입](https://github.com/sozign/codeit-top-secret-X/assets/124119421/de7440ef-db5d-41aa-ad1b-7209eb56d148)
+![로그인](https://github.com/sozign/codeit-top-secret-X/assets/124119421/062396a9-da6f-439f-b40c-c80e5da5fd7d)
 
-**[로그인, 회원가입]**<br>
-
-![로그인](https://github.com/sozign/codeit-top-secret-X/assets/124119421/fe2880eb-acee-4479-a9f4-268992609170)
-![회원가입](https://github.com/sozign/codeit-top-secret-X/assets/124119421/d8c94927-80c7-4572-906a-36dc5b64ae44)
 
 <br>
 
