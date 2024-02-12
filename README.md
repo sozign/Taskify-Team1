@@ -194,7 +194,7 @@ src
 - mypage Page ui 제작<br>
 - react-hook-form 기반 form 제작<br>
 - input 값 기반 버튼 활성화 기능 구현 및 관련 모달 제작<br>
-- 이미지 upload 및 preview 기능 구현
+- 프로필 이미지 upload 및 preview 기능 구현
 
 ### 한지수<br>
 - mydashboard Page  ui 제작<br>
