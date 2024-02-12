@@ -54,9 +54,7 @@ export default function DashBoardEdit() {
 	}, [boardId]);
 
 	useEffect(() => {
-		if (myId !== undefined && dashboardInfo.userId !== 0) {
-			setIsAccessPermissionModal(myId !== dashboardInfo.userId);
-		}
+		setIsAccessPermissionModal(myId !== dashboardInfo.userId);
 	}, [myId, dashboardInfo.userId]);
 
 	async function handleDelete(dashboardId: number) {
@@ -102,7 +100,9 @@ export default function DashBoardEdit() {
 				</PageLayout>
 			) : (
 				<NotInvitedMemberAlert
+					href='/'
 					alertMessage='접근 권한이 없습니다.'
+					buttonText='홈으로'
 					modalControl={{
 						isOpen: isAccessPermissionModal,
 						setOpen: setIsAccessPermissionModal,

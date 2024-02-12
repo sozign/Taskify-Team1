@@ -81,8 +81,12 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	}
 
 	async function loadUserInfo() {
-		const data = await getUsers();
-		setUserInfo(data);
+		try {
+			const data = await getUsers();
+			setUserInfo(data);
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	useEffect(() => {
@@ -111,7 +115,7 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 	const moveHandler = () => {
 		router.push(dashBoardIdEditUrl);
 	};
-	console.log(userInfo);
+
 	if (!userInfo) return;
 	return (
 		<>
