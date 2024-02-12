@@ -46,7 +46,7 @@ function Layout({ children, $modalType, title, isOpen, setOpen }: LayoutProps) {
 						e.stopPropagation();
 					}}
 				>
-					{$modalType === 'Modal' && <p className='mb-[3.2rem] text-24-700 text-black-3'>{title}</p>}
+					{$modalType === 'Modal' && <p className='mb-[3.2rem] text-24-700 leading-[2.9rem] text-black-3'>{title}</p>}
 					{children}
 				</div>
 			</div>,
