@@ -71,6 +71,14 @@
 
 <br>
 
+**[접근 권한 제어 관련]**<br>
+
+![미로그인 모달](https://github.com/sozign/codeit-top-secret-X/assets/148179726/585f241d-cd37-4d0f-b080-6b4e6fd3102b) <br/>
+![대시보드 주인 아닐때](https://github.com/sozign/codeit-top-secret-X/assets/148179726/ed69058a-f47c-4162-82d4-cbbce61b63fd) <br/>
+
++ 초대받지 않은 대시보드에 접근하거나 로그인 하지 않은 상태로 페이지에 접근 시 모달<br/>
+<br/>
+
 ### 2) 실행방법
 <pre>
 $ git clone git@github.com:sozign/codeit-top-secret-X.git
