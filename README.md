@@ -22,8 +22,7 @@
       <td align="center"><a href="https://github.com/Useong0"><img src="width="128px;" alt=""/><br /><sub><b>박운성</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/PJW980921"><img src="" width="128px;" alt=""/><br /><sub><b>박지원</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/sozign"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/328b8ddb-4811-4d44-880c-973e53c92537" width="128px;" alt=""/><br /><sub><b>안소연</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/hyun522"><img src="![KakaoTalk_20240212_234950146](https://github.com/sozign/codeit-top-secret-X/assets/134246845/e0b125a0-a475-4943-b264-1d04225f0b68)
-" width="128px;" alt=""/><br /><sub><b>정현진</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/hyun522"><img src="https://github.com/sozign/codeit-top-secret-X/assets/134246845/035ad426-6511-45de-bf3b-d89129c743a5" width="128px;" alt=""/><br /><sub><b>정현진</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/JIS0098"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/3816c811-e11d-41fa-af8d-dd82a4a4825d" width="128px;" alt=""/><br /><sub><b>한지수</b></sub></a><br /></td>
     </tr>
   </tbody>
