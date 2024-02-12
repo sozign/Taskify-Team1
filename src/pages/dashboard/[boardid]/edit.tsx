@@ -33,8 +33,12 @@ export default function DashBoardEdit() {
 	const [isAccessPermissionModal, setIsAccessPermissionModal] = useState(false);
 
 	async function loadMyId() {
-		const res = await getUsers();
-		setMyId(res.id);
+		try {
+			const res = await getUsers();
+			setMyId(res.id);
+		} catch (err) {
+			console.log('err', err);
+		}
 	}
 
 	async function loadDashboardData(dashboardId: number) {

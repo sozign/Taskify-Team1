@@ -38,8 +38,12 @@ export default function MyDashBoard() {
 
 	async function loadDashboardMemberList() {
 		if (!boardId) return;
-		const data = await getMembers({ page: 0, size: 0, dashboardId: boardId });
-		action.setMemberList(data.members);
+		try {
+			const data = await getMembers({ page: 0, size: 0, dashboardId: boardId });
+			action.setMemberList(data.members);
+		} catch (err) {
+			console.log('err', err);
+		}
 	}
 
 	useEffect(() => {
