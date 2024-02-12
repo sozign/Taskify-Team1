@@ -57,6 +57,7 @@
   (FormInput, TagInput, AuthInput)<br>
 
 ### 정현진<br>
+- react-select 기반 드롭다운 컴포넌트 구현<br>
 - mypage Page ui 제작<br>
 - react-hook-form 기반 form 제작<br>
 - input 값 기반 버튼 활성화 기능 구현 및 관련 모달 제작<br>
