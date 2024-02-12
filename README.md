@@ -21,12 +21,13 @@
     <tr>
       <td align="center"><a href="https://github.com/Useong0"><img src="width="128px;" alt=""/><br /><sub><b>박운성</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/PJW980921"><img src="" width="128px;" alt=""/><br /><sub><b>박지원</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/sozign"><img src="https://github.com/sozign/codeit-top-secret-X/assets/148179726/6cbb26ed-be50-4cfb-a964-f00ed5c40211" width="128px;" alt=""/><br /><sub><b>안소연</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/sozign"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/328b8ddb-4811-4d44-880c-973e53c92537" width="128px;" alt=""/><br /><sub><b>안소연</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/hyun522"><img src="" width="128px;" alt=""/><br /><sub><b>정현진</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/JIS0098"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/b7c92c59-2cb6-4d35-ba08-2687132e5109" width="128px;" alt=""/><br /><sub><b>한지수</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/JIS0098"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/3816c811-e11d-41fa-af8d-dd82a4a4825d" width="128px;" alt=""/><br /><sub><b>한지수</b></sub></a><br /></td>
     </tr>
   </tbody>
 </table>
+
 
 <br>
 
@@ -99,15 +100,16 @@
 ![로그인](https://github.com/sozign/codeit-top-secret-X/assets/124119421/fe2880eb-acee-4479-a9f4-268992609170)
 ![회원가입](https://github.com/sozign/codeit-top-secret-X/assets/124119421/d8c94927-80c7-4572-906a-36dc5b64ae44)
 
-**[대시보드, 초대 관련 기능]**<br>
+<br>
 
-![대시보드 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/5ed44b4e-fed8-40f9-80ea-b0692c1604e2)<br>
+**[대시보드, 초대 관련 기능]**<br>
+![대시보드 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/16e2c1dc-47f9-43e4-a645-386cc9c18e73)<br>
 + 대시보드 생성 기능
 + 페이지네이션 기반 대시보드 조회 기능
 
 <br>
 
-![초대 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/606decd6-50f7-4100-b1fc-8969659dfdf7)<br>
+![초대 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/9d257eb3-e4ab-4fc9-9515-ef7cf588d13c)<br>
 + 무한스크롤 기반 초대 조회 기능
 + 초대 수락, 거절 및 검색 기능
 
@@ -115,7 +117,7 @@
 
 **[컬럼, 카드관련 기능]**<br>
 
-![무한 스크롤](https://github.com/sozign/codeit-top-secret-X/assets/148179726/3358b911-8ea1-4451-ae30-665ecc2d5b48)<br/>
+![무한 스크롤](https://github.com/sozign/codeit-top-secret-X/assets/148179726/3358b911-8ea1-4451-ae30-665ecc2d5b48)<br/>
 + 무한 스크롤 기반 할 일 카드 조회 기능 <br/>
 <br/>
 
@@ -127,7 +129,7 @@
 
 <br/>
 
-![댓글 작성 및 수정](https://github.com/sozign/codeit-top-secret-X/assets/148179726/616dbffb-caa6-45c9-9178-58fa2caafaa8)<br>
+![댓글 작성 및 수정](https://github.com/sozign/codeit-top-secret-X/assets/148179726/616dbffb-caa6-45c9-9178-58fa2caafaa8)<br>
 + 댓글 작성, 수정. 삭제 기능<br/>
 
 <br>
@@ -140,12 +142,23 @@
 + 초대받지 않은 대시보드에 접근하거나 로그인 하지 않은 상태로 페이지에 접근 시 모달<br/>
 <br/>
 
-**[계정관련]**<br>
+**[계정 관련]**<br>
 
 ![계정 프로필 비밀번호 수정](https://github.com/sozign/codeit-top-secret-X/assets/134246845/6a3ed4a3-e4b5-4415-9f83-221a66608d8c)<br/>
 
 + 프로필 업로드 ,닉네임·비밀번호 수정 기능<br/>
+
 <br/>
+
+**[반응형]**
+![반응형1](https://github.com/sozign/codeit-top-secret-X/assets/114739219/1c032055-2ce4-4f31-87a4-16cada609893)
+![반응형2](https://github.com/sozign/codeit-top-secret-X/assets/114739219/d71b5171-6478-40f7-8c7f-54aa103f4b18)<br>
+![반응형3](https://github.com/sozign/codeit-top-secret-X/assets/114739219/6bce80ee-c8c8-44ea-bc3e-4fe1cd1c7dbe)
+![반응형4](https://github.com/sozign/codeit-top-secret-X/assets/114739219/4b811c93-fdf0-498d-adef-c5bbf113a1e8)
+
+
+
+
 
 ### 2) 실행방법
 <pre>
