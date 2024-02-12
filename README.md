@@ -103,13 +103,14 @@
 <br>
 
 **[대시보드, 초대 관련 기능]**<br>
-![대시보드 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/16e2c1dc-47f9-43e4-a645-386cc9c18e73)<br>
+
+![대시보드 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/16e2c1dc-47f9-43e4-a645-386cc9c18e73)<br/>
 + 대시보드 생성 기능
 + 페이지네이션 기반 대시보드 조회 기능
 
 <br>
 
-![초대 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/9d257eb3-e4ab-4fc9-9515-ef7cf588d13c)<br>
+![초대 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/9d257eb3-e4ab-4fc9-9515-ef7cf588d13c)<br/>
 + 무한스크롤 기반 초대 조회 기능
 + 초대 수락, 거절 및 검색 기능
 
