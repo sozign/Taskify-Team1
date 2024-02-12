@@ -10,8 +10,8 @@ interface ModalProps {
 function MyPageConfirmModal({ confirm, setConfirm }: ModalProps) {
 	return (
 		<Layout $modalType='Alert' isOpen={confirm} setOpen={setConfirm}>
-			<div>
-				<p className='text-[1.8rem]'>비밀번호 변경에 성공했습니다.</p>
+			<div className='flex h-full w-full flex-col justify-end gap-[4.5rem] sm:gap-[5rem]'>
+				<p className='self-center text-[1.8rem]'>비밀번호 변경에 성공했습니다.</p>
 				<Button
 					onClick={() => {
 						setConfirm(false);
@@ -19,7 +19,7 @@ function MyPageConfirmModal({ confirm, setConfirm }: ModalProps) {
 					color='modalViolet'
 					variant='modal'
 					disabled={false}
-					className='relative left-[22.4rem] top-[4.4rem]'
+					className='self-end sm:self-center'
 				>
 					확인
 				</Button>
