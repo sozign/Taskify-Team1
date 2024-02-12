@@ -63,7 +63,7 @@ export default function Signup() {
 
 	const handleSignup = async (data: SignupFormData) => {
 		try {
-			const { ...response } = await postUsers(data as SignupFormData);
+			await postUsers(data as SignupFormData);
 			setSignupAlertState('가입이 완료되었습니다!');
 		} catch (error) {
 			if (error instanceof AxiosError) {
@@ -76,6 +76,12 @@ export default function Signup() {
 
 	const onSubmit = (data: SignupFormData) => {
 		handleSignup(data);
+	};
+
+	const handleKeyPress = (e: { type: string; code: string }) => {
+		if (e.type === 'keypress' && e.code === 'Enter') {
+			e.type = 'click';
+		}
 	};
 
 	return (
@@ -122,6 +128,7 @@ export default function Signup() {
 						label={INPUT_SETTING.label.validPassword}
 						placeholder={INPUT_SETTING.placeholder.validPassword}
 						errorMessage={errors?.validPassword?.message}
+						onKeyDown={handleKeyPress}
 						{...register('validPassword', {
 							...VALIDATE_RULES.passwordInSignup.pattern,
 							validate: (value) => value === watch('password') || '비밀번호가 일치하지 않습니다.',

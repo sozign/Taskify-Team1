@@ -64,9 +64,8 @@ export default function Login() {
 	};
 
 	const handleKeyPress = (e: { type: string; code: string }) => {
-		// 엔터로 로그인하는 함수
 		if (e.type === 'keypress' && e.code === 'Enter') {
-			handleSubmit(onSubmit)();
+			e.type = 'click';
 		}
 	};
 
