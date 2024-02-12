@@ -93,16 +93,17 @@
 <br/>
 
 ### 1) 주요 기능
-**[대시보드 조회, 초대 기능]**<br>
+**[대시보드, 초대 관련 기능]**<br>
 
-![대시보드 페이지네이션](https://github.com/sozign/codeit-top-secret-X/assets/148179726/87056737-9ae2-424c-978f-3ab591a96c03)<br>
+![대시보드 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/5ed44b4e-fed8-40f9-80ea-b0692c1604e2)<br>
++ 대시보드 생성 기능
 + 페이지네이션 기반 대시보드 조회 기능
-+ 무한스크롤 기반 초대 조회 기능
 
 <br>
 
-![대시보드 초대 수락](https://github.com/sozign/codeit-top-secret-X/assets/148179726/deca71cf-0072-4980-9818-570bea2b0527)<br>
-+ 초대 수락 및 거절, 검색기능<br>
+![초대 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/606decd6-50f7-4100-b1fc-8969659dfdf7)<br>
++ 무한스크롤 기반 초대 조회 기능
++ 초대 수락, 거절 및 검색 기능
 
 <br>
 
