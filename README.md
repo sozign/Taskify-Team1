@@ -106,8 +106,7 @@
 
 ![대시보드 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/16e2c1dc-47f9-43e4-a645-386cc9c18e73)<br>
 + 페이지네이션 기반 대시보드 조회, 생성 기능
-+ 무한스크롤 기반 초대 조회 기능
-+ 초대 응답, 검색 기능
++ 무한스크롤 기반 초대 목록 조회, 초대 응답, 검색 기능
 
 <br>
 
@@ -148,8 +147,8 @@
 
 **[반응형]**
 
-![반응형2](https://github.com/sozign/codeit-top-secret-X/assets/114739219/d71b5171-6478-40f7-8c7f-54aa103f4b18)<br/>
-![반응형3](https://github.com/sozign/codeit-top-secret-X/assets/114739219/6bce80ee-c8c8-44ea-bc3e-4fe1cd1c7dbe)
+<img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/d71b5171-6478-40f7-8c7f-54aa103f4b18" alt="반응형1" style="margin-right: 20px">
+<img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/6bce80ee-c8c8-44ea-bc3e-4fe1cd1c7dbe" alt="반응형2">
 
 
 
