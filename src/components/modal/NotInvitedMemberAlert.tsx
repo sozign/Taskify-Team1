@@ -9,9 +9,16 @@ interface NotInvitedMemberAlertProps {
 		setOpen: Dispatch<SetStateAction<boolean>>;
 	};
 	alertMessage: string;
+	href: string;
+	buttonText?: string;
 }
 
-export default function NotInvitedMemberAlert({ modalControl, alertMessage }: NotInvitedMemberAlertProps) {
+export default function NotInvitedMemberAlert({
+	modalControl,
+	alertMessage,
+	href,
+	buttonText = '내 대시보드로',
+}: NotInvitedMemberAlertProps) {
 	return (
 		<Layout $modalType='NotFound' isOpen={modalControl.isOpen} setOpen={modalControl.setOpen}>
 			<div className='flex h-full w-full flex-col justify-end gap-[4.5rem] sm:gap-[5rem]'>
@@ -25,7 +32,7 @@ export default function NotInvitedMemberAlert({ modalControl, alertMessage }: No
 					className='self-end sm:self-center'
 					disabled={false}
 				>
-					<Link href={'/mydashboard'}>내 대시보드로</Link>
+					<Link href={href}>{buttonText}</Link>
 				</Button>
 			</div>
 		</Layout>

@@ -17,6 +17,7 @@ export default function MyDashBoard() {
 	const { value, action } = useDashboardContext();
 
 	const [isAlertModalOpen, setIsAlertModalOpen] = useState<boolean>(false);
+	const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState<boolean>(false);
 	const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
 
 	async function loadColumn() {
@@ -28,6 +29,8 @@ export default function MyDashBoard() {
 			if (isAxiosError(err)) {
 				if (err?.response?.status === 404) {
 					setIsAlertModalOpen(true);
+				} else if (err?.response?.status === 401) {
+					setIsLoginAlertModalOpen(true);
 				}
 			}
 		}
@@ -35,8 +38,12 @@ export default function MyDashBoard() {
 
 	async function loadDashboardMemberList() {
 		if (!boardId) return;
-		const data = await getMembers({ page: 0, size: 0, dashboardId: boardId });
-		action.setMemberList(data.members);
+		try {
+			const data = await getMembers({ page: 0, size: 0, dashboardId: boardId });
+			action.setMemberList(data.members);
+		} catch (err) {
+			console.log('err', err);
+		}
 	}
 
 	useEffect(() => {
@@ -47,10 +54,20 @@ export default function MyDashBoard() {
 	return (
 		<>
 			<NotInvitedMemberAlert
+				href='/mydashboard'
 				alertMessage='대시보드의 멤버가 아닙니다.'
 				modalControl={{
 					isOpen: isAlertModalOpen,
 					setOpen: setIsAlertModalOpen,
+				}}
+			/>
+			<NotInvitedMemberAlert
+				href='/'
+				alertMessage='로그인 후 사용해주세요'
+				buttonText='홈으로'
+				modalControl={{
+					isOpen: isLoginAlertModalOpen,
+					setOpen: setIsLoginAlertModalOpen,
 				}}
 			/>
 			{value.columnList ? (

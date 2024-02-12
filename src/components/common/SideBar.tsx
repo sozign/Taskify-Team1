@@ -29,17 +29,21 @@ export default function SideBar({ boardId }: SideBarProps) {
 	const [dashBoardList, setDashBoardList] = useState<DashboardData[] | null>(null);
 
 	async function loadDashBoardList() {
-		const data = await getDashboards({
-			navigationMethod: 'pagination',
-			cursorId: 0,
-			page: paginationInfo.page,
-			size: 10,
-		});
-		setDashBoardList(data.dashboards);
-		setPaginationInfo((prev) => ({
-			...prev,
-			totalCount: data.totalCount,
-		}));
+		try {
+			const data = await getDashboards({
+				navigationMethod: 'pagination',
+				cursorId: 0,
+				page: paginationInfo.page,
+				size: 10,
+			});
+			setDashBoardList(data.dashboards);
+			setPaginationInfo((prev) => ({
+				...prev,
+				totalCount: data.totalCount,
+			}));
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	useEffect(() => {

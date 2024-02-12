@@ -9,6 +9,7 @@ import PassWordForm from '@/components/myPage/PassWordForm';
 import { getUsers, putUsers } from '@/lib/api';
 import UploadImg from '@/components/myPage/UploadImg';
 import MyPageProfileModal from '@/components/modal/MyPageProfileModal';
+import NotInvitedMemberAlert from '@/components/modal/NotInvitedMemberAlert';
 
 type profileFormData = {
 	email: string;
@@ -23,6 +24,8 @@ type putUsersData = {
 
 export default function MyPage() {
 	const [open, setOpen] = useState<boolean>(false);
+	const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState<boolean>(false);
+
 	const [isProfileActive, setIsProfileActive] = useState<boolean>(false);
 
 	const prevClickHandler = () => {
@@ -214,6 +217,15 @@ export default function MyPage() {
 					</div>
 				</div>
 			</PageLayout>
+			<NotInvitedMemberAlert
+				href='/'
+				alertMessage='로그인 후 사용해주세요'
+				buttonText='홈으로'
+				modalControl={{
+					isOpen: isLoginAlertModalOpen,
+					setOpen: setIsLoginAlertModalOpen,
+				}}
+			/>
 		</>
 	);
 }

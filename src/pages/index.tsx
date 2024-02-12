@@ -43,9 +43,9 @@ export default function Home() {
 							</span>
 						</div>
 						<div className='flex flex-col items-center gap-[6.6rem] sm:gap-[7rem]'>
-							<span className='text-18-400 text-black-0 md:text-16-400 sm:text-12-400'>
+							{/* <span className='text-18-400 text-black-0 md:text-16-400 sm:text-12-400'>
 								서비스의 메인 설명 들어갑니다.
-							</span>
+							</span> */}
 							{isToken ? (
 								<button
 									onClick={() => router.push('/mydashboard')}
