@@ -103,6 +103,7 @@
 <br>
 
 **[대시보드, 초대 관련 기능]**<br>
+
 ![대시보드 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/16e2c1dc-47f9-43e4-a645-386cc9c18e73)<br>
 + 대시보드 생성 기능
 + 페이지네이션 기반 대시보드 조회 기능
