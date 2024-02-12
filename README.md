@@ -93,6 +93,12 @@
 <br/>
 
 ### 1) 주요 기능
+
+**[로그인, 회원가입]**<br>
+
+![로그인](https://github.com/sozign/codeit-top-secret-X/assets/124119421/fe2880eb-acee-4479-a9f4-268992609170)
+![회원가입](https://github.com/sozign/codeit-top-secret-X/assets/124119421/d8c94927-80c7-4572-906a-36dc5b64ae44)
+
 **[대시보드, 초대 관련 기능]**<br>
 
 ![대시보드 관련 기능](https://github.com/sozign/codeit-top-secret-X/assets/114739219/5ed44b4e-fed8-40f9-80ea-b0692c1604e2)<br>

@@ -63,7 +63,7 @@ export default function Signup() {
 
 	const handleSignup = async (data: SignupFormData) => {
 		try {
-			const { ...response } = await postUsers(data as SignupFormData);
+			await postUsers(data as SignupFormData);
 			setSignupAlertState('가입이 완료되었습니다!');
 		} catch (error) {
 			if (error instanceof AxiosError) {
@@ -76,6 +76,12 @@ export default function Signup() {
 
 	const onSubmit = (data: SignupFormData) => {
 		handleSignup(data);
+	};
+
+	const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+		}
 	};
 
 	return (
@@ -98,6 +104,7 @@ export default function Signup() {
 						label={INPUT_SETTING.label.email}
 						placeholder={INPUT_SETTING.placeholder.email}
 						errorMessage={errors?.email?.message}
+						onKeyDown={handleEnterKey}
 						{...register('email', VALIDATE_RULES.email)}
 					/>
 					<AuthInput
@@ -106,6 +113,7 @@ export default function Signup() {
 						label={INPUT_SETTING.label.nickname}
 						placeholder={INPUT_SETTING.placeholder.nickname}
 						errorMessage={errors?.nickname?.message}
+						onKeyDown={handleEnterKey}
 						{...register('nickname', VALIDATE_RULES.nickname)}
 					/>
 					<AuthInput
@@ -114,6 +122,7 @@ export default function Signup() {
 						label={INPUT_SETTING.label.password}
 						placeholder={INPUT_SETTING.placeholder.password}
 						errorMessage={errors?.password?.message}
+						onKeyDown={handleEnterKey}
 						{...register('password', VALIDATE_RULES.passwordInLogin)}
 					/>
 					<AuthInput
@@ -122,6 +131,7 @@ export default function Signup() {
 						label={INPUT_SETTING.label.validPassword}
 						placeholder={INPUT_SETTING.placeholder.validPassword}
 						errorMessage={errors?.validPassword?.message}
+						onKeyDown={handleEnterKey}
 						{...register('validPassword', {
 							...VALIDATE_RULES.passwordInSignup.pattern,
 							validate: (value) => value === watch('password') || '비밀번호가 일치하지 않습니다.',

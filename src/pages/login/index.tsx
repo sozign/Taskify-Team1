@@ -63,13 +63,6 @@ export default function Login() {
 		handleLogin(data);
 	};
 
-	const handleKeyPress = (e: { type: string; code: string }) => {
-		// 엔터로 로그인하는 함수
-		if (e.type === 'keypress' && e.code === 'Enter') {
-			handleSubmit(onSubmit)();
-		}
-	};
-
 	const INPUT_SETTING = {
 		label: {
 			email: '이메일',
@@ -79,6 +72,12 @@ export default function Login() {
 			email: '이메일을 입력해 주세요.',
 			password: '비밀번호를 입력해 주세요.',
 		},
+	};
+
+	const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+		}
 	};
 
 	return (
@@ -101,6 +100,7 @@ export default function Login() {
 						label={INPUT_SETTING.label.email}
 						placeholder={INPUT_SETTING.placeholder.email}
 						errorMessage={errors?.email?.message}
+						onKeyPress={handleEnterKey}
 						{...register('email', VALIDATE_RULES.email)}
 					/>
 					<AuthInput
@@ -109,8 +109,8 @@ export default function Login() {
 						label={INPUT_SETTING.label.password}
 						placeholder={INPUT_SETTING.placeholder.password}
 						errorMessage={errors?.password?.message}
+						onKeyPress={handleEnterKey}
 						{...register('password', VALIDATE_RULES.passwordInLogin)}
-						onKeyDown={handleKeyPress}
 					/>
 					<div className='pb-[1.2rem] pt-[1rem]'>
 						<AuthButton disabled={!isNoError(errors)} type='submit' onClick={() => setLoginError(false)}>
