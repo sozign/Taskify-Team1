@@ -148,7 +148,7 @@
 <br/>
 
 **[반응형]**
-![반응형2](https://github.com/sozign/codeit-top-secret-X/assets/114739219/d71b5171-6478-40f7-8c7f-54aa103f4b18)
+![반응형2](https://github.com/sozign/codeit-top-secret-X/assets/114739219/d71b5171-6478-40f7-8c7f-54aa103f4b18)<br>
 ![반응형3](https://github.com/sozign/codeit-top-secret-X/assets/114739219/6bce80ee-c8c8-44ea-bc3e-4fe1cd1c7dbe)
 
 
