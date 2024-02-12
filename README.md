@@ -19,7 +19,7 @@
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/Useong0"><img src="width="128px;" alt=""/><br /><sub><b>박운성</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Useong0"><img src="https://github.com/sozign/codeit-top-secret-X/assets/86371724/b78d9d7c-56ea-42cb-8701-8c9c3fb2fbc7" width="128px;" alt=""/><br /><sub><b>박운성</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/PJW980921"><img src="https://github.com/sozign/codeit-top-secret-X/assets/124119421/ee39bc37-5825-4b4f-8831-ed814b019129" width="128px;" alt=""/><br /><sub><b>박지원</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/sozign"><img src="https://github.com/sozign/codeit-top-secret-X/assets/114739219/328b8ddb-4811-4d44-880c-973e53c92537" width="128px;" alt=""/><br /><sub><b>안소연</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/hyun522"><img src="https://github.com/sozign/codeit-top-secret-X/assets/134246845/035ad426-6511-45de-bf3b-d89129c743a5" width="128px;" alt=""/><br /><sub><b>정현진</b></sub></a><br /></td>
@@ -128,6 +128,17 @@
 + 댓글 작성, 수정. 삭제 기능<br/>
 
 <br>
+
+**[대시보드 수정 기능]**<br/>
+
+![관리~초대하기](https://github.com/sozign/codeit-top-secret-X/assets/86371724/87e778ab-9d86-4a4c-b531-d85cccd736bf)<br/>
+![멤버삭제~돌아가기](https://github.com/sozign/codeit-top-secret-X/assets/86371724/8870ca3e-a421-434b-a66c-9ccc94a9e9e7)<br/>
+
++ 대시보드 수정 및 삭제 기능
++ 페이지네이션 기반 구성원, 초대 내역 조회
++ 구성원 삭제 및 초대 취소 기능
+
+<br/>
 
 **[접근 권한 제어 관련]**<br>
 
