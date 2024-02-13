@@ -148,7 +148,11 @@ export default function TaskModal({ taskModalControl, editModalControl, cardItem
 							<p className='mb-[0.6rem] text-12-500 sm:mb-[0.4rem]'>담당자</p>
 							{cardItem?.assignee ? (
 								<div className='flex items-center gap-[0.8rem]'>
-									<Avatar className='h-[2.4rem] w-[2.4rem]' name={cardItem.assignee.nickname} />
+									<Avatar
+										imageUrl={cardItem.assignee.profileImageUrl}
+										className='h-[2.4rem] w-[2.4rem]'
+										name={cardItem.assignee.nickname}
+									/>
 									<div>{cardItem.assignee.nickname}</div>
 								</div>
 							) : (

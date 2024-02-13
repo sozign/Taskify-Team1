@@ -27,6 +27,7 @@ export default function Comment({
 		<>
 			<div key={commentItem.id} className='mb-[2rem] flex gap-[1.4rem]'>
 				<Avatar
+					imageUrl={commentItem.author.profileImageUrl}
 					className='h-[3rem] w-[3rem] flex-shrink-0 sm:h-[2.2rem] sm:w-[2.2rem] '
 					name={commentItem.author.nickname}
 				/>
