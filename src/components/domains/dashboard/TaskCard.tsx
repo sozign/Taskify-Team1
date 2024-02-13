@@ -56,7 +56,13 @@ export default function TaskCard({ cardItem, columnInfo }: TaskCardProps) {
 									)}
 								</div>
 								<div>
-									{cardItem?.assignee && <Avatar className='h-[2.4rem] w-[2.4rem]' name={cardItem.assignee.nickname} />}
+									{cardItem?.assignee && (
+										<Avatar
+											imageUrl={cardItem.assignee.profileImageUrl}
+											className='h-[2.4rem] w-[2.4rem]'
+											name={cardItem.assignee.nickname}
+										/>
+									)}
 								</div>
 							</div>
 						</div>
