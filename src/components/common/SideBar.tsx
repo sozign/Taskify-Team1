@@ -77,7 +77,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 								<Link key={dashBoardItem.id} href={`/dashboard/${dashBoardItem.id}`}>
 									<div
 										className={clsx(
-											'flex items-center justify-start gap-[0.6rem] rounded-[0.4rem] p-[1.2rem] sm:pl-[1.7rem]',
+											'flex items-center justify-start gap-[0.6rem] rounded-[0.4rem] p-[1.2rem] hover:bg-violet-F sm:pl-[1.7rem]',
 											boardId === dashBoardItem.id && 'bg-violet-F',
 										)}
 									>

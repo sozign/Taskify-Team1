@@ -1,3 +1,5 @@
+import { popoverModal } from '@/utils/framerAnimaition';
+import { motion } from 'framer-motion';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -23,14 +25,17 @@ function Layout({ children, $modalType, title, isOpen, setOpen }: LayoutProps) {
 	if ($modalType === 'NotFound')
 		return createPortal(
 			<div className='overlay fixed left-0 top-0 z-MODALLAYOUT flex h-full w-full items-center justify-center bg-black-0/50 sm:px-[2.4rem]'>
-				<div
+				<motion.div
+					initial='hidden'
+					variants={popoverModal}
+					animate='visibleSmoother'
 					className={`modal relative z-MODAL ${modalType[$modalType]}`}
 					onClick={(e) => {
 						e.stopPropagation();
 					}}
 				>
 					{children}
-				</div>
+				</motion.div>
 			</div>,
 			document.getElementById('modal-root') as HTMLDivElement,
 		);
@@ -40,7 +45,10 @@ function Layout({ children, $modalType, title, isOpen, setOpen }: LayoutProps) {
 				className='overlay fixed left-0 top-0 z-MODALLAYOUT flex h-full w-full items-center justify-center bg-black-0/50 sm:px-[2.4rem]'
 				onClick={() => setOpen((prev) => !prev)}
 			>
-				<div
+				<motion.div
+					initial='hidden'
+					variants={popoverModal}
+					animate='visibleSmoother'
 					className={`modal relative z-MODAL ${modalType[$modalType]}`}
 					onClick={(e) => {
 						e.stopPropagation();
@@ -48,7 +56,7 @@ function Layout({ children, $modalType, title, isOpen, setOpen }: LayoutProps) {
 				>
 					{$modalType === 'Modal' && <p className='mb-[3.2rem] text-24-700 leading-[2.9rem] text-black-3'>{title}</p>}
 					{children}
-				</div>
+				</motion.div>
 			</div>,
 			document.getElementById('modal-root') as HTMLDivElement,
 		);
