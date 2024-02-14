@@ -81,17 +81,11 @@ export default function LandingHeader() {
 						ref={dropDownRef}
 						onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 					>
-						{userInfo.profileImageUrl ? (
-							<Image
-								width={38}
-								height={38}
-								alt='초대 멤버 프로필 사진'
-								src={userInfo.profileImageUrl}
-								className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center'
-							/>
-						) : (
-							<Avatar name={userData} className='h-[3.8rem] w-[3.8rem] border-2 border-white text-16-600' />
-						)}
+						<Avatar
+							imageUrl={userInfo.profileImageUrl}
+							name={userData}
+							className='h-[3.8rem] w-[3.8rem] border-2 border-white text-16-600'
+						/>
 						<span className='text-center text-16-600 sm:hidden'>{userData}</span>
 						<div className='absolute right-0 top-[4.5rem]'>{isDropdownOpen && <HeaderNavDropdown />}</div>
 					</div>
