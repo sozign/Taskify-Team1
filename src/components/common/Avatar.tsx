@@ -6,7 +6,7 @@ interface AvatarProps {
 	name: string;
 	className: string;
 	withBorder?: boolean;
-	imageUrl?: string;
+	imageUrl?: string | null;
 }
 
 export default function Avatar({ name, className, withBorder = false, imageUrl = '' }: AvatarProps) {

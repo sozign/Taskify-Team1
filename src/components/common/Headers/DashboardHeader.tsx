@@ -189,42 +189,26 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 
 					<div className='group flex items-center justify-center  sm:pl-[1.6rem]'>
 						{windowWidth > 1199
-							? members.members.slice(0, 4).map((members, member) => {
-									return members.profileImageUrl === null ? (
+							? members.members
+									.slice(0, 4)
+									.map((members, member) => (
 										<Avatar
+											imageUrl={members.profileImageUrl}
 											key={member}
 											name={members.nickname}
 											className=' h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row items-center gap-[-2rem] border-2 border-white text-16-600  group-odd:ml-[-1rem]'
 										/>
-									) : (
-										<Image
-											width={38}
-											height={38}
-											key={member}
-											alt='초대 멤버 프로필 사진'
-											src={members.profileImageUrl}
-											className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-[50%] border-2 border-white text-center group-odd:ml-[-1rem]'
-										/>
-									);
-								})
-							: members.members.slice(0, 2).map((members, member) => {
-									return members.profileImageUrl === null ? (
+									))
+							: members.members
+									.slice(0, 2)
+									.map((members, member) => (
 										<Avatar
+											imageUrl={members.profileImageUrl}
 											key={member}
 											name={members.nickname}
 											className=' h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row items-center gap-[-2rem] border-2 border-white text-16-600  group-odd:ml-[-1rem]'
 										/>
-									) : (
-										<Image
-											key={member}
-											width={38}
-											height={38}
-											alt='초대 멤버 프로필 사진'
-											src={members.profileImageUrl}
-											className='flex h-[3.8rem] w-[3.8rem] flex-shrink-0 items-center justify-center rounded-[50%] border-2 border-white text-center group-odd:ml-[-1rem]'
-										/>
-									);
-								})}
+									))}
 						{windowWidth > 1199
 							? members.totalCount > 4 && (
 									//수정부분
@@ -249,20 +233,11 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 						>
 							<div className='relative mr-[1.2rem] flex items-center gap-[1.2rem]'>
-								{userInfo.profileImageUrl ? (
-									<Image
-										width={38}
-										height={38}
-										alt='초대 멤버 프로필 사진'
-										src={userInfo.profileImageUrl}
-										className='flex h-[3.8rem] w-[3.8rem] flex-shrink-0 items-center justify-center rounded-[50%] border-2 border-white text-center'
-									/>
-								) : (
-									<Avatar
-										name={userInfo.nickname}
-										className='h-[3.8rem] w-[3.8rem] flex-shrink-0 border-2 border-white text-16-600'
-									/>
-								)}
+								<Avatar
+									imageUrl={userInfo.profileImageUrl}
+									name={userInfo.nickname}
+									className='h-[3.8rem] w-[3.8rem] flex-shrink-0 border-2 border-white text-16-600'
+								/>
 								<span className='text-center text-16-600 sm:hidden'>{userInfo.nickname}</span>
 								<div className='absolute right-0 top-[3.5rem]'>{isDropdownOpen && <HeaderNavDropdown />}</div>
 							</div>

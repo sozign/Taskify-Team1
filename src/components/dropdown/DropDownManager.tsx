@@ -13,7 +13,7 @@ const DropDownManager = <T extends FieldValues>({ dashboardMemberList, control, 
 		value: member.userId + '',
 		label: (
 			<div className='flex gap-[0.8rem]'>
-				<Avatar className='h-[2.2rem] w-[2.2rem]' name={member.nickname} />
+				<Avatar imageUrl={member.profileImageUrl} className='h-[2.2rem] w-[2.2rem]' name={member.nickname} />
 				<p>{member.nickname}</p>
 			</div>
 		),
