@@ -1,4 +1,3 @@
-import CheckedIcon from '@/../../public/assets/checked.svg';
 import Layout from '../modal/Layout';
 import Button from '../common/Buttons/Button';
 import FormInput from '../common/Input/FormInput';
@@ -76,31 +75,51 @@ export default function AddNewDashBoard({ isOpen, setOpen }: AddNewDashBoardProp
 								<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-green'>
 									<input className=' opacity-0 ' type='radio' {...field} value='#7AC555' />
 									{field.value === '#7AC555' && (
-										<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+										<Image
+											src='/assets/checked.svg'
+											alt='Check Icon'
+											className='absolute right-[0.3rem] top-[0.3rem]'
+										/>
 									)}
 								</label>
 								<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-purple'>
 									<input className=' opacity-0 ' type='radio' {...field} value='#760DDE' />
 									{field.value === '#760DDE' && (
-										<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+										<Image
+											src='/assets/checked.svg'
+											alt='Check Icon'
+											className='absolute right-[0.3rem] top-[0.3rem]'
+										/>
 									)}
 								</label>
 								<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-orange'>
 									<input className=' opacity-0 ' type='radio' {...field} value='#FFA500' />
 									{field.value === '#FFA500' && (
-										<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+										<Image
+											src='/assets/checked.svg'
+											alt='Check Icon'
+											className='absolute right-[0.3rem] top-[0.3rem]'
+										/>
 									)}
 								</label>
 								<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-blue'>
 									<input className=' opacity-0 ' type='radio' {...field} value='#76A6EA' />
 									{field.value === '#76A6EA' && (
-										<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+										<Image
+											src='/assets/checked.svg'
+											alt='Check Icon'
+											className='absolute right-[0.3rem] top-[0.3rem]'
+										/>
 									)}
 								</label>
 								<label className='relative h-[3rem] w-[3rem] rounded-[50%] bg-pink'>
 									<input className=' opacity-0 ' type='radio' {...field} value='#E876EA' />
 									{field.value === '#E876EA' && (
-										<Image src={CheckedIcon} alt='Check Icon' className='absolute right-[0.3rem] top-[0.3rem]' />
+										<Image
+											src='/assets/checked.svg'
+											alt='Check Icon'
+											className='absolute right-[0.3rem] top-[0.3rem]'
+										/>
 									)}
 								</label>
 							</div>

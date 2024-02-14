@@ -3,9 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import { CardData, ColumnData } from '@/constants/types';
 import { getCards } from '@/lib/api';
 import TaskCard from './TaskCard';
-import bullet from '@/../public/assets/bullet.svg';
-import setting from '@/../public/assets/settingIcon.svg';
-import addIcon from '@/../../public/assets/addIcon.svg';
 import SquareChip from '@/components/common/chips/SquareChip';
 import AddNewTaskModal from '@/components/modal/AddNewTaskModal';
 import ColumnsEditModal from '@/components/modal/ColumnsEditModal';
@@ -72,7 +69,7 @@ export default function Column({ columnItem }: ColumnProps) {
 				<div className='sticky top-0 bg-gray-F pb-[1.6rem] pt-[2.2rem]'>
 					<div className='mb-[2.5rem] flex items-center justify-between sm:mb-[1.7rem] '>
 						<div className='flex items-center'>
-							<Image className='mr-[0.6rem]' alt='불렛모양 아이콘' src={bullet} />
+							<Image width={8} height={8} className='mr-[0.6rem]' alt='불렛모양 아이콘' src='/assets/bullet.svg' />
 							<div className='sm:text-16-700 mr-[1.2rem] text-18-700 text-black-3'>{columnItem.title}</div>
 							<SquareChip color='gray'>{cardListTotalCount.current}</SquareChip>
 						</div>
@@ -81,7 +78,7 @@ export default function Column({ columnItem }: ColumnProps) {
 								setColumnsEditModalOpen(true);
 							}}
 						>
-							<Image alt='설정 아이콘' src={setting} />
+							<Image width={19} height={19} alt='설정 아이콘' src='/assets/settingIcon.svg' />
 						</button>
 					</div>
 					<button
@@ -91,7 +88,7 @@ export default function Column({ columnItem }: ColumnProps) {
 						className='flex w-full justify-center rounded-[0.6rem] border-[0.1rem] border-gray-D bg-white py-[0.9rem]'
 					>
 						<SquareChip color='violet' className='relative'>
-							<Image className='px-[0.6rem] py-[0.6rem]' fill src={addIcon} alt='추가하기 아이콘' />
+							<Image className='px-[0.6rem] py-[0.6rem]' fill src='/assets/addIcon.svg' alt='추가하기 아이콘' />
 						</SquareChip>
 					</button>
 				</div>

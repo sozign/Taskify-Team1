@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import arrowIcon from '@/../../public/assets/arrowIcon.svg';
 
 export interface getDashboardsProps {
 	page: number;
@@ -58,11 +57,13 @@ function SideBarPagination({
 					className='flex h-[4rem] w-[4rem] items-center justify-center  sm:h-[2.5rem] sm:w-[2.5rem]'
 				>
 					<Image
+						width={14}
+						height={14}
 						onMouseEnter={handleHover}
 						onMouseLeave={handleLeave}
 						style={{ filter: 'invert(100%)' }}
 						className='scale-x-[-1] transform'
-						src={arrowIcon}
+						src='/assets/arrowIcon.svg'
 						alt='화살표 아이콘'
 					/>
 				</button>
@@ -71,11 +72,13 @@ function SideBarPagination({
 					className='flex h-[4rem]  w-[4rem] scale-x-[-1] transform items-center justify-center  sm:h-[2.5rem] sm:w-[2.5rem]'
 				>
 					<Image
+						width={14}
+						height={14}
 						onMouseEnter={handleHover}
 						onMouseLeave={handleLeave}
 						style={{ filter: 'invert(100%)' }}
 						className='scale-x-[-1] transform'
-						src={arrowIcon}
+						src='/assets/arrowIcon.svg'
 						alt='화살표 아이콘'
 					/>
 				</button>

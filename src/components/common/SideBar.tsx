@@ -1,7 +1,3 @@
-import TaskifyImage from '@/../../public/assets/TaskifyImage.svg';
-import Taskify from '@/../../public/assets/Taskify.svg';
-import RoyalCrownIcon from '@/../../public/assets/royalCrownIcon.svg';
-import PlusIcon from '@/../../public/assets/PlusIcon.svg';
 import Image from 'next/image';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -57,8 +53,8 @@ export default function SideBar({ boardId }: SideBarProps) {
 			<div className='flex h-full w-full flex-col justify-between border-r border-gray-D px-[1.2rem] pb-[3rem] sm:items-center  '>
 				<div>
 					<Link href={'/'} className='mb-[4.4rem] mt-[0.8rem] flex justify-start p-[1.2rem]'>
-						<Image alt='로고' src={TaskifyImage} />
-						<Image alt='폰트 로고' className='sm:hidden' width={80} height={22} src={Taskify} />
+						<Image alt='로고' width={30} height={30} src='/assets/TaskifyImage.svg' />
+						<Image alt='폰트 로고' className='sm:hidden' width={80} height={22} src='/assets/Taskify.svg' />
 					</Link>
 					<div className=' p-[1.2rem]'>
 						<button
@@ -68,7 +64,7 @@ export default function SideBar({ boardId }: SideBarProps) {
 							}}
 						>
 							<div className='text-12-700 text-gray-7 sm:hidden'>Dash Boards</div>
-							<Image alt='대시보드 추가 버튼 아이콘' width={20} height={20} src={PlusIcon} />
+							<Image alt='대시보드 추가 버튼 아이콘' width={20} height={20} src='/assets/PlusIcon.svg' />
 						</button>
 					</div>
 					<div>
@@ -92,7 +88,8 @@ export default function SideBar({ boardId }: SideBarProps) {
 												alt='내가 만든 대시보드에 붙는 왕관모양 아이콘'
 												className='sm:hidden'
 												height={14}
-												src={RoyalCrownIcon}
+												width={14}
+												src='/assets/royalCrownIcon.svg'
 											/>
 										)}
 									</div>
