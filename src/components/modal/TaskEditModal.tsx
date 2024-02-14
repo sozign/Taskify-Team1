@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useForm, SubmitHandler, Controller, FieldErrors } from 'react-hook-form';
 import FormInput from '@/components/common/Input/FormInput';
 import DatePicker from 'react-datepicker';
-import addIcon from '@/../../public/assets/addIcon.svg';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@/components/common/Buttons/Button';
 import TagInput from '@/components/common/Input/TagInput';
@@ -203,7 +202,7 @@ export default function TaskEditModal({ editModalControl, cardItem, columnInfo }
 											className='mx-[2.4rem] my-[2.4rem] px-[0.6rem] py-[0.6rem]'
 											width={28}
 											height={28}
-											src={addIcon}
+											src='/assets/addIcon.svg'
 											alt='추가하기 아이콘'
 										/>
 									</div>
