@@ -76,6 +76,8 @@ export default function AddNewDashBoard({ isOpen, setOpen }: AddNewDashBoardProp
 									<input className=' opacity-0 ' type='radio' {...field} value='#7AC555' />
 									{field.value === '#7AC555' && (
 										<Image
+											width={24}
+											height={24}
 											src='/assets/checked.svg'
 											alt='Check Icon'
 											className='absolute right-[0.3rem] top-[0.3rem]'
@@ -86,6 +88,8 @@ export default function AddNewDashBoard({ isOpen, setOpen }: AddNewDashBoardProp
 									<input className=' opacity-0 ' type='radio' {...field} value='#760DDE' />
 									{field.value === '#760DDE' && (
 										<Image
+											width={24}
+											height={24}
 											src='/assets/checked.svg'
 											alt='Check Icon'
 											className='absolute right-[0.3rem] top-[0.3rem]'
@@ -96,6 +100,8 @@ export default function AddNewDashBoard({ isOpen, setOpen }: AddNewDashBoardProp
 									<input className=' opacity-0 ' type='radio' {...field} value='#FFA500' />
 									{field.value === '#FFA500' && (
 										<Image
+											width={24}
+											height={24}
 											src='/assets/checked.svg'
 											alt='Check Icon'
 											className='absolute right-[0.3rem] top-[0.3rem]'
@@ -106,6 +112,8 @@ export default function AddNewDashBoard({ isOpen, setOpen }: AddNewDashBoardProp
 									<input className=' opacity-0 ' type='radio' {...field} value='#76A6EA' />
 									{field.value === '#76A6EA' && (
 										<Image
+											width={24}
+											height={24}
 											src='/assets/checked.svg'
 											alt='Check Icon'
 											className='absolute right-[0.3rem] top-[0.3rem]'
@@ -116,6 +124,8 @@ export default function AddNewDashBoard({ isOpen, setOpen }: AddNewDashBoardProp
 									<input className=' opacity-0 ' type='radio' {...field} value='#E876EA' />
 									{field.value === '#E876EA' && (
 										<Image
+											width={24}
+											height={24}
 											src='/assets/checked.svg'
 											alt='Check Icon'
 											className='absolute right-[0.3rem] top-[0.3rem]'
