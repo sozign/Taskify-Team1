@@ -127,8 +127,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							? null
 							: dashboardInfo.createdByMe && (
 									<Image
-										width={3.8}
-										height={3.8}
+										width={38}
+										height={38}
 										alt='대시보드 왕관 아이콘'
 										src={royalCrownIcon}
 										className=' w-[2.103rem]  md:hidden sm:hidden'
@@ -145,8 +145,8 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 							? null
 							: dashboardInfo.createdByMe && (
 									<Image
-										width={3.8}
-										height={3.8}
+										width={38}
+										height={38}
 										alt='대시보드 왕관 아이콘'
 										src={royalCrownIcon}
 										className=' w-[2.103rem] md:hidden sm:hidden'
@@ -196,7 +196,11 @@ export default function DashboardHeader({ dashboardId, title }: HeaderNavProps) 
 											imageUrl={members.profileImageUrl}
 											key={member}
 											name={members.nickname}
-											className=' h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row items-center gap-[-2rem] border-2 border-white text-16-600  group-odd:ml-[-1rem]'
+											className={
+												member === 0
+													? 'h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row items-center gap-[-2rem] border-2 border-white text-16-600'
+													: 'h-[3.8rem] w-[3.8rem] flex-shrink-0 flex-row items-center gap-[-2rem] border-2 border-white text-16-600 group-odd:ml-[-1rem]'
+											}
 										/>
 									))
 							: members.members
