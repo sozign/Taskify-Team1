@@ -13,8 +13,6 @@ import Layout from '@/components/modal/Layout';
 import Button from '@/components/common/Buttons/Button';
 import { AxiosError } from 'axios';
 
-const isNoError = (obj: FieldErrors<LoginFormData>) => Object.keys(obj).length === 0;
-
 type LoginFormData = {
 	email: string;
 	password: string;
@@ -26,7 +24,7 @@ export default function Login() {
 		register,
 		handleSubmit,
 		// setError,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<LoginFormData>({
 		mode: 'onBlur',
 		defaultValues: {
@@ -113,17 +111,17 @@ export default function Login() {
 						{...register('password', VALIDATE_RULES.passwordInLogin)}
 					/>
 					<div className='pb-[1.2rem] pt-[1rem]'>
-						<AuthButton disabled={!isNoError(errors)} type='submit' onClick={() => setLoginError(false)}>
+						<AuthButton disabled={!isValid} type='submit' onClick={() => setLoginError(false)}>
 							로그인
 						</AuthButton>
 					</div>
-					<div className='flex flex-row items-center justify-center gap-[0.8rem]'>
-						<p className='text-center text-16-400 text-black-3'>회원이 아니신가요?</p>
-						<Link href='/signup' className='text-center text-16-400 text-violet-5 underline'>
-							<span>회원가입하기</span>
-						</Link>
-					</div>
 				</form>
+				<div className='flex flex-row items-center justify-center gap-[0.8rem]'>
+					<p className='text-center text-16-400 text-black-3'>회원이 아니신가요?</p>
+					<Link href='/signup' className='text-center text-16-400 text-violet-5 underline'>
+						<span>회원가입하기</span>
+					</Link>
+				</div>
 			</div>
 			<Layout $modalType='Modal' isOpen={loginError} setOpen={setLoginError}>
 				<div className='flex flex-col gap-[4.5rem]'>

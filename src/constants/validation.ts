@@ -1,7 +1,7 @@
 const VALIDATE_REGEX = {
 	email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
 	password: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
-	nickname: /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/,
+	nickname: /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{1,10}$/,
 	checked: /^true$/,
 };
 
