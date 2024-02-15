@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { useForm, FieldErrors } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import AuthInput from '@/components/common/Input/AuthInput';
 import { VALIDATE_RULES } from '@/constants/validation';
 import AuthButton from '@/components/common/Buttons/AuthButton';
@@ -12,8 +12,6 @@ import { useRouter } from 'next/router';
 import Layout from '@/components/modal/Layout';
 import Button from '@/components/common/Buttons/Button';
 import { AxiosError } from 'axios';
-
-const isNoError = (obj: FieldErrors<SignupFormData>) => Object.keys(obj).length === 0;
 
 type SignupFormData = {
 	email: string;
@@ -32,7 +30,7 @@ export default function Signup() {
 		register,
 		handleSubmit,
 		//setError,
-		formState: { errors },
+		formState: { errors, isValid },
 		watch,
 	} = useForm<SignupFormData>({
 		mode: 'onBlur',
@@ -137,28 +135,28 @@ export default function Signup() {
 							validate: (value) => value === watch('password') || '비밀번호가 일치하지 않습니다.',
 						})}
 					/>
-					<div className='flex items-center gap-[0.8rem] py-[1.2rem]'>
-						<input
-							type='checkbox'
-							required={!!VALIDATE_RULES.checkboxSignup?.required}
-							{...register('checkbox', VALIDATE_RULES.checkboxSignup)}
-							className='h-[2rem] w-[2rem] rounded-[0.4rem] border-gray-D bg-white'
-						/>
-						<label className='items-center text-center text-16-400 text-black-3'>이용약관에 동의합니다.</label>
+					<div className='flex flex-col gap-[0.8rem] py-[1.2rem]'>
+						<div className='flex gap-[0.8rem]'>
+							<input
+								type='checkbox'
+								required={!!VALIDATE_RULES.checkboxSignup?.required}
+								{...register('checkbox', VALIDATE_RULES.checkboxSignup)}
+								className='h-[2rem] w-[2rem] rounded-[0.4rem] border-gray-D bg-white'
+							/>
+							<p className='text-center text-16-400 text-black-3'>이용약관에 동의합니다.</p>
+						</div>
+						<p className='text-14-400 text-red'>{!isValid ? errors?.checkbox?.message : null}</p>
 					</div>
-					<div className='text-14-400 text-red'>{errors?.checkbox?.message}</div>
-					<div className='pb-[1.2rem] pt-[1rem]'>
-						<AuthButton disabled={!isNoError(errors)} type='submit' onClick={() => setSignupErrorState(false || true)}>
-							가입하기
-						</AuthButton>
-					</div>
-					<div className='flex flex-row items-center justify-center gap-[0.8rem]'>
-						<p className='text-center text-16-400 text-black-3'>이미 가입하셨나요?</p>
-						<Link href='/login' className='text-center text-16-400 text-violet-5 underline'>
-							<span>로그인하기</span>
-						</Link>
-					</div>
+					<AuthButton disabled={!isValid} type='submit' onClick={() => setSignupErrorState(false || true)}>
+						가입하기
+					</AuthButton>
 				</form>
+				<div className='flex flex-row items-center justify-center gap-[0.8rem]'>
+					<p className='text-center text-16-400 text-black-3'>이미 가입하셨나요?</p>
+					<Link href='/login' className='text-center text-16-400 text-violet-5 underline'>
+						<span>로그인하기</span>
+					</Link>
+				</div>
 			</div>
 			<Layout $modalType='Modal' isOpen={signupErrorState} setOpen={setSignupErrorState}>
 				<div className='flex flex-col gap-[4.5rem]'>
