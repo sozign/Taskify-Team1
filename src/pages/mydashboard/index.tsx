@@ -16,9 +16,9 @@ export default function MyDashBoard() {
 	const [dashBoardData, setDashBoardData] = useState<DashboardsGet | undefined>();
 	const [paginationPage, setPaginationPage] = useState<number>(1);
 	const [acceptedResponse, setAcceptedResponse] = useState<InvitationsGet>();
-
 	const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState<boolean>(false);
 
+	//대시보드 데이터 요청
 	const dashboardLoad = async () => {
 		try {
 			const data = await getDashboards({ size: 5, cursorId: 0, page: paginationPage, navigationMethod: 'pagination' });
@@ -32,6 +32,7 @@ export default function MyDashBoard() {
 		}
 	};
 
+	//초대 응답 기능
 	const handleAcceptInvitation = async (invitationId: number, inviteAccepted: boolean) => {
 		const data = await putInvitations(invitationId, { inviteAccepted });
 		setAcceptedResponse(data);
