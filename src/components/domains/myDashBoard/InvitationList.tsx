@@ -57,6 +57,7 @@ function InvitationList({
 		};
 	};
 
+	//검색(+디바운스) 처리
 	const handleSearchDebounced = useCallback(
 		debounce((keyword: string) => {
 			executeSearch(keyword);

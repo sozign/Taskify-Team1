@@ -17,20 +17,24 @@ function PaginationButton({
 	setPaginationPage: React.Dispatch<React.SetStateAction<number>>;
 	totalCount: string;
 }) {
+	//호버 스타일링
 	const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
 		e.currentTarget.style.filter = 'invert(0%)';
 	};
 
+	//호버 스타일링
 	const handleLeave = (e: React.MouseEvent<HTMLDivElement>) => {
 		e.currentTarget.style.filter = 'invert(100%)';
 	};
 
+	//이전 페이지
 	const handlePreviousPage = () => {
 		if (paginationPage > 1) {
 			setPaginationPage(paginationPage - 1);
 		}
 	};
 
+	//다음 페이지
 	const totalPages = Math.ceil(+totalCount / 5);
 	const handleNextPage = () => {
 		if (paginationPage < totalPages) {
