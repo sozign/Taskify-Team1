@@ -28,7 +28,6 @@ function InvitationsBox({ dashboardId }: InvitationsBoxProps) {
 	async function loadInvitationsDashboardData() {
 		try {
 			const resData = await getInvitationsDashboard(invitationsPagination);
-			// formatData = resData.invitations.filter()
 			setInvitationsDashboard(resData);
 		} catch (err) {
 			console.error('Error fetching data:', err);

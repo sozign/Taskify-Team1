@@ -54,7 +54,6 @@ export default function DashBoardEdit() {
 		if (boardId === 0) return;
 		loadDashboardData(boardId);
 		loadMyId();
-		console.log(myId, dashboardInfo.userId);
 	}, [boardId]);
 
 	useEffect(() => {
