@@ -54,11 +54,12 @@ export default function DashBoardEdit() {
 		if (boardId === 0) return;
 		loadDashboardData(boardId);
 		loadMyId();
-		console.log(myId, dashboardInfo.userId);
 	}, [boardId]);
 
 	useEffect(() => {
-		setIsAccessPermissionModal(myId !== dashboardInfo.userId);
+		if (myId !== undefined && dashboardInfo.userId !== 0) {
+			setIsAccessPermissionModal(myId !== dashboardInfo.userId);
+		}
 	}, [myId, dashboardInfo.userId]);
 
 	async function handleDelete(dashboardId: number) {
@@ -104,9 +105,9 @@ export default function DashBoardEdit() {
 				</PageLayout>
 			) : (
 				<NotInvitedMemberAlert
-					href='/'
+					href={`/dashboard/${boardId}`}
 					alertMessage='접근 권한이 없습니다.'
-					buttonText='홈으로'
+					buttonText='대시보드로'
 					modalControl={{
 						isOpen: isAccessPermissionModal,
 						setOpen: setIsAccessPermissionModal,
